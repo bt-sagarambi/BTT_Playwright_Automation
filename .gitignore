@@ -1,0 +1,20 @@
+
+# Playwright
+node_modules/
+/test-result/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Allure
+/allure_reports/allure-results/
+/allure_reports/allure-report/
+/reports/
+
+# Secrets / local overrides
+config/env.local.ts
+.env
+.env.*
+!.env.example
