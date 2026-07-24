@@ -1,36 +1,23 @@
 import { Page, expect } from '@playwright/test';
 import { TopNavLocators } from '../locators/TopNavLocators';
+import { SiteDropdownPage } from './SiteDropdownPage';
 
 export class TopNavPage {
   readonly locators: TopNavLocators;
+  readonly siteDropdown: SiteDropdownPage;
 
   constructor(private readonly page: Page) {
     this.locators = new TopNavLocators(page);
+    this.siteDropdown = new SiteDropdownPage(page);
   }
 
   /** Select a site from the top-nav site dropdown; throws if the site is missing. */
   async selectSite(siteName: string): Promise<void> {
-    await expect(this.locators.siteSelectContainer).toBeVisible({ timeout: 30000 });
+    await this.siteDropdown.selectSite(siteName);
+  }
 
-    const available = (await this.locators.siteSelect.locator('option').allTextContents()).map((t) =>
-      t.replace(/\s+/g, ' ').trim()
-    );
-    const match = available.find(
-      (name) =>
-        name.toLowerCase() === siteName.toLowerCase() ||
-        name.replace(/\s+/g, '').toLowerCase() === siteName.replace(/\s+/g, '').toLowerCase()
-    );
-
-    if (!match) {
-      throw new Error(
-        `Site "${siteName}" not found in site dropdown. Available sites: ${available.join(', ') || '(none)'}`
-      );
-    }
-
-    await this.locators.siteSelectContainer.click();
-    await expect(this.locators.select2Options.first()).toBeVisible({ timeout: 10000 });
-    await this.locators.select2Options.filter({ hasText: match }).first().click();
-    await expect(this.locators.siteSelectContainer).toContainText(match, { timeout: 15000 });
+  async ensureProfileSite(): Promise<void> {
+    await this.siteDropdown.ensureProfileSite();
   }
 
   async openMainMenu(): Promise<void> {
@@ -82,7 +69,6 @@ export class TopNavPage {
     }
   }
 
-
   async expectPageTitle(expected: string | RegExp): Promise<void> {
     await expect(this.locators.pageTitle).toBeVisible({ timeout: 30000 });
     await expect(this.locators.pageTitle).toHaveText(expected);
@@ -112,7 +98,6 @@ export class TopNavPage {
     for (const tip of expectedTooltips) {
       const icon = this.locators.rightNavIcon(tip).filter({ visible: true });
       if ((await icon.count()) === 0) {
-        // Some icons (e.g. Help Video) are intentionally hidden on certain pages
         continue;
       }
 
@@ -133,7 +118,6 @@ export class TopNavPage {
       ).toBeTruthy();
     }
 
-    // Ensure at least the visible right-nav icons expose tooltips and are clickable
     const count = await visibleControls.count();
     for (let i = 0; i < Math.min(count, 8); i++) {
       const el = visibleControls.nth(i);

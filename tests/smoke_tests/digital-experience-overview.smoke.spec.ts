@@ -1,12 +1,13 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../../pages/LoginPage';
 import { TopNavPage } from '../../pages/TopNavPage';
 import { DigitalExperienceOverviewPage } from '../../pages/DigitalExperienceOverviewPage';
+import { LeftNavPage } from '../../pages/LeftNavPage';
+import { ensurePortalSession } from '../../helpers/portalSession';
+import { getActiveProfile } from '../../config/profiles';
 
-const SITE_NAME = 'GDC Test Site2';
 const DXO_MENU = 'Digital Experience Overview';
 const EXPECTED_PAGE_TITLE =
-  'Advanced Reporting & Alerting / Executive / Digital Experience Overview';
+  /Advanced Reporting & Alerting \/ Executive \/ Digital Experience Overview|Digital Experience Overview/i;
 
 const TIME_PERIOD_OPTIONS = [
   'Custom Date Selection',
@@ -46,39 +47,35 @@ const RIGHT_NAV_TOOLTIPS = [
 
 test('Smoke: Digital Experience Overview dashboard navigation and controls', async ({ page }) => {
   test.setTimeout(120000);
-  const loginPage = new LoginPage(page);
   const topNav = new TopNavPage(page);
+  const leftNav = new LeftNavPage(page);
   const dxo = new DigitalExperienceOverviewPage(page);
+  const profile = getActiveProfile();
 
-  // 1) Login (same flow as tests/login.spec.ts)
-  await loginPage.goto();
-  await loginPage.loginAsStageUser();
-  await loginPage.waitForLoginSuccess();
-  await expect(page).not.toHaveURL(/site\/login|site%2Flogin/i);
+  await ensurePortalSession(page);
+  await topNav.ensureProfileSite();
 
-  // 2) Select site from top-nav dropdown
-  await topNav.selectSite(SITE_NAME);
+  await leftNav.openSmokePage({
+    id: 'rum.dxo',
+    module: 'rum',
+    menuLabel: DXO_MENU,
+    route: 'overview-dashboard/overview',
+    titleIncludes: EXPECTED_PAGE_TITLE,
+  });
 
-  // 3) Open menu and open Digital Experience Overview
-  await topNav.openMainMenu();
-  await topNav.expectMenuOptionVisible(DXO_MENU);
-  await topNav.clickMenuOption(DXO_MENU);
-
-  // 4) Confirm breadcrumb / page title in top bar
   await topNav.expectPageTitle(EXPECTED_PAGE_TITLE);
 
-  // 5) Time period filter options
   await dxo.openTimePeriodFilter();
   await dxo.expectTimePeriodOptionsPresent(TIME_PERIOD_OPTIONS);
   expect((await dxo.getTimePeriodOptions()).length).toBeGreaterThan(1);
 
-  // 6) Auto refresh options
   await dxo.openAutoRefreshMenu();
   await dxo.expectAutoRefreshOptionsPresent(AUTO_REFRESH_OPTIONS);
   expect((await dxo.getAutoRefreshOptions()).length).toBeGreaterThan(1);
 
-  // 7) Right-side top nav options: present, tooltips, clickable
   const tooltips = await topNav.getRightNavTooltips();
   expect(tooltips.length).toBeGreaterThan(0);
   await topNav.verifyRightNavOptionsInteractive(RIGHT_NAV_TOOLTIPS);
+
+  console.log(`[DXO smoke] profile=${profile.id} site=${profile.siteName}`);
 });

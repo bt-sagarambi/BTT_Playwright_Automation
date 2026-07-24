@@ -42,6 +42,20 @@ npm run allure:generate
 npm run allure:open
 ```
 
-Browsers are cached under `%USERPROFILE%\AppData\Local\ms-playwright`.
+## Profiles (datacenter → site)
 
-Switch environment defaults in `config/env.ts`; put credentials only in `config/env.local.ts`.
+Default smoke profile is **US / GDC Test Site 2** (`config/profiles.ts`).
+
+Override with env: `BTT_PROFILE=eu-testsiteeu1`
+
+## Smoke suite (76 TCs)
+
+- 4 chrome: `tests/smoke_tests/nav.chrome.smoke.spec.ts`
+- 72 pages: `config/smokeCatalog.ts` → `tests/smoke_tests/portal-pages.smoke.spec.ts`
+
+```bash
+npm run test:smoke
+npm run test:smoke:pages
+```
+
+**Read-only:** never create/edit/save; create-alert / create-report links are blocked.

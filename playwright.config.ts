@@ -13,6 +13,8 @@ if (!currentBrowsersPath || /cursor-sandbox-cache/i.test(currentBrowsersPath)) {
   process.env.PLAYWRIGHT_BROWSERS_PATH = stableBrowsersPath;
 }
 
+const authFile = path.join(__dirname, 'playwright/.auth/user.json');
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -22,7 +24,8 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  // Local: 2 parallel workers; CI stays single-worker for stability
+  workers: process.env.CI ? 1 : 2,
   reporter: [
     ['list'],
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
@@ -30,20 +33,47 @@ export default defineConfig({
   ],
   use: {
     baseURL: config.baseURL,
+    headless: false,
     trace: 'on-first-retry',
   },
 
   projects: [
     {
+      name: 'smoke-setup',
+      testMatch: /smoke_tests\/auth\.setup\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'chromium-smoke',
+      testMatch: /smoke_tests\/.*\.spec\.ts/,
+      dependencies: ['smoke-setup'],
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: authFile,
+      },
+    },
+    {
+      name: 'chromium-regression',
+      testMatch: /regression_tests\/.*\.spec\.ts/,
+      dependencies: ['smoke-setup'],
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: authFile,
+      },
+    },
+    {
       name: 'chromium',
+      testIgnore: /(smoke_tests\/|regression_tests\/)/,
       use: { ...devices['Desktop Chrome'] },
     },
     {
       name: 'firefox',
+      testIgnore: /(smoke_tests\/|regression_tests\/)/,
       use: { ...devices['Desktop Firefox'] },
     },
     {
       name: 'webkit',
+      testIgnore: /(smoke_tests\/|regression_tests\/)/,
       use: { ...devices['Desktop Safari'] },
     },
   ],

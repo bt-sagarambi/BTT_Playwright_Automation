@@ -10,7 +10,17 @@ export class LoginPage {
   }
 
   async goto(): Promise<void> {
-    await this.page.goto(config.baseURL, { waitUntil: 'domcontentloaded' });
+    try {
+      await this.page.goto(config.baseURL, { waitUntil: 'domcontentloaded' });
+    } catch (err) {
+      // Auth redirects often interrupt the initial navigation; continue if we left login
+      const msg = err instanceof Error ? err.message : String(err);
+      if (!/interrupted|Navigation/i.test(msg)) throw err;
+    }
+    if (!/site\/login|site%2Flogin/i.test(this.page.url())) {
+      const formVisible = await this.locators.loginForm.isVisible().catch(() => false);
+      if (!formVisible) return;
+    }
     await expect(this.locators.loginForm).toBeVisible({ timeout: 30000 });
   }
 

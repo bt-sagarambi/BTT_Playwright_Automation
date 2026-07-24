@@ -7,8 +7,12 @@
     "postinstall": "node scripts/run-playwright.js install chromium",
     "playwright:install": "node scripts/run-playwright.js install chromium",
     "test": "node scripts/run-playwright.js test",
-    "test:login": "node scripts/run-playwright.js test tests/login.spec.ts --project=chromium",
-    "test:smoke": "node scripts/run-playwright.js test tests/smoke_tests --project=chromium",
+    "test:login": "node scripts/run-playwright.js test tests/common/login.spec.ts --project=chromium",
+    "test:smoke": "node scripts/run-playwright.js test --project=chromium-smoke",
+    "test:smoke:chrome-nav": "node scripts/run-playwright.js test tests/smoke_tests/nav.chrome.smoke.spec.ts --project=chromium-smoke",
+    "test:smoke:pages": "node scripts/run-playwright.js test tests/smoke_tests/portal-pages.smoke.spec.ts --project=chromium-smoke",
+    "test:regression:us2": "node scripts/run-playwright.js test tests/regression_tests/US2 --project=chromium-regression",
+    "test:regression:us2:ro": "node scripts/run-playwright.js test tests/regression_tests/US2/revenue.opportunity.regression.spec.ts --project=chromium-regression",
     "allure:generate": "allure generate allure_reports/allure-results -o allure_reports/allure-report --clean",
     "allure:open": "allure open allure_reports/allure-report"
   },
@@ -20,6 +24,7 @@
     "@playwright/test": "^1.61.1",
     "@types/node": "^26.1.1",
     "allure-commandline": "^2.34.1",
-    "allure-playwright": "^3.4.3"
+    "allure-playwright": "^3.4.3",
+    "exceljs": "^4.4.0"
   }
 }

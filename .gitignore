@@ -18,3 +18,8 @@ config/env.local.ts
 .env
 .env.*
 !.env.example
+
+# Excel lock / temp
+~$*.xlsx
+docs/~$*.xlsx
+
