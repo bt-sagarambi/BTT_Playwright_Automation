@@ -1,0 +1,9 @@
+{
+  "generatedFrom": "config/portalMenuTree.json",
+  "scrapedAt": "2026-07-28T06:14:21.643Z",
+  "regressionSpecs": {
+    "rumPerformanceDetailBrowser": "monitoring/real-user-browser/performance-detail/rum.performance-detail.browser.regression.spec.ts",
+    "revenueOpportunity": "business-insights/improve-conversion/revenue-opportunity/revenue.opportunity.regression.spec.ts"
+  },
+  "folderCount": 108
+}

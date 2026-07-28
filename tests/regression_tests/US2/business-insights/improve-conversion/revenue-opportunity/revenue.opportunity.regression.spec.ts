@@ -1,11 +1,11 @@
 import { test, expect, Page } from '@playwright/test';
 import path from 'path';
-import { RevenueOpportunityPage } from '../../../pages/RevenueOpportunityPage';
-import { getActiveProfile } from '../../../config/profiles';
+import { RevenueOpportunityPage } from '../../../../../../pages/RevenueOpportunityPage';
+import { getActiveProfile } from '../../../../../../config/profiles';
 
 /**
  * Regression: Revenue Opportunity
- * Site: GDC Test Site 2 (tests/regression_tests/US2)
+ * Site: GDC Test Site 2 (tests/regression_tests/US2/business-insights/improve-conversion/revenue-opportunity)
  *
  * Spec reference (HCT Confluence):
  * https://bluetriangletech.atlassian.net/wiki/spaces/HCT/pages/3186360451/The+Revenue+Opportunity+Page
@@ -25,7 +25,7 @@ import { getActiveProfile } from '../../../config/profiles';
  * Case count is driven by page coverage (not a fixed target).
  */
 
-const AUTH_STATE = path.join(__dirname, '../../../playwright/.auth/user.json');
+const AUTH_STATE = path.join(__dirname, '../../../../../../playwright/.auth/user.json');
 
 /** Soft deadline so try/catch can pass before Playwright test timeout aborts the serial suite. */
 async function withSoftDeadline<T>(work: () => Promise<T>, ms: number): Promise<T> {
@@ -339,6 +339,115 @@ test.describe('US2 Regression — Revenue Opportunity', () => {
     await expect(ro.locators.pageTitle).toHaveText(/Revenue Opportunity/i);
   });
 
+  test('REG-RO-026 — top-nav right controls visible with tooltips', async () => {
+    // Avoid full hover sweeps — they can hang when overlays leave the page unresponsive
+    const filters =
+      (await ro.locators.filtersToggle.count().catch(() => 0)) > 0 ||
+      (await page.getByRole('button', { name: /Toggle filters menu visibility/i }).count().catch(() => 0)) > 0;
+    const help =
+      (await page.getByRole('button', { name: /Help Center/i }).count().catch(() => 0)) > 0;
+    expect(filters || help, 'Expected Filters or Help Center in top-nav').toBeTruthy();
+  });
+
+  test('REG-RO-027 — common legend check/uncheck refreshes series across page charts', async () => {
+    const count = await ro.locators.highchartsLegendItems.count();
+    expect(count).toBeGreaterThan(0);
+    try {
+      await ro.toggleLegendItem(0);
+      await ro.toggleLegendItem(0);
+    } catch (err) {
+      test.info().annotations.push({
+        type: 'note',
+        description: `Common legend fallback: ${err instanceof Error ? err.message : String(err)}`,
+      });
+    }
+    await ro.expectChartHasData();
+  });
+
+  test('REG-RO-028 — additional UI: opportunity calculator / conversion graphs remain present', async () => {
+    for (const id of ['conv-by-prt-graph', 'speed-up-to-x-graph', 'speed-up-by-x-graph']) {
+      const g = ro.locators.graphById(id);
+      if (await g.isVisible().catch(() => false)) {
+        await g.scrollIntoViewIfNeeded();
+        await expect(g).toBeVisible();
+      }
+    }
+    await ro.expectChartHasData();
+  });
+
+  test('REG-RO-029 — data refresh after device card + data type combo', async () => {
+    await ro.setRevenueDataType(/Web Browser/i);
+    await ro.clickOpportunityCard('desktop');
+    await ro.expectChartHasData();
+    await ro.clickOpportunityCard('all');
+    await ro.expectChartHasData();
+  });
+
+  test('REG-RO-030 — performance re-check after interactions: charts still load', async () => {
+    const started = Date.now();
+    await expect
+      .poll(async () => ro.locators.highchartsContainers.count(), { timeout: 60000 })
+      .toBeGreaterThan(0);
+    const refreshMs = Date.now() - started;
+    console.log(`[Revenue Opportunity] post-interaction chart pollMs=${refreshMs} initialLoadMs=${initialLoadMs}`);
+    expect(refreshMs).toBeLessThan(60000);
+    await expect(ro.locators.pageTitle).toHaveText(/Revenue Opportunity/i);
+  });
+
+  test('REG-RO-031 — 30 Day Opportunity: iOS / Android card sample when present', async () => {
+    await ro.clickOpportunityCard('ios');
+    await ro.expectChartHasData();
+    await ro.clickOpportunityCard('android');
+    await ro.expectChartHasData();
+    await ro.clickOpportunityCard('all');
+    await ro.expectChartHasData();
+  });
+
+  test('REG-RO-032 — device overview table follows Desktop card selection', async () => {
+    test.setTimeout(60000);
+    try {
+      await ro.clickOpportunityCard('desktop');
+      await ro.expectDeviceOverviewTableVisible('desktop');
+      await ro.expectChartHasData();
+    } catch (err) {
+      test.info().annotations.push({
+        type: 'note',
+        description: `Desktop overview fallback: ${err instanceof Error ? err.message : String(err)}`,
+      });
+      await expect(ro.locators.pageTitle).toBeVisible().catch(() => undefined);
+    }
+  });
+
+  test('REG-RO-033 — What If Save control present but unused (read-only guard)', async () => {
+    await ro.expectWhatIfSaveControlPresentButUnused();
+  });
+
+  test('REG-RO-034 — View Filters banner shows applied filter chip sample', async () => {
+    test.setTimeout(60000);
+    try {
+      await ro.expectViewFiltersChipSample();
+    } catch (err) {
+      test.info().annotations.push({
+        type: 'note',
+        description: `View Filters chip sample fallback: ${err instanceof Error ? err.message : String(err)}`,
+      });
+      await expect(ro.locators.viewFiltersButton).toBeVisible();
+    }
+    await expect(ro.locators.pageTitle).toHaveText(/Revenue Opportunity/i);
+  });
+
+  test('REG-RO-035 — Revenue Calibration top-nav control is present (tooltip)', async () => {
+    const calib = page.locator('#toggle-revenue-calibration');
+    await expect(calib).toBeVisible({ timeout: 15000 });
+    await calib.hover();
+    const tip =
+      (await calib.getAttribute('data-original-title')) ||
+      (await calib.getAttribute('title')) ||
+      (await calib.getAttribute('aria-label')) ||
+      '';
+    expect(tip.length, 'Revenue Calibration should expose a tooltip').toBeGreaterThan(0);
+  });
+
   test('REG-RO-036 — Time Period 1 Days: labels + Actual Revenue timeline', async () => {
     test.setTimeout(150000);
     // RO has no Bucket Size filter — Time Period only (via Report list / Filters).
@@ -483,114 +592,5 @@ test.describe('US2 Regression — Revenue Opportunity', () => {
       });
       await expect(ro.locators.pageTitle).toHaveText(/Revenue Opportunity/i).catch(() => undefined);
     }
-  });
-
-  test('REG-RO-026 — top-nav right controls visible with tooltips', async () => {
-    // Avoid full hover sweeps — they can hang when overlays leave the page unresponsive
-    const filters =
-      (await ro.locators.filtersToggle.count().catch(() => 0)) > 0 ||
-      (await page.getByRole('button', { name: /Toggle filters menu visibility/i }).count().catch(() => 0)) > 0;
-    const help =
-      (await page.getByRole('button', { name: /Help Center/i }).count().catch(() => 0)) > 0;
-    expect(filters || help, 'Expected Filters or Help Center in top-nav').toBeTruthy();
-  });
-
-  test('REG-RO-027 — common legend check/uncheck refreshes series across page charts', async () => {
-    const count = await ro.locators.highchartsLegendItems.count();
-    expect(count).toBeGreaterThan(0);
-    try {
-      await ro.toggleLegendItem(0);
-      await ro.toggleLegendItem(0);
-    } catch (err) {
-      test.info().annotations.push({
-        type: 'note',
-        description: `Common legend fallback: ${err instanceof Error ? err.message : String(err)}`,
-      });
-    }
-    await ro.expectChartHasData();
-  });
-
-  test('REG-RO-028 — additional UI: opportunity calculator / conversion graphs remain present', async () => {
-    for (const id of ['conv-by-prt-graph', 'speed-up-to-x-graph', 'speed-up-by-x-graph']) {
-      const g = ro.locators.graphById(id);
-      if (await g.isVisible().catch(() => false)) {
-        await g.scrollIntoViewIfNeeded();
-        await expect(g).toBeVisible();
-      }
-    }
-    await ro.expectChartHasData();
-  });
-
-  test('REG-RO-029 — data refresh after device card + data type combo', async () => {
-    await ro.setRevenueDataType(/Web Browser/i);
-    await ro.clickOpportunityCard('desktop');
-    await ro.expectChartHasData();
-    await ro.clickOpportunityCard('all');
-    await ro.expectChartHasData();
-  });
-
-  test('REG-RO-030 — performance re-check after interactions: charts still load', async () => {
-    const started = Date.now();
-    await expect
-      .poll(async () => ro.locators.highchartsContainers.count(), { timeout: 60000 })
-      .toBeGreaterThan(0);
-    const refreshMs = Date.now() - started;
-    console.log(`[Revenue Opportunity] post-interaction chart pollMs=${refreshMs} initialLoadMs=${initialLoadMs}`);
-    expect(refreshMs).toBeLessThan(60000);
-    await expect(ro.locators.pageTitle).toHaveText(/Revenue Opportunity/i);
-  });
-
-  test('REG-RO-031 — 30 Day Opportunity: iOS / Android card sample when present', async () => {
-    await ro.clickOpportunityCard('ios');
-    await ro.expectChartHasData();
-    await ro.clickOpportunityCard('android');
-    await ro.expectChartHasData();
-    await ro.clickOpportunityCard('all');
-    await ro.expectChartHasData();
-  });
-
-  test('REG-RO-032 — device overview table follows Desktop card selection', async () => {
-    test.setTimeout(60000);
-    try {
-      await ro.clickOpportunityCard('desktop');
-      await ro.expectDeviceOverviewTableVisible('desktop');
-      await ro.expectChartHasData();
-    } catch (err) {
-      test.info().annotations.push({
-        type: 'note',
-        description: `Desktop overview fallback: ${err instanceof Error ? err.message : String(err)}`,
-      });
-      await expect(ro.locators.pageTitle).toBeVisible().catch(() => undefined);
-    }
-  });
-
-  test('REG-RO-033 — What If Save control present but unused (read-only guard)', async () => {
-    await ro.expectWhatIfSaveControlPresentButUnused();
-  });
-
-  test('REG-RO-034 — View Filters banner shows applied filter chip sample', async () => {
-    test.setTimeout(60000);
-    try {
-      await ro.expectViewFiltersChipSample();
-    } catch (err) {
-      test.info().annotations.push({
-        type: 'note',
-        description: `View Filters chip sample fallback: ${err instanceof Error ? err.message : String(err)}`,
-      });
-      await expect(ro.locators.viewFiltersButton).toBeVisible();
-    }
-    await expect(ro.locators.pageTitle).toHaveText(/Revenue Opportunity/i);
-  });
-
-  test('REG-RO-035 — Revenue Calibration top-nav control is present (tooltip)', async () => {
-    const calib = page.locator('#toggle-revenue-calibration');
-    await expect(calib).toBeVisible({ timeout: 15000 });
-    await calib.hover();
-    const tip =
-      (await calib.getAttribute('data-original-title')) ||
-      (await calib.getAttribute('title')) ||
-      (await calib.getAttribute('aria-label')) ||
-      '';
-    expect(tip.length, 'Revenue Calibration should expose a tooltip').toBeGreaterThan(0);
   });
 });

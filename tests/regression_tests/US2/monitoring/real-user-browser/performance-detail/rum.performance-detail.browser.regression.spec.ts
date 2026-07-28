@@ -1,12 +1,12 @@
 import { test, expect, Page } from '@playwright/test';
 import path from 'path';
-import { RumPerformanceDetailPage } from '../../../pages/RumPerformanceDetailPage';
-import { TopNavPage } from '../../../pages/TopNavPage';
-import { getActiveProfile } from '../../../config/profiles';
+import { RumPerformanceDetailPage } from '../../../../../../pages/RumPerformanceDetailPage';
+import { TopNavPage } from '../../../../../../pages/TopNavPage';
+import { getActiveProfile } from '../../../../../../config/profiles';
 
 /**
  * Regression: Performance Detail (RUM Browser)
- * Site: GDC Test Site 2 (tests/regression_tests/US2; active profile uses this site)
+ * Site: GDC Test Site 2 (tests/regression_tests/US2/monitoring/real-user-browser/performance-detail)
  *
  * Spec reference (HCT Confluence):
  * https://bluetriangletech.atlassian.net/wiki/spaces/HCT/pages/3186720883/RUM+Performance+Detail+Page
@@ -26,7 +26,7 @@ import { getActiveProfile } from '../../../config/profiles';
  * - Case count is driven by page coverage (not a fixed target).
  */
 
-const AUTH_STATE = path.join(__dirname, '../../../playwright/.auth/user.json');
+const AUTH_STATE = path.join(__dirname, '../../../../../../playwright/.auth/user.json');
 
 /** Soft deadline so try/catch can pass before Playwright test timeout aborts the serial suite. */
 async function withSoftDeadline<T>(work: () => Promise<T>, ms: number): Promise<T> {
@@ -409,6 +409,74 @@ test.describe('US2 Regression — RUM Performance Detail (Browser)', () => {
     }
   });
 
+  test('REG-RUM-PD-032 — top-nav right controls expose Filters/Help tooltips', async () => {
+    const topNav = new TopNavPage(page);
+    const tips = await topNav.getRightNavTooltips();
+    expect(tips.length).toBeGreaterThan(0);
+    await topNav.verifyRightNavOptionsInteractive(['Filters', 'Help Center']).catch(async () => {
+      await expect(rum.locators.filtersToggle).toBeVisible();
+    });
+  });
+
+  test('REG-RUM-PD-033 — page load performance: title + charts within SLA', async () => {
+    const started = Date.now();
+    await rum.openViaNavigation();
+    const loadMs = Date.now() - started;
+    console.log(`[RUM Perf Detail] navigation+ready loadMs=${loadMs}`);
+    expect(loadMs, 'RUM PD should be ready within 120s').toBeLessThan(120000);
+    await rum.expectChartHasData();
+  });
+
+  test('REG-RUM-PD-034 — Performance Measurement Details / waterfall after point click', async () => {
+    test.setTimeout(90000);
+    try {
+      await rum.clickPageViewsPoint(0);
+      const details = page.getByText(/Performance Measurement Details|Performance Breakdown|Object Level Detail/i).first();
+      const visible = await details.isVisible().catch(() => false);
+      if (!visible) {
+        const waterfall = page.locator('#object-level-detail-table, [id*="waterfall"], [id*="performance-breakdown"]');
+        expect(await waterfall.count()).toBeGreaterThan(0);
+      } else {
+        await expect(details).toBeVisible();
+      }
+      await rum.expectChartHasData();
+    } catch (err) {
+      test.info().annotations.push({
+        type: 'note',
+        description: `Waterfall/point-click fallback: ${err instanceof Error ? err.message : String(err)}`,
+      });
+      await expect(rum.locators.pageTitle).toBeVisible().catch(() => undefined);
+    }
+  });
+
+  test('REG-RUM-PD-035 — information icon tooltips sample when present', async () => {
+    const hovered = await rum.hoverInfoIconsSample(5);
+    if (hovered === 0) {
+      test.info().annotations.push({ type: 'note', description: 'No info icons visible on current RUM PD view' });
+    }
+    expect(hovered >= 0).toBeTruthy();
+    await expect(rum.locators.pageTitle).toBeVisible();
+  });
+
+  test('REG-RUM-PD-036 — Performance Details by Page bar click links Page Timings when available', async () => {
+    try {
+      await rum.applyAtLeastTwoPageNames(['Homepage', 'PDP']);
+      await rum.expectPerformanceDetailsByPageVisible();
+      const clicked = await rum.clickPerformanceDetailsByPageBar();
+      await expect(page.getByText(/Page Timings Over Time/i).first()).toBeVisible();
+      if (!clicked) {
+        test.info().annotations.push({ type: 'note', description: 'No clickable By Page bar for current dataset' });
+      }
+      await rum.expectChartHasData();
+    } catch (err) {
+      test.info().annotations.push({
+        type: 'note',
+        description: `By Page → Page Timings link fallback: ${err instanceof Error ? err.message : String(err)}`,
+      });
+      await expect(page.getByText(/Page Timings Over Time/i).first()).toBeVisible();
+    }
+  });
+
   test('REG-RUM-PD-037 — Time Period Last 6 hours with Auto bucket on Perf Details + Page Timings', async () => {
     test.setTimeout(150000);
     try {
@@ -526,74 +594,6 @@ test.describe('US2 Regression — RUM Performance Detail (Browser)', () => {
         description: `Last 30 days / Auto fallback: ${err instanceof Error ? err.message : String(err)}`,
       });
       await expect(rum.locators.pageTitle).toBeVisible().catch(() => undefined);
-    }
-  });
-
-  test('REG-RUM-PD-032 — top-nav right controls expose Filters/Help tooltips', async () => {
-    const topNav = new TopNavPage(page);
-    const tips = await topNav.getRightNavTooltips();
-    expect(tips.length).toBeGreaterThan(0);
-    await topNav.verifyRightNavOptionsInteractive(['Filters', 'Help Center']).catch(async () => {
-      await expect(rum.locators.filtersToggle).toBeVisible();
-    });
-  });
-
-  test('REG-RUM-PD-033 — page load performance: title + charts within SLA', async () => {
-    const started = Date.now();
-    await rum.openViaNavigation();
-    const loadMs = Date.now() - started;
-    console.log(`[RUM Perf Detail] navigation+ready loadMs=${loadMs}`);
-    expect(loadMs, 'RUM PD should be ready within 120s').toBeLessThan(120000);
-    await rum.expectChartHasData();
-  });
-
-  test('REG-RUM-PD-034 — Performance Measurement Details / waterfall after point click', async () => {
-    test.setTimeout(90000);
-    try {
-      await rum.clickPageViewsPoint(0);
-      const details = page.getByText(/Performance Measurement Details|Performance Breakdown|Object Level Detail/i).first();
-      const visible = await details.isVisible().catch(() => false);
-      if (!visible) {
-        const waterfall = page.locator('#object-level-detail-table, [id*="waterfall"], [id*="performance-breakdown"]');
-        expect(await waterfall.count()).toBeGreaterThan(0);
-      } else {
-        await expect(details).toBeVisible();
-      }
-      await rum.expectChartHasData();
-    } catch (err) {
-      test.info().annotations.push({
-        type: 'note',
-        description: `Waterfall/point-click fallback: ${err instanceof Error ? err.message : String(err)}`,
-      });
-      await expect(rum.locators.pageTitle).toBeVisible().catch(() => undefined);
-    }
-  });
-
-  test('REG-RUM-PD-035 — information icon tooltips sample when present', async () => {
-    const hovered = await rum.hoverInfoIconsSample(5);
-    if (hovered === 0) {
-      test.info().annotations.push({ type: 'note', description: 'No info icons visible on current RUM PD view' });
-    }
-    expect(hovered >= 0).toBeTruthy();
-    await expect(rum.locators.pageTitle).toBeVisible();
-  });
-
-  test('REG-RUM-PD-036 — Performance Details by Page bar click links Page Timings when available', async () => {
-    try {
-      await rum.applyAtLeastTwoPageNames(['Homepage', 'PDP']);
-      await rum.expectPerformanceDetailsByPageVisible();
-      const clicked = await rum.clickPerformanceDetailsByPageBar();
-      await expect(page.getByText(/Page Timings Over Time/i).first()).toBeVisible();
-      if (!clicked) {
-        test.info().annotations.push({ type: 'note', description: 'No clickable By Page bar for current dataset' });
-      }
-      await rum.expectChartHasData();
-    } catch (err) {
-      test.info().annotations.push({
-        type: 'note',
-        description: `By Page → Page Timings link fallback: ${err instanceof Error ? err.message : String(err)}`,
-      });
-      await expect(page.getByText(/Page Timings Over Time/i).first()).toBeVisible();
     }
   });
 });

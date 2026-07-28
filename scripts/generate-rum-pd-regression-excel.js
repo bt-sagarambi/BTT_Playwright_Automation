@@ -15,7 +15,7 @@ const MODULE = 'Real User Monitoring (RUM)';
 const CONFLUENCE =
   'https://bluetriangletech.atlassian.net/wiki/spaces/HCT/pages/3186720883/RUM+Performance+Detail+Page';
 const AUTOMATION =
-  'tests/regression_tests/US2/rum.performance-detail.browser.regression.spec.ts';
+  'tests/regression_tests/US2/monitoring/real-user-browser/performance-detail/rum.performance-detail.browser.regression.spec.ts';
 
 /**
  * Manual regression cases aligned 1:1 with REG-RUM-PD automation.

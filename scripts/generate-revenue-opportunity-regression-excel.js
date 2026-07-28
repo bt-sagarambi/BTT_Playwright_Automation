@@ -14,7 +14,7 @@ const MODULE = 'Business Analytics';
 const CONFLUENCE =
   'https://bluetriangletech.atlassian.net/wiki/spaces/HCT/pages/3186360451/The+Revenue+Opportunity+Page';
 const AUTOMATION =
-  'tests/regression_tests/US2/revenue.opportunity.regression.spec.ts';
+  'tests/regression_tests/US2/business-insights/improve-conversion/revenue-opportunity/revenue.opportunity.regression.spec.ts';
 
 const cases = [
   {

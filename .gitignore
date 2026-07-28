@@ -19,6 +19,11 @@ config/env.local.ts
 .env.*
 !.env.example
 
+# Menu scrape scratch (keep portalMenuTree.json)
+config/site-navigation-plus.html
+config/menu-*.json
+config/menu-*.png
+
 # Excel lock / temp
 ~$*.xlsx
 docs/~$*.xlsx
