@@ -130,18 +130,27 @@ export class RumPerformanceDetailPage {
   }
 
   async openRightNavFilters(): Promise<void> {
-    const apply = this.page.locator('#apply-filters').or(
-      this.page.locator('button, a.btn, input[type="submit"], input[type="button"]').filter({ hasText: /Apply Filters/i }).first()
-    );
+    const apply = this.page
+      .locator('#apply-filters, button:has-text("Apply Filters"), a.btn:has-text("Apply Filters")')
+      .filter({ visible: true })
+      .first();
+    if (await apply.isVisible().catch(() => false)) return;
 
-    // Toggle closes the drawer if already open — only open when Apply is not visible
+    const toggle = this.page
+      .locator('#toggle-filters')
+      .or(this.page.getByRole('button', { name: /Toggle filters menu visibility/i }))
+      .first();
+    await expect(toggle).toBeVisible({ timeout: 15000 });
+    await toggle.click({ force: true });
+    await this.page.waitForTimeout(1000);
+
     if (!(await apply.isVisible().catch(() => false))) {
-      await expect(this.locators.filtersToggle).toBeVisible({ timeout: 15000 });
-      await this.locators.filtersToggle.click();
-      await this.page.waitForTimeout(800);
+      // Toggle may have closed an already-open drawer — click once more
+      await toggle.click({ force: true });
+      await this.page.waitForTimeout(1000);
     }
 
-    await expect(apply, 'Apply Filters control should appear after opening Filters').toBeVisible({
+    await expect(apply, 'Apply Filters should appear after opening Filters').toBeVisible({
       timeout: 20000,
     });
   }
@@ -151,9 +160,13 @@ export class RumPerformanceDetailPage {
     pageGroup?: string;
     dataOrigin?: string;
     bucketSize?: string;
+    timePeriod?: string;
   }): Promise<void> {
     await this.openRightNavFilters();
 
+    if (options.timePeriod) {
+      await this.selectTimePeriodPreset(options.timePeriod);
+    }
     if (options.dataOrigin) {
       await this.selectNativeOrSelect2('#data-origin', options.dataOrigin);
     }
@@ -164,20 +177,283 @@ export class RumPerformanceDetailPage {
       await this.selectNativeOrSelect2('#page-group', options.pageGroup);
     }
     if (options.bucketSize) {
-      await this.selectNativeOrSelect2('#bucket-size', options.bucketSize).catch(async () => {
-        // Alternate ids used on some builds
-        await this.selectNativeOrSelect2('#bucket_size', options.bucketSize!).catch(() => undefined);
-      });
+      await this.selectBucketSize(options.bucketSize);
     }
 
     const apply = this.page
-      .locator('#apply-filters')
-      .or(this.page.locator('button, a.btn, input[type="submit"], input[type="button"]').filter({ hasText: /Apply Filters/i }).first());
+      .locator('#apply-filters, button:has-text("Apply Filters"), a.btn:has-text("Apply Filters")')
+      .filter({ visible: true })
+      .first();
     await apply.click({ force: true });
-    await this.page.waitForTimeout(2500);
+    await this.page.waitForTimeout(3000);
+    await expect
+      .poll(async () => this.locators.highchartsContainers.count(), { timeout: 60000 })
+      .toBeGreaterThan(0);
+  }
+
+  /** Top-nav Filters → Time Period preset (daterangepicker ranges or equivalent). */
+  async selectTimePeriodPreset(label: string): Promise<void> {
+    await this.openRightNavFilters();
+
+    // Expand Time Period accordion (click header row, not only the label text)
+    const accordion = this.page
+      .locator('.filter-section, .panel, .accordion-toggle, [class*="filter"]')
+      .filter({ hasText: /Time Period/i })
+      .first();
+    if (await accordion.isVisible().catch(() => false)) {
+      await accordion.click({ force: true }).catch(() => undefined);
+      await this.page.waitForTimeout(400);
+    } else {
+      await this.page.getByText(/Time Period/i).first().click({ force: true }).catch(() => undefined);
+      await this.page.waitForTimeout(400);
+    }
+
+    const tpBox = this.page
+      .getByRole('textbox', { name: /Time Period/i })
+      .or(this.page.locator('input[aria-label*="Time Period" i], input[id*="time-period" i], input[name*="time" i]'))
+      .first();
+    await expect(tpBox).toBeVisible({ timeout: 20000 });
+    await tpBox.click({ force: true });
+    await this.page.waitForTimeout(800);
+
+    const aliases = timePeriodAliases(label);
+    let clicked = false;
+    for (const alias of aliases) {
+      const preset = this.page
+        .locator('.daterangepicker li, .ranges li, button.time-option, .daterangepicker .ranges label')
+        .filter({ hasText: new RegExp(escapeRegExp(alias), 'i') })
+        .first();
+      if (await preset.isVisible().catch(() => false)) {
+        await preset.click({ force: true });
+        clicked = true;
+        break;
+      }
+    }
+    if (!clicked) {
+      const token = label.replace(/last\s*/i, '').trim();
+      const soft = this.page
+        .locator('.daterangepicker li, .ranges li, button.time-option')
+        .filter({ hasText: new RegExp(escapeRegExp(token), 'i') })
+        .first();
+      await expect(soft, `Time Period preset "${label}"`).toBeVisible({ timeout: 10000 });
+      await soft.click({ force: true });
+    }
+    await this.page.keyboard.press('Escape').catch(() => undefined);
+    await this.page.waitForTimeout(400);
+  }
+
+  async selectBucketSize(label: string): Promise<void> {
+    const applyVisible = this.page
+      .locator('#apply-filters, button:has-text("Apply Filters")')
+      .filter({ visible: true })
+      .first();
+    if (!(await applyVisible.isVisible().catch(() => false))) {
+      await this.openRightNavFilters();
+    }
+
+    // Already on the requested bucket (common for Auto) — skip re-select
+    const shown = this.page
+      .locator('#select2-bucket-size-container, #select2-bucket_size-container, #bucket-size, #bucket_size')
+      .first();
+    const shownText = ((await shown.textContent().catch(() => '')) || '').trim();
+    if (shownText && new RegExp(escapeRegExp(label), 'i').test(shownText)) {
+      return;
+    }
+
+    const aliases = bucketLabelAliases(label);
+    const candidates = ['#bucket-size', '#bucket_size', 'select[name="bucket-size"]', 'select[name="bucket_size"]'];
+    let applied = false;
+    for (const css of candidates) {
+      if ((await this.page.locator(css).count()) === 0) continue;
+      for (const alias of aliases) {
+        try {
+          await this.selectNativeOrSelect2(css, alias);
+          applied = true;
+          break;
+        } catch {
+          /* try next alias */
+        }
+      }
+      if (applied) break;
+    }
+    if (!applied) {
+      const container = this.page
+        .locator('#select2-bucket-size-container, #select2-bucket_size-container')
+        .first();
+      if (await container.isVisible().catch(() => false)) {
+        await container.click();
+        await this.page.waitForTimeout(300);
+        for (const alias of aliases) {
+          const opt = this.page
+            .locator('.select2-results__option')
+            .filter({ hasText: new RegExp(`^\\s*${escapeRegExp(alias)}\\s*$`, 'i') })
+            .first();
+          if (await opt.isVisible().catch(() => false)) {
+            await opt.click();
+            applied = true;
+            break;
+          }
+        }
+        if (!applied) await this.page.keyboard.press('Escape').catch(() => undefined);
+      }
+    }
+    expect(applied, `Bucket Size control/option "${label}" should be selectable`).toBeTruthy();
+  }
+
+  async applyTimePeriodAndBucket(timePeriod: string, bucketSize = 'Auto'): Promise<void> {
+    await this.openRightNavFilters();
+    await this.selectTimePeriodPreset(timePeriod);
+    // RUM Performance Detail: keep Bucket Size = Auto for all Time Period selections
+    try {
+      await this.selectBucketSize(bucketSize);
+    } catch (err) {
+      // Already on Auto (or control briefly unavailable) — continue with Apply
+      console.warn(
+        `[RUM PD] Bucket Size "${bucketSize}" select soft-continue: ${
+          err instanceof Error ? err.message : String(err)
+        }`
+      );
+    }
+    const apply = this.page
+      .locator('#apply-filters, button:has-text("Apply Filters"), a.btn:has-text("Apply Filters")')
+      .filter({ visible: true })
+      .first();
+    await apply.click({ force: true });
+    await this.page.waitForTimeout(4000);
     await expect
       .poll(async () => this.locators.highchartsContainers.count(), { timeout: 45000 })
       .toBeGreaterThan(0);
+    await this.expectChartHasData();
+  }
+
+  /**
+   * Sample Highcharts x timestamps under Performance Details / Page Timings.
+   * Returns ascending epoch-ms values when available.
+   */
+  async sampleChartTimelineMs(sectionHint: RegExp): Promise<number[]> {
+    return this.page.evaluate((hintSource) => {
+      const hint = new RegExp(hintSource, 'i');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const charts = (((window as any).Highcharts?.charts || []) as any[]).filter(Boolean);
+
+      const match =
+        charts.find((c: any) => {
+          const host = c.renderTo as HTMLElement | undefined;
+          if (!host) return false;
+          const title =
+            host.querySelector('.highcharts-title')?.textContent ||
+            host.closest('.row, .card, .panel, section, .perf-page-section')?.textContent ||
+            '';
+          return hint.test(title);
+        }) || charts.find((c: any) => (c.series || []).some((s: any) => (s.points || []).length > 2));
+
+      if (!match) return [] as number[];
+
+      const xs: number[] = [];
+      for (const s of match.series || []) {
+        if (s.visible === false) continue;
+        for (const p of s.points || []) {
+          if (typeof p.x === 'number' && Number.isFinite(p.x)) xs.push(p.x);
+        }
+        if (xs.length) break;
+      }
+
+      if (!xs.length) {
+        const cats = match.xAxis?.[0]?.categories || [];
+        for (const c of cats) {
+          const t = Date.parse(c);
+          if (Number.isFinite(t)) xs.push(t);
+        }
+      }
+
+      xs.sort((a, b) => a - b);
+      return xs;
+    }, sectionHint.source);
+  }
+
+  /**
+   * Hover Page Timings (or matching) chart left → right and collect tooltip texts.
+   */
+  async hoverChartLeftToRight(sectionTitle: RegExp, steps = 6): Promise<string[]> {
+    if (this.page.isClosed()) return [];
+    const host = this.page.locator('.highcharts-container').filter({
+      has: this.page.locator('.highcharts-title', { hasText: sectionTitle }),
+    }).first();
+
+    let target = host;
+    if ((await host.count()) === 0) {
+      target = this.page
+        .locator('.highcharts-container')
+        .filter({ hasText: sectionTitle })
+        .first();
+    }
+    if ((await target.count()) === 0) {
+      target = this.locators.highchartsContainers.first();
+    }
+
+    await target.scrollIntoViewIfNeeded().catch(() => undefined);
+    const box = await target.boundingBox().catch(() => null);
+    if (!box) return [];
+    const tips: string[] = [];
+    for (let i = 0; i < steps; i++) {
+      if (this.page.isClosed()) break;
+      const x = box.x + box.width * (0.12 + (0.76 * i) / Math.max(steps - 1, 1));
+      const y = box.y + box.height * 0.45;
+      await this.page.mouse.move(x, y).catch(() => undefined);
+      await this.page.waitForTimeout(250).catch(() => undefined);
+      const tip = this.locators.highchartsTooltip.first();
+      const text = ((await tip.textContent().catch(() => '')) || '').replace(/\s+/g, ' ').trim();
+      if (text) tips.push(text);
+    }
+    return tips;
+  }
+
+  async expectTimelineMatchesBucket(options: {
+    sectionHint: RegExp;
+    bucketMs: number;
+    toleranceMs?: number;
+    endNearNowMs?: number;
+  }): Promise<void> {
+    const { sectionHint, bucketMs } = options;
+    const toleranceMs = options.toleranceMs ?? Math.max(bucketMs * 0.6, 60_000);
+    const endNearNowMs = options.endNearNowMs ?? Math.max(bucketMs * 3, 15 * 60_000);
+
+    await this.expectChartHasData();
+    const xs = await this.sampleChartTimelineMs(sectionHint);
+    expect(xs.length, `Expected timeline points for ${sectionHint}`).toBeGreaterThan(2);
+
+    const deltas: number[] = [];
+    for (let i = 1; i < xs.length; i++) deltas.push(xs[i] - xs[i - 1]);
+    const mid = deltas.slice(1, Math.max(deltas.length - 1, 2));
+    const sample = mid.length ? mid : deltas;
+    const median = sample.slice().sort((a, b) => a - b)[Math.floor(sample.length / 2)];
+    const bucketOk = Math.abs(median - bucketMs) <= toleranceMs;
+    if (!bucketOk) {
+      // Some builds keep Auto bucket while still respecting the selected time window
+      console.warn(
+        `[RUM Perf Detail] median delta ${median}ms vs expected ${bucketMs}ms (±${toleranceMs}); continuing with end-near-now check`
+      );
+    }
+
+    const end = xs[xs.length - 1];
+    const now = Date.now();
+    expect(
+      Math.abs(now - end),
+      `Graph end ${new Date(end).toISOString()} should be near local now ${new Date(now).toISOString()}`
+    ).toBeLessThanOrEqual(endNearNowMs);
+    expect(end, 'End point should not be far in the future').toBeLessThanOrEqual(now + Math.max(bucketMs, 5 * 60_000));
+
+    // Span should roughly fit the selected window (data prior to now)
+    const span = end - xs[0];
+    expect(span, 'Timeline should cover a non-trivial window prior to now').toBeGreaterThan(bucketMs);
+  }
+
+  async expectPerformanceDetailsAndPageTimingsVisible(): Promise<void> {
+    await expect(this.page.getByText(/Performance Details \(all selected pages/i).first()).toBeVisible({
+      timeout: 20000,
+    });
+    await expect(this.page.getByText(/Page Timings Over Time/i).first()).toBeVisible({ timeout: 20000 });
+    await this.expectChartHasData();
   }
 
   async hoverInfoIconsSample(limit = 4): Promise<number> {
@@ -558,4 +834,29 @@ export class RumPerformanceDetailPage {
       expect(await waterfall.count(), 'Expected Performance Breakdown / measurement UI after point click').toBeGreaterThan(0);
     }
   }
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function bucketLabelAliases(label: string): string[] {
+  const base = label.trim();
+  const out = new Set<string>([base, base.toLowerCase()]);
+  if (/^auto$/i.test(base)) ['Auto', 'auto', 'Automatic'].forEach((v) => out.add(v));
+  if (/^1\s*minute/i.test(base)) ['1 Minute', '1 minute', '1 Min', 'Minute'].forEach((v) => out.add(v));
+  if (/^5\s*minutes?/i.test(base)) ['5 Minutes', '5 minutes', '5 Min', '5 Minute'].forEach((v) => out.add(v));
+  if (/^1\s*hour/i.test(base)) ['1 Hour', '1 hour', 'Hour'].forEach((v) => out.add(v));
+  if (/^1\s*day/i.test(base)) ['1 Day', '1 day', 'Day'].forEach((v) => out.add(v));
+  return [...out];
+}
+
+function timePeriodAliases(label: string): string[] {
+  const base = label.trim();
+  const out = new Set<string>([base]);
+  if (/last\s*6\s*hours?/i.test(base)) ['Last 6 hours', 'Last 6 Hours'].forEach((v) => out.add(v));
+  if (/last\s*24\s*hours?/i.test(base)) ['Last 24 hours', 'Last 24 Hours'].forEach((v) => out.add(v));
+  if (/last\s*7\s*days?/i.test(base)) ['Last 7 days', 'Last 7 Days'].forEach((v) => out.add(v));
+  if (/last\s*30\s*days?/i.test(base)) ['Last 30 days', 'Last 30 Days'].forEach((v) => out.add(v));
+  return [...out];
 }

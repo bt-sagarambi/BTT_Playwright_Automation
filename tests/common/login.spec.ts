@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
+import { LoginPage } from '../../pages/LoginPage';
 
 test('Blue Triangle portal login with stage credentials', async ({ page }) => {
   const loginPage = new LoginPage(page);

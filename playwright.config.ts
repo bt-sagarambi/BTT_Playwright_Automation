@@ -30,10 +30,12 @@ export default defineConfig({
     ['list'],
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
     ['allure-playwright', { resultsDir: 'allure_reports/allure-results' }],
+    ['./reporters/jiraFailureReporter.ts'],
   ],
   use: {
     baseURL: config.baseURL,
     headless: false,
+    screenshot: 'only-on-failure',
     trace: 'on-first-retry',
   },
 
