@@ -391,6 +391,71 @@ const cases = [
     ].join('\n'),
     expected: ['Calibration control is visible with a tooltip'].join('\n'),
   },
+  {
+    id: 'REG-RO-036',
+    submodule: 'Time Period',
+    title: 'Time Period 1 Days: labels + Actual Revenue timeline',
+    steps: [
+      '1. Open Revenue Opportunity (no Bucket Size control on this page)',
+      '2. Apply Time Period = 1 Day via matching Report (e.g. "… 1 Day …") or Filters Time Period if available',
+      '3. Confirm Opportunity / Actual Revenue Over Time / What If labels mention 1 Day',
+      '4. Hover Actual Revenue Over Time left→right',
+      '5. Validate Highcharts x-axis day buckets (~1 day steps)',
+    ].join('\n'),
+    expected: [
+      'Period applied via Report list and/or Filters Time Period only (no Bucket Size)',
+      'Labels show 1 Day Opportunity / Actual Revenue Over Time period text',
+      'What If / opportunity widgets mention 1 day when present',
+      'Actual Revenue timeline uses ~1-day buckets ending near now',
+      'If no 1-day report exists on the site, soft-skip with note',
+    ].join('\n'),
+  },
+  {
+    id: 'REG-RO-037',
+    submodule: 'Time Period',
+    title: 'Time Period 7 Days: labels + Actual Revenue timeline',
+    steps: [
+      '1. Apply Time Period = 7 Days via Report matching "7 Days" (or Filters)',
+      '2. Confirm Opportunity / Actual Revenue / What If period labels',
+      '3. Hover Actual Revenue; validate ~1-day timeline buckets',
+    ].join('\n'),
+    expected: [
+      'No Bucket Size selection (control not present on Revenue Opportunity)',
+      'Labels and widgets reflect 7 Days',
+      'Actual Revenue timeline remains healthy with day-scale buckets',
+    ].join('\n'),
+  },
+  {
+    id: 'REG-RO-038',
+    submodule: 'Time Period',
+    title: 'Time Period 14 Days: labels + Actual Revenue timeline',
+    steps: [
+      '1. Apply Time Period = 14 Days via Report / Filters',
+      '2. Confirm period labels on Opportunity, Actual Revenue Over Time, What If',
+      '3. Validate Actual Revenue timeline buckets',
+    ].join('\n'),
+    expected: [
+      'Period applied without Bucket Size',
+      'UI labels mention 14 Days',
+      'Timeline buckets remain ~1 day for multi-day reports',
+    ].join('\n'),
+  },
+  {
+    id: 'REG-RO-039',
+    submodule: 'Time Period',
+    title: 'Time Period 30 days: labels + Actual Revenue timeline',
+    steps: [
+      '1. Apply Time Period = 30 Days via Report matching "30 Days" (common default report)',
+      '2. Confirm "30 Day Opportunity" and Actual Revenue Over Time period text',
+      '3. Confirm What If widgets mention 30 days when labeled',
+      '4. Hover Actual Revenue; validate day buckets near now',
+    ].join('\n'),
+    expected: [
+      '30-day report/period applies; no Bucket Size control used',
+      'Opportunity / Actual Revenue / What If labels align with 30 days',
+      'Actual Revenue Over Time uses ~1-day Highcharts buckets ending near local now',
+    ].join('\n'),
+  },
 ];
 
 function styleHeader(row) {

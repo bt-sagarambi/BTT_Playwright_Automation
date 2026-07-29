@@ -34,7 +34,7 @@ export default defineConfig({
   ],
   use: {
     baseURL: config.baseURL,
-    headless: false,
+    headless: true,
     screenshot: 'only-on-failure',
     trace: 'on-first-retry',
   },

@@ -565,6 +565,78 @@ const cases = [
       'Charts refresh; missing bars for sparse data are noted',
     ].join('\n'),
   },
+  {
+    id: 'REG-RUM-PD-037',
+    submodule: 'Time Period / Bucket Size',
+    title: 'Time Period Last 6 hours with Auto bucket on Perf Details + Page Timings',
+    steps: [
+      '1. Open right-nav Filters on RUM Performance Detail',
+      '2. Set Time Period to Last 6 hours',
+      '3. Keep Bucket Size = Auto (do not force a fixed bucket)',
+      '4. Apply Filters (do NOT Save Filter)',
+      '5. Confirm Performance Details and Page Timings Over Time are visible',
+      '6. Hover Page Timings left→right (optional tooltips)',
+      '7. Validate Highcharts x-axis spacing (~1 minute when Auto resolves for this window)',
+    ].join('\n'),
+    expected: [
+      'Bucket Size remains Auto for the selected Time Period',
+      'Performance Details + Page Timings refresh with chart data',
+      'Timeline end is near local now; Auto typically resolves to ~1 minute buckets for Last 6 hours',
+      'No Save Filter write is performed',
+    ].join('\n'),
+  },
+  {
+    id: 'REG-RUM-PD-038',
+    submodule: 'Time Period / Bucket Size',
+    title: 'Time Period Last 24 hours with Auto bucket on Perf Details + Page Timings',
+    steps: [
+      '1. Open Filters',
+      '2. Set Time Period to Last 24 hours',
+      '3. Keep Bucket Size = Auto',
+      '4. Apply Filters',
+      '5. Confirm Perf Details + Page Timings; validate timeline (~5 minute Auto buckets typical)',
+    ].join('\n'),
+    expected: [
+      'Bucket Size stays Auto',
+      'Charts refresh for Last 24 hours',
+      'Auto typically resolves to ~5 minute buckets; end near now',
+    ].join('\n'),
+  },
+  {
+    id: 'REG-RUM-PD-039',
+    submodule: 'Time Period / Bucket Size',
+    title: 'Time Period Last 7 days with Auto bucket on Perf Details + Page Timings',
+    steps: [
+      '1. Open Filters',
+      '2. Set Time Period to Last 7 days',
+      '3. Keep Bucket Size = Auto',
+      '4. Apply Filters',
+      '5. Confirm Perf Details + Page Timings; validate timeline (~1 hour Auto buckets typical)',
+    ].join('\n'),
+    expected: [
+      'Bucket Size stays Auto',
+      'Charts refresh for Last 7 days',
+      'Auto typically resolves to ~1 hour buckets; end near now',
+    ].join('\n'),
+  },
+  {
+    id: 'REG-RUM-PD-040',
+    submodule: 'Time Period / Bucket Size',
+    title: 'Time Period Last 30 days with Auto bucket on Perf Details + Page Timings',
+    steps: [
+      '1. Open Filters',
+      '2. Set Time Period to Last 30 days',
+      '3. Keep Bucket Size = Auto',
+      '4. Apply Filters',
+      '5. Confirm Perf Details + Page Timings; validate timeline (~1 day Auto buckets typical)',
+    ].join('\n'),
+    expected: [
+      'Bucket Size stays Auto',
+      'Charts refresh for Last 30 days',
+      'Auto typically resolves to ~1 day buckets; end near now',
+      'Note: Bucket Size control exists on RUM Performance Detail Filters (not on Revenue Opportunity)',
+    ].join('\n'),
+  },
 ];
 
 function styleHeader(row) {

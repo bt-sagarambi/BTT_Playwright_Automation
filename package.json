@@ -14,6 +14,12 @@
     "test:regression:us2": "node scripts/run-playwright.js test tests/regression_tests/US2 --project=chromium-regression",
     "test:regression:us2:ro": "node scripts/run-playwright.js test tests/regression_tests/US2/business-insights/improve-conversion/revenue-opportunity/revenue.opportunity.regression.spec.ts --project=chromium-regression",
     "test:regression:us2:rum-pd": "node scripts/run-playwright.js test tests/regression_tests/US2/monitoring/real-user-browser/performance-detail/rum.performance-detail.browser.regression.spec.ts --project=chromium-regression",
+    "test:regression:us2:rum-po": "node scripts/run-playwright.js test tests/regression_tests/US2/monitoring/real-user-browser/performance-overview/rum.performance-overview.browser.regression.spec.ts --project=chromium-regression",
+    "test:regression:us2:rum-pc": "node scripts/run-playwright.js test tests/regression_tests/US2/monitoring/real-user-browser/performance-comparison/rum.performance-comparison.browser.regression.spec.ts --project=chromium-regression",
+    "test:regression:us2:rum-aw": "node scripts/run-playwright.js test tests/regression_tests/US2/monitoring/real-user-browser/aggregate-waterfall/rum.aggregate-waterfall.browser.regression.spec.ts --project=chromium-regression",
+    "test:regression:us2:rum-be": "node scripts/run-playwright.js test tests/regression_tests/US2/monitoring/real-user-browser/bounce-and-exit-analysis/rum.bounce-exit.browser.regression.spec.ts --project=chromium-regression",
+    "test:regression:us2:rum-ee": "node scripts/run-playwright.js test tests/regression_tests/US2/monitoring/real-user-browser/errors-explorer/rum.errors-explorer.browser.regression.spec.ts --project=chromium-regression",
+    "test:regression:us2:rum-pb": "node scripts/run-playwright.js test tests/regression_tests/US2/monitoring/real-user-browser/performance-budget/rum.performance-budget.browser.regression.spec.ts --project=chromium-regression",
     "allure:generate": "allure generate allure_reports/allure-results -o allure_reports/allure-report --clean",
     "allure:open": "allure open allure_reports/allure-report"
   },
