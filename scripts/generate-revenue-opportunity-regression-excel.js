@@ -15,6 +15,9 @@ const CONFLUENCE =
   'https://bluetriangletech.atlassian.net/wiki/spaces/HCT/pages/3186360451/The+Revenue+Opportunity+Page';
 const AUTOMATION =
   'tests/regression_tests/US2/business-insights/improve-conversion/revenue-opportunity/revenue.opportunity.regression.spec.ts';
+const EXECUTION_STATUS = process.env.RO_EXECUTION_STATUS || 'Not Executed';
+const EXECUTION_NOTE =
+  process.env.RO_EXECUTION_NOTE || 'Run the isolated Playwright spec and record live-data annotations in the Allure report.';
 
 const cases = [
   {
@@ -456,6 +459,92 @@ const cases = [
       'Actual Revenue Over Time uses ~1-day Highcharts buckets ending near local now',
     ].join('\n'),
   },
+  {
+    id: 'REG-RO-040',
+    submodule: 'Selector Integrity',
+    title: 'Revenue Data Type, Report Type and Report options are unique and non-blank',
+    steps: [
+      '1. Enumerate Revenue Data Type options',
+      '2. Enumerate Report Type options when configured',
+      '3. Enumerate Report options',
+    ].join('\n'),
+    expected: ['Each required selector has options', 'Enabled labels are non-blank and not duplicated'].join('\n'),
+  },
+  {
+    id: 'REG-RO-041',
+    submodule: 'Opportunity Cards',
+    title: 'Visible cards expose device/platform labels and formatted values',
+    steps: ['1. Read all visible opportunity cards', '2. Validate each label and value/no-data presentation'].join('\n'),
+    expected: ['At least one card is visible', 'Cards identify device/platform and display a value or controlled no-data state'].join('\n'),
+  },
+  {
+    id: 'REG-RO-042',
+    submodule: 'Combination and Recovery',
+    title: 'Rapid device-card changes resolve without duplicate chart hosts',
+    steps: ['1. Rapidly select each visible device card', '2. Finish on All Devices', '3. Inspect chart host IDs'].join('\n'),
+    expected: ['Final selection resolves', 'Charts remain healthy', 'No duplicate chart host IDs are rendered'].join('\n'),
+  },
+  {
+    id: 'REG-RO-043',
+    submodule: 'What If',
+    title: 'What If selectors expose valid ranges and Cancel restores values',
+    steps: [
+      '1. Open What If edit mode',
+      '2. Inspect all three variable option lists',
+      '3. Change one safe value',
+      '4. Click Cancel; never Save',
+    ].join('\n'),
+    expected: ['All configured option lists are non-blank/unique', 'Cancel restores original values', 'No persistent change is made'].join('\n'),
+  },
+  {
+    id: 'REG-RO-044',
+    submodule: 'Revenue Opportunity Table',
+    title: 'No-match table search and clear preserve a healthy table',
+    steps: ['1. Enter a guaranteed no-match search value', '2. Observe controlled empty rows', '3. Clear the search'].join('\n'),
+    expected: ['Table remains visible during no-match state', 'Clearing search restores the table without error'].join('\n'),
+  },
+  {
+    id: 'REG-RO-045',
+    submodule: 'Filters',
+    title: 'Advanced Filters expose labels and Cancel without applying',
+    steps: ['1. Open the advanced Filters drawer', '2. Inspect visible field labels', '3. Click Cancel or Escape'].join('\n'),
+    expected: ['Configured filter fields are labeled', 'Cancel closes without applying a new filter'].join('\n'),
+  },
+  {
+    id: 'REG-RO-046',
+    submodule: 'Accessibility',
+    title: 'Core controls expose accessible names',
+    steps: ['1. Inspect Revenue Data Type, Report, View Filters, Report Manager and Filters', '2. Read labels/ARIA/title metadata'].join('\n'),
+    expected: ['Each configured core control exposes an accessible label or name'].join('\n'),
+  },
+  {
+    id: 'REG-RO-047',
+    submodule: 'Accessibility',
+    title: 'Keyboard focus reaches interactive page controls',
+    steps: ['1. Focus visible top controls, chart buttons and table search', '2. Confirm document active element updates'].join('\n'),
+    expected: ['At least one representative Revenue Opportunity control receives keyboard focus'].join('\n'),
+  },
+  {
+    id: 'REG-RO-048',
+    submodule: 'Responsive UI',
+    title: 'Standard and narrow desktop viewports retain essential controls',
+    steps: ['1. Set 1280×800 viewport', '2. Set 900×900 viewport', '3. Verify title, selectors, cards and charts'].join('\n'),
+    expected: ['Essential controls remain present and reachable', 'Charts remain healthy after viewport restoration'].join('\n'),
+  },
+  {
+    id: 'REG-RO-049',
+    submodule: 'Report Controls',
+    title: 'Selected report refresh behavior is controlled and recoverable',
+    steps: ['1. Select a second report when available', '2. Refresh the page', '3. Record persistence or safe reset', '4. Restore first report'].join('\n'),
+    expected: ['Refresh preserves the selected report or safely returns to a configured default', 'Default report is recoverable'].join('\n'),
+  },
+  {
+    id: 'REG-RO-050',
+    submodule: 'Recovery and Errors',
+    title: 'Final recovery restores default context without blocking page errors',
+    steps: ['1. Close open overlays', '2. Restore Web Browser, first report and All Devices', '3. Inspect captured page errors and chart IDs'].join('\n'),
+    expected: ['Default healthy context is restored', 'No duplicate charts or unexpected blocking page errors remain'].join('\n'),
+  },
 ];
 
 function styleHeader(row) {
@@ -473,7 +562,7 @@ async function main() {
     title: `${c.id} — ${c.title}`,
     steps: c.steps,
     expected: c.expected,
-    status: 'Not Executed',
+    status: EXECUTION_STATUS,
   }));
 
   const workbook = new ExcelJS.Workbook();
@@ -549,12 +638,22 @@ async function main() {
   notes.addRow([`Total cases: ${enriched.length}`]);
   notes.addRow([`Confluence: ${CONFLUENCE}`]);
   notes.addRow([`Automation: ${AUTOMATION}`]);
+  notes.addRow([`Execution status: ${EXECUTION_STATUS}`]);
+  notes.addRow([`Execution note: ${EXECUTION_NOTE}`]);
   notes.getRow(1).font = { bold: true };
 
   const outPath = path.join(__dirname, '..', 'docs', 'Revenue_Opportunity_Regression.xlsx');
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
-  await workbook.xlsx.writeFile(outPath);
-  console.log(`Wrote ${enriched.length} test cases → ${outPath}`);
+  let writtenPath = outPath;
+  try {
+    await workbook.xlsx.writeFile(outPath);
+  } catch (error) {
+    if (!error || error.code !== 'EBUSY') throw error;
+    writtenPath = path.join(__dirname, '..', 'docs', 'Revenue_Opportunity_Regression_run.xlsx');
+    await workbook.xlsx.writeFile(writtenPath);
+    console.warn(`Primary workbook is open/locked; wrote fallback → ${writtenPath}`);
+  }
+  console.log(`Wrote ${enriched.length} test cases → ${writtenPath}`);
 }
 
 main().catch((e) => {

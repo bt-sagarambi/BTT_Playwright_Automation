@@ -1,0 +1,855 @@
+{
+  "snaps": [
+    {
+      "label": "default-domain-table",
+      "activeTab": "domain-rum-level-detail-btn",
+      "pieVisible": false,
+      "pieTitles": [
+        "Created with Highcharts 11.1.0Chart Context MenuPage Views By Page2026-07-27 20:25 to 2026-07-28 20:25, IST (+5:30)​pdp-VT:24,211 Page Views​pdp-VT:24,211 Page ViewsCategory-VT:14,448 Page Views​Category-VT:14,448 Page Viewspdp:9,474 Page Views​pdp:9,474 Page ViewsCategory:4,167 Page Views​Category:4,167 Page ViewsCategory-VT-Background:3,090​Page Views​Category-VT-Background:3,090​Page ViewsHomePage:2,915 Page Views​HomePage:2,915 Page ViewsMy Bag:1,198 Page Views​My Bag:1,198 Page ViewsFindShippingAutocomplete-VT:567​Page Views​FindShippingAutocomplete-VT:567​Page Viewssize-guide:527 Page Views​size-guide:527 Page Viewssearch:413 Page Views​search:413 Page ViewsCart-refresh-bag:404 Page Views​Cart-refresh-bag:404 Page Viewsaccount-login:402 Page Views​account-login:402 Page ViewscheckoutPayment-VT:387 Page Views​checkoutPayment-VT:387 Page ViewscheckoutReview-VT:358 Page Views​checkoutReview-VT:358 Page Viewscheckout-VT:355 Page Views​checkout-VT:355 Page Viewspurchase-details:345 Page Views​purchase-details:345 Page Viewscheckout:327 Page Views​checkout:327 Page ViewscheckoutShipping-VT:299 Page Views​checkoutShipping-VT:299 Page Viewsaccount-dashboard:282 Page Views​account-dashboard:282 Page ViewscheckoutConfirmation-VT:216​Page Views​checkoutConfirmation-VT:216​Page Viewstrack-order:189 Page Views​track-order:189 Page ViewscheckoutContact-VT:186 Page Views​checkoutContact-VT:186 Page Viewshelp:185 Page Views​help:185 Page Viewsstory-women:167 Page Views​story-women:167 Page Viewsaccount-purchase-history:157​Page Views​account-purchase-history:157​Page Views",
+        "Page Views By Page",
+        "File Count By Traffic Segment"
+      ],
+      "metricCards": [
+        {
+          "id": "domain-dom-int-avg",
+          "text": "1.66"
+        },
+        {
+          "id": "domain-dom-con-avg",
+          "text": "1.91"
+        },
+        {
+          "id": "domain-onload-avg",
+          "text": "2.17"
+        },
+        {
+          "id": "domain-tti-avg",
+          "text": "3.69"
+        },
+        {
+          "id": "domain-fcp-avg",
+          "text": "3.77"
+        },
+        {
+          "id": "domain-lcp-avg",
+          "text": "2.11"
+        },
+        {
+          "id": "domain-tbt-avg",
+          "text": "0.47"
+        },
+        {
+          "id": "domain-cls-avg",
+          "text": "9.779"
+        },
+        {
+          "id": "domain-fid-avg",
+          "text": "23.62"
+        }
+      ],
+      "party": [
+        {
+          "id": "first-party-btn",
+          "text": "1st Party",
+          "active": null
+        },
+        {
+          "id": "third-party-btn",
+          "text": "3rd Party",
+          "active": null
+        },
+        {
+          "id": "all-btn",
+          "text": "All",
+          "active": true
+        }
+      ],
+      "viewMode": {
+        "graph": "active left btn btn-default tab-btn graph-level-btn",
+        "table": "btn right btn-default tab-btn table-level-btn"
+      },
+      "headings": [
+        "Resource Timings By File"
+      ],
+      "tablesVisible": [
+        {
+          "id": "table-for-resource-timings-by-file",
+          "th": [
+            "Domain",
+            "File",
+            "Element Count",
+            "Duration (s)",
+            "Redirect (s)",
+            "App Cache (s)",
+            "DNS (s)",
+            "Request (s)"
+          ],
+          "rows": 500
+        }
+      ],
+      "charts": 6,
+      "compareTabs": [
+        {
+          "id": "",
+          "text": "What's Changed?"
+        },
+        {
+          "id": "",
+          "text": "Duration\n\n                              "
+        },
+        {
+          "id": "duration-tab",
+          "text": "Duration"
+        },
+        {
+          "id": "count-tab",
+          "text": "Count"
+        },
+        {
+          "id": "domain-level-detail-compare-table",
+          "text": ""
+        },
+        {
+          "id": "domain-level-detail-count-table",
+          "text": ""
+        },
+        {
+          "id": "object-duration-tab",
+          "text": "Duration"
+        },
+        {
+          "id": "object-count-tab",
+          "text": "Count"
+        }
+      ],
+      "markersTitle": "Toggle Global Markers",
+      "markerItems": [
+        "Hide All Markers",
+        "Show All Markers",
+        "Toggle Custom Markers",
+        "Toggle Global Markers",
+        "Create Custom Marker",
+        "Create Global Marker"
+      ]
+    },
+    {
+      "label": "after-pie-toggle",
+      "activeTab": "domain-rum-level-detail-btn",
+      "pieVisible": true,
+      "pieTitles": [
+        "Created with Highcharts 11.1.0Chart Context MenuPage Views By Page2026-07-27 20:25 to 2026-07-28 20:25, IST (+5:30)​pdp-VT:24,211 Page Views​pdp-VT:24,211 Page ViewsCategory-VT:14,448 Page Views​Category-VT:14,448 Page Viewspdp:9,474 Page Views​pdp:9,474 Page ViewsCategory:4,167 Page Views​Category:4,167 Page ViewsCategory-VT-Background:3,090​Page Views​Category-VT-Background:3,090​Page ViewsHomePage:2,915 Page Views​HomePage:2,915 Page ViewsMy Bag:1,198 Page Views​My Bag:1,198 Page ViewsFindShippingAutocomplete-VT:567​Page Views​FindShippingAutocomplete-VT:567​Page Viewssize-guide:527 Page Views​size-guide:527 Page Viewssearch:413 Page Views​search:413 Page ViewsCart-refresh-bag:404 Page Views​Cart-refresh-bag:404 Page Viewsaccount-login:402 Page Views​account-login:402 Page ViewscheckoutPayment-VT:387 Page Views​checkoutPayment-VT:387 Page ViewscheckoutReview-VT:358 Page Views​checkoutReview-VT:358 Page Viewscheckout-VT:355 Page Views​checkout-VT:355 Page Viewspurchase-details:345 Page Views​purchase-details:345 Page Viewscheckout:327 Page Views​checkout:327 Page ViewscheckoutShipping-VT:299 Page Views​checkoutShipping-VT:299 Page Viewsaccount-dashboard:282 Page Views​account-dashboard:282 Page ViewscheckoutConfirmation-VT:216​Page Views​checkoutConfirmation-VT:216​Page Viewstrack-order:189 Page Views​track-order:189 Page ViewscheckoutContact-VT:186 Page Views​checkoutContact-VT:186 Page Viewshelp:185 Page Views​help:185 Page Viewsstory-women:167 Page Views​story-women:167 Page Viewsaccount-purchase-history:157​Page Views​account-purchase-history:157​Page Views",
+        "Page Views By Page",
+        "File Count By Traffic Segment"
+      ],
+      "metricCards": [
+        {
+          "id": "domain-dom-int-avg",
+          "text": "1.66"
+        },
+        {
+          "id": "domain-dom-con-avg",
+          "text": "1.91"
+        },
+        {
+          "id": "domain-onload-avg",
+          "text": "2.17"
+        },
+        {
+          "id": "domain-tti-avg",
+          "text": "3.69"
+        },
+        {
+          "id": "domain-fcp-avg",
+          "text": "3.77"
+        },
+        {
+          "id": "domain-lcp-avg",
+          "text": "2.11"
+        },
+        {
+          "id": "domain-tbt-avg",
+          "text": "0.47"
+        },
+        {
+          "id": "domain-cls-avg",
+          "text": "9.779"
+        },
+        {
+          "id": "domain-fid-avg",
+          "text": "23.62"
+        }
+      ],
+      "party": [
+        {
+          "id": "first-party-btn",
+          "text": "1st Party",
+          "active": null
+        },
+        {
+          "id": "third-party-btn",
+          "text": "3rd Party",
+          "active": null
+        },
+        {
+          "id": "all-btn",
+          "text": "All",
+          "active": true
+        }
+      ],
+      "viewMode": {
+        "graph": "active left btn btn-default tab-btn graph-level-btn",
+        "table": "btn right btn-default tab-btn table-level-btn"
+      },
+      "headings": [
+        "Resource Timings By File"
+      ],
+      "tablesVisible": [
+        {
+          "id": "table-for-resource-timings-by-file",
+          "th": [
+            "Domain",
+            "File",
+            "Element Count",
+            "Duration (s)",
+            "Redirect (s)",
+            "App Cache (s)",
+            "DNS (s)",
+            "Request (s)"
+          ],
+          "rows": 500
+        }
+      ],
+      "charts": 6,
+      "compareTabs": [
+        {
+          "id": "",
+          "text": "What's Changed?"
+        },
+        {
+          "id": "",
+          "text": "Duration\n\n                              "
+        },
+        {
+          "id": "duration-tab",
+          "text": "Duration"
+        },
+        {
+          "id": "count-tab",
+          "text": "Count"
+        },
+        {
+          "id": "domain-level-detail-compare-table",
+          "text": ""
+        },
+        {
+          "id": "domain-level-detail-count-table",
+          "text": ""
+        },
+        {
+          "id": "object-duration-tab",
+          "text": "Duration"
+        },
+        {
+          "id": "object-count-tab",
+          "text": "Count"
+        }
+      ],
+      "markersTitle": "Toggle Global Markers",
+      "markerItems": [
+        "Hide All Markers",
+        "Show All Markers",
+        "Toggle Custom Markers",
+        "Toggle Global Markers",
+        "Create Custom Marker",
+        "Create Global Marker"
+      ]
+    },
+    {
+      "label": "domain-waterfall-view",
+      "activeTab": "domain-rum-level-detail-btn",
+      "pieVisible": true,
+      "pieTitles": [
+        "Created with Highcharts 11.1.0Chart Context MenuPage Views By Page2026-07-27 20:25 to 2026-07-28 20:25, IST (+5:30)​pdp-VT:24,211 Page Views​pdp-VT:24,211 Page ViewsCategory-VT:14,448 Page Views​Category-VT:14,448 Page Viewspdp:9,474 Page Views​pdp:9,474 Page ViewsCategory:4,167 Page Views​Category:4,167 Page ViewsCategory-VT-Background:3,090​Page Views​Category-VT-Background:3,090​Page ViewsHomePage:2,915 Page Views​HomePage:2,915 Page ViewsMy Bag:1,198 Page Views​My Bag:1,198 Page ViewsFindShippingAutocomplete-VT:567​Page Views​FindShippingAutocomplete-VT:567​Page Viewssize-guide:527 Page Views​size-guide:527 Page Viewssearch:413 Page Views​search:413 Page ViewsCart-refresh-bag:404 Page Views​Cart-refresh-bag:404 Page Viewsaccount-login:402 Page Views​account-login:402 Page ViewscheckoutPayment-VT:387 Page Views​checkoutPayment-VT:387 Page ViewscheckoutReview-VT:358 Page Views​checkoutReview-VT:358 Page Viewscheckout-VT:355 Page Views​checkout-VT:355 Page Viewspurchase-details:345 Page Views​purchase-details:345 Page Viewscheckout:327 Page Views​checkout:327 Page ViewscheckoutShipping-VT:299 Page Views​checkoutShipping-VT:299 Page Viewsaccount-dashboard:282 Page Views​account-dashboard:282 Page ViewscheckoutConfirmation-VT:216​Page Views​checkoutConfirmation-VT:216​Page Viewstrack-order:189 Page Views​track-order:189 Page ViewscheckoutContact-VT:186 Page Views​checkoutContact-VT:186 Page Viewshelp:185 Page Views​help:185 Page Viewsstory-women:167 Page Views​story-women:167 Page Viewsaccount-purchase-history:157​Page Views​account-purchase-history:157​Page Views",
+        "Page Views By Page",
+        "File Count By Traffic Segment"
+      ],
+      "metricCards": [
+        {
+          "id": "domain-dom-int-avg",
+          "text": "1.66"
+        },
+        {
+          "id": "domain-dom-con-avg",
+          "text": "1.91"
+        },
+        {
+          "id": "domain-onload-avg",
+          "text": "2.17"
+        },
+        {
+          "id": "domain-tti-avg",
+          "text": "3.69"
+        },
+        {
+          "id": "domain-fcp-avg",
+          "text": "3.77"
+        },
+        {
+          "id": "domain-lcp-avg",
+          "text": "2.11"
+        },
+        {
+          "id": "domain-tbt-avg",
+          "text": "0.47"
+        },
+        {
+          "id": "domain-cls-avg",
+          "text": "9.779"
+        },
+        {
+          "id": "domain-fid-avg",
+          "text": "23.62"
+        }
+      ],
+      "party": [
+        {
+          "id": "first-party-btn",
+          "text": "1st Party",
+          "active": null
+        },
+        {
+          "id": "third-party-btn",
+          "text": "3rd Party",
+          "active": null
+        },
+        {
+          "id": "all-btn",
+          "text": "All",
+          "active": true
+        }
+      ],
+      "viewMode": {
+        "graph": "active left btn btn-default tab-btn graph-level-btn",
+        "table": "btn right btn-default tab-btn table-level-btn"
+      },
+      "headings": [
+        "Resource Timings By File"
+      ],
+      "tablesVisible": [
+        {
+          "id": "table-for-resource-timings-by-file",
+          "th": [
+            "Domain",
+            "File",
+            "Element Count",
+            "Duration (s)",
+            "Redirect (s)",
+            "App Cache (s)",
+            "DNS (s)",
+            "Request (s)"
+          ],
+          "rows": 500
+        }
+      ],
+      "charts": 6,
+      "compareTabs": [
+        {
+          "id": "",
+          "text": "What's Changed?"
+        },
+        {
+          "id": "",
+          "text": "Duration\n\n                              "
+        },
+        {
+          "id": "duration-tab",
+          "text": "Duration"
+        },
+        {
+          "id": "count-tab",
+          "text": "Count"
+        },
+        {
+          "id": "domain-level-detail-compare-table",
+          "text": ""
+        },
+        {
+          "id": "domain-level-detail-count-table",
+          "text": ""
+        },
+        {
+          "id": "object-duration-tab",
+          "text": "Duration"
+        },
+        {
+          "id": "object-count-tab",
+          "text": "Count"
+        }
+      ],
+      "markersTitle": "Toggle Global Markers",
+      "markerItems": [
+        "Hide All Markers",
+        "Show All Markers",
+        "Toggle Custom Markers",
+        "Toggle Global Markers",
+        "Create Custom Marker",
+        "Create Global Marker"
+      ]
+    },
+    {
+      "label": "object-level",
+      "activeTab": "object-rum-level-detail-btn",
+      "pieVisible": true,
+      "pieTitles": [
+        "Created with Highcharts 11.1.0Chart Context MenuPage Views By Page2026-07-27 20:25 to 2026-07-28 20:25, IST (+5:30)​pdp-VT:24,211 Page Views​pdp-VT:24,211 Page ViewsCategory-VT:14,448 Page Views​Category-VT:14,448 Page Viewspdp:9,474 Page Views​pdp:9,474 Page ViewsCategory:4,167 Page Views​Category:4,167 Page ViewsCategory-VT-Background:3,090​Page Views​Category-VT-Background:3,090​Page ViewsHomePage:2,915 Page Views​HomePage:2,915 Page ViewsMy Bag:1,198 Page Views​My Bag:1,198 Page ViewsFindShippingAutocomplete-VT:567​Page Views​FindShippingAutocomplete-VT:567​Page Viewssize-guide:527 Page Views​size-guide:527 Page Viewssearch:413 Page Views​search:413 Page ViewsCart-refresh-bag:404 Page Views​Cart-refresh-bag:404 Page Viewsaccount-login:402 Page Views​account-login:402 Page ViewscheckoutPayment-VT:387 Page Views​checkoutPayment-VT:387 Page ViewscheckoutReview-VT:358 Page Views​checkoutReview-VT:358 Page Viewscheckout-VT:355 Page Views​checkout-VT:355 Page Viewspurchase-details:345 Page Views​purchase-details:345 Page Viewscheckout:327 Page Views​checkout:327 Page ViewscheckoutShipping-VT:299 Page Views​checkoutShipping-VT:299 Page Viewsaccount-dashboard:282 Page Views​account-dashboard:282 Page ViewscheckoutConfirmation-VT:216​Page Views​checkoutConfirmation-VT:216​Page Viewstrack-order:189 Page Views​track-order:189 Page ViewscheckoutContact-VT:186 Page Views​checkoutContact-VT:186 Page Viewshelp:185 Page Views​help:185 Page Viewsstory-women:167 Page Views​story-women:167 Page Viewsaccount-purchase-history:157​Page Views​account-purchase-history:157​Page Views",
+        "Page Views By Page",
+        "File Count By Traffic Segment"
+      ],
+      "metricCards": [
+        {
+          "id": "domain-dom-int-avg",
+          "text": "1.66"
+        },
+        {
+          "id": "domain-dom-con-avg",
+          "text": "1.91"
+        },
+        {
+          "id": "domain-onload-avg",
+          "text": "2.17"
+        },
+        {
+          "id": "domain-tti-avg",
+          "text": "3.69"
+        },
+        {
+          "id": "domain-fcp-avg",
+          "text": "3.77"
+        },
+        {
+          "id": "domain-lcp-avg",
+          "text": "2.11"
+        },
+        {
+          "id": "domain-tbt-avg",
+          "text": "0.47"
+        },
+        {
+          "id": "domain-cls-avg",
+          "text": "9.779"
+        },
+        {
+          "id": "domain-fid-avg",
+          "text": "23.62"
+        }
+      ],
+      "party": [
+        {
+          "id": "first-party-btn",
+          "text": "1st Party",
+          "active": null
+        },
+        {
+          "id": "third-party-btn",
+          "text": "3rd Party",
+          "active": null
+        },
+        {
+          "id": "all-btn",
+          "text": "All",
+          "active": true
+        }
+      ],
+      "viewMode": {
+        "graph": "active left btn btn-default tab-btn graph-level-btn",
+        "table": "btn right btn-default tab-btn table-level-btn"
+      },
+      "headings": [
+        "Resource Timings By File"
+      ],
+      "tablesVisible": [
+        {
+          "id": "table-for-resource-timings-by-file",
+          "th": [
+            "Domain",
+            "File",
+            "Element Count",
+            "Duration (s)",
+            "Redirect (s)",
+            "App Cache (s)",
+            "DNS (s)",
+            "Request (s)"
+          ],
+          "rows": 500
+        }
+      ],
+      "charts": 6,
+      "compareTabs": [
+        {
+          "id": "",
+          "text": "What's Changed?"
+        },
+        {
+          "id": "",
+          "text": "Duration\n\n                              "
+        },
+        {
+          "id": "duration-tab",
+          "text": "Duration"
+        },
+        {
+          "id": "count-tab",
+          "text": "Count"
+        },
+        {
+          "id": "domain-level-detail-compare-table",
+          "text": ""
+        },
+        {
+          "id": "domain-level-detail-count-table",
+          "text": ""
+        },
+        {
+          "id": "object-duration-tab",
+          "text": "Duration"
+        },
+        {
+          "id": "object-count-tab",
+          "text": "Count"
+        }
+      ],
+      "markersTitle": "Toggle Global Markers",
+      "markerItems": [
+        "Hide All Markers",
+        "Show All Markers",
+        "Toggle Custom Markers",
+        "Toggle Global Markers",
+        "Create Custom Marker",
+        "Create Global Marker"
+      ]
+    },
+    {
+      "label": "object-table",
+      "activeTab": "object-rum-level-detail-btn",
+      "pieVisible": true,
+      "pieTitles": [
+        "Created with Highcharts 11.1.0Chart Context MenuPage Views By Page2026-07-27 20:25 to 2026-07-28 20:25, IST (+5:30)​pdp-VT:24,211 Page Views​pdp-VT:24,211 Page ViewsCategory-VT:14,448 Page Views​Category-VT:14,448 Page Viewspdp:9,474 Page Views​pdp:9,474 Page ViewsCategory:4,167 Page Views​Category:4,167 Page ViewsCategory-VT-Background:3,090​Page Views​Category-VT-Background:3,090​Page ViewsHomePage:2,915 Page Views​HomePage:2,915 Page ViewsMy Bag:1,198 Page Views​My Bag:1,198 Page ViewsFindShippingAutocomplete-VT:567​Page Views​FindShippingAutocomplete-VT:567​Page Viewssize-guide:527 Page Views​size-guide:527 Page Viewssearch:413 Page Views​search:413 Page ViewsCart-refresh-bag:404 Page Views​Cart-refresh-bag:404 Page Viewsaccount-login:402 Page Views​account-login:402 Page ViewscheckoutPayment-VT:387 Page Views​checkoutPayment-VT:387 Page ViewscheckoutReview-VT:358 Page Views​checkoutReview-VT:358 Page Viewscheckout-VT:355 Page Views​checkout-VT:355 Page Viewspurchase-details:345 Page Views​purchase-details:345 Page Viewscheckout:327 Page Views​checkout:327 Page ViewscheckoutShipping-VT:299 Page Views​checkoutShipping-VT:299 Page Viewsaccount-dashboard:282 Page Views​account-dashboard:282 Page ViewscheckoutConfirmation-VT:216​Page Views​checkoutConfirmation-VT:216​Page Viewstrack-order:189 Page Views​track-order:189 Page ViewscheckoutContact-VT:186 Page Views​checkoutContact-VT:186 Page Viewshelp:185 Page Views​help:185 Page Viewsstory-women:167 Page Views​story-women:167 Page Viewsaccount-purchase-history:157​Page Views​account-purchase-history:157​Page Views",
+        "Page Views By Page",
+        "File Count By Traffic Segment"
+      ],
+      "metricCards": [
+        {
+          "id": "domain-dom-int-avg",
+          "text": "1.66"
+        },
+        {
+          "id": "domain-dom-con-avg",
+          "text": "1.91"
+        },
+        {
+          "id": "domain-onload-avg",
+          "text": "2.17"
+        },
+        {
+          "id": "domain-tti-avg",
+          "text": "3.69"
+        },
+        {
+          "id": "domain-fcp-avg",
+          "text": "3.77"
+        },
+        {
+          "id": "domain-lcp-avg",
+          "text": "2.11"
+        },
+        {
+          "id": "domain-tbt-avg",
+          "text": "0.47"
+        },
+        {
+          "id": "domain-cls-avg",
+          "text": "9.779"
+        },
+        {
+          "id": "domain-fid-avg",
+          "text": "23.62"
+        }
+      ],
+      "party": [
+        {
+          "id": "first-party-btn",
+          "text": "1st Party",
+          "active": null
+        },
+        {
+          "id": "third-party-btn",
+          "text": "3rd Party",
+          "active": null
+        },
+        {
+          "id": "all-btn",
+          "text": "All",
+          "active": true
+        }
+      ],
+      "viewMode": {
+        "graph": "left btn btn-default tab-btn graph-level-btn",
+        "table": "btn right btn-default tab-btn table-level-btn active"
+      },
+      "headings": [
+        "Resource Timings By File"
+      ],
+      "tablesVisible": [
+        {
+          "id": "table-for-object-level-detail-table",
+          "th": [
+            "",
+            "File Name",
+            "Domain",
+            "File Count",
+            "Relative Start Time (sec)",
+            "Duration (sec)",
+            "% of Impact",
+            "Impact Score",
+            "Tag Quality"
+          ],
+          "rows": 500
+        },
+        {
+          "id": "table-for-resource-timings-by-file",
+          "th": [
+            "Domain",
+            "File",
+            "Element Count",
+            "Duration (s)",
+            "Redirect (s)",
+            "App Cache (s)",
+            "DNS (s)",
+            "Request (s)"
+          ],
+          "rows": 500
+        }
+      ],
+      "charts": 6,
+      "compareTabs": [
+        {
+          "id": "",
+          "text": "What's Changed?"
+        },
+        {
+          "id": "",
+          "text": "Duration\n\n                              "
+        },
+        {
+          "id": "duration-tab",
+          "text": "Duration"
+        },
+        {
+          "id": "count-tab",
+          "text": "Count"
+        },
+        {
+          "id": "domain-level-detail-compare-table",
+          "text": ""
+        },
+        {
+          "id": "domain-level-detail-count-table",
+          "text": ""
+        },
+        {
+          "id": "object-duration-tab",
+          "text": "Duration"
+        },
+        {
+          "id": "object-count-tab",
+          "text": "Count"
+        }
+      ],
+      "markersTitle": "Toggle Global Markers",
+      "markerItems": [
+        "Hide All Markers",
+        "Show All Markers",
+        "Toggle Custom Markers",
+        "Toggle Global Markers",
+        "Create Custom Marker",
+        "Create Global Marker"
+      ]
+    },
+    {
+      "label": "object-graph",
+      "activeTab": "object-rum-level-detail-btn",
+      "pieVisible": true,
+      "pieTitles": [
+        "Created with Highcharts 11.1.0Chart Context MenuPage Views By Page2026-07-27 20:25 to 2026-07-28 20:25, IST (+5:30)​pdp-VT:24,211 Page Views​pdp-VT:24,211 Page ViewsCategory-VT:14,448 Page Views​Category-VT:14,448 Page Viewspdp:9,474 Page Views​pdp:9,474 Page ViewsCategory:4,167 Page Views​Category:4,167 Page ViewsCategory-VT-Background:3,090​Page Views​Category-VT-Background:3,090​Page ViewsHomePage:2,915 Page Views​HomePage:2,915 Page ViewsMy Bag:1,198 Page Views​My Bag:1,198 Page ViewsFindShippingAutocomplete-VT:567​Page Views​FindShippingAutocomplete-VT:567​Page Viewssize-guide:527 Page Views​size-guide:527 Page Viewssearch:413 Page Views​search:413 Page ViewsCart-refresh-bag:404 Page Views​Cart-refresh-bag:404 Page Viewsaccount-login:402 Page Views​account-login:402 Page ViewscheckoutPayment-VT:387 Page Views​checkoutPayment-VT:387 Page ViewscheckoutReview-VT:358 Page Views​checkoutReview-VT:358 Page Viewscheckout-VT:355 Page Views​checkout-VT:355 Page Viewspurchase-details:345 Page Views​purchase-details:345 Page Viewscheckout:327 Page Views​checkout:327 Page ViewscheckoutShipping-VT:299 Page Views​checkoutShipping-VT:299 Page Viewsaccount-dashboard:282 Page Views​account-dashboard:282 Page ViewscheckoutConfirmation-VT:216​Page Views​checkoutConfirmation-VT:216​Page Viewstrack-order:189 Page Views​track-order:189 Page ViewscheckoutContact-VT:186 Page Views​checkoutContact-VT:186 Page Viewshelp:185 Page Views​help:185 Page Viewsstory-women:167 Page Views​story-women:167 Page Viewsaccount-purchase-history:157​Page Views​account-purchase-history:157​Page Views",
+        "Page Views By Page",
+        "File Count By Traffic Segment"
+      ],
+      "metricCards": [
+        {
+          "id": "domain-dom-int-avg",
+          "text": "1.66"
+        },
+        {
+          "id": "domain-dom-con-avg",
+          "text": "1.91"
+        },
+        {
+          "id": "domain-onload-avg",
+          "text": "2.17"
+        },
+        {
+          "id": "domain-tti-avg",
+          "text": "3.69"
+        },
+        {
+          "id": "domain-fcp-avg",
+          "text": "3.77"
+        },
+        {
+          "id": "domain-lcp-avg",
+          "text": "2.11"
+        },
+        {
+          "id": "domain-tbt-avg",
+          "text": "0.47"
+        },
+        {
+          "id": "domain-cls-avg",
+          "text": "9.779"
+        },
+        {
+          "id": "domain-fid-avg",
+          "text": "23.62"
+        }
+      ],
+      "party": [
+        {
+          "id": "first-party-btn",
+          "text": "1st Party",
+          "active": null
+        },
+        {
+          "id": "third-party-btn",
+          "text": "3rd Party",
+          "active": null
+        },
+        {
+          "id": "all-btn",
+          "text": "All",
+          "active": true
+        }
+      ],
+      "viewMode": {
+        "graph": "left btn btn-default tab-btn graph-level-btn active",
+        "table": "btn right btn-default tab-btn table-level-btn"
+      },
+      "headings": [
+        "Resource Timings By File"
+      ],
+      "tablesVisible": [
+        {
+          "id": "table-for-resource-timings-by-file",
+          "th": [
+            "Domain",
+            "File",
+            "Element Count",
+            "Duration (s)",
+            "Redirect (s)",
+            "App Cache (s)",
+            "DNS (s)",
+            "Request (s)"
+          ],
+          "rows": 500
+        }
+      ],
+      "charts": 6,
+      "compareTabs": [
+        {
+          "id": "",
+          "text": "What's Changed?"
+        },
+        {
+          "id": "",
+          "text": "Duration\n\n                              "
+        },
+        {
+          "id": "duration-tab",
+          "text": "Duration"
+        },
+        {
+          "id": "count-tab",
+          "text": "Count"
+        },
+        {
+          "id": "domain-level-detail-compare-table",
+          "text": ""
+        },
+        {
+          "id": "domain-level-detail-count-table",
+          "text": ""
+        },
+        {
+          "id": "object-duration-tab",
+          "text": "Duration"
+        },
+        {
+          "id": "object-count-tab",
+          "text": "Count"
+        }
+      ],
+      "markersTitle": "Toggle Global Markers",
+      "markerItems": [
+        "Hide All Markers",
+        "Show All Markers",
+        "Toggle Custom Markers",
+        "Toggle Global Markers",
+        "Create Custom Marker",
+        "Create Global Marker"
+      ]
+    }
+  ],
+  "markers": [
+    "Hide All Markers",
+    "Show All Markers",
+    "Toggle Custom Markers",
+    "Toggle Global Markers",
+    "Create Custom Marker",
+    "Create Global Marker"
+  ],
+  "filterLabels": [
+    "Time Period",
+    "Timezone",
+    "Traffic Source / Referrer Clear",
+    "Traffic Medium Clear",
+    "Campaign Clear",
+    "A/B Testing Segment Clear",
+    "Visitor Type (new vs. returning) Clear",
+    "Datacenter Location Clear",
+    "Internet Service Provider / Organization Clear",
+    "Traffic Segment Clear",
+    "Content Groups / Page Groups Clear",
+    "Filter Selector",
+    "Page Name Clear",
+    "URL Search",
+    "Common Devices:",
+    "Common Operating Systems:",
+    "Common Browsers:",
+    "Browser/OS/Browser Version Clear",
+    "Bot Traffic",
+    "Include Bots",
+    "Exclude Bots",
+    "Bots Only",
+    "Country Clear",
+    "Region Clear",
+    "Number of Objects",
+    "Sort By",
+    "Minimum Sample Size",
+    "Net Speed Clear",
+    "Custom Categories",
+    "CWVTrafficLightsFilter Clear",
+    "WPPE Clear",
+    "abtesting-disabled Clear",
+    "Clear",
+    "Clear"
+  ]
+}

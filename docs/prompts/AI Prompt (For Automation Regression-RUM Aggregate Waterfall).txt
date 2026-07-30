@@ -1,0 +1,123 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have a hands-on experience in QA automation in Playwright with TypeScript in VS code and Cursor IDE along with MCP integration. You are expertise in designing and maintaining automation TCs in POM model in QA automation framework. You can also generate manual TCs of the automation things you are doing.
+
+2️⃣ CONTEXT
+You are generating a thorough regression test cases for “Aggregate Waterfall (RUM Browser)” page with considering following details. Reverse-engineer the live application (GDC Test Site 2) and also refer the attached PDF “The Real User Aggregate Waterfall Page - Blue Triangle Help Center.pdf” for page behavior.
+
+1. Site: GDC Test Site 2
+2. Navigation: Menu > Monitoring > Real User Browser > Aggregate Waterfall (In case of Full Menu)
+   Route (reference): real-user-monitoring/object-level-trending
+   Page title breadcrumb: Monitoring / Real User Browser / Aggregate Waterfall
+   Target automation folder: tests/regression_tests/US2/monitoring/real-user-browser/aggregate-waterfall/
+   Suggested spec name: rum.aggregate-waterfall.browser.regression.spec.ts
+   Suggested POM / locators: pages/RumAggregateWaterfallPage.ts, locators/RumAggregateWaterfallLocators.ts
+
+3. Page load & chrome / labels
+   - Verify page loads with title/breadcrumb Aggregate Waterfall and no blocking error state.
+   - Verify “Performance Detail” button (#internal-link-to-button) is visible and navigates / opens Performance Detail as designed.
+   - Verify top right navigation icons/tooltips (Filters, Share, Theme, Help, Settings, User, Alerts, etc.) remain usable where relevant to this page.
+   - Verify info (i) icons / data-original-title tooltips on Domain Level Detail, Object Level Detail, Waterfall View, Table View, Run Comparison and filter fields.
+
+4. Top filter badges (above main content) & expand/collapse
+   Visible badges on load (labels must match UI):
+   - Data Originated From (#data-origin-view) — default e.g. “RUM Browser & Native Webview”; options include RUM Browser & Native Webview / RUM Browser / Native Webview
+   - Time Period (#time-period-view)
+   - Device (#device-view) — e.g. All Devices
+   - Browser (#browser-view) — e.g. All Browsers
+   - OS (#operating-system-view) — e.g. All OS
+   - Bot Traffic (#bot-traffic-view) — e.g. Exclude Bots (Include Bots / Exclude Bots / Bots Only)
+   Controls:
+   - #page-controls-toggle expand/collapse — verify badges show/hide as designed
+   - Apply different combinations of Data Origin, Device, Browser, OS, Bot Traffic and Time Period; assert Domain/Object waterfalls, metric cards, and Resource Timings table refresh (sampled assertions OK — no API/DB checks)
+   - Time periods specifically: 6 hours, 24 hours, 7 days, 30 days — verify charts/tables reload for each
+   - Quick filter dropdowns on badges (same pattern as Performance Comparison / Overview where applicable)
+
+5. Markers dropdown (top left near Performance Detail)
+   Control: Toggle Global Markers / markers dropdown (#toggle-dropdown-title / #toggleMarkersType / #toggle-dropdown-items)
+   Options to cover:
+   - Hide All Markers
+   - Show All Markers
+   - Toggle Custom Markers
+   - Toggle Global Markers
+   - Create Custom Marker (opens create flow / new tab — create record, then search/find in list)
+   - Create Global Marker (same as above for global)
+   Check all regression scenarios for show/hide/toggle and create+search.
+
+6. Toggle Pie Charts
+   - Button: #toggle-pie-chart-row (“Toggle Pie Charts”)
+   - Row: #pie-chart-row
+   - Charts/sections to verify when toggled ON:
+     - Page Views By Page (#page-views-by-page-wcd / Highcharts)
+     - File Count By Traffic Segment
+   - Toggle OFF again and verify pie row hides; main Domain/Object content still intact.
+
+7. Domain Level Detail tab (default)
+   - Tab: #domain-rum-level-detail-btn (“Domain Level Detail”) — tooltip describes aggregate domain performance; toggle waterfall vs table
+   - Party segmented control: #first-party-btn (1st Party), #third-party-btn (3rd Party), #all-btn (All — default). Changing party must refresh Domain Level Activity / table data.
+   - Slowest Domains Before: #slowest-metric options include Onload, Time to Interactive, Largest Contentful Paint, First Contentful Paint, Time to DOM Content Loaded, Time To DOM Interactive, Total Blocking Time, Cumulative Layout Shift End, INP Start, 120 Seconds. Change metric and verify waterfall/table/metric cards update.
+   - Metric average cards (#domain-average-cards) — verify labels/values present for:
+     DOM Interactive (#domain-dom-int-avg), DOM Content Loaded (#domain-dom-con-avg), Onload (#domain-onload-avg), Time to Interactive (#domain-tti-avg), First Contentful Paint (#domain-fcp-avg), Largest Contentful Paint (#domain-lcp-avg), Total Blocking Time (#domain-tbt-avg), Cumulative Layout Shift End (#domain-cls-avg), INP Start (#domain-fid-avg)
+   - View mode toggle:
+     - Waterfall View: #graph-rum-level-btn → Domain Level Activity waterfall (#domain-level-detail-graph) with legend for Avg Time To DOM Interactive / DOM Content Loaded / Onload / TTI / FCP / LCP / TBT / CLS End / INP Start; domains listed on Y-axis
+     - Table View: #table-rum-level-btn → #table-for-domain-level-detail-table
+   - Domain table columns to regress (labels): Domain, File Count, Domain Activity (sec), % of Impact, % of Onload Activity, Impact Score, Tag Quality
+     - Impact Score face rules from Help PDF: frown > 50%; neutral ~10–50%; smile < ~10–15%
+     - Row expand icon opens expanded “Domain Timings Over Time” graph for that domain
+   - Table utilities: search (#table-search), pagination (pager info / page size), column sort, Customize Table (include/exclude columns, Reset, Revert to Default, Save & Close), Export (CSV / TSV / JSON / Array)
+
+8. Object Level Detail tab
+   - Tab: #object-rum-level-detail-btn (“Object Level Detail”)
+   - Switch between Domain and Object tabs; verify content swaps correctly
+   - Waterfall View: Object Level Detail by File / Resource Timings Over Time style waterfall (aggregate average load time per object)
+   - Table View: #table-for-object-level-detail-table columns: File Name, Domain, File Count, Relative Start Time (sec), Duration (sec), % of Impact, Impact Score, Tag Quality
+   - Row expand icon opens expanded resource timings over time graph
+   - Same search / pagination / sort / Customize Table / Export regressions as Domain table where controls exist
+   - Party filter + Slowest metric (if shared) must also affect Object view
+
+9. Resource Timings By File table (bottom of page)
+   - Table: #table-for-resource-timings-by-file
+   - Columns: Domain, File, Element Count, Duration (s), Redirect (s), App Cache (s), DNS (s), Request (s) [and any additional timing columns visible]
+   - Pagination sizes (e.g. 5 / 10 / 25 / 50 / 100 / 250 / 500 / All), pager info, Export
+   - Sort/search if available; assert refresh after top filters / time period changes
+
+10. Run Comparison (“What’s Changed”)
+    - Button: #run-comparison-button (“Run Comparison”)
+    - Open comparison filters, change filter options for comparison against current page data, Apply Filters for Comparison
+    - Verify comparison graph loads (#domain-level-detail-compare-graph / related Highcharts)
+    - Verify What’s Changed summary in the middle
+    - Toggle Duration (#duration-tab / #object-duration-tab) vs Count (#count-tab / #object-count-tab) tables:
+      - #domain-level-detail-compare-table / #domain-level-detail-count-table (and object equivalents)
+    - Cover comparison on Domain Level and, if available, Object Level
+    - Cancel / close comparison controls if present and return to baseline view
+
+11. Right-navigation Filters pane (#toggle-filters)
+    Open Filters and regress applying combinations (sampled multi-select OK) of fields present for this page, including but not limited to:
+    Data Originated From, Time Period, Timezone, Traffic Source / Referrer, Traffic Medium, Campaign, A/B Testing Segment, Visitor Type, Datacenter Location, ISP / Organization, Traffic Segment, Content Groups / Page Groups, Filter Selector (Page Name / URL Search), Page Name, URL Search, Devices, Operating Systems, Browsers, Browser/OS/Browser Version, Bot Traffic, Country, Region, Number of Objects, Sort By (File Count / Slowest Load Time), Minimum Sample Size, Net Speed, custom category filters where shown
+    After Apply: assert Domain Activity / Object waterfalls, metric cards, pie charts (if visible), and Resource Timings table refresh.
+    Cancel closes without unintended sticky state where applicable.
+    Apply Time Period specifically for 6 hours, 24 hours, 7 days and 30 days and verify data load accordingly.
+
+12. Common actions & extras
+    - i-icon tooltips across fields / tabs / view toggles
+    - While navigating controls, if additional functional or UI behaviors are found (empty states, loading indicators clearing, chart context menus, share page, favorites), automate those too using existing framework helpers
+    - Prefer reusing helpers from rum.performance-comparison / rum.performance-overview / rum.performance-detail specs (soft deadlines, filter apply patterns, marker create flows, Highcharts hover helpers where relevant)
+    - Do NOT assert exact backend numeric values; assert labels, visibility, refresh, column presence, interactive behavior, and sampled data presence
+
+13. Refer the attached pdf file for more details on the page (Domain/Object waterfalls, table impact faces, pie toggle, Run Comparison / What’s Changed / Duration vs Count).
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a separate playwright automation test under regression_tests>US2 under specific sub-folder matching for this screen, this script includes different regression tests which satisfy all the points mentioned in the above Context. Referring to the existing framework generate test accordingly, post generation executes this newly created test, generate a fresh allure report for this test class file and generate manual test case for the same by referring existing manual test case sheet from the project.
+
+4️⃣ OUTPUT FORMAT
+.ts for automation script files, .html for allure report file, .xlsx for manual test case file.
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate any API or Database related test case.
+2. Use existing methods whenever possible instead of creating new methods every-time.
+3. Strictly follow the POM structure defined into the framework.
+4. Use standard coding practices while generating the code into TypeScript language.
+5. Use proper naming convention for test file to be generated, do not limit the number of individual regression test under newly created test file but make sure it should fulfill thorough regression scenarios we mentioned.
+6. If any requirement above is ambiguous or missing detail → flag it before generating
+
+6️⃣ EXAMPLE — Match This Style & Depth
+Refer the existing POM framework from the project (especially rum.performance-overview.browser.regression.spec.ts and rum.performance-comparison.browser.regression.spec.ts patterns: serial suite, soft try/catch annotations, top filter combinations, markers create, Allure + Excel generators).

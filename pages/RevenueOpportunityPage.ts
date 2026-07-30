@@ -63,6 +63,55 @@ export class RevenueOpportunityPage {
       .toBeGreaterThan(0);
   }
 
+  private async optionLabels(select: import('@playwright/test').Locator): Promise<string[]> {
+    if ((await select.count()) === 0) return [];
+    return (await select.first().locator('option').allTextContents()).map((text) => text.trim()).filter(Boolean);
+  }
+
+  async getRevenueDataTypeOptions(): Promise<string[]> {
+    return this.optionLabels(this.locators.revenueDataTypeSelect);
+  }
+
+  async getReportTypeOptions(): Promise<string[]> {
+    return this.optionLabels(this.locators.reportTypeSelect);
+  }
+
+  async getReportOptions(): Promise<string[]> {
+    return (await this.optionLabels(this.locators.reportListSelect)).filter((label) => !/Loading Reports/i.test(label));
+  }
+
+  async expectUniqueNonBlankOptions(labels: string[], controlName: string): Promise<void> {
+    expect(labels.length, `${controlName} should expose at least one option`).toBeGreaterThan(0);
+    const normalized = labels.map((label) => label.replace(/\s+/g, ' ').trim().toLowerCase());
+    expect(new Set(normalized).size, `${controlName} options should be unique`).toBe(normalized.length);
+    expect(normalized.every(Boolean), `${controlName} options should not be blank`).toBeTruthy();
+  }
+
+  async getVisibleDeviceCardText(): Promise<string[]> {
+    const cards = [
+      this.locators.allDevicesCard,
+      this.locators.desktopCard,
+      this.locators.mobileCard,
+      this.locators.tabletCard,
+      this.locators.iosCard,
+      this.locators.androidCard,
+    ];
+    const labels: string[] = [];
+    for (const card of cards) {
+      if (!(await card.isVisible().catch(() => false))) continue;
+      const text = ((await card.innerText().catch(() => '')) || '').replace(/\s+/g, ' ').trim();
+      if (text) labels.push(text);
+    }
+    return labels;
+  }
+
+  async expectNoDuplicateChartHosts(): Promise<void> {
+    const ids = await this.page.locator('[id$="-graph"]').evaluateAll((nodes) =>
+      nodes.map((node) => node.id).filter(Boolean)
+    );
+    expect(new Set(ids).size, 'Chart host IDs should not be duplicated').toBe(ids.length);
+  }
+
   private async selectNativeOrSelect2(selectCss: string, optionText: string | RegExp): Promise<void> {
     const select = this.page.locator(selectCss).first();
     await expect(select).toBeAttached({ timeout: 15000 });
@@ -150,9 +199,20 @@ export class RevenueOpportunityPage {
   async setReportByIndex(index: number): Promise<string> {
     const select = this.locators.reportListSelect;
     await expect(select).toBeAttached({ timeout: 15000 });
-    const options = await select.locator('option').allTextContents();
+    await expect
+      .poll(
+        async () =>
+          (await select.locator('option').allTextContents())
+            .map((text) => text.trim())
+            .filter((text) => text && !/Loading Reports/i.test(text)).length,
+        { timeout: 30000, message: `Report list should load option index ${index}` }
+      )
+      .toBeGreaterThan(index);
+    const options = (await select.locator('option').allTextContents())
+      .map((text) => text.trim())
+      .filter((text) => text && !/Loading Reports/i.test(text));
     expect(options.length).toBeGreaterThan(index);
-    const label = options[index].trim();
+    const label = options[index];
     await this.selectNativeOrSelect2('#report-list', label);
     await this.page.waitForTimeout(3000);
     await this.expectChartHasData();
@@ -168,13 +228,18 @@ export class RevenueOpportunityPage {
         .filter({ hasText: new RegExp(device === 'all' ? 'All|Browser' : device, 'i') })
         .first();
       if (await fallback.isVisible().catch(() => false)) {
-        await fallback.click({ force: true });
+        await fallback.click({ force: true, timeout: 10000 });
       }
       await this.page.waitForTimeout(1500);
       return;
     }
-    await card.scrollIntoViewIfNeeded();
-    await card.click({ force: true });
+    await card.evaluate((element) => (element as HTMLElement).click()).catch(async () => {
+      await this.page.waitForTimeout(500);
+      const refreshed = this.locators.deviceCard(device);
+      if (await refreshed.isVisible().catch(() => false)) {
+        await refreshed.click({ force: true, timeout: 10000 });
+      }
+    });
     await this.page.waitForTimeout(1500);
   }
 
@@ -297,6 +362,76 @@ export class RevenueOpportunityPage {
     await this.page.waitForTimeout(500);
   }
 
+  /** Inspect all configured What If selectors and cancel any sample edit. Never saves. */
+  async inspectWhatIfVariablesAndCancel(): Promise<number> {
+    await this.locators.whatIfTable.scrollIntoViewIfNeeded().catch(() => undefined);
+    const before = await this.locators.whatIfEditSelects.evaluateAll((selects) =>
+      selects.map((select) => (select as HTMLSelectElement).value)
+    );
+    const pencil = this.page
+      .locator('.fa-pencil, .fal.fa-pencil, [class*=pencil], a[title*="Edit"], button[title*="Edit"]')
+      .filter({ visible: true })
+      .first();
+    if (await pencil.isVisible().catch(() => false)) {
+      await pencil.hover().catch(() => undefined);
+      await pencil.click({ force: true });
+      await this.page.waitForTimeout(700);
+    }
+
+    const visible = this.locators.whatIfEditSelects.filter({ visible: true });
+    const fields = await visible.evaluateAll((elements) =>
+      elements.map((element) => {
+        const control = element as HTMLInputElement | HTMLSelectElement;
+        return {
+          tag: element.tagName.toLowerCase(),
+          value: control.value,
+          disabled: control.disabled,
+          readOnly: 'readOnly' in control ? control.readOnly : false,
+          options:
+            element instanceof HTMLSelectElement
+              ? [...element.options].map((option) => (option.textContent || '').trim()).filter(Boolean)
+              : [],
+        };
+      })
+    );
+    const count = fields.length;
+    for (let i = 0; i < fields.length; i++) {
+      const field = fields[i];
+      expect(field.value.trim(), `What If variable ${i + 1} should have a value`).not.toBe('');
+      if (field.tag === 'select') {
+        await this.expectUniqueNonBlankOptions(field.options, `What If variable ${i + 1}`);
+      } else {
+        expect(field.value, `What If variable ${i + 1} should be numeric`).toMatch(/^\d+(?:\.\d+)?$/);
+      }
+    }
+    const editableIndex = fields.findIndex((field) => !field.disabled && !field.readOnly);
+    if (editableIndex >= 0) {
+      const field = fields[editableIndex];
+      if (field.tag === 'select' && field.options.length > 1) {
+        await visible.nth(editableIndex).selectOption({ index: 1 });
+      } else if (field.tag === 'input') {
+        const current = Number(field.value);
+        const sample = Number.isFinite(current) ? String(current + 0.1) : '0.5';
+        await visible.nth(editableIndex).fill(sample);
+      }
+    }
+
+    if (await this.locators.cancelWhatIfButton.isVisible().catch(() => false)) {
+      await this.locators.cancelWhatIfButton.click({ force: true });
+    } else {
+      await this.page.keyboard.press('Escape');
+    }
+    await this.page.waitForTimeout(500);
+
+    const after = await this.locators.whatIfEditSelects.evaluateAll((selects) =>
+      selects.map((select) => (select as HTMLSelectElement).value)
+    );
+    if (before.length && after.length === before.length) {
+      expect(after, 'Cancel should restore original What If variable values').toEqual(before);
+    }
+    return count;
+  }
+
   async sortRevenueOpportunityTableColumn(header: string | RegExp): Promise<void> {
     const table = this.locators.revenueOpportunityTable;
     await expect(table).toBeVisible({ timeout: 30000 });
@@ -323,6 +458,20 @@ export class RevenueOpportunityPage {
     }
     await search.fill(term);
     await this.page.waitForTimeout(800);
+  }
+
+  async searchRevenueOpportunityTableThenClear(term: string): Promise<void> {
+    await this.searchRevenueOpportunityTable(term);
+    await expect(this.locators.revenueOpportunityTable).toBeVisible();
+    const search = this.locators.tableSearch;
+    if (await search.isVisible().catch(() => false)) {
+      await search.fill('');
+    } else {
+      const filterInput = this.locators.revenueOpportunityTable.locator('input.tablesorter-filter').first();
+      if (await filterInput.isVisible().catch(() => false)) await filterInput.fill('');
+    }
+    await this.page.waitForTimeout(500);
+    await expect(this.locators.revenueOpportunityTable).toBeVisible();
   }
 
   async navigateTablePagerIfPresent(): Promise<void> {
@@ -381,6 +530,20 @@ export class RevenueOpportunityPage {
       await this.page.waitForTimeout(1000);
     }
     await expect(apply).toBeVisible({ timeout: 20000 });
+  }
+
+  async cancelRightNavFilters(): Promise<void> {
+    await this.openRightNavFilters();
+    if (await this.locators.cancelFiltersButton.isVisible().catch(() => false)) {
+      await this.locators.cancelFiltersButton.click({ force: true });
+    } else {
+      await this.page.keyboard.press('Escape');
+      if (await this.locators.applyFiltersButton.isVisible().catch(() => false)) {
+        await this.locators.filtersToggle.click({ force: true }).catch(() => undefined);
+      }
+    }
+    await this.page.waitForTimeout(500);
+    await expect(this.locators.pageTitle).toHaveText(/Revenue Opportunity/i);
   }
 
   async applySampleFilters(options: {
@@ -719,8 +882,9 @@ export class RevenueOpportunityPage {
       mobile: '#mobile-business-overview-table',
     };
     const table = this.page.locator(map[device]);
-    await expect(table).toBeAttached({ timeout: 20000 });
-    await table.scrollIntoViewIfNeeded().catch(() => undefined);
+    await expect(table).toBeAttached({ timeout: 10000 });
+    await table.scrollIntoViewIfNeeded({ timeout: 5000 });
+    await expect(table).toBeVisible({ timeout: 10000 });
   }
 
   async expectWhatIfSaveControlPresentButUnused(): Promise<void> {
@@ -740,6 +904,92 @@ export class RevenueOpportunityPage {
       expect(/Real User|Time Period|Device|Performance|Visitor|Data/i.test(text)).toBeTruthy();
     }
     await this.toggleViewFiltersBanner();
+  }
+
+  async expectCoreControlsAccessible(): Promise<string[]> {
+    const controls = [
+      { locator: this.locators.revenueDataTypeSelect, name: 'Revenue Data Type' },
+      { locator: this.locators.reportListSelect, name: 'Report' },
+      { locator: this.locators.viewFiltersButton, name: 'View Filters' },
+      { locator: this.locators.reportManagerToggle, name: 'Report Manager' },
+      { locator: this.locators.filtersToggle, name: 'Filters' },
+    ];
+    const missing: string[] = [];
+    for (const control of controls) {
+      if ((await control.locator.count()) === 0) continue;
+      const element = control.locator.first();
+      const id = await element.getAttribute('id');
+      const explicitLabel = id ? this.page.locator(`label[for="${id}"]`).first() : null;
+      const select2 = id ? this.locators.select2ContainerFor(id) : null;
+      const visibleTextLabel = this.page.getByText(control.name, { exact: true }).first();
+      const tag = await element.evaluate((node) => node.tagName.toLowerCase());
+      const metadata = [
+        await element.getAttribute('aria-label', { timeout: 1000 }).catch(() => ''),
+        await element.getAttribute('aria-labelledby', { timeout: 1000 }).catch(() => ''),
+        await element.getAttribute('title', { timeout: 1000 }).catch(() => ''),
+        await element.getAttribute('data-original-title', { timeout: 1000 }).catch(() => ''),
+        explicitLabel && (await explicitLabel.count())
+          ? await explicitLabel.textContent({ timeout: 1000 }).catch(() => '')
+          : '',
+        select2 && (await select2.count())
+          ? [
+              await select2.getAttribute('aria-label', { timeout: 1000 }).catch(() => ''),
+              await select2.getAttribute('aria-labelledby', { timeout: 1000 }).catch(() => ''),
+            ].join(' ')
+          : '',
+        (await visibleTextLabel.count()) ? await visibleTextLabel.textContent({ timeout: 1000 }).catch(() => '') : '',
+        tag !== 'select' ? await element.textContent({ timeout: 1000 }).catch(() => '') : '',
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .trim();
+      if (!metadata) missing.push(control.name);
+    }
+    return missing;
+  }
+
+  async sampleKeyboardFocus(): Promise<number> {
+    const candidates = this.page.locator(
+      '#revenue-opportunity-view-filter, #report-manager-toggle, #toggle-filters, button.highcharts-a11y-proxy-button, input.tablesorter-filter'
+    );
+    let focused = 0;
+    const count = await candidates.count();
+    for (let i = 0; i < Math.min(count, 8); i++) {
+      const candidate = candidates.nth(i);
+      if (!(await candidate.isVisible().catch(() => false))) continue;
+      await candidate.focus();
+      if (await candidate.evaluate((element) => document.activeElement === element)) focused++;
+    }
+    return focused;
+  }
+
+  async sampleResponsiveViewports(): Promise<void> {
+    const original = this.page.viewportSize() || { width: 1440, height: 900 };
+    try {
+      for (const viewport of [
+        { width: 1280, height: 800 },
+        { width: 900, height: 900 },
+      ]) {
+        await this.page.setViewportSize(viewport);
+        await expect(this.locators.pageTitle).toBeVisible();
+        await expect(this.locators.revenueDataTypeSelect).toBeAttached();
+        await expect(this.locators.reportListSelect).toBeAttached();
+        await expect(this.locators.topOpportunityRow).toBeVisible();
+      }
+    } finally {
+      await this.page.setViewportSize(original);
+    }
+  }
+
+  async restoreDefaultContext(): Promise<void> {
+    await this.page.keyboard.press('Escape').catch(() => undefined);
+    if (await this.locators.cancelFiltersButton.isVisible().catch(() => false)) {
+      await this.locators.cancelFiltersButton.click({ force: true }).catch(() => undefined);
+    }
+    await this.setRevenueDataType(/Web Browser/i).catch(() => undefined);
+    await this.setReportByIndex(0).catch(() => undefined);
+    await this.clickOpportunityCard('all').catch(() => undefined);
+    await this.expectKeySectionsVisible();
   }
 
   async expectKeySectionsVisible(): Promise<void> {

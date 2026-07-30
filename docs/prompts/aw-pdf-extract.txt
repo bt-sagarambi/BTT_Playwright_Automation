@@ -1,0 +1,110 @@
+
+
+Blue Triangle Help Center > Guides > Real User Monitoring
+The Real User Aggregate Waterfall Page
+ 
+Mark Heideman
+2 years ago· Updated
+Follow
+Table of Contents
+Overview
+How to Find the RUM Aggregate Waterfall Page
+How to Navigate the RUM Aggregate Waterfall Page
+Domain Level Detail Graph
+Object Level Detail Graph
+Resource Timings by File Table
+Pie Charts
+Running Comparisons
+Overview
+While the Performance Detail Page can show us the object and domain level detail for a single page
+measurement, the Aggregate Waterfall Page shows this data aggregated over time.
+Sign in
+☰
+| | | |
+Search
+
+Articles in this section
+▾
+7/28/26, 8:17 PMThe Real User Aggregate Waterfall Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033775453-The-Real-User-Aggregate-Waterfall-Page1/8
+
+Note: This page has the same features and functionality as the Aggregate Waterfall page in Synthetic Monitoring.
+How to Find the RUM Aggregate Waterfall Page
+The RUM Aggregate Waterfall Page is accessible through the left side hamburger menu under the
+Real User Monitoring module, Web Browser, then Aggregate Waterfall (Object Level Trending).
+How to Navigate the RUM Aggregate Waterfall Page
+Domain Level Detail
+The first thing on this page is the Domain Level Activity Waterfall. This graph is formatted as a
+waterfall, depicting the amount of time each domain was loading on average during the time period.
+7/28/26, 8:17 PMThe Real User Aggregate Waterfall Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033775453-The-Real-User-Aggregate-Waterfall-Page2/8
+
+You can also view this data in a table format by toggling the graph and table icons on the right hand
+side. In the table view you will see % Impact, % of Onload Activity, Impact Score, and Tag Quality.
+This is the breakdown for the Impact score: 
+50% < frown face
+10-15% < neutral face < 50%
+Smile face < 10-15%
+In the table view, you are able to open an expanded graph view of that domains timings over time
+through the icon on the left side of the table. 
+7/28/26, 8:17 PMThe Real User Aggregate Waterfall Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033775453-The-Real-User-Aggregate-Waterfall-Page3/8
+
+Object Level Detail
+This waterfall displays the amount of time each object call spent loading, on average, during the
+selected time period. Switch between this graph and the Domain Level Activity Waterfall by clicking
+these tabs at the top of the page.
+Toggle between the waterfall view and table view of this data using the icons indicated in the
+screenshot below. 
+7/28/26, 8:17 PMThe Real User Aggregate Waterfall Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033775453-The-Real-User-Aggregate-Waterfall-Page4/8
+
+In this view, you are able to open an expanded graph view of that resource timings over time through
+the icon on the left side of the table. 
+Resource Timings by File Table
+At the bottom of the page is a table breaking down the resource timings by file. Here we can see
+which domain each resource belongs to, how many times this resource was observed (or element
+count), and more timing information.
+7/28/26, 8:17 PMThe Real User Aggregate Waterfall Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033775453-The-Real-User-Aggregate-Waterfall-Page5/8
+
+Pie Charts
+To toggle the pie charts click the button at the top right of the page.
+Running Comparisons
+Back at the top of the page, there is a “Run Comparison” button. This allows you to compare two
+different waterfalls using the filter options in the menu. To do this, click the button and change the
+desired filter options for comparison which will be comparing against the data already on the page.
+Once filtering selections are ready, click Apply Filters for Comparison. The comparison graph will
+load to the right. We also see a summary in the middle showing What’s Changed. 
+7/28/26, 8:17 PMThe Real User Aggregate Waterfall Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033775453-The-Real-User-Aggregate-Waterfall-Page6/8
+
+Below are two tables, one showing the duration for each item and the other showing the element
+count for each item. Toggle these tables with the button indicated in the screenshot below. 
+ 
+ 
+Was this article helpful?
+✓Yes ✕No
+7/28/26, 8:17 PMThe Real User Aggregate Waterfall Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033775453-The-Real-User-Aggregate-Waterfall-Page7/8
+
+0 out of 0 found this helpful
+Have more questions? Submit a request
+Return to top
+⬆
+Recently viewed articles
+How to Use the Aggregate Waterfall Comparison
+The RUM Page Performance Comparison Page
+Performance Overview with VitalScope
+Related articles
+How to Use the Aggregate Waterfall Comparison
+How do I run a "What's Changed Report" from an aggregate waterfall page?
+The RUM Bounce and Exit Analysis Page
+The Revenue Calculator Page
+How to Run an Instant Measurement
+Comments
+0 comments
+Please sign in to leave a comment.
+Blue Triangle Help Center
+7/28/26, 8:17 PMThe Real User Aggregate Waterfall Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033775453-The-Real-User-Aggregate-Waterfall-Page8/8

@@ -26,6 +26,12 @@ export const profiles: Record<string, PortalProfile> = {
     siteName: 'GDC Test Site 2',
     realSiteEquivalent: 'QVC (reference only)',
   },
+  'us-demo-ecommerce-global': {
+    id: 'us-demo-ecommerce-global',
+    datacenter: 'US',
+    siteName: 'Demo eCommerce Global',
+    realSiteEquivalent: 'Demo eCommerce Global',
+  },
   'us-most-excellent': {
     id: 'us-most-excellent',
     datacenter: 'US',

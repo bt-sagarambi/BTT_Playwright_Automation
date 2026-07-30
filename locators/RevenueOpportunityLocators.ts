@@ -16,12 +16,15 @@ export class RevenueOpportunityLocators {
   readonly reportManagerToggle: Locator;
   readonly filtersToggle: Locator;
   readonly applyFiltersButton: Locator;
+  readonly cancelFiltersButton: Locator;
 
   readonly topOpportunityRow: Locator;
   readonly allDevicesCard: Locator;
   readonly desktopCard: Locator;
   readonly mobileCard: Locator;
   readonly tabletCard: Locator;
+  readonly iosCard: Locator;
+  readonly androidCard: Locator;
 
   readonly opportunityByPageGraph: Locator;
   readonly opportunityByPlatformGraph: Locator;
@@ -34,6 +37,7 @@ export class RevenueOpportunityLocators {
   readonly cancelWhatIfButton: Locator;
 
   readonly revenueOpportunityTable: Locator;
+  readonly revenueOpportunityTables: Locator;
   readonly tableSearch: Locator;
 
   readonly highchartsContainers: Locator;
@@ -57,12 +61,17 @@ export class RevenueOpportunityLocators {
     this.applyFiltersButton = page.locator('#apply-filters').or(
       page.locator('button, a.btn').filter({ hasText: /Apply Filters/i }).first()
     );
+    this.cancelFiltersButton = page.locator('#cancel-filters').or(
+      page.locator('button, a.btn').filter({ hasText: /^Cancel$/i }).first()
+    );
 
     this.topOpportunityRow = page.locator('#top-opportunity-row');
     this.allDevicesCard = page.locator('#all-devices-table-section-card');
     this.desktopCard = page.locator('#desktop-table-section-card');
     this.mobileCard = page.locator('#mobile-table-section-card');
     this.tabletCard = page.locator('#tablet-table-section-card');
+    this.iosCard = page.locator('#ios-table-section-card');
+    this.androidCard = page.locator('#android-table-section-card');
 
     this.opportunityByPageGraph = page.locator(
       '#all-opportunity-bar-graph, #desktop-opportunity-bar-graph, #mobile-opportunity-bar-graph, #ios-opportunity-bar-graph, #android-opportunity-bar-graph'
@@ -83,7 +92,10 @@ export class RevenueOpportunityLocators {
       .filter({ hasText: /^Cancel$/i })
       .first();
 
-    this.revenueOpportunityTable = page.locator('#all-business-overview-table, #desktop-business-overview-table').first();
+    this.revenueOpportunityTables = page.locator(
+      '#all-business-overview-table, #desktop-business-overview-table, #mobile-business-overview-table'
+    );
+    this.revenueOpportunityTable = this.revenueOpportunityTables.filter({ visible: true }).first();
     this.tableSearch = page.locator(
       'input.tablesorter-filter, input[id*="table-search"], input[type="search"]'
     ).first();

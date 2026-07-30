@@ -1,0 +1,26 @@
+﻿1ï¸âƒ£ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibilityand non-functional testing. You have a hands-on experience in QA automation in Playwright with TypeScript in VS code and Cursor IDE along with MCP integration. You are expertise in designing and maintaining automation TCs in POM model in QA automation framework. You can also generate manual TCs of the automation things you are doing.
+2ï¸âƒ£ CONTEXT
+You are generating a thorough regression test cases for â€œPerformance Comparision (RUM Browser)â€ page with considering following details.
+Site: GDC Test Site2
+Navigation:Menu > Monitoring > Real User Browser > Performance Comparison(In case of Full Menu)
+Onload:A linear graph showing data for Page/Pages as per the Page Name andTime Period selected from the filter. Check this for different combinations of pages selected and for 6 hours, 24 hours, 7 days and 30 days time periods with their default bucket size(Auto), the bucket size for these periods are 6 hours>1min, 24 hours>5mins, 7 days>1 hour and 30 days>1 day. The graph data varies according to the bucket size when hovering mouse over it from left to right, refer to existing methods used for 'rum.performance-detail.browser.regression.spec.ts' from project to automate this. There are top filters â€˜Data Originated Fromâ€™, â€˜Time Periodâ€™,â€˜Deviceâ€™, â€˜Browserâ€™ and â€˜OSâ€™, checking different combinations of all of these and data on the graph according to this. There is expand/collapse filter options at top right corner of the graph, click on it and check the filters displayed/hide, apply different combinations from them too and check graph data. Check all these regression scenarios.
+Markers drop down: On the top left corner of the graph, there is drop down field with different options for Marker, clicking on â€˜Create Custom Markerâ€™, â€˜Create Global Markerâ€™ options will open in new browser tab. Create new marker records for them, search created record into the list. Check all these regression scenarios.
+Table: Displaying a table below the comparison graphwith clickable columns, pagination at top and bottom of table, search attopof the table. Check all these regression scenarios.
+On top right navigation filter option is present, click on it, apply some combinations of filters and check data into the graphs are refreshing accordingly. Apply Time period Specifically for 6 hours, 24 hours, 7 days and 30 days, check the data load accordingly. 
+Common actions:There is i icon present across different fields clicking on which a tooltip is displayed with information of that page check that too. 
+Apart from this, while navigating through different controls from the screen if you find some additional functional or UI things, automate them too.
+Refer the attached pdf file for more details on the page.
+3ï¸âƒ£ TASK â€” EXACTLY WHAT TO GENERATE
+Generate a separate playwright automation test under regression_tests>US2 under specific sub-folder matching for this screen, this script includes different regression tests which satisfy all the points mentioned in the above Context. Referring to the existing frameworkgenerate test accordingly, post generation executes this newly created test, generate a fresh allure reportfor this test class file and generate manual test case for the same by referring existing manual test case sheet from the project. 
+4ï¸âƒ£ OUTPUT FORMAT
+.ts for automation script files,.html for allure report file, .xlsx for manual test case file.
+5ï¸âƒ£ CONSTRAINTS â€” RULES YOU MUST FOLLOW
+Do NOTgenerate any API or Database related test case.
+Use existing methods whenever possible instead of creating new methods every-time.
+Strictly follow the POM structure defined into the framework.
+Use standard coding practices while generating the code into TypeScript language.
+Use proper naming convention for test file to be generated, do not limit the number of individual regression test under newly created test file but make sure it should fulfill thorough regression scenarios we mentioned.
+If any requirement above is ambiguous or missing detail â†’ flag it before generating
+6ï¸âƒ£ EXAMPLE â€” Match This Style & Depth
+Refer the existing POM framework from the project.

@@ -20,6 +20,9 @@
     "test:regression:us2:rum-be": "node scripts/run-playwright.js test tests/regression_tests/US2/monitoring/real-user-browser/bounce-and-exit-analysis/rum.bounce-exit.browser.regression.spec.ts --project=chromium-regression",
     "test:regression:us2:rum-ee": "node scripts/run-playwright.js test tests/regression_tests/US2/monitoring/real-user-browser/errors-explorer/rum.errors-explorer.browser.regression.spec.ts --project=chromium-regression",
     "test:regression:us2:rum-pb": "node scripts/run-playwright.js test tests/regression_tests/US2/monitoring/real-user-browser/performance-budget/rum.performance-budget.browser.regression.spec.ts --project=chromium-regression",
+    "test:regression:us2:rum-sl": "node scripts/run-profile-playwright.js us-demo-ecommerce-global test tests/regression_tests/US2/monitoring/real-user-browser/session-lookup/rum.session-lookup.browser.regression.spec.ts --project=chromium-regression",
+    "test:regression:us2:rum-sl:gdc": "node scripts/run-profile-playwright.js us-gdc-test-site-2 test tests/regression_tests/US2/monitoring/real-user-browser/session-lookup/rum.session-lookup.browser.regression.spec.ts --project=chromium-regression",
+    "test:regression:us2:marketing-overview": "node scripts/run-playwright.js test tests/regression_tests/US2/business-insights/improve-traffic/marketing-overview/marketing.overview.regression.spec.ts --project=chromium-regression",
     "allure:generate": "allure generate allure_reports/allure-results -o allure_reports/allure-report --clean",
     "allure:open": "allure open allure_reports/allure-report"
   },

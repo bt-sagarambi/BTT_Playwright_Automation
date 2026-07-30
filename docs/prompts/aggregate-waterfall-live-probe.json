@@ -1,0 +1,1269 @@
+{
+  "title": "Monitoring /  Real User Browser / Aggregate Waterfall",
+  "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=real-user-monitoring/object-level-trending",
+  "interestingIds": [
+    "toggle-navigation",
+    "page-title",
+    "exclamation-view-alerts",
+    "toggle-user",
+    "toggle-settings",
+    "toggle-help-articles",
+    "toggle-help-video",
+    "toggle-theme",
+    "toggle-tv-mode",
+    "share-page-btn",
+    "toggle-filters",
+    "toggle-feedback",
+    "toggle-assistant-chat",
+    "view-alerts-1",
+    "view-alerts-2",
+    "mobile-controls-filters-btn",
+    "toggle-filters-li",
+    "share-page-li",
+    "toggle-fullscreen-li",
+    "toggle-settings-li",
+    "toggle-user-li",
+    "user-menu-search",
+    "site-nav-search-results",
+    "toggle-menu-state-btn",
+    "page-wrapper",
+    "page-controls",
+    "toggle-markers-container",
+    "toggle-dropdown-con",
+    "toggleMarkersType",
+    "toggle-dropdown-title-wrapper",
+    "toggle-dropdown-title",
+    "marker-caret",
+    "toggle-dropdown-icon",
+    "toggle-dropdown",
+    "toggle-dropdown-items",
+    "report-manager-toggle",
+    "view-active-rule-btn",
+    "data-type-view",
+    "apply-segment-page-badge-wrap",
+    "apply-segment-badge-value",
+    "apply-segment-comparison-page-badge-wrap",
+    "apply-segment-comparison-badge-value",
+    "data-origin-view",
+    "revenue-impact-rule-effective-date-view",
+    "time-period-view",
+    "date-of-performance-change-view",
+    "domain-baseline-view",
+    "device-view",
+    "browser-view",
+    "operating-system-view",
+    "visitor-type-view",
+    "bot-traffic-view",
+    "focal-page-view",
+    "focal-page-real-view",
+    "page-name-view",
+    "url-search-view",
+    "hierarchy-min-percent-view",
+    "customer-journey-paths-view",
+    "page-group-view",
+    "traffic-segment-view",
+    "isp-view",
+    "datacenter-view",
+    "a-b-testing-segment-view",
+    "campaign-view",
+    "campaign-name-view",
+    "campaign-medium-view",
+    "campaign-source-view",
+    "country-view",
+    "region-view",
+    "bucket-size-view",
+    "granularity-view",
+    "performance-metric-view",
+    "discard-sessions-over-view",
+    "statistical-method-view",
+    "net-speed-view",
+    "monitor-name-view",
+    "show-remainder-view",
+    "js-error-type-inclusion-exclusion-view",
+    "wcd-data-inclusion-view",
+    "cv-converting-page-view",
+    "cv-include-page-view",
+    "cv-exclude-page-view",
+    "sdktagVersion-view",
+    "netstate-view",
+    "osVersion-view",
+    "appVersion-view",
+    "deviceModel-view",
+    "page-controls-toggle",
+    "page-contents",
+    "toggle-pie-chart-row",
+    "pie-chart-row",
+    "page-views-by-page-wcd",
+    "highcharts-fmcfkpx-46",
+    "highcharts-drop-shadow-10",
+    "highcharts-fmcfkpx-47-",
+    "highcharts-fmcfkpx-49-",
+    "highcharts-fmcfkpx-42",
+    "highcharts-drop-shadow-9",
+    "highcharts-fmcfkpx-43-",
+    "highcharts-fmcfkpx-45-",
+    "domain-rum-level-detail-btn",
+    "object-rum-level-detail-btn",
+    "graph-rum-level-btn",
+    "table-rum-level-btn",
+    "metric-name",
+    "slowest-metric",
+    "domain-average-cards",
+    "domain-dom-int-avg",
+    "domain-dom-con-avg",
+    "domain-onload-avg",
+    "domain-tti-avg",
+    "domain-fcp-avg",
+    "domain-lcp-avg",
+    "domain-tbt-avg",
+    "domain-cls-avg",
+    "domain-fid-avg",
+    "domain-compare",
+    "domain-level-detail-graph",
+    "highcharts-fmcfkpx-38",
+    "highcharts-drop-shadow-8",
+    "highcharts-fmcfkpx-39-",
+    "highcharts-fmcfkpx-40-",
+    "highcharts-fmcfkpx-41-",
+    "highcharts-drop-shadow-8--1--1",
+    "compare-table-tabs",
+    "domain-level-detail-compare-table",
+    "domain-level-detail-count-table",
+    "domain-level-detail-compare-graph",
+    "domain-level-detail-table",
+    "table-for-domain-level-detail-table_pager_info",
+    "table-search",
+    "table-for-domain-level-detail-table-table-viewport",
+    "table-for-domain-level-detail-table",
+    "domainGraph_0",
+    "domainGraph_1",
+    "domainGraph_2",
+    "domainGraph_3",
+    "domainGraph_4",
+    "domainGraph_5",
+    "domainGraph_6",
+    "domainGraph_7",
+    "domainGraph_8",
+    "domainGraph_9",
+    "domainGraph_10",
+    "domainGraph_11",
+    "domainGraph_12",
+    "domainGraph_13",
+    "domainGraph_14",
+    "domainGraph_15",
+    "domainGraph_16",
+    "domainGraph_17",
+    "domainGraph_18",
+    "domainGraph_19",
+    "domainGraph_20",
+    "domainGraph_21",
+    "domainGraph_22",
+    "domainGraph_23",
+    "domainGraph_24",
+    "domainGraph_25",
+    "domainGraph_26"
+  ],
+  "headings": [
+    "Event Markers",
+    "Help Videos",
+    "Support",
+    "Hello, Sagar",
+    "Monitoring",
+    "Real User Browser",
+    "Native App",
+    "Synthetic",
+    "Real Browser",
+    "API Checks",
+    "Network Health Checks",
+    "Manage",
+    "Executive",
+    "Business Insights",
+    "Improve Traffic",
+    "Improve Conversion",
+    "Improve Revenue",
+    "Business Insights",
+    "Improve Traffic",
+    "Improve Conversion",
+    "Improve Revenue",
+    "Advanced Reporting & Alerting",
+    "Executive",
+    "Automated Reporting",
+    "Alerting",
+    "Custom Reporting",
+    "Logs",
+    "Monitoring",
+    "Real User Browser",
+    "Native App",
+    "Synthetic",
+    "Real Browser",
+    "API Checks",
+    "Network Health Checks",
+    "Manage",
+    "CSP & Tag Governance",
+    "Optimize",
+    "Audit",
+    "Protect",
+    "Page Views By Page",
+    "File Count By Traffic Segment",
+    "Domain Level Activity",
+    "What's Changed?",
+    "Object Level Detail by File",
+    "What's Changed?",
+    "Resource Timings By File",
+    "Domain Timings Over Time",
+    "Domain Timings Over Time",
+    "Resource Timings Over Time",
+    "Resource Timings Over Time"
+  ],
+  "badges": [
+    {
+      "id": "",
+      "text": "real user",
+      "label": null,
+      "visible": true
+    },
+    {
+      "id": "data-type-view",
+      "text": "real user",
+      "label": null,
+      "visible": true
+    },
+    {
+      "id": "apply-segment-page-badge-wrap",
+      "text": "Selected Segment:",
+      "label": "Selected Segment:",
+      "visible": false
+    },
+    {
+      "id": "apply-segment-badge-value",
+      "text": "",
+      "label": "Selected Segment:",
+      "visible": false
+    },
+    {
+      "id": "apply-segment-comparison-page-badge-wrap",
+      "text": "Selected Segment (comparison):",
+      "label": "Selected Segment (comparison):",
+      "visible": false
+    },
+    {
+      "id": "apply-segment-comparison-badge-value",
+      "text": "",
+      "label": "Selected Segment (comparison):",
+      "visible": false
+    },
+    {
+      "id": "",
+      "text": "Data Originated From: RUM Browser & Native Webview",
+      "label": "Data Originated From:",
+      "visible": true
+    },
+    {
+      "id": "data-origin-view",
+      "text": "RUM Browser & Native Webview",
+      "label": "Data Originated From:",
+      "visible": true
+    },
+    {
+      "id": "",
+      "text": "Rule Applies From:",
+      "label": "Rule Applies From:",
+      "visible": false
+    },
+    {
+      "id": "revenue-impact-rule-effective-date-view",
+      "text": "",
+      "label": "Rule Applies From:",
+      "visible": false
+    },
+    {
+      "id": "",
+      "text": "Time Period: 1 day (2026-07-27 20:23 to 2026-07-28 20:23 IST (+5:30))",
+      "label": "Time Period:",
+      "visible": true
+    },
+    {
+      "id": "time-period-view",
+      "text": "1 day (2026-07-27 20:23 to 2026-07-28 20:23 IST (+5:30))",
+      "label": "Time Period:",
+      "visible": true
+    },
+    {
+      "id": "",
+      "text": "Date of Performance Change:",
+      "label": "Date of Performance Change:",
+      "visible": false
+    },
+    {
+      "id": "date-of-performance-change-view",
+      "text": "",
+      "label": "Date of Performance Change:",
+      "visible": false
+    },
+    {
+      "id": "",
+      "text": "Baseline:",
+      "label": "Baseline:",
+      "visible": false
+    },
+    {
+      "id": "domain-baseline-view",
+      "text": "",
+      "label": "Baseline:",
+      "visible": false
+    },
+    {
+      "id": "",
+      "text": "Device: All Devices",
+      "label": "Device:",
+      "visible": true
+    },
+    {
+      "id": "device-view",
+      "text": "All Devices",
+      "label": "Device:",
+      "visible": true
+    },
+    {
+      "id": "",
+      "text": "Browser: All Browsers",
+      "label": "Browser:",
+      "visible": true
+    },
+    {
+      "id": "browser-view",
+      "text": "All Browsers",
+      "label": "Browser:",
+      "visible": true
+    },
+    {
+      "id": "",
+      "text": "OS: All OS",
+      "label": "OS:",
+      "visible": true
+    },
+    {
+      "id": "operating-system-view",
+      "text": "All OS",
+      "label": "OS:",
+      "visible": true
+    },
+    {
+      "id": "",
+      "text": "Visitor Type:",
+      "label": "Visitor Type:",
+      "visible": false
+    },
+    {
+      "id": "visitor-type-view",
+      "text": "",
+      "label": "Visitor Type:",
+      "visible": false
+    },
+    {
+      "id": "",
+      "text": "Bot Traffic: Exclude Bots",
+      "label": "Bot Traffic:",
+      "visible": true
+    },
+    {
+      "id": "bot-traffic-view",
+      "text": "Exclude Bots",
+      "label": "Bot Traffic:",
+      "visible": true
+    },
+    {
+      "id": "",
+      "text": "Landing Page:",
+      "label": "Landing Page:",
+      "visible": false
+    },
+    {
+      "id": "focal-page-view",
+      "text": "",
+      "label": "Landing Page:",
+      "visible": false
+    },
+    {
+      "id": "",
+      "text": "Focal Page:",
+      "label": "Focal Page:",
+      "visible": false
+    },
+    {
+      "id": "focal-page-real-view",
+      "text": "",
+      "label": "Focal Page:",
+      "visible": false
+    },
+    {
+      "id": "",
+      "text": "Page Name:",
+      "label": "Page Name:",
+      "visible": false
+    },
+    {
+      "id": "page-name-view",
+      "text": "",
+      "label": "Page Name:",
+      "visible": false
+    },
+    {
+      "id": "",
+      "text": "URL Search:",
+      "label": "URL Search:",
+      "visible": false
+    },
+    {
+      "id": "url-search-view",
+      "text": "",
+      "label": "URL Search:",
+      "visible": false
+    },
+    {
+      "id": "",
+      "text": "Min Session %:",
+      "label": "Min Session %:",
+      "visible": false
+    },
+    {
+      "id": "hierarchy-min-percent-view",
+      "text": "",
+      "label": "Min Session %:",
+      "visible": false
+    },
+    {
+      "id": "",
+      "text": "Paths:",
+      "label": "Paths:",
+      "visible": false
+    },
+    {
+      "id": "customer-journey-paths-view",
+      "text": "",
+      "label": "Paths:",
+      "visible": false
+    },
+    {
+      "id": "",
+      "text": "Content/Page Group:",
+      "label": "Content/Page Group:",
+      "visible": false
+    },
+    {
+      "id": "page-group-view",
+      "text": "",
+      "label": "Content/Page Group:",
+      "visible": false
+    }
+  ],
+  "selects": [
+    {
+      "id": "report-list",
+      "name": "",
+      "options": [
+        "Loading Reports..."
+      ]
+    },
+    {
+      "id": "slowest-metric",
+      "name": "",
+      "options": [
+        "Onload",
+        "Time to Interactive",
+        "Largest Contentful Paint",
+        "First Contentful Paint",
+        "Time to DOM Content Loaded",
+        "Time To DOM Interactive",
+        "Total Blocking Time",
+        "Cumulative Layout Shift End",
+        "INP Start",
+        "120 Seconds"
+      ]
+    },
+    {
+      "id": "data-origin",
+      "name": "data-origin",
+      "options": [
+        "RUM Browser & Native Webview",
+        "RUM Browser",
+        "Native Webview"
+      ]
+    },
+    {
+      "id": "timezone",
+      "name": "timezone",
+      "options": [
+        "Pacific/Midway (-11:00)",
+        "Pacific/Honolulu (-10:00)",
+        "America/Juneau (-09:00)",
+        "America/Los Angeles (-08:00)",
+        "America/Denver (-07:00)",
+        "America/Chicago (-06:00)",
+        "America/New York (-05:00)",
+        "America/Barbados (-04:00)",
+        "America/Argentina/Buenos Aires (-03:00)",
+        "America/Noronha (-02:00)",
+        "Atlantic/Azores (-01:00)",
+        "Coordinated Universal Time (UTC)"
+      ]
+    },
+    {
+      "id": "campaign-source",
+      "name": "campaign-source[]",
+      "options": [
+        "Google",
+        "Direct",
+        "sports.com",
+        "Facebook",
+        "Instagram",
+        "bttn.io",
+        "Bing",
+        "dealmoon.com",
+        "Yahoo",
+        "tapmedia.io",
+        "google.android.gm",
+        "pinterest.com"
+      ]
+    },
+    {
+      "id": "campaign-medium",
+      "name": "campaign-medium[]",
+      "options": [
+        "None",
+        "Organic Search",
+        "Paid Search",
+        "Display",
+        "Affiliate",
+        "Email",
+        "Social"
+      ]
+    },
+    {
+      "id": "campaign-name",
+      "name": "campaign-name[]",
+      "options": [
+        "(No Campaign Assigned)",
+        "Google",
+        "fb-pro",
+        "aff",
+        "EM",
+        "tiktok-pro",
+        "Category-Category:we-made-too-much 2 eps Category:womens-we-made-too-much elevatedexperience",
+        "home-HomePage 1a herocarousel Category:womens-whats-new weeklies womens",
+        "MSN",
+        "disp",
+        "pdp",
+        "Category-Category:we-made-too-much 3 eps Category:mens-we-made-too-much elevatedexperience"
+      ]
+    },
+    {
+      "id": "a-b-testing-segment",
+      "name": "a-b-testing-segment[]",
+      "options": [
+        "Default",
+        "K-abt-2936-mdt-aaTesttoValidateAnalyticsinKameleeon-Phase2--v1",
+        "K-abt-2936-mdt-aaTesttoValidateAnalyticsinKameleeon-Phase2--v0",
+        "K-abt-2936-mdt-aaTesttoValidateAnalyticsinKameleeon-Phase2--v0|K-abt-2936-mdt-aaTesttoValidateAnalyticsinKameleeon-Phase2--v1",
+        "K-abt-2936-mdt-aaTesttoValidateAnalyticsinKameleeon-Phase2--v1|K-abt-2936-mdt-aaTesttoValidateAnalyticsinKameleeon-Phase2--v0",
+        "1459_GcB-lK3h-G_atb_modal_3315575_L_15|1459_GcB-lK3h-G_persado",
+        "1459_GcB-lK3h-G_atb_modal_3315579_C_1|1459_GcB-lK3h-G_control",
+        "K-abt-2936-mdt-aaTesttoValidateAnalyticsinKameleeon-Phase2--v0|K-de-4346-LPEDigitalProfile--v1",
+        "K-abt-2831-kameleoonRolloutNA--v1|K-abt-2936-mdt-aaTesttoValidateAnalyticsinKameleeon-Phase2--v1|K-Kameleoon Geolocation Cookies (DO NOT TURN OFF)--v0|K-abt-2986-newYMALAlgo--v0",
+        "K-abt-2936-mdt-aaTesttoValidateAnalyticsinKameleeon-Phase2--v1|K-de-4346-LPEDigitalProfile--v1",
+        "1459_sNfgrZ5f9X_atb_modal_ca_3320511_L_7|1459_sNfgrZ5f9X_persado",
+        "K-de-4346-LPEDigitalProfile--v1|K-abt-2936-mdt-aaTesttoValidateAnalyticsinKameleeon-Phase2--v0"
+      ]
+    },
+    {
+      "id": "visitor-type",
+      "name": "visitor-type[]",
+      "options": [
+        "New Visitors",
+        "Returning Visitors"
+      ]
+    },
+    {
+      "id": "datacenter",
+      "name": "datacenter[]",
+      "options": [
+        "Default",
+        "origin1",
+        "origin2"
+      ]
+    },
+    {
+      "id": "isp",
+      "name": "isp[]",
+      "options": [
+        "Comcast Cable",
+        "Spectrum",
+        "AT&T U-verse",
+        "Unknown",
+        "T-Mobile USA",
+        "Verizon Wireless",
+        "Fastly",
+        "Verizon Internet Services",
+        "Rogers Cable",
+        "Shaw Communications",
+        "Bell Canada",
+        "Telus Communications"
+      ]
+    },
+    {
+      "id": "traffic-segment",
+      "name": "traffic-segment[]",
+      "options": [
+        "eCommerce",
+        "eCommerce--en_US",
+        "eCommerce--en_CA",
+        "eCommerce--en_US--en_US",
+        "eCommerce--en_CA--en_CA",
+        "undefined",
+        "eCommerce--fr_CA",
+        "time-to-login",
+        "Unnamed_Pages--en_US--en_US",
+        "eCommerce--fr_CA--fr_CA",
+        "Unnamed_Pages--en_CA--en_CA",
+        "Synth eCommerce--en_US"
+      ]
+    },
+    {
+      "id": "page-group",
+      "name": "page-group[]",
+      "options": [
+        "Virtual Turn",
+        "Main Group",
+        "Custom Timer"
+      ]
+    },
+    {
+      "id": "filter-selector",
+      "name": "filter-selector",
+      "options": [
+        "Page Name",
+        "URL Search"
+      ]
+    },
+    {
+      "id": "page-name",
+      "name": "page-name[]",
+      "options": [
+        "pdp-VT",
+        "pdp",
+        "Category-VT",
+        "Category",
+        "Category-VT-Background",
+        "HomePage",
+        "My Bag",
+        "FindShippingAutocomplete-VT",
+        "size-guide",
+        "account-login",
+        "Cart-refresh-bag",
+        "search"
+      ]
+    },
+    {
+      "id": "browser-version",
+      "name": "browser-version[]",
+      "options": [
+        "Mobile Safari-26-iOS 18",
+        "Chrome Mobile iOS-150-iOS 26",
+        "Chrome-150-macOS 26",
+        "Mobile Safari-18-iOS 18",
+        "Google-430-iOS 26",
+        "Facebook-571-iOS 26",
+        "Instagram-439-iOS 26",
+        "Mobile Safari UI/WKWebView--iOS 18",
+        "Chrome-150-macOS 15",
+        "Chrome-149-macOS 26",
+        "Chrome-150-macOS 14",
+        "Chrome-149-macOS 15"
+      ]
+    },
+    {
+      "id": "country",
+      "name": "country[]",
+      "options": [
+        "UNITED STATES",
+        "CANADA",
+        "MEXICO",
+        "HONDURAS",
+        "COSTA RICA",
+        "GUATEMALA",
+        "PANAMA",
+        "EL SALVADOR",
+        "NICARAGUA",
+        "BELIZE",
+        "GREENLAND",
+        "ISRAEL"
+      ]
+    },
+    {
+      "id": "region",
+      "name": "region[]",
+      "options": [
+        "CALIFORNIA",
+        "WASHINGTON",
+        "COLORADO",
+        "ARIZONA",
+        "OREGON",
+        "NEVADA",
+        "UTAH",
+        "HAWAII",
+        "IDAHO",
+        "NEW MEXICO",
+        "MONTANA",
+        "ALASKA"
+      ]
+    },
+    {
+      "id": "number-of-objects",
+      "name": "number-of-objects",
+      "options": [
+        "150",
+        "200",
+        "250",
+        "300",
+        "350",
+        "400",
+        "500",
+        "600",
+        "700",
+        "800",
+        "900",
+        "1000"
+      ]
+    },
+    {
+      "id": "sort-by",
+      "name": "sort-by",
+      "options": [
+        "File Count",
+        "Slowest Load Time"
+      ]
+    },
+    {
+      "id": "net-speed",
+      "name": "net-speed[]",
+      "options": [
+        "Cable/DSL",
+        "Corporate",
+        "Cellular",
+        "Unknown"
+      ]
+    },
+    {
+      "id": "customvar6",
+      "name": "customvar6[]",
+      "options": [
+        "LCP: GOOD, CLS: GOOD, FID: GOOD",
+        "LCP: NEEDS IMPROVEMENT, CLS: GOOD, FID: GOOD",
+        "LCP: POOR, CLS: GOOD, FID: GOOD",
+        "LCP: GOOD, CLS: GOOD, FID: NEEDS IMPROVEMENT",
+        "LCP: GOOD, CLS: POOR, FID: GOOD",
+        "LCP: GOOD, CLS: NEEDS IMPROVEMENT, FID: GOOD",
+        "LCP: GOOD, CLS: GOOD, FID: POOR",
+        "LCP: NEEDS IMPROVEMENT, CLS: GOOD, FID: NEEDS IMPROVEMENT",
+        "LCP: NEEDS IMPROVEMENT, CLS: NEEDS IMPROVEMENT, FID: GOOD",
+        "LCP: NEEDS IMPROVEMENT, CLS: POOR, FID: GOOD",
+        "LCP: POOR, CLS: GOOD, FID: NEEDS IMPROVEMENT",
+        "LCP: POOR, CLS: NEEDS IMPROVEMENT, FID: GOOD"
+      ]
+    },
+    {
+      "id": "customvar7",
+      "name": "customvar7[]",
+      "options": [
+        "false",
+        "true",
+        "undefined"
+      ]
+    },
+    {
+      "id": "customvar8",
+      "name": "customvar8[]",
+      "options": [
+        "(Other)",
+        "false",
+        "default",
+        "true"
+      ]
+    },
+    {
+      "id": "customvar9",
+      "name": "customvar9[]",
+      "options": []
+    },
+    {
+      "id": "customvar10",
+      "name": "customvar10[]",
+      "options": []
+    },
+    {
+      "id": "segment-create-access-level",
+      "name": "",
+      "options": [
+        "Available Only To Me"
+      ]
+    },
+    {
+      "id": "segment-create-status",
+      "name": "",
+      "options": [
+        "Active",
+        "Inactive"
+      ]
+    },
+    {
+      "id": "segment-create-category",
+      "name": "",
+      "options": [
+        "-- No Category --",
+        "E-Commerce",
+        "Engagement",
+        "Performance",
+        "Geographic",
+        "Device & Browser",
+        "Marketing",
+        "Page-Based",
+        "Event-Based",
+        "Mobile App",
+        "Data Quality",
+        "Advanced"
+      ]
+    },
+    {
+      "id": "segment-create-data-type",
+      "name": "",
+      "options": [
+        "Real User",
+        "Native App"
+      ]
+    },
+    {
+      "id": "segment-create-data-origin",
+      "name": "",
+      "options": []
+    },
+    {
+      "id": "segment-root-combinator",
+      "name": "",
+      "options": [
+        "AND",
+        "OR"
+      ]
+    },
+    {
+      "id": "placement",
+      "name": "",
+      "options": [
+        "Top",
+        "Right",
+        "Bottom",
+        "Left"
+      ]
+    }
+  ],
+  "tables": [
+    {
+      "id": "table-for-domain-level-detail-table",
+      "th": [
+        "",
+        "Domain",
+        "File Count",
+        "Domain Activity (sec)",
+        "% of Impact",
+        "% of Onload Activity",
+        "Impact Score",
+        "Tag Quality"
+      ],
+      "rows": 49
+    },
+    {
+      "id": "table-for-object-level-detail-table",
+      "th": [
+        "",
+        "File Name",
+        "Domain",
+        "File Count",
+        "Relative Start Time (sec)",
+        "Duration (sec)",
+        "% of Impact",
+        "Impact Score",
+        "Tag Quality"
+      ],
+      "rows": 500
+    },
+    {
+      "id": "table-for-resource-timings-by-file",
+      "th": [
+        "Domain",
+        "File",
+        "Element Count",
+        "Duration (s)",
+        "Redirect (s)",
+        "App Cache (s)",
+        "DNS (s)",
+        "Request (s)"
+      ],
+      "rows": 500
+    }
+  ],
+  "buttons": [
+    {
+      "id": "toggle-navigation",
+      "text": "",
+      "tip": ""
+    },
+    {
+      "id": "toggle-user",
+      "text": "",
+      "tip": "User menu"
+    },
+    {
+      "id": "toggle-settings",
+      "text": "",
+      "tip": "Settings & Administration"
+    },
+    {
+      "id": "toggle-help-articles",
+      "text": "",
+      "tip": "Help Center"
+    },
+    {
+      "id": "toggle-help-video",
+      "text": "",
+      "tip": "Blue Triangle Help Video"
+    },
+    {
+      "id": "toggle-theme",
+      "text": "",
+      "tip": "Change theme"
+    },
+    {
+      "id": "toggle-tv-mode",
+      "text": "",
+      "tip": "TV Mode"
+    },
+    {
+      "id": "share-page-btn",
+      "text": "",
+      "tip": "Share this page"
+    },
+    {
+      "id": "toggle-filters",
+      "text": "",
+      "tip": "Filters"
+    },
+    {
+      "id": "toggle-feedback",
+      "text": "",
+      "tip": "Feedback"
+    },
+    {
+      "id": "toggle-assistant-chat",
+      "text": "",
+      "tip": "Assistant AI"
+    },
+    {
+      "id": "view-alerts-1",
+      "text": "40",
+      "tip": "Site Alerts"
+    },
+    {
+      "id": "toggle-menu-state-btn",
+      "text": "View Full Menu",
+      "tip": ""
+    },
+    {
+      "id": "internal-link-to-button",
+      "text": "Performance Detail",
+      "tip": ""
+    },
+    {
+      "id": "revenue-attribution",
+      "text": "Revenue Attribution",
+      "tip": ""
+    },
+    {
+      "id": "add-comparison",
+      "text": "Add Comparison",
+      "tip": ""
+    },
+    {
+      "id": "report-manager-toggle",
+      "text": "",
+      "tip": ""
+    },
+    {
+      "id": "revenue-impact-rules-config-button",
+      "text": "",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "+ New Rule",
+      "tip": ""
+    },
+    {
+      "id": "view-active-rule-btn",
+      "text": "View Active Rule",
+      "tip": ""
+    },
+    {
+      "id": "page-controls-toggle",
+      "text": "",
+      "tip": ""
+    },
+    {
+      "id": "toggle-pie-chart-row",
+      "text": "Toggle Pie Charts",
+      "tip": ""
+    },
+    {
+      "id": "domain-rum-level-detail-btn",
+      "text": "Domain Level Detail",
+      "tip": "Domain Level Detail provides performance information by domain for your site. You can toggle between a waterfall graph and a table. All data is aggregate and averaged."
+    },
+    {
+      "id": "object-rum-level-detail-btn",
+      "text": "Object Level Detail",
+      "tip": "Object Level Detail provides performance information by file name for your site. You can toggle between a waterfall graph and a table. All data is aggregate and averaged."
+    },
+    {
+      "id": "graph-rum-level-btn",
+      "text": "",
+      "tip": "Waterfall View"
+    },
+    {
+      "id": "table-rum-level-btn",
+      "text": "",
+      "tip": " Table View"
+    },
+    {
+      "id": "run-comparison-button",
+      "text": "Run Comparison",
+      "tip": ""
+    },
+    {
+      "id": "first-party-btn",
+      "text": "1st Party",
+      "tip": ""
+    },
+    {
+      "id": "third-party-btn",
+      "text": "3rd Party",
+      "tip": ""
+    },
+    {
+      "id": "all-btn",
+      "text": "All",
+      "tip": ""
+    },
+    {
+      "id": "duration-tab",
+      "text": "Duration",
+      "tip": ""
+    },
+    {
+      "id": "count-tab",
+      "text": "Count",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "Customize Table",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "Export",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "CSV",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "TSV",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "JSON",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "Array",
+      "tip": ""
+    },
+    {
+      "id": "object-duration-tab",
+      "text": "Duration",
+      "tip": ""
+    },
+    {
+      "id": "object-count-tab",
+      "text": "Count",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "Export",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "CSV",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "TSV",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "JSON",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "Array",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "Export",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "CSV",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "TSV",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "JSON",
+      "tip": ""
+    },
+    {
+      "id": "",
+      "text": "Array",
+      "tip": ""
+    },
+    {
+      "id": "close-bulk-create",
+      "text": "",
+      "tip": ""
+    },
+    {
+      "id": "include-all",
+      "text": ">>",
+      "tip": "Include all columns"
+    },
+    {
+      "id": "exclude-all",
+      "text": "<<",
+      "tip": "Exclude all columns"
+    },
+    {
+      "id": "",
+      "text": "Cancel",
+      "tip": ""
+    },
+    {
+      "id": "reset-customized-table",
+      "text": "Reset",
+      "tip": ""
+    },
+    {
+      "id": "default-customized-table",
+      "text": "Revert to Default",
+      "tip": ""
+    },
+    {
+      "id": "save-customized-table",
+      "text": "Save & Close",
+      "tip": ""
+    },
+    {
+      "id": "filter-config",
+      "text": "",
+      "tip": "Show options to clear site cache or genius cache"
+    },
+    {
+      "id": "clear-cache",
+      "text": "Clear Cache",
+      "tip": ""
+    },
+    {
+      "id": "cancel-filters",
+      "text": "Cancel",
+      "tip": "Cancel changes and close filter pane"
+    }
+  ],
+  "charts": 6,
+  "infoIcons": 468,
+  "labels": [
+    "Data Originated From",
+    "Time Period",
+    "Timezone",
+    "Traffic Source / Referrer Clear",
+    "Traffic Medium Clear",
+    "Campaign Clear",
+    "A/B Testing Segment Clear",
+    "Visitor Type (new vs. returning) Clear",
+    "Datacenter Location Clear",
+    "Internet Service Provider / Organization Clear",
+    "Traffic Segment Clear",
+    "Content Groups / Page Groups Clear",
+    "Filter Selector",
+    "Page Name Clear",
+    "URL Search",
+    "Common Devices:",
+    "Common Operating Systems:",
+    "Common Browsers:",
+    "Browser/OS/Browser Version Clear",
+    "Bot Traffic",
+    "Include Bots",
+    "Exclude Bots",
+    "Bots Only",
+    "Country Clear",
+    "Region Clear",
+    "Number of Objects",
+    "Sort By",
+    "Minimum Sample Size",
+    "Net Speed Clear",
+    "Custom Categories",
+    "CWVTrafficLightsFilter Clear",
+    "WPPE Clear",
+    "abtesting-disabled Clear",
+    "Clear",
+    "Segment Name",
+    "Access Type",
+    "Status",
+    "Category (Optional)",
+    "Description",
+    "Data Type",
+    "Not",
+    "Site:",
+    "Time Range:",
+    "Don't show me again",
+    "Term",
+    "Placement",
+    "Definition",
+    "I would like to receive an update",
+    "Upload Images, PDF"
+  ],
+  "bodySample": "GDC Test Site 2 Demo eCommerce Global Demo eCommerce Global Monitoring / Real User Browser / Aggregate Waterfall Get started 40 ADMINISTRATOR Performance Detail Toggle Global Markers Real User Data Originated From: RUM Browser & Native Webview Time Period: 1 day (2026-07-27 20:23 to 2026-07-28 20:23 IST (+5:30)) Device: All Devices Browser: All Browsers OS: All OS Bot Traffic: Exclude Bots Toggle Pie Charts DOMAIN LEVEL DETAIL OBJECT LEVEL DETAIL Run Comparison 1st Party 3rd Party All Slowest Domains Before: Onload Time to Interactive Largest Contentful Paint First Contentful Paint Time to DOM Content Loaded Time To DOM Interactive Total Blocking Time Cumulative Layout Shift End INP Start 120 Seconds 1.66 DOM Interactive 1.91 DOM Content Loaded 2.17 Onload 3.69 Time to Interactive 3.79 First Contentful Paint 2.11 Largest Contentful Paint 0.47 Total Blocking Time 9.767 Cumulative Layout Shift End 23.62 INP Start sec Domain Level Activity 2026-07-27 20:23 to 2026-07-28 20:23, IST (+5:30)​All Matching Pages Avg Time To DOM Interactive Avg Time To DOM Content Loaded Avg Onload Avg Time to Interactive Avg First Contentful Paint Avg Largest Contentful Paint Avg Total Blocking Time Avg Cumulative Layout Shift End Avg INP Start 0 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42 sports.com kameleoon.io datadoghq-browser-agent.com cookielaw.org googletagmanager.com dwin1.com byspotify.com bing.com pinimg.com onetrust.com btncdn.com celtra.com sc-static.net appsflyer.com roeyecdn.com quantummetric.com amazon-adsystem.com spotify.com tiktok.com celtraidentity.com persa.do redditstatic.com googleadservices.com roeye.com usebutton.com reddit.com facebook.net evgnet.com snapchat.com pinterest.com launchdarkly.com persado.com google.ca adeptmind.ai google.com g.doubleclick.net truefitcorp.com us-4.evergage.com digital-cloud.medallia.com paa-reporting-advertising.amazon tiktokw.us doubleclick.net digital-analytics.lllapi.com facebook.com btttag.com googleapis.com browser-intake-datadoghq.com bazaarvoice.com paypal.com Resource Timings By File 1 to 10 (500) 5 / page 10 / page 25 / page 50 / page 100 / page 250 / page 500 / page All Export Domain File Element Count Duration (s) Redirect (s) App Cache (s) DNS (s) Request (s) browser-intake-datadoghq.com rum 1,608,265 0.19 0.00 0.00 0.00 0.00 sports.com graphql 221,101 0.41 0.00 0.00 0.00 0.38 kameleoon.io events 217,920 0.15 0.00 0.00 0.00 0.00 google.com collect 146,670 0.14 0.00 0.00 0.00 0.00 digital-analytics.ll"
+}

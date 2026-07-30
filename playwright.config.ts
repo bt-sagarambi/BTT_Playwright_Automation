@@ -14,6 +14,7 @@ if (!currentBrowsersPath || /cursor-sandbox-cache/i.test(currentBrowsersPath)) {
 }
 
 const authFile = path.join(__dirname, 'playwright/.auth/user.json');
+const allureResultsDir = process.env.ALLURE_RESULTS_DIR || 'allure_reports/allure-results';
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -29,7 +30,7 @@ export default defineConfig({
   reporter: [
     ['list'],
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
-    ['allure-playwright', { resultsDir: 'allure_reports/allure-results' }],
+    ['allure-playwright', { resultsDir: allureResultsDir }],
     ['./reporters/jiraFailureReporter.ts'],
   ],
   use: {
