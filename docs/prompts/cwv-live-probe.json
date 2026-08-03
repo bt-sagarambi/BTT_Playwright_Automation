@@ -1,0 +1,934 @@
+{
+  "selectedSiteBefore": "Demo eCommerce Global",
+  "menuHits": [
+    {
+      "text": "Business Insights Business Insights Business Insights Improve Traffic Improve Traffic Marketing Overview My Campaign Core Web Vitals (VitalS",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Improve Traffic Improve Traffic Marketing Overview My Campaign Core Web Vitals (VitalScope) Customer Journey Analysis Brand Customer Journey",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Improve Traffic",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Improve Traffic",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Improve Traffic",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Core Web Vitals (VitalScope)",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Core Web Vitals (VitalScope)",
+      "href": "https://portal.bluetriangle.com/btportal/web/index.php?r=real-user-monitoring/performance-overview&sid=305836",
+      "id": ""
+    },
+    {
+      "text": "Core Web Vitals (VitalScope)",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview (RUM Browser)",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview (RUM Browser)",
+      "href": "https://portal.bluetriangle.com/btportal/web/index.php?r=real-user-monitoring/performance-overview&sid=305836",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview (RUM Browser)",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Business Insights Business Insights Business Insights Improve Traffic Improve Traffic Marketing Overview My Campaign Core Web Vitals (VitalS",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Improve Traffic Improve Traffic Marketing Overview My Campaign Core Web Vitals (VitalScope) Customer Journey Analysis Brand Customer Journey",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Improve Traffic",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Improve Traffic",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Improve Traffic",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Core Web Vitals (VitalScope)",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Core Web Vitals (VitalScope)",
+      "href": "https://portal.bluetriangle.com/btportal/web/index.php?r=real-user-monitoring/performance-overview&sid=305836",
+      "id": ""
+    },
+    {
+      "text": "Core Web Vitals (VitalScope)",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Monitoring Monitoring Monitoring Real User Browser Real User Browser Performance Overview Performance Detail Performance Comparison Aggregat",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Real User Browser Real User Browser Performance Overview Performance Detail Performance Comparison Aggregate Waterfall Bounce & Exit Analysi",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview",
+      "href": "https://portal.bluetriangle.com/btportal/web/index.php?r=real-user-monitoring/performance-overview&sid=305836",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Native App Native App Performance Overview Performance Detail Aggregate Waterfall Bounce & Exit Analysis Errors Explorer Session Lookup",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview",
+      "href": "https://portal.bluetriangle.com/btportal/web/index.php?r=overview-dashboard/native-app-overview&sid=305836",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Synthetic Synthetic Run Instant Measurement Synthetic / Real Browser Real Browser Performance Overview Performance Detail Test Results Error",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Synthetic / Real Browser Real Browser Performance Overview Performance Detail Test Results Error State Tracking Page Performance Comparison ",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview",
+      "href": "https://portal.bluetriangle.com/btportal/web/index.php?r=overview-dashboard/synthetic-overview&sid=305836",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Synthetic / API Checks API Checks Performance Overview Performance Detail Test Results Scripts",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview",
+      "href": "https://portal.bluetriangle.com/btportal/web/index.php?r=overview-dashboard/base-page-overview&sid=305836",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Synthetic / Network Health Checks Network Health Checks Performance Overview Performance Detail Test Results",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview",
+      "href": "",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview",
+      "href": "https://portal.bluetriangle.com/btportal/web/index.php?r=overview-dashboard/network-health-checks-overview&sid=305836",
+      "id": ""
+    },
+    {
+      "text": "Performance Overview",
+      "href": "",
+      "id": ""
+    }
+  ],
+  "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=real-user-monitoring/performance-overview",
+  "title": "Performance Overview",
+  "pageTitle": "Business Insights / Improve Traffic / Core Web Vitals (VitalScope)",
+  "selectedSite": "GDC Test Site 2",
+  "badges": [
+    {
+      "id": "performance-view-filter",
+      "text": "Hide Filters",
+      "visible": true
+    },
+    {
+      "id": "toggle-filter-section",
+      "text": "Real User: real user Selected Segment: Data Originated From: RUM Browser & Native Webview Rule Applies From: Time Period: 1 day (2026-07-30 12:50 to 2026-07-31 ",
+      "visible": true
+    },
+    {
+      "id": "data-type-view",
+      "text": "real user",
+      "visible": true
+    },
+    {
+      "id": "data-origin-view",
+      "text": "RUM Browser & Native Webview",
+      "visible": true
+    },
+    {
+      "id": "revenue-impact-rule-effective-date-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "time-period-view",
+      "text": "1 day (2026-07-30 12:50 to 2026-07-31 12:50 IST (+5:30))",
+      "visible": true
+    },
+    {
+      "id": "date-of-performance-change-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "domain-baseline-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "device-view",
+      "text": "All Devices",
+      "visible": true
+    },
+    {
+      "id": "browser-view",
+      "text": "All Browsers",
+      "visible": true
+    },
+    {
+      "id": "operating-system-view",
+      "text": "All OS",
+      "visible": true
+    },
+    {
+      "id": "visitor-type-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "bot-traffic-view",
+      "text": "Exclude Bots",
+      "visible": true
+    },
+    {
+      "id": "focal-page-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "focal-page-real-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "page-name-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "url-search-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "hierarchy-min-percent-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "customer-journey-paths-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "page-group-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "traffic-segment-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "isp-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "datacenter-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "a-b-testing-segment-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "campaign-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "campaign-name-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "campaign-medium-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "campaign-source-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "country-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "region-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "bucket-size-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "performance-metric-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "discard-sessions-over-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "statistical-method-view",
+      "text": "Arithmetic Mean",
+      "visible": true
+    },
+    {
+      "id": "net-speed-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "monitor-name-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "show-remainder-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "js-error-type-inclusion-exclusion-view",
+      "text": "",
+      "visible": true
+    },
+    {
+      "id": "wcd-data-inclusion-view",
+      "text": "WCD Data & Non-WCD Data",
+      "visible": true
+    },
+    {
+      "id": "cv-converting-page-view",
+      "text": "",
+      "visible": true
+    }
+  ],
+  "table": {
+    "hostId": "performance-by-page-table",
+    "tableId": "table-for-performance-by-page-table",
+    "headers": [
+      "Page Name",
+      "Page Views",
+      "Onload (s)",
+      "First Byte (s)",
+      "Largest Contentful Paint (s)",
+      "Interaction to Next Paint (s)",
+      "Cumulative Layout Shift",
+      "LCP Time to First Byte (ms)",
+      "LCP Resource Load Delay (ms)",
+      "LCP Resource Load Time (ms)",
+      "LCP Element Render Delay (ms)",
+      "LCP Time to First Byte (%)",
+      "LCP Resource Load Delay (%)",
+      "LCP Resource Load Time (%)",
+      "LCP Element Render Delay (%)",
+      "CLS Largest Shift Start (ms)",
+      "CLS Layout Shift Count"
+    ],
+    "rows": 57,
+    "sampleCells": [
+      "PDPBlue Triangle Blue TriangleRun Instant Measurement (top URL)Performance DetailsAggregate Waterfal",
+      "297,039",
+      "3.64",
+      "1.11",
+      "4.62",
+      "0.251",
+      "0.161",
+      "1214",
+      "4270",
+      "135",
+      "3272",
+      "31.05%",
+      "61.43%",
+      "2.91%",
+      "46.13%"
+    ],
+    "customizePresent": true,
+    "hamburgerPresent": true,
+    "searchPresent": true,
+    "pagerText": "",
+    "pageSizeOptions": [
+      "5 / page",
+      "10 / page",
+      "25 / page",
+      "50 / page",
+      "100 / page",
+      "250 / page",
+      "500 / page",
+      "All",
+      "5 / page",
+      "10 / page",
+      "25 / page",
+      "50 / page",
+      "100 / page",
+      "250 / page",
+      "500 / page",
+      "All"
+    ]
+  },
+  "vitalscope": {
+    "iconCount": 116,
+    "metricValues": [
+      {
+        "class": "vs-metric-value",
+        "text": "4.62",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "0.251",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "0.161",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "3.42",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "0.237",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "0.300",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "0.228",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "0.271",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "4.46",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "0.252",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "0.327",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "3.69",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "0.210",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "0.343",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "2.96",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "0.211",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "0.209",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "0.240",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "0.207",
+        "style": ""
+      },
+      {
+        "class": "vs-metric-value",
+        "text": "4.57",
+        "style": ""
+      }
+    ],
+    "modalPresent": true
+  },
+  "expandVisible": true,
+  "expanded": {
+    "urls": [
+      {
+        "text": "https://www.cabelas.com/p/savage-arms-axis-2-pro-midnight-xp-bolt-action-rifle-combo",
+        "href": ""
+      },
+      {
+        "text": "https://www.cabelas.com/p/glock-43x-mos-optics-ready-semi-auto-pistol",
+        "href": ""
+      },
+      {
+        "text": "https://www.cabelas.com/p/henry-lever-action-supreme-rifle",
+        "href": ""
+      },
+      {
+        "text": "https://www.cabelas.com/p/beretta-a300-ultima-semi-auto-shotgun",
+        "href": ""
+      },
+      {
+        "text": "https://www.cabelas.com/p/sig-sauer-p365-axg-legion-semi-auto-pistol",
+        "href": ""
+      },
+      {
+        "text": "https://www.cabelas.com/p/taurus-tx22-toro-semi-auto-rimfire-pistol",
+        "href": ""
+      },
+      {
+        "text": "https://www.cabelas.com/p/sig-sauer-p365-xl-semi-auto-pistol-with-romeo-rs-red-dot-and-foxtrot-365xr-light",
+        "href": ""
+      },
+      {
+        "text": "https://www.cabelas.com/p/ruger-10-22-carbine-semi-auto-rimfire-rifle-with-threaded-barrel",
+        "href": ""
+      },
+      {
+        "text": "https://www.cabelas.com/p/henry-golden-boy-lever-action-rimfire-rifle",
+        "href": ""
+      },
+      {
+        "text": "https://www.cabelas.com/p/henry-classic-lever-action-rimfire-rifle",
+        "href": ""
+      },
+      {
+        "text": "https://www.cabelas.com/p/tikka-t3x-superlite-threaded-bolt-action-rifle",
+        "href": ""
+      },
+      {
+        "text": "https://www.cabelas.com/p/glock-43x-mos-semi-auto-pistol-with-holosun-red-dot",
+        "href": ""
+      }
+    ],
+    "copy": true,
+    "instant": true,
+    "childRows": 51
+  },
+  "vsIconVisible": true,
+  "vsModal": {
+    "open": true,
+    "title": "LCPSelector AveragesPDPTotal LCP Metric Count: 260,681",
+    "headers": [
+      "LCPSelector",
+      "Largest Contentful Paint (Averages)",
+      "LCP Metric Count",
+      "% Represented (Metric Count)"
+    ],
+    "dropdown": [
+      {
+        "id": "vsDrilldown-selector",
+        "options": [
+          "LCPSelector",
+          "LCPURL"
+        ]
+      },
+      {
+        "id": "",
+        "options": [
+          "5 / page",
+          "10 / page",
+          "25 / page",
+          "50 / page",
+          "100 / page",
+          "250 / page",
+          "500 / page",
+          "All"
+        ]
+      },
+      {
+        "id": "",
+        "options": [
+          "5 / page",
+          "10 / page",
+          "25 / page",
+          "50 / page",
+          "100 / page",
+          "250 / page",
+          "500 / page",
+          "All"
+        ]
+      }
+    ],
+    "rows": 904,
+    "bodyText": "LCPSelectorLCPURLLCPSelector 1 to 10 (904) 5 / page 10 / page 25 / page 50 / page 100 / page 250 / page 500 / page All CSV TSV JSON Array LCPSelectorLargest Contentful Paint (Averages)LCP Metric Count% Represented (Metric Count)#main4.0579,85630.63%Browser supplied null attribution value3.2040,93015.70%div.css-17khhde>button.assetWrapper.css-mdsbc3>div.css-1bgzf1l>div.css-1bn8s1b>img.css-fwsz2x5.9026,87210.31%div.styles_LongDescriptionMaxHeight__DdcmI.styles_LongDescriptionText__TRNU1>p3.5313,9835.36%div.css-sue4k2>button.assetWrapper.css-13sqzyn>div.css-1bgzf1l>div.css-1bn8s1b>img.css-fwsz2x5"
+  },
+  "sections": {
+    "headings": [
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "Performance Overview",
+      "LCPSelector AveragesPDPTotal LCP Metric Count: 260,681",
+      "Customize Table",
+      "Create New Segment",
+      "Select Segment",
+      "Privacy Policy",
+      "What we do with the information we gather",
+      "Web Visitor Information Collected",
+      "Use of General Customer Data",
+      "Use of Performance Measurements",
+      "Use of Web Visitor Information Collected Via Online Forms and Surveys",
+      "Customer Subscribers to Our Service Portal",
+      "Links to Other Websites",
+      "How To Contact Us Regarding This Privacy Policy and Other Concerns",
+      "Real User Monitoring Filters",
+      "Clear Genius Cache",
+      "Settings & Administration",
+      "Account",
+      "Department",
+      "Site",
+      "Tag & Content Governance",
+      "Alert",
+      "Report",
+      "User",
+      "Scorecard",
+      "Other",
+      "Log",
+      "BTT Internal",
+      "What do you want to do today?",
+      "Modify Tooltip",
+      "Revenue Assurance Disabled",
+      "Revenue Recommendations Are Unavailable",
+      "How was your experience with our product?",
+      "Thank you!!"
+    ],
+    "worldMap": true,
+    "countryTable": true,
+    "regionTable": true,
+    "browserTable": true,
+    "ispTable": true,
+    "trafficSourceTable": true,
+    "highcharts": 6,
+    "zoomControls": []
+  },
+  "gearVisible": true,
+  "customize": {
+    "open": true,
+    "labels": [
+      "INP Start (ms)",
+      "INP Input Delay (ms)",
+      "INP Next Paint Time (ms)",
+      "INP Processing Duration (ms)",
+      "LoAF Longest Script Duration (ms)",
+      "LoAF Longest Script Start (ms)",
+      "TCP (s)",
+      "DNS (s)",
+      "DOM Duration (s)",
+      "SSL (s)",
+      "Redirect (s)",
+      "Base Page (s)",
+      "Time To DOM Interactive (s)",
+      "Time To DOM Content Loaded (s)",
+      "JS Errors (Sampled)",
+      "First Contentful Paint (s)",
+      "Total Blocking Time (s)",
+      "TEST OVERRIDE (s)",
+      "Page Name",
+      "Page Views",
+      "Onload (s)",
+      "First Byte (s)",
+      "Largest Contentful Paint (s)",
+      "Interaction to Next Paint (s)",
+      "Cumulative Layout Shift",
+      "LCP Time to First Byte (ms)",
+      "LCP Resource Load Delay (ms)",
+      "LCP Resource Load Time (ms)",
+      "LCP Element Render Delay (ms)",
+      "LCP Time to First Byte (%)",
+      "LCP Resource Load Delay (%)",
+      "LCP Resource Load Time (%)",
+      "LCP Element Render Delay (%)",
+      "CLS Largest Shift Start (ms)",
+      "CLS Layout Shift Count"
+    ],
+    "buttons": [
+      ">>",
+      "<<",
+      "Reset",
+      "Default View",
+      "Save & Close"
+    ],
+    "presets": []
+  },
+  "hamburgerVisible": true,
+  "exportMenu": [
+    "CSV",
+    "TSV",
+    "JSON",
+    "Array",
+    "CSV",
+    "TSV",
+    "JSON",
+    "Array",
+    "CSV",
+    "TSV",
+    "JSON",
+    "Array",
+    "CSV",
+    "TSV",
+    "JSON",
+    "Array",
+    "CSV",
+    "TSV",
+    "JSON",
+    "Array"
+  ],
+  "filters": {
+    "labels": [],
+    "ids": []
+  },
+  "infoIcons": 637,
+  "geoHeaders": {
+    "country": [
+      "Country",
+      "Page Views",
+      "Onload (s)",
+      "TCP (s)",
+      "First Byte (s)",
+      "DNS (s)",
+      "DOM Duration (s)",
+      "SSL (s)",
+      "Redirect (s)",
+      "Base Page (s)",
+      "Time To DOM Interactive (s)",
+      "Time To DOM Content Loaded (s)",
+      "TEST OVERRIDE (s)",
+      "First Contentful Paint (s)",
+      "Largest Contentful Paint (s)",
+      "Total Blocking Time (s)",
+      "INP (s)"
+    ],
+    "region": [
+      "Region",
+      "Page Views",
+      "Onload (s)",
+      "TCP (s)",
+      "First Byte (s)",
+      "DNS (s)",
+      "DOM Duration (s)",
+      "SSL (s)",
+      "Redirect (s)",
+      "Base Page (s)",
+      "Time To DOM Interactive (s)",
+      "Time To DOM Content Loaded (s)",
+      "TEST OVERRIDE (s)",
+      "First Contentful Paint (s)",
+      "Largest Contentful Paint (s)",
+      "Total Blocking Time (s)",
+      "INP (s)"
+    ],
+    "browser": [
+      "Browser",
+      "Page Views",
+      "Onload (s)",
+      "TCP (s)",
+      "First Byte (s)",
+      "DNS (s)",
+      "DOM Duration (s)",
+      "SSL (s)",
+      "Redirect (s)",
+      "Base Page (s)",
+      "Time To DOM Interactive (s)",
+      "Time To DOM Content Loaded (s)",
+      "TEST OVERRIDE (s)",
+      "First Contentful Paint (s)",
+      "Largest Contentful Paint (s)",
+      "Total Blocking Time (s)",
+      "INP (s)"
+    ],
+    "isp": [
+      "ISP",
+      "Page Views",
+      "Onload (s)",
+      "TCP (s)",
+      "First Byte (s)",
+      "DNS (s)",
+      "DOM Duration (s)",
+      "SSL (s)",
+      "Redirect (s)",
+      "Base Page (s)",
+      "Time To DOM Interactive (s)",
+      "Time To DOM Content Loaded (s)",
+      "TEST OVERRIDE (s)",
+      "First Contentful Paint (s)",
+      "Largest Contentful Paint (s)",
+      "Total Blocking Time (s)",
+      "INP (s)"
+    ],
+    "trafficSource": [
+      "Traffic Source",
+      "Page Views",
+      "Onload (s)",
+      "TCP (s)",
+      "First Byte (s)",
+      "DNS (s)",
+      "DOM Duration (s)",
+      "SSL (s)",
+      "Redirect (s)",
+      "Base Page (s)",
+      "Time To DOM Interactive (s)",
+      "Time To DOM Content Loaded (s)",
+      "TEST OVERRIDE (s)",
+      "First Contentful Paint (s)",
+      "Largest Contentful Paint (s)",
+      "Total Blocking Time (s)",
+      "INP (s)"
+    ]
+  }
+}

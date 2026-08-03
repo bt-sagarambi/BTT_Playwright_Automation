@@ -1,0 +1,2 @@
+[Marketing Overview] Applied Traffic Medium filter: Paid Search
+[Marketing Overview] After medium filter campaigns changed=true

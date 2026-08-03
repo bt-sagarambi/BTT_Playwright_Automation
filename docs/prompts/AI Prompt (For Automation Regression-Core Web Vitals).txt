@@ -1,0 +1,368 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the “Core Web Vitals (VitalScope)” page. Reverse-engineer the live application using GDC Test Site 2 and refer to the attached PDF “Performance Overview with VitalScope – Blue Triangle Help Center.pdf” for expected behavior.
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - Core Web Vitals (VitalScope) is the Performance Overview experience enhanced with VitalScope for Core Web Vitals (CWV).
+   - VitalScope surfaces detailed CWV metrics and attribution components in priority so developers can identify the page elements that most impact UX (LCP, INP, CLS, and related LoAF / VitalScope element metrics).
+   - Use live UI data only. Do not call APIs or query a database.
+   - Do not hard-code page names, URLs, page-view counts, CWV values, attribution selectors, timestamps, table row counts, or chart point counts.
+   - Capture the active time period, timezone, data origin, device/browser/OS, bot traffic and statistical method dynamically.
+   - Assert labels, color/threshold presentation, controlled empty/missing attribution states, before/after UI changes and sampled data presence rather than exact backend totals.
+   - Page names, Top 50 URLs, VitalScope icons and geography breakdowns are live-data/site dependent.
+   - If a selected combination has no data or missing attribution, assert a controlled no-data / null-attribution state, annotate it, restore a data-bearing context and continue.
+   - PDF disclaimer: Blue Triangle uses webvitals.js; metrics and/or attribution data may be missing in some cases. Do not fail the suite solely because a sampled row lacks a purple VitalScope icon or attribution value.
+
+2. Navigation and implementation paths
+   Primary Full Menu path (live breadcrumb):
+   Menu > Business Insights > Improve Traffic > Core Web Vitals (VitalScope)
+   Equivalent / Favorites / Monitoring path (same route):
+   Menu > Monitoring > Real User Browser > Performance Overview
+   Route (reference): real-user-monitoring/performance-overview
+   Browser title observed: Performance Overview
+   Breadcrumb / #page-title observed: Business Insights / Improve Traffic / Core Web Vitals (VitalScope)
+   Target automation folder:
+   tests/regression_tests/US2/business-insights/improve-traffic/core-web-vitals/
+   Suggested spec name:
+   core.web.vitals.regression.spec.ts
+   Suggested POM / locators (prefer extending or reusing existing Performance Overview helpers when possible):
+   pages/CoreWebVitalsPage.ts (or reuse/extend pages/RumPerformanceOverviewPage.ts)
+   locators/CoreWebVitalsLocators.ts (or reuse/extend locators/RumPerformanceOverviewLocators.ts)
+   Suggested manual test workbook:
+   docs/Core_Web_Vitals_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:core-web-vitals
+   Note: An existing Monitoring Performance Overview regression suite may already cover part of this page. The Core Web Vitals suite must still cover VitalScope-specific CWV/attribution behavior end-to-end and may reuse shared POM helpers rather than duplicating fragile logic.
+
+3. Page load, authentication and default context
+   - Verify authenticated navigation succeeds without login redirect, blocking error, blank shell or perpetual loader.
+   - Verify #page-title matches /Core Web Vitals|VitalScope|Performance Overview/i (live BI path shows Core Web Vitals (VitalScope)).
+   - Verify the URL contains real-user-monitoring/performance-overview.
+   - Verify the selected site is GDC Test Site 2.
+   - Capture active top badges rather than assuming fixed defaults.
+   - Verify the Performance Overview / VitalScope table (#performance-by-page-table / #table-for-performance-by-page-table) renders with data rows for a healthy context.
+   - Verify related geography / breakdown sections and Highcharts containers finish loading within a bounded UI deadline.
+   - Verify browser Back/Forward and page refresh return to a healthy page state.
+   - Capture uncaught page errors and distinguish application-blocking errors from known third-party noise.
+
+4. Top filter badges / View Filters strip
+   Observed controls:
+   - View / Hide Filters: #performance-view-filter (live text alternates View Filters / Hide Filters)
+   - Filter banner: #toggle-filter-section
+   Visible badges observed on load (labels must match UI when populated):
+   - Data type: #data-type-view (e.g. real user)
+   - Data Originated From: #data-origin-view — e.g. RUM Browser & Native Webview; options include RUM Browser & Native Webview / RUM Browser / Native Webview
+   - Time Period: #time-period-view (capture live range/timezone; do not hard-code)
+   - Device: #device-view — e.g. All Devices
+   - Browser: #browser-view — e.g. All Browsers
+   - OS: #operating-system-view — e.g. All OS
+   - Bot Traffic: #bot-traffic-view — e.g. Exclude Bots (Include Bots / Exclude Bots / Bots Only)
+   - Statistical Method: #statistical-method-view — e.g. Arithmetic Mean
+   - WCD Data inclusion: #wcd-data-inclusion-view when present
+   - Page Name / URL Search / Country / Region / Campaign / Segment badges when populated: #page-name-view, #url-search-view, #country-view, #region-view, #campaign-*-view, #traffic-segment-view, #a-b-testing-segment-view, etc.
+
+   Cover:
+   - Toggle View/Hide Filters and verify badge strip show/hide.
+   - Apply sampled combinations of Data Origin, Device, Browser, OS, Bot Traffic and Time Period.
+   - Assert Performance by Page table, VitalScope values, geography map/tables and Highcharts refresh (scoped before/after signatures — do not merely count pre-existing chart containers).
+   - Time periods specifically: Last 6 hours, Last 24 hours, Last 7 days, Last 30 days (and any live “1 day” / custom range if configured).
+   - Quick filter dropdowns on badges when present.
+   - Restore original badge context after sampling.
+
+5. Performance Overview with VitalScope table (primary grid)
+   Stable hosts:
+   - #performance-by-page-table
+   - #table-for-performance-by-page-table
+   Live columns observed on GDC Test Site 2 (column set is customizable; assert currently visible headers dynamically):
+   - Page Name
+   - Page Views
+   - Onload (s)
+   - First Byte (s)
+   - Largest Contentful Paint (s)
+   - Interaction to Next Paint (s)
+   - Cumulative Layout Shift
+   - LCP Time to First Byte (ms)
+   - LCP Resource Load Delay (ms)
+   - LCP Resource Load Time (ms)
+   - LCP Element Render Delay (ms)
+   - LCP Time to First Byte (%)
+   - LCP Resource Load Delay (%)
+   - LCP Resource Load Time (%)
+   - LCP Element Render Delay (%)
+   - CLS Largest Shift Start (ms)
+   - CLS Layout Shift Count
+   Additional metrics available via Customize Table (include when enabled):
+   - INP Start (ms), INP Input Delay (ms), INP Next Paint Time (ms), INP Processing Duration (ms)
+   - LoAF Longest Script Duration (ms), LoAF Longest Script Start (ms)
+   - TCP (s), DNS (s), DOM Duration (s), SSL (s), Redirect (s), Base Page (s)
+   - Time To DOM Interactive (s), Time To DOM Content Loaded (s)
+   - First Contentful Paint (s), Total Blocking Time (s), JS Errors (Sampled)
+   - Any site-specific custom metric columns (e.g. TEST OVERRIDE) — treat as dynamic
+
+   Cover:
+   - Verify table title/section “Performance Overview” and data-bearing rows.
+   - Verify Page Name plus at least the three primary CWV columns (LCP, INP, CLS) are present or available via Customize Table.
+   - Verify CWV values are color-coded per Google thresholds (green = good, yellow = needs improvement, red = poor) when the UI applies coloring; assert class/style presence without asserting exact threshold math unless visible.
+   - Validate units/formats: seconds, milliseconds, percentages, counts — without exact values.
+   - Sort representative columns ascending/descending and assert actual row-order change.
+   - Search using a runtime-derived page name; assert matching rows; verify no-match then clear.
+   - Page-size options observed: 5 / 10 / 25 / 50 / 100 / 250 / 500 / All.
+   - Exercise Next/Previous pagination when multiple pages exist.
+   - Horizontal and vertical scrolling keep headers/actions usable.
+   - Capture row/signature before and after filter/time-period changes.
+
+6. Customize Table (gear)
+   Control: button.view-customize-table-modal → #customize-table-modal
+   Observed actions: Include (>>), Exclude (<<), Reset, Default View, Save & Close
+   PDF guidance:
+   - Click gear to customize columns.
+   - Options to include only Core Web Vitals, or Core Web Vitals + VitalScope Elements.
+   - VitalScope applies to the three CWV metrics: Largest Contentful Paint, Interaction to Next Paint, Cumulative Layout Shift.
+
+   Cover:
+   - Open Customize Table and verify metric labels listed above (or live equivalents).
+   - Verify Core Web Vitals and/or Core Web Vitals + VitalScope Elements presets when present in the live UI; if absent, annotate and exercise include/exclude of CWV + VitalScope element columns manually.
+   - Include All / Exclude All / Reset / Default View.
+   - Sample Save & Close for column layout only (allowed). Do not Save Filter.
+   - Verify table headers update after save; restore Default View / previous layout afterward so the shared account is not left in a broken column state.
+   - Close without save and verify pending unchecked changes are discarded when that is the live behavior.
+
+7. Table hamburger / export
+   - Open the Performance by Page hamburger / bars menu.
+   - Verify Export options CSV, TSV, JSON and Array (live probe confirmed these).
+   - Soft-check starting one download (CSV or TSV) when safe; close the menu afterward.
+   - Verify export remains available after filter and customize interactions.
+
+8. Page Name expand — Top 50 URLs
+   Controls / markers:
+   - Expand/collapse: .page-name-toggle-url (or equivalent chevron on Page Name)
+   - Expanded URL text: .page-name-url
+   - Copy URL: .copy-url-btn
+   - Run Synthetic Instant Measurement: .instant-measurement-btn
+   PDF: Click the arrow next to the page name to see performance for the top 50 URLs per page.
+
+   Cover:
+   - Expand a data-bearing page row and verify up to ~50 URL child rows (live probe showed childRows ≈ 51 including chrome).
+   - Verify shortened vs full URL presentation / tooltip when present.
+   - Copy URL copies an http(s) URL to the clipboard.
+   - Instant Measurement opens Synthetic Instant in a new tab (route contains synthetic-monitors/instant or equivalent); close the tab.
+   - Clicking a URL / See details opens Real User Performance Detail in a new tab (route contains real-user-monitoring/performance-detail); close the tab.
+   - Verify expanded URLs also expose VitalScope purple icons when attribution exists for that URL metric.
+   - Collapse the row and verify child rows hide.
+   - Do not hard-code URL strings from the live site.
+
+9. VitalScope purple icon / drilldown modal
+   Controls:
+   - Purple VitalScope icon: i.vsDrilldown / .vsDrilldown (left of metric value when data available)
+   - Metric value host: .vs-metric-value
+   - Modal: #vsDrilldown-modal
+   - Modal body: #vsDrilldown-container
+   - Element-type dropdown: #vsDrilldown-selector
+   - Close: modal close / data-dismiss
+
+   PDF behavior:
+   - If VitalScope data is available, a purple icon appears left of the metric value.
+   - Click icon to view averages for VitalScope elements on the page / URL.
+   - Use the dropdown to switch element type.
+   - Drilldown table can be exported as CSV / TSV / JSON / Array.
+
+   Live LCP drilldown example (do not hard-code values):
+   - Title pattern: LCPSelector Averages + page name + Total LCP Metric Count
+   - Headers: LCPSelector | Largest Contentful Paint (Averages) | LCP Metric Count | % Represented (Metric Count)
+   - Dropdown options for LCP: LCPSelector, LCPURL
+   - Pagination and export present inside the modal
+
+   Cover:
+   - Locate a CWV cell with a VitalScope icon (prefer LCP, also sample INP and CLS when icons exist).
+   - Open drilldown and verify modal title, count summary, table headers and at least one data row OR controlled empty/null attribution text (e.g. “Browser supplied null attribution value”).
+   - Switch #vsDrilldown-selector between available element types and verify table refresh.
+   - Sort / search / page-size / export inside the modal when controls exist.
+   - Close the modal and verify the main page is not blocked by an overlay.
+   - Repeat for a URL-level VitalScope icon after expanding Top 50 URLs when available.
+   - Annotate when a metric has no purple icon (missing attribution is allowed per PDF).
+
+10. VitalScope metrics inventory (from Help PDF — validate labels when columns/drilldowns expose them)
+    Largest Contentful Paint (LCP)
+    - Metrics: LCP Element Render Delay (ms/%), LCP Time to First Byte (ms/%), LCP Resource Load Delay (ms/%), LCP Resource Load Time (ms/%)
+    - Attribution: LCP Selector, LCP URL
+    - Note PDF fallbacks when webvitals.js returns blank selector/URL (element type from URL extension, or first 50 characters of innerText). Assert controlled presentation only; do not require every row to have both selector and URL.
+
+    Cumulative Layout Shift (CLS)
+    - Metrics: CLS Largest Shift Start (ms), CLS Layout Shift Count
+    - Attribution: CLS Largest Shift Selector
+
+    Interaction to Next Paint (INP)
+    - Metrics: INP Start (ms), INP Input Delay (ms), INP Next Paint Time (ms), INP Processing Duration (ms), INP Presentation Delay (ms)
+    - Attribution: INP Target Selector, INP Event Type, INP Target
+
+    Long Animation Frames (LoAF)
+    - Metrics: LoAF Longest Script Duration (ms), LoAF Longest Script Start (ms)
+    - Attribution: LOAF Longest Script Invoker, LOAF Longest Script Source URL
+
+    Cover:
+    - Verify LCP / CLS element columns visible in the default or customized table.
+    - Enable INP / LoAF columns via Customize Table when not already visible and verify headers/values or controlled empty cells.
+    - Open VitalScope drilldowns for LCP and, when icons exist, INP/CLS; verify dropdown options and attribution column labels match the active metric family.
+    - Do not assert API column names from the PDF as UI text unless the UI actually shows them.
+
+11. Performance By Geography / Times By Geography
+    Observed hosts:
+    - World map: #world-map
+    - Country table: #country-table
+    - Region table: #region-table
+    Live geography / breakdown table headers (Country example; Region/Browser/ISP/Traffic Source share the same metric columns):
+    - Dimension (Country / Region / Browser / ISP / Traffic Source)
+    - Page Views
+    - Onload (s), TCP (s), First Byte (s), DNS (s), DOM Duration (s), SSL (s), Redirect (s), Base Page (s)
+    - Time To DOM Interactive (s), Time To DOM Content Loaded (s)
+    - First Contentful Paint (s), Largest Contentful Paint (s), Total Blocking Time (s), INP (s)
+    - Plus any custom columns present
+
+    Cover:
+    - Verify world map / Highcharts geography renders with legend/limit presentation when configured.
+    - Hover representative map regions and validate tooltip content (country/region + metric) without exact values.
+    - Zoom in / Zoom out controls respond when present; annotate if zoom is chart-native only.
+    - Verify Country, Region, Browser (#browser-table), ISP (#isp-table) and Traffic Source (#traffic-source-table) sections/tables render.
+    - Sample sort/search/pagination/export on one geography breakdown table when controls exist.
+    - Verify filter/time-period changes refresh map and breakdown tables.
+
+12. Right-navigation Filters pane
+    Controls:
+    - Toggle: #toggle-filters
+    - Apply: #apply-filters
+    - Cancel: #cancel-filters when present
+    - Time period: #time-period when exposed
+
+    Regress applying combinations (sampled multi-select OK) of fields present for this page, including but not limited to:
+    Data Originated From, Time Period, Timezone, Traffic Source / Referrer, Traffic Medium, Campaign, A/B Testing Segment, Visitor Type, Datacenter Location, ISP / Organization, Traffic Segment, Content Groups / Page Groups, Filter Selector (Page Name / URL Search), Page Name, URL Search, Devices, Operating Systems, Browsers, Browser/OS/Browser Version, Bot Traffic, Country, Region, Net Speed, Statistical Method, WCD inclusion, custom category filters where shown.
+
+    Cover:
+    - Open Filters and verify representative labels/controls.
+    - Apply one compatible Page Name / Device / Browser / Country filter derived from live options.
+    - Apply Time Period specifically for 6 hours, 24 hours, 7 days and 30 days and verify table/map refresh.
+    - Apply a two-filter combination and a restrictive no-match combination; verify controlled empty states.
+    - Cancel/Escape closes without unintended sticky apply where applicable.
+    - Clear/restore sampled filters to the originally captured context.
+    - Do not Save Filter, create a segment, or clear Genius / portal caches.
+
+13. Common actions, accessibility and responsive coverage
+    - Verify i-icon / data-original-title tooltips on filter fields, table chrome and geography sections.
+    - Verify keyboard focus for View Filters, Customize Table, search, pager, export, VitalScope modal and Filters drawer.
+    - Verify focus returns after closing modal/drawer/menu.
+    - Verify color is not the sole CWV signal when text values are also present.
+    - Sample standard and narrower desktop widths; essential table and filter controls remain reachable.
+    - Verify loading indicators resolve within bounded deadlines.
+    - While navigating controls, if additional functional or UI behaviors are found (Share, Favorites, chart context menus, empty states), automate those too using existing framework helpers.
+
+14. Combination, recovery and non-functional scenarios
+    - Time period + CWV table signature change.
+    - Data Origin + Device + Browser combination.
+    - Customize Table CWV columns + VitalScope drilldown.
+    - Expand Top 50 URLs + Copy URL + Instant Measurement + Performance Detail tab open/close.
+    - VitalScope modal element-type switch + export menu + close.
+    - Geography map hover + Country table sort after filter apply.
+    - Rapid filter apply / cancel / re-apply without leaving overlays.
+    - Recover from no-data context to the originally captured site/time/filter/column layout.
+    - Verify repeated refreshes do not duplicate table hosts, modals or Highcharts SVGs.
+
+15. Live reverse-engineering facts to preserve
+    On GDC Test Site 2 the authenticated live UI showed:
+    - URL: real-user-monitoring/performance-overview
+    - Browser title: Performance Overview
+    - #page-title: Business Insights / Improve Traffic / Core Web Vitals (VitalScope)
+    - Menu leaf: Core Web Vitals (VitalScope) under Business Insights > Improve Traffic; same route also reachable as Performance Overview under Monitoring > Real User Browser
+    - Selected site: GDC Test Site 2
+    - View Filters control: #performance-view-filter
+    - Badges included Data Origin = RUM Browser & Native Webview, Device = All Devices, Browser = All Browsers, OS = All OS, Bot Traffic = Exclude Bots, Statistical Method = Arithmetic Mean; Time Period was a live 1-day range in IST — treat as observed, not permanent.
+    - Table hosts: #performance-by-page-table / #table-for-performance-by-page-table
+    - Default headers included Page Name, Page Views, Onload, First Byte, LCP, INP, CLS and multiple LCP/CLS VitalScope element columns.
+    - VitalScope icons: i.vsDrilldown (many present on data-bearing CWV cells)
+    - Drilldown modal: #vsDrilldown-modal / #vsDrilldown-container / #vsDrilldown-selector
+    - Top 50 expand: .page-name-toggle-url; actions .copy-url-btn / .instant-measurement-btn / .page-name-url
+    - Customize Table: #customize-table-modal with Reset / Default View / Save & Close
+    - Export: CSV / TSV / JSON / Array
+    - Page sizes: 5/10/25/50/100/250/500/All
+    - Geography: #world-map plus #country-table / #region-table / #browser-table / #isp-table / #traffic-source-table
+    - Highcharts containers were present on the page (count is dynamic)
+
+16. Refer to the attached documentation
+    Refer to “Performance Overview with VitalScope – Blue Triangle Help Center.pdf” for:
+    - Where to find VitalScope / Core Web Vitals
+    - Performance Overview with VitalScope table navigation
+    - Google CWV color coding
+    - Customize Table / Core Web Vitals vs Core Web Vitals + VitalScope Elements
+    - Purple VitalScope icon and element-type dropdown
+    - Top 50 URLs expand behavior
+    - Export formats
+    - LCP / CLS / INP / LoAF metrics and attribution definitions
+    - webvitals.js missing-attribution disclaimer and LCP selector/URL fallbacks
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a separate Playwright automation suite under regression_tests > US2 in the Core Web Vitals subfolder specified above. The suite must include thorough individual regression tests covering all applicable points in this Context.
+
+Follow the existing project framework and POM conventions. Reuse existing Performance Overview, filter, Highcharts, table, navigation and soft-deadline helpers whenever possible (especially pages/RumPerformanceOverviewPage.ts and rum.performance-overview.browser.regression.spec.ts patterns). After generation:
+1. Execute only the newly created Core Web Vitals regression spec first and fix automation hard failures.
+2. Generate fresh isolated Allure results and an HTML report for this spec.
+3. Generate a manual test-case workbook by referring to the project’s existing manual regression workbooks.
+4. Use workbook sheets: Summary / Regression TCs / Notes.
+5. Include the executed result summary and any soft annotations for unavailable live data/configuration or missing attribution.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable IDs, visible titles, scoped table hosts and modal hosts; do not depend on Highcharts-generated accessibility IDs.
+6. Do not hard-code page names, URLs, CWV numeric values, attribution selectors, initial time period or row counts.
+7. Capture and restore the original filters, time period, column layout (Default View / prior customize state), expanded rows and closed modals.
+8. Use a serial suite only when shared page state is intentional; optional/data-dependent failures must not abort unrelated tests.
+9. Use bounded soft deadlines and explicit action timeouts.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page actions running into later serial tests; cancel/reload/reset the page before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save Filter, create segments, clear Genius cache, or leave Customize Table in an unusable Exclude-All state.
+13. Customize Table Save & Close is allowed for column preferences; restore Default View / prior layout afterward.
+14. Close all menus, overlays, drawers, VitalScope modals and tabs opened by tests.
+15. Do not claim that data refreshed by merely counting pre-existing chart containers; compare scoped table/map/modal state.
+16. If any requirement is ambiguous or missing, flag it before generating automation.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- Whether automation should navigate exclusively via Business Insights > Improve Traffic > Core Web Vitals (VitalScope), via Monitoring > Performance Overview, or accept either path to the shared route.
+- Whether a new core-web-vitals folder/spec is required vs extending the existing rum.performance-overview regression suite.
+- Whether Customize Table exposes explicit “Core Web Vitals” / “Core Web Vitals + VitalScope Elements” preset buttons in the current build, or only manual column include/exclude.
+- Exact Google threshold cutoffs used for green/yellow/red coloring in the live UI.
+- Which INP / LoAF / attribution columns are enabled by default for the shared account.
+- Whether VitalScope icons are guaranteed for every CWV cell or only when attribution exists.
+- Whether Top 50 URLs is always exactly 50 or “up to 50”.
+- Whether Instant Measurement / Performance Detail new-tab flows are in-scope for every run or soft-pass when blocked by pop-up settings.
+- Expected filter persistence after refresh/navigation.
+- Formal page load/refresh SLA, if one exists.
+- Whether geography Zoom controls are discrete buttons or Highcharts/map-native only.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to the existing POM framework and regression suites, especially:
+- rum.performance-overview.browser.regression.spec.ts
+- rum.performance-detail.browser.regression.spec.ts
+- rum.performance-comparison.browser.regression.spec.ts
+- marketing.overview.regression.spec.ts
+- rum.aggregate-waterfall.browser.regression.spec.ts
+
+Follow their patterns for:
+- POM/locator separation
+- authenticated profile/site selection
+- stable Select2 / filter apply patterns
+- DataTables sort/search/pager/export assertions
+- modal open/close and new-tab cleanup
+- scoped Highcharts tooltip/legend assertions
+- runtime-derived live options
+- bounded data-dependent annotations with state recovery
+- isolated Allure reporting
+- Excel generators with Summary / Regression TCs / Notes sheets

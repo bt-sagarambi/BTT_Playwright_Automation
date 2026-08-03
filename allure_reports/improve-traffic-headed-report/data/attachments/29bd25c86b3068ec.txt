@@ -1,0 +1,1 @@
+[CJA] goToDashboard=true saveCampaign=true

@@ -1,0 +1,1146 @@
+{
+  "selectedSiteBefore": "Demo eCommerce Global",
+  "menuHits": [
+    {
+      "text": "Customer Journey Analysis",
+      "href": "https://portal.bluetriangle.com/btportal/web/index.php?r=marketing-insights/customer-journey-analysis&sid=305836&conversion-type=sales"
+    },
+    {
+      "text": "Brand Customer Journey Analysis",
+      "href": "https://portal.bluetriangle.com/btportal/web/index.php?r=marketing-insights/customer-journey-analysis&sid=305836&conversion-type=brand"
+    },
+    {
+      "text": "Customer Journey Analysis",
+      "href": "https://portal.bluetriangle.com/btportal/web/index.php?r=marketing-insights/customer-journey-analysis&sid=305836&conversion-type=sales"
+    },
+    {
+      "text": "Brand Customer Journey Analysis",
+      "href": "https://portal.bluetriangle.com/btportal/web/index.php?r=marketing-insights/customer-journey-analysis&sid=305836&conversion-type=brand"
+    }
+  ],
+  "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=marketing-insights/customer-journey-analysis&sid=305836&conversion-type=sales",
+  "title": "Customer Journey Analysis",
+  "pageTitle": "Business Insights / Improve Traffic / Customer Journey Analysis",
+  "selectedSite": "GDC Test Site 2",
+  "tabs": [
+    {
+      "id": "campaigns-table_pager_info",
+      "tag": "SPAN",
+      "class": "pagedisplay",
+      "text": "1 to 10 (968)",
+      "href": "",
+      "visible": true
+    },
+    {
+      "id": "campaigns-table_pager_info",
+      "tag": "SPAN",
+      "class": "pagedisplay",
+      "text": "1 to 10 (968)",
+      "href": "",
+      "visible": true
+    },
+    {
+      "id": "path-analytics-table_pager_info",
+      "tag": "SPAN",
+      "class": "pagedisplay",
+      "text": "1 to 10 (12)",
+      "href": "",
+      "visible": true
+    },
+    {
+      "id": "path-analytics-table_pager_info",
+      "tag": "SPAN",
+      "class": "pagedisplay",
+      "text": "1 to 10 (12)",
+      "href": "",
+      "visible": true
+    },
+    {
+      "id": "paths-table_pager_info",
+      "tag": "SPAN",
+      "class": "pagedisplay",
+      "text": "1 to 10 (25)",
+      "href": "",
+      "visible": true
+    },
+    {
+      "id": "paths-table_pager_info",
+      "tag": "SPAN",
+      "class": "pagedisplay",
+      "text": "1 to 10 (25)",
+      "href": "",
+      "visible": true
+    },
+    {
+      "id": "my-filters-tab",
+      "tag": "LI",
+      "class": "active",
+      "text": "My Filters",
+      "href": "",
+      "visible": true
+    },
+    {
+      "id": "",
+      "tag": "A",
+      "class": "",
+      "text": "My Filters",
+      "href": "https://portal.bluetriangle.com/btportal/web/index.php?r=marketing-insights/customer-journey-analysis&sid=305836&conversion-type=sales#my-filters",
+      "visible": true
+    },
+    {
+      "id": "shared-filters-tab",
+      "tag": "LI",
+      "class": "",
+      "text": "Shared Filters",
+      "href": "",
+      "visible": true
+    },
+    {
+      "id": "",
+      "tag": "A",
+      "class": "",
+      "text": "Shared Filters",
+      "href": "https://portal.bluetriangle.com/btportal/web/index.php?r=marketing-insights/customer-journey-analysis&sid=305836&conversion-type=sales#shared-filters",
+      "visible": true
+    }
+  ],
+  "headings": [
+    "Support",
+    "Hello, Sagar",
+    "Executive",
+    "Business Insights",
+    "Improve Traffic",
+    "Improve Conversion",
+    "Improve Revenue",
+    "Business Insights",
+    "Improve Traffic",
+    "Improve Conversion",
+    "Improve Revenue",
+    "Advanced Reporting & Alerting",
+    "Executive",
+    "Automated Reporting",
+    "Alerting",
+    "Custom Reporting",
+    "Logs",
+    "Monitoring",
+    "Real User Browser",
+    "Native App",
+    "Synthetic",
+    "Real Browser",
+    "API Checks",
+    "Network Health Checks",
+    "Manage",
+    "CSP & Tag Governance",
+    "Optimize",
+    "Audit",
+    "Protect",
+    "All Campaigns Go to my Campaign dashboard You don't have any marketing campaign dashboards yet. Save Campaign to dashboard",
+    "Hierarchy Ladder",
+    "Journey Details",
+    "Save Campaign to dashboard",
+    "Privacy Policy",
+    "What we do with the information we gather",
+    "Web Visitor Information Collected",
+    "Use of General Customer Data",
+    "Use of Performance Measurements",
+    "Use of Web Visitor Information Collected Via Online Forms and Surveys",
+    "Customer Subscribers to Our Service Portal",
+    "Links to Other Websites",
+    "How To Contact Us Regarding This Privacy Policy and Other Concerns",
+    "Campaign Filters",
+    "Clear Genius Cache",
+    "Settings & Administration",
+    "Account",
+    "Department",
+    "Site",
+    "Synthetic",
+    "Tag & Content Governance",
+    "Alert",
+    "Report",
+    "User",
+    "Scorecard",
+    "Other",
+    "Log",
+    "BTT Internal",
+    "What do you want to do today?",
+    "Modify Tooltip",
+    "Revenue Assurance Disabled",
+    "Revenue Recommendations Are Unavailable",
+    "How was your experience with our product?",
+    "Thank you!!"
+  ],
+  "badges": [
+    {
+      "id": "data-type-view",
+      "text": "real user",
+      "visible": true
+    },
+    {
+      "id": "time-period-view",
+      "text": "1 day (2026-07-30 14:59 to 2026-07-31 14:59)",
+      "visible": true
+    },
+    {
+      "id": "device-view",
+      "text": "All Devices",
+      "visible": true
+    },
+    {
+      "id": "browser-view",
+      "text": "All Browsers",
+      "visible": true
+    },
+    {
+      "id": "operating-system-view",
+      "text": "All OS",
+      "visible": true
+    },
+    {
+      "id": "visitor-type-view",
+      "text": "all visitors",
+      "visible": true
+    },
+    {
+      "id": "bot-traffic-view",
+      "text": "exclude-bots",
+      "visible": true
+    },
+    {
+      "id": "focal-page-view",
+      "text": "(All Landing Pages)",
+      "visible": true
+    },
+    {
+      "id": "focal-page-real-view",
+      "text": "PDP",
+      "visible": true
+    },
+    {
+      "id": "customer-journey-paths-view",
+      "text": "Top 10 Converted & Non-converted by sessions",
+      "visible": true
+    },
+    {
+      "id": "campaign-view",
+      "text": "(All Traffic)",
+      "visible": true
+    },
+    {
+      "id": "country-view",
+      "text": "all countries",
+      "visible": true
+    },
+    {
+      "id": "show-remainder-view",
+      "text": "Exclude",
+      "visible": true
+    }
+  ],
+  "tables": [
+    {
+      "id": "campaigns-table",
+      "headers": [
+        "Campaigns",
+        "Journey Sessions",
+        "Journey Page Views",
+        "Bounce Rate",
+        "Exit Rate",
+        "Onload",
+        "Orders",
+        "Conversion Rate",
+        "Revenue ($)"
+      ],
+      "rows": 968,
+      "visible": true
+    },
+    {
+      "id": "path-analytics-overview-table",
+      "headers": [
+        "Journey Sessions",
+        "Journey Page Views",
+        "Bounce Rate",
+        "Exit Rate",
+        "Onload",
+        "Avg Order Value ($)",
+        "Orders",
+        "Conversion Rate",
+        "Revenue ($)"
+      ],
+      "rows": 4,
+      "visible": true
+    },
+    {
+      "id": "path-analytics-table",
+      "headers": [
+        "Pages in Journey",
+        "Journey Sessions",
+        "Journey Page Views",
+        "Exits",
+        "Session Exit Rate",
+        "Onload",
+        "Orders",
+        "Revenue ($)"
+      ],
+      "rows": 12,
+      "visible": true
+    },
+    {
+      "id": "paths-table",
+      "headers": [
+        "Paths",
+        "Path Rank",
+        "Landing Page",
+        "# of Pages in Path",
+        "Journey Sessions",
+        "Journey Page Views",
+        "Onload",
+        "Avg Order Value ($)",
+        "Orders",
+        "Revenue ($)"
+      ],
+      "rows": 25,
+      "visible": true
+    }
+  ],
+  "charts": {
+    "highcharts": 0,
+    "chartIds": [
+      "customer-journey-paths-view",
+      "path-analytics-toggle",
+      "path-flow-toggle",
+      "path-analytics-wrapper",
+      "path-analytics-overview-table",
+      "paths-btn",
+      "path-analytics-table_pager_info",
+      "path-analytics-table-table-viewport",
+      "path-analytics-table",
+      "path-analytics-table_pager_info",
+      "paths",
+      "paths-table-wrapper",
+      "paths-table_pager_info",
+      "paths-table-table-viewport",
+      "paths-table",
+      "paths-table_pager_info",
+      "path-flow-wrapper",
+      "landing-page-path-flow",
+      "path-flow",
+      "focal-page-path-flow",
+      "path-flow-focal",
+      "path-flow-connectors-focal",
+      "path-rank",
+      "select2-path-rank-container"
+    ],
+    "svgCount": 1443
+  },
+  "controls": [
+    {
+      "id": "site-id",
+      "text": "GDC Test Site 2Demo eCommerce Global",
+      "tag": "SELECT"
+    },
+    {
+      "id": "toggle-help-video",
+      "text": "Blue Triangle Help Video",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "toggle-theme",
+      "text": "Change theme",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "toggle-filters",
+      "text": "Toggle filters menu visibility",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "toggle-feedback",
+      "text": "Toggle feedback form visibility",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "toggle-menu-state-btn",
+      "text": "View Full Menu",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "revenue-attribution",
+      "text": "Revenue Attribution",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "add-comparison",
+      "text": "Add Comparison",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Web Browser Native App Web Browser & Native App",
+      "tag": "SELECT"
+    },
+    {
+      "id": "report-list",
+      "text": "Loading Reports...",
+      "tag": "SELECT"
+    },
+    {
+      "id": "",
+      "text": "+ New Rule",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "view-active-rule-btn",
+      "text": "View Active Rule",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "auto-refresh",
+      "text": "Auto Refresh (off)",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Off",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "5 Minutes",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "10 Minutes",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "15 Minutes",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "30 Minutes",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "60 Minutes",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "landing-page-toggle",
+      "text": "Landing Page View",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "focal-page-toggle",
+      "text": "Focal Page View",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "zoomable-reset",
+      "text": "Reset Zoom",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "dropdownMenu1",
+      "text": "Go to my Campaign dashboard",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Save Campaign to dashboard",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "5 / page 10 / page 25 / page 50 / page 100 / page 250 / page 500 / page All",
+      "tag": "SELECT"
+    },
+    {
+      "id": "",
+      "text": "Export",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "CSV",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "TSV",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "JSON",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Array",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "5 / page 10 / page 25 / page 50 / page 100 / page 250 / page 500 / page All",
+      "tag": "SELECT"
+    },
+    {
+      "id": "paths-btn",
+      "text": "Paths",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "pages-btn",
+      "text": "Pages",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "5 / page 10 / page 25 / page 50 / page 100 / page 250 / page 500 / page All",
+      "tag": "SELECT"
+    },
+    {
+      "id": "",
+      "text": "Export",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "CSV",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "TSV",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "JSON",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Array",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "5 / page 10 / page 25 / page 50 / page 100 / page 250 / page 500 / page All",
+      "tag": "SELECT"
+    },
+    {
+      "id": "",
+      "text": "5 / page 10 / page 25 / page 50 / page 100 / page 250 / page 500 / page All",
+      "tag": "SELECT"
+    },
+    {
+      "id": "",
+      "text": "Export",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "CSV",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "TSV",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "JSON",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Array",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "5 / page 10 / page 25 / page 50 / page 100 / page 250 / page 500 / page All",
+      "tag": "SELECT"
+    },
+    {
+      "id": "sticky-info-show-hide",
+      "text": "Show Less",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "favorite-dashboard",
+      "text": "No Yes",
+      "tag": "SELECT"
+    },
+    {
+      "id": "carousel-dashboard",
+      "text": "No Yes",
+      "tag": "SELECT"
+    },
+    {
+      "id": "refresh-rate-dashboard",
+      "text": "5 minutes 10 minutes 15 minutes 30 minutes",
+      "tag": "SELECT"
+    },
+    {
+      "id": "",
+      "text": "Close",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "save-to-dashboard",
+      "text": "Save",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "clear-cache",
+      "text": "Clear Cache",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "cancel-filters",
+      "text": "Cancel",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "apply-filters",
+      "text": "Apply Filters",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Saved Filters",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Save",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Save as New Filter",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Save Current Filter",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "data-type",
+      "text": "Web Browser Data Native App Data",
+      "tag": "SELECT"
+    },
+    {
+      "id": "anchor-start-time",
+      "text": "Anchored start time Rolling start time",
+      "tag": "SELECT"
+    },
+    {
+      "id": "",
+      "text": "Clear",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Clear",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "campaign-medium",
+      "text": "NonePaid SearchOrganic SearchDisplayAffiliateSocial",
+      "tag": "SELECT"
+    },
+    {
+      "id": "",
+      "text": "Clear",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "a-b-testing-segment",
+      "text": "reactdojo",
+      "tag": "SELECT"
+    },
+    {
+      "id": "",
+      "text": "Clear",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "visitor-type",
+      "text": "New Visitors Returning Visitors",
+      "tag": "SELECT"
+    },
+    {
+      "id": "",
+      "text": "Clear",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "datacenter",
+      "text": "Default",
+      "tag": "SELECT"
+    },
+    {
+      "id": "",
+      "text": "Clear",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "filter-by",
+      "text": "Paths Converted Paths Non-converted Paths Converted & Non-converted",
+      "tag": "SELECT"
+    },
+    {
+      "id": "cv-converting-page",
+      "text": "Checkout: Order Confirmation",
+      "tag": "SELECT"
+    },
+    {
+      "id": "deselect-all-icons",
+      "text": "Deselect All",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "select-all-icons",
+      "text": "Select All Common",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Clear",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Clear",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "show-remainder",
+      "text": "Include Exclude",
+      "tag": "SELECT"
+    },
+    {
+      "id": "",
+      "text": "Clear",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "sdktagVersion",
+      "text": "TAG-5.8.0TAG-5.5.0TAG-5.3.11",
+      "tag": "SELECT"
+    },
+    {
+      "id": "",
+      "text": "Clear",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Clear",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Clear",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Clear",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Clear",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "launch-type",
+      "text": "ColdLaunchWarmLaunchHotLaunch",
+      "tag": "SELECT"
+    },
+    {
+      "id": "",
+      "text": "Learn More",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Dismiss",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "save-as-new-filter-list",
+      "text": "Create new saved filter",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "save-filter-lists",
+      "text": "Save",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "close-filter-lists",
+      "text": "Close",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "reset-filter-lists",
+      "text": "Reset",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "clear-genius-cache",
+      "text": "Clear",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "close-genius-cache-modal",
+      "text": "Cancel",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "placement",
+      "text": "Top Right Bottom Left",
+      "tag": "SELECT"
+    },
+    {
+      "id": "save-tooltip",
+      "text": "Save",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "remove-tooltip",
+      "text": "Remove Tooltip",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Cancel",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Close",
+      "tag": "BUTTON"
+    }
+  ],
+  "interestingIds": [
+    "toggle-filters",
+    "mobile-controls-filters-btn",
+    "toggle-filters-li",
+    "data-origin-view",
+    "time-period-view",
+    "device-view",
+    "browser-view",
+    "bot-traffic-view",
+    "focal-page-view",
+    "focal-page-real-view",
+    "hierarchy-min-percent-view",
+    "customer-journey-paths-view",
+    "campaign-view",
+    "campaign-name-view",
+    "campaign-medium-view",
+    "campaign-source-view",
+    "performance-metric-view",
+    "discard-sessions-over-view",
+    "deviceModel-view",
+    "campaigns-toggle",
+    "path-analytics-toggle",
+    "path-flow-toggle",
+    "focal-page-toggle",
+    "floatingHeadersFocal",
+    "header-scroll-focal",
+    "campaigns-wrapper",
+    "my-campaigns-list",
+    "campaigns-table-wrapper",
+    "campaigns-table_pager_info",
+    "table-search",
+    "campaigns-table-table-viewport",
+    "campaigns-table",
+    "campaigns-table_pager_info",
+    "path-analytics-wrapper",
+    "path-analytics-overview-table",
+    "allPathsRow",
+    "topXPathsRow",
+    "topXPathsEntrances",
+    "topXPathsHits",
+    "topXPathsAvgOrderValue",
+    "topXPathsOrders",
+    "topXPathsRevenue",
+    "paths-btn",
+    "path-analytics-table_pager_info",
+    "table-search",
+    "path-analytics-table-table-viewport",
+    "path-analytics-table",
+    "path-analytics-table_pager_info",
+    "paths",
+    "paths-table-wrapper",
+    "paths-table_pager_info",
+    "table-search",
+    "paths-table-table-viewport",
+    "paths-table",
+    "paths-table_pager_info",
+    "path-flow-wrapper",
+    "landing-page-path-flow",
+    "path-flow",
+    "view-campaign-revenue",
+    "view-campaign-conversions",
+    "view-campaign-sessions",
+    "focal-page-path-flow",
+    "path-flow-focal",
+    "path-flow-connectors-focal",
+    "number-of-campaigns-read-out",
+    "time-period-dashboard",
+    "filters-menu",
+    "filters-form",
+    "filter-config",
+    "cancel-filters",
+    "apply-filters",
+    "view-filter-lists",
+    "filters-form-scroll-region",
+    "expand-all-filter-sections",
+    "collapse-all-filter-sections",
+    "time-period-row",
+    "time-period-wrapper",
+    "time-period-icon",
+    "time-period",
+    "anchor-start-time-row",
+    "anchor-start-time",
+    "select2-anchor-start-time-container",
+    "timezone-row",
+    "timezone",
+    "select2-timezone-container",
+    "customer-journey-metric-row",
+    "customer-journey-metric",
+    "select2-customer-journey-metric-container",
+    "bot-traffic-row",
+    "include-bots",
+    "exclude-bots",
+    "bots-only",
+    "campaign-row",
+    "campaign",
+    "select2-campaign-container",
+    "campaign-source-row",
+    "campaign-source",
+    "campaign-medium-row",
+    "campaign-medium",
+    "filter-by-row",
+    "path-rank",
+    "select2-path-rank-container",
+    "filter-by",
+    "select2-filter-by-container",
+    "focal-page-row",
+    "focal-page",
+    "select2-focal-page-container",
+    "focal-page-real-row",
+    "focal-page-real",
+    "select2-focal-page-real-container",
+    "device-os-browser-row",
+    "edge",
+    "campaign-sessions-row",
+    "campaign-sessions",
+    "deviceModel-row",
+    "deviceModel",
+    "filter-lists-modal",
+    "save-as-new-filter-list",
+    "my-filters-tab",
+    "shared-filters-tab",
+    "createFilterListForm",
+    "my-filters",
+    "shared-filters",
+    "save-filter-lists",
+    "close-filter-lists",
+    "reset-filter-lists",
+    "clear-genius-cache-time-period-icon",
+    "clear-genius-cache-time",
+    "assistant-jump-to-bottom"
+  ],
+  "filters": {
+    "labels": [
+      "Dashboard title *",
+      "Favorite dashboard",
+      "Add to carousel",
+      "Dashboard refresh rate",
+      "Dashboard time period",
+      "Real User Data Type",
+      "Time Period",
+      "Auto Refresh Start Time Anchor",
+      "Timezone",
+      "Selected Metric",
+      "Bot Traffic",
+      "Include Bots",
+      "Exclude Bots",
+      "Bots Only",
+      "Campaign",
+      "Traffic Source / Referrer Clear",
+      "Traffic Medium Clear",
+      "Test Segment Clear",
+      "Visitor Type (new vs. returning) Clear",
+      "Test Datacenter Clear",
+      "Traffic Segment Clear",
+      "Paths",
+      "Landing Page",
+      "Focal Page",
+      "Converting Pages",
+      "Included Pages",
+      "Excluded Pages",
+      "Common Devices:",
+      "Common Operating Systems:",
+      "Common Browsers:",
+      "Country Clear",
+      "Region Clear",
+      "Maximum Exit Rate Threshold",
+      "Maximum Onload Threshold",
+      "Display Campaigns With Session Count Greater Than",
+      "Remainder",
+      "SDK Version Clear",
+      "App Version Clear",
+      "OS Version Clear",
+      "Device Model Clear",
+      "Network Protocol Clear",
+      "Launch Type Clear",
+      "Site:",
+      "Time Range:",
+      "Don't show me again",
+      "Term",
+      "Placement",
+      "Definition",
+      "I would like to receive an update",
+      "Upload Images, PDF"
+    ],
+    "ids": [
+      "page-title",
+      "toggle-filters",
+      "mobile-controls-filters-btn",
+      "toggle-filters-li",
+      "page-wrapper",
+      "page-controls",
+      "data-origin-view",
+      "time-period-view",
+      "device-view",
+      "browser-view",
+      "visitor-type-view",
+      "bot-traffic-view",
+      "focal-page-view",
+      "focal-page-real-view",
+      "page-name-view",
+      "hierarchy-min-percent-view",
+      "page-group-view",
+      "traffic-segment-view",
+      "isp-view",
+      "a-b-testing-segment-view",
+      "campaign-view",
+      "campaign-name-view",
+      "campaign-medium-view",
+      "campaign-source-view",
+      "country-view",
+      "region-view",
+      "cv-converting-page-view",
+      "cv-include-page-view",
+      "cv-exclude-page-view",
+      "deviceModel-view",
+      "page-controls-toggle",
+      "page-contents",
+      "campaigns-toggle",
+      "landing-page-toggle",
+      "focal-page-toggle",
+      "floatingHeadersFocal",
+      "header-scroll-focal",
+      "campaigns-wrapper",
+      "my-campaigns-list",
+      "campaigns-table-wrapper",
+      "campaigns-table_pager_info",
+      "campaigns-table-table-viewport",
+      "campaigns-table",
+      "pages-btn",
+      "pages",
+      "path-analytics-table_pager_info",
+      "paths-table_pager_info",
+      "landing-page-path-flow",
+      "Homepage_0",
+      "Unnamed_Page_0",
+      "ReactNext%20App%20Page_1",
+      "ReactNext%20App%20Page_2",
+      "ReactNext%20App%20Page_3",
+      "view-campaign-revenue",
+      "view-campaign-conversions",
+      "view-campaign-sessions",
+      "focal-page-path-flow",
+      "path-flow-focal",
+      "*Homepage_-1",
+      "*Homepage-vt_-1",
+      "*Unnamed_Page_-1",
+      "*ReactNextAppPage_-1",
+      "*ReactNext%20App%20Page_-1",
+      "*CustomerServiceLoginPage_-1",
+      "*CustomerServicePage_-1",
+      "path-flow-connectors-focal",
+      "number-of-campaigns-read-out",
+      "time-period-dashboard",
+      "filters-menu",
+      "filters-form",
+      "filter-config",
+      "cancel-filters",
+      "apply-filters",
+      "view-filter-lists",
+      "filters-form-scroll-region",
+      "expand-all-filter-sections",
+      "collapse-all-filter-sections",
+      "time-period-row",
+      "time-period-wrapper",
+      "time-period-icon",
+      "time-period",
+      "anchor-start-time-row",
+      "anchor-start-time",
+      "select2-anchor-start-time-container",
+      "timezone-row",
+      "timezone",
+      "select2-timezone-container",
+      "bot-traffic-row",
+      "include-bots",
+      "exclude-bots",
+      "bots-only",
+      "campaign-row",
+      "campaign",
+      "select2-campaign-container",
+      "campaign-source-row",
+      "campaign-source",
+      "campaign-medium-row",
+      "campaign-medium",
+      "a-b-testing-segment-row",
+      "a-b-testing-segment",
+      "visitor-type-row",
+      "visitor-type",
+      "traffic-segment-row",
+      "traffic-segment",
+      "traffic-segment-page-name-hint",
+      "filter-by-row",
+      "filter-by",
+      "select2-filter-by-container",
+      "focal-page-row",
+      "focal-page",
+      "select2-focal-page-container",
+      "focal-page-real-row",
+      "focal-page-real",
+      "select2-focal-page-real-container",
+      "cv-converting-page-row",
+      "cv-converting-page",
+      "cv-include-page-row",
+      "cv-include-page",
+      "cv-exclude-page-row",
+      "cv-exclude-page"
+    ]
+  },
+  "tabProbes": [],
+  "infoIcons": 398
+}

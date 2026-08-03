@@ -1,0 +1,2 @@
+[BCJA] paths: Paths | Path Rank | Landing Page | # of Pages in Path | Journey Sessions | Journey Page Views | Onload | Avg Order Value ($) | Orders | Brand ($) rows=10
+[BCJA] pages: Pages in Journey | Journey Sessions | Journey Page Views | Exits | Session Exit Rate | Onload | Orders | Brand ($) rows=6

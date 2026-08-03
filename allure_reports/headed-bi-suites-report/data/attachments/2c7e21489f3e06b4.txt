@@ -1,0 +1,2 @@
+[Marketing Overview] Campaign actions: Customer Journey Analysis - All Campaigns | Customer Journey Analysis - Path Analytics | Customer Journey Analysis - Path Flow | Bounce & Exit Analysis | Revenue Calculator | Performance Details (Real User Monitoring) | Aggregate Waterfall | JavaScript Errors
+[Marketing Overview] Sample campaign action navigation=false

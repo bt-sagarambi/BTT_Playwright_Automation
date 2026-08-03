@@ -1,0 +1,1 @@
+[CJA] settled=data rows=1065 allTraffic=true noCampaign=false

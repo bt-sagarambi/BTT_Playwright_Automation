@@ -182,9 +182,23 @@ const cases = [
   {
     id: 'REG-MO-020',
     submodule: 'Widget Management',
-    title: 'Reset Widgets control present but not clicked',
-    steps: ['1. Locate #reset-all-inactive-widgets', '2. Do not click on shared dashboard'].join('\n'),
-    expected: ['Control presence documented; no reset executed'].join('\n'),
+    title: 'Hide Widget, Reset behavior, and hidden-widget recovery',
+    steps: [
+      '1. Hide the Campaigns widget and confirm Hide Widget',
+      '2. Verify Campaigns is removed from the active grid',
+      '3. Click Reset Widgets and confirm Reset All Widgets',
+      '4. Record whether Reset restores the hidden widget',
+      '5. If Reset only restores positions, expand hidden widgets and drag Campaigns back',
+      '6. Repeat for Campaigns Over Time',
+      '7. Verify both widgets and their data are restored',
+    ].join('\n'),
+    expected: [
+      'Each selected widget is hidden after confirmation',
+      'Reset Widgets behavior is captured independently for each widget',
+      'A widget not unhidden by Reset is restored from the hidden-widget panel',
+      'Campaign cards and Campaigns Over Time bar/line graphs are healthy after recovery',
+      'The shared dashboard is not left with hidden widgets',
+    ].join('\n'),
   },
   {
     id: 'REG-MO-021',
@@ -236,9 +250,25 @@ const cases = [
   {
     id: 'REG-MO-027',
     submodule: 'Campaigns Over Time',
-    title: 'Select each campaign metric and assert graph signature updates',
-    steps: ['1. Select each metric', '2. Compare scoped graph signatures', '3. Restore original metric'].join('\n'),
-    expected: ['Active metric state updates', 'Graph signature captured before/after'].join('\n'),
+    title: 'Every Campaigns Over Time tab has graph data and detailed tooltips',
+    steps: [
+      '1. Capture the original active metric and bar/line graph signatures',
+      '2. Select Revenue, Orders, Avg Order Value, Conversion Rate, Bounce Rate, Exit Rate, and Sessions in turn',
+      '3. Verify the selected tab becomes active',
+      '4. Verify both scoped bar and line graphs contain non-null data points',
+      '5. Hover representative points on both graphs',
+      '6. Validate tooltip details and units: currency for Revenue/AOV, percentages for rates, counts for Orders/Sessions',
+      '7. Record any stale metric/unit tooltip behavior without skipping remaining tabs',
+      '8. Restore the original metric',
+    ].join('\n'),
+    expected: [
+      'All seven metric tabs exist and are selectable',
+      'Both graphs contain live data for every data-bearing metric',
+      'Bar and line tooltips contain campaign/time/value details',
+      'Tooltip units correspond to the active metric',
+      'All tabs are exercised even if one tab produces a soft live-UI finding',
+      'Original metric is restored',
+    ].join('\n'),
   },
   {
     id: 'REG-MO-028',
@@ -271,9 +301,21 @@ const cases = [
   {
     id: 'REG-MO-032',
     submodule: 'Campaign Graphs',
-    title: 'Campaign graph context/export menu opens and dismisses',
-    steps: ['1. Open context menu on bar graph', '2. Dismiss with Escape'].join('\n'),
-    expected: ['Menu dismisses; no blocking overlay'].join('\n'),
+    title: 'Campaigns Over Time hamburger options work and restore chart state',
+    steps: [
+      '1. Open the hamburger menu scoped to the Campaigns Over Time bar graph',
+      '2. Verify View in Full Screen, Toggle Data Labels, and Download PNG Image options',
+      '3. Invoke Toggle Data Labels',
+      '4. Verify the chart remains rendered and interactive',
+      '5. Invoke Toggle Data Labels again to restore the original state',
+      '6. Dismiss menus and verify no overlay blocks dashboard controls',
+    ].join('\n'),
+    expected: [
+      'Expected chart menu options are available',
+      'Toggle Data Labels action is accepted and can be reversed',
+      'Chart remains healthy after menu actions',
+      'Menu closes without leaving a blocking overlay',
+    ].join('\n'),
   },
   {
     id: 'REG-MO-033',
@@ -289,15 +331,40 @@ const cases = [
     id: 'REG-MO-034',
     submodule: 'Source Table',
     title: 'Source table sort / search / clear when rows exist',
-    steps: ['1. Sort Revenue', '2. Search runtime-derived source', '3. No-match then clear'].join('\n'),
-    expected: ['Row order/search behavior validated when data present'].join('\n'),
+    steps: [
+      '1. If the Source table has rows, capture the visible row signature',
+      '2. Sort Revenue; reverse direction if the first click preserves the existing order',
+      '3. Verify visible row order changes',
+      '4. Search using a runtime-derived source value',
+      '5. Apply a guaranteed no-match term',
+      '6. Clear search and restore the table',
+    ].join('\n'),
+    expected: [
+      'Revenue sorting changes actual row order when multiple rows exist',
+      'Runtime-derived search limits rows correctly',
+      'No-match search shows a controlled empty result',
+      'Clear restores rows',
+      'Scenario is annotated when the Source table is absent/empty',
+    ].join('\n'),
   },
   {
     id: 'REG-MO-035',
     submodule: 'Source Table',
-    title: 'Source table page-size and export options when present',
-    steps: ['1. Change page size', '2. Open Export menu'].join('\n'),
-    expected: ['Page-size applies when present', 'Export includes CSV/TSV/JSON/Array when present'].join('\n'),
+    title: 'Source table page-size, Next/Previous pagination, and export options',
+    steps: [
+      '1. If the Source table is present, change page size to a configured value',
+      '2. If Next is enabled, capture the current row/pager signature and click Next',
+      '3. Verify the visible page changes',
+      '4. Click Previous and verify the original page is restored',
+      '5. Open Export and verify CSV, TSV, JSON, and Array options when configured',
+    ].join('\n'),
+    expected: [
+      'Page-size selection applies',
+      'Next/Previous changes and restores visible rows when multiple pages exist',
+      'Single-page state is handled without failure',
+      'Configured export options are present',
+      'Scenario is annotated when the Source table is unavailable',
+    ].join('\n'),
   },
   {
     id: 'REG-MO-036',
@@ -309,9 +376,22 @@ const cases = [
   {
     id: 'REG-MO-037',
     submodule: 'Medium Table',
-    title: 'Medium table sort / search / page-size / export',
-    steps: ['1. Sort Orders', '2. Change page size', '3. Open Export'].join('\n'),
-    expected: ['Interactions succeed; export options when present'].join('\n'),
+    title: 'Medium table sorting, search, page-size, pagination, and export',
+    steps: [
+      '1. If the Medium table has rows, capture its visible row signature',
+      '2. Sort Orders ascending/descending and verify row-order change',
+      '3. Exercise runtime-derived search and clear when available',
+      '4. Change page size',
+      '5. Exercise enabled Next/Previous and verify page restoration',
+      '6. Open Export and inspect configured formats',
+    ].join('\n'),
+    expected: [
+      'Sorting changes actual row order when multiple rows exist',
+      'Search and clear preserve table usability',
+      'Page-size and enabled pagination work',
+      'Export options are available when configured',
+      'Scenario is annotated when the Medium table is absent/empty',
+    ].join('\n'),
   },
   {
     id: 'REG-MO-038',
@@ -337,9 +417,23 @@ const cases = [
   {
     id: 'REG-MO-041',
     submodule: 'Graph Standards',
-    title: 'Device graph context menus dismiss without overlay block',
-    steps: ['1. Open context menus', '2. Escape/dismiss'].join('\n'),
-    expected: ['No blocking overlay; refresh control usable'].join('\n'),
+    title: 'Hamburger options work independently on different device widgets',
+    steps: [
+      '1. Open the hamburger menu on Revenue by Device',
+      '2. Verify chart/export options and toggle data labels on/off',
+      '3. Open the hamburger menu on Conversion Rate by Device',
+      '4. Invoke View in Full Screen and exit with Escape',
+      '5. Open the hamburger menu on Sessions by Device',
+      '6. Verify the menu is scoped to that chart and dismiss it',
+      '7. Confirm dashboard controls remain usable',
+    ].join('\n'),
+    expected: [
+      'Each device widget exposes its own hamburger menu',
+      'Expected image export and chart interaction options are available',
+      'Safe actions execute without corrupting other widgets',
+      'Data-label/fullscreen state is restored',
+      'No menu overlay blocks the dashboard',
+    ].join('\n'),
   },
   {
     id: 'REG-MO-042',
@@ -501,7 +595,7 @@ async function main() {
   notes.addRow(['Blue Triangle Portal — Marketing Overview Regression Test Cases']);
   notes.addRow([`Profile / Site: ${DC} — ${SITE}`]);
   notes.addRow([
-    'Type: Regression (read-only). Do NOT Save Filter, create markers, Reset Widgets, edit/delete dashboards, or switch users.',
+    'Type: Regression. Do NOT Save Filter, create markers, edit/delete dashboards, or switch users. The controlled Hide Widget / Reset Widgets scenario must restore every hidden widget before continuing.',
   ]);
   notes.addRow(['Do not hard-code dashboard name, lookback, campaign names, or metric totals.']);
   notes.addRow(['Columns: Test Case ID | Type | Module | Submodule | Title | Steps | Expected Results | Status']);
@@ -511,7 +605,7 @@ async function main() {
   notes.addRow([`Execution status: ${EXECUTION_STATUS}`]);
   notes.addRow([`Execution note: ${EXECUTION_NOTE}`]);
   notes.addRow([
-    'Ambiguities: dashboard "_BTT Marketing Overview" may be site-specific; Source table may be empty; Tablet series may be empty; Viewing/Editing read-only only.',
+    'Live findings: Reset Widgets may restore positions without consistently unhiding every widget; use the hidden-widget panel for recovery. Source/Medium tables may be absent. Orders/Sessions tooltip units and AOV active-state behavior are recorded as soft findings when stale.',
   ]);
   notes.getRow(1).font = { bold: true };
 

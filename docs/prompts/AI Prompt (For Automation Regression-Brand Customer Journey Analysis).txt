@@ -1,0 +1,370 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the “Brand Customer Journey Analysis” page. Reverse-engineer the live application using GDC Test Site 2 and refer to the attached DOC/style reference and PDF “The Customer Journey Analysis Page – Blue Triangle Help Center.pdf” for expected behavior (same journey UX as sales Customer Journey Analysis, with Brand conversion metrics).
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - Brand Customer Journey Analysis visualizes campaigns and customer paths in near real time for brand conversions so teams can find bottlenecks, compare converted vs non-converted journeys, and optimize brand-conversion paths.
+   - Same page family as sales Customer Journey Analysis (same route), distinguished by conversion-type=brand and Brand ($) metrics instead of Revenue ($).
+   - Use live UI data only. Do not call APIs or query a database.
+   - Do not hard-code campaign names, landing pages, focal pages, path strings, session/page-view counts, bounce/exit rates, onload values, orders, conversion rates, brand totals, path ranks or timestamps.
+   - Capture the active time period, timezone, campaign, landing page, focal page, path-rank mode, data type and bot-traffic setting dynamically.
+   - Assert labels, formats, controlled empty states, before/after UI changes and sampled data presence rather than exact backend totals.
+   - Campaigns, landing pages, paths and cards are live-data/site dependent.
+   - If a selected combination has no data, assert a controlled no-data state, annotate it, restore a data-bearing context and continue.
+   - Do not confuse this page with sales Customer Journey Analysis (conversion-type=sales). This suite targets conversion-type=brand Brand Customer Journey Analysis only unless the user explicitly expands scope.
+
+2. Navigation and implementation paths
+   Live Full Menu path (prefer live BI sibling under Improve Traffic):
+   Menu > Business Insights > Improve Traffic > Brand Customer Journey Analysis
+   Historical Help PDF wording may say “Marketing Insights” / “Customer Journey Analysis”; prefer the live Brand menu label and BI breadcrumb family.
+   Route (reference): marketing-insights/customer-journey-analysis
+   Required query marker: conversion-type=brand
+   Browser title observed: Brand Customer Journey Analysis
+   Breadcrumb / #page-title observed live: Business Insights / Improve Traffic / Customer Journey Analysis
+     (Note: browser document title includes “Brand”; #page-title may omit the word Brand — assert document title / menu / conversion-type=brand as Brand identity, and treat #page-title Brand wording as soft if live build omits it.)
+   Target automation folder:
+   tests/regression_tests/US2/business-insights/improve-traffic/brand-customer-journey-analysis/
+   Suggested spec name:
+   brand.customer.journey.analysis.regression.spec.ts
+   Suggested POM / locators:
+   pages/BrandCustomerJourneyAnalysisPage.ts
+   locators/BrandCustomerJourneyAnalysisLocators.ts
+   (Prefer extending / composing shared helpers from CustomerJourneyAnalysisPage where sales vs brand differs only by conversion-type and Brand ($) labels — do not duplicate large identical methods blindly.)
+   Suggested manual test workbook:
+   docs/Brand_Customer_Journey_Analysis_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:brand-customer-journey-analysis
+   Smoke catalog reference: mkt.brand-journey (menuLabel Brand Customer Journey Analysis, hrefIncludes conversion-type=brand)
+
+3. Page load, authentication and default context
+   - Verify authenticated navigation succeeds without login redirect, blocking error, blank shell or perpetual loader.
+   - Verify browser title matches /Brand Customer Journey Analysis/i.
+   - Verify #page-title is under Business Insights / Improve Traffic / … Journey Analysis (Brand wording soft if absent).
+   - Verify the URL contains marketing-insights/customer-journey-analysis (slash or %2F) and conversion-type=brand.
+   - Verify the URL does not use conversion-type=sales.
+   - Verify the selected site is GDC Test Site 2.
+   - Dismiss any blocking confirm/modal (live probe observed jconfirm overlay on brand load) before interacting with tabs/tables.
+   - Capture active quick-filter badges rather than assuming fixed defaults.
+   - Verify the default main tab is Campaigns (#campaigns-toggle active) and #campaigns-wrapper is visible.
+   - Verify primary tables/cards finish loading within a bounded UI deadline.
+   - Verify browser Back/Forward and refresh return to a healthy page state.
+   - Capture uncaught page errors and distinguish application-blocking errors from known third-party noise.
+
+4. Top-level tabs
+   Observed primary tabs (CI-tab) — same hosts as sales CJA:
+   - Campaigns: #campaigns-toggle → #campaigns-wrapper
+   - Path Analytics: #path-analytics-toggle → #path-analytics-wrapper
+   - Path Flow: #path-flow-toggle → #path-flow-wrapper
+
+   Cover:
+   - Verify all three tabs are visible and keyboard operable (or click/active-state if CI-tabs are non-focusable).
+   - Click each tab and assert only the corresponding wrapper is the active content pane.
+   - Verify active tab class/state updates (#campaigns-toggle / #path-analytics-toggle / #path-flow-toggle).
+   - Rapidly switch tabs and verify final selected tab content remains healthy.
+   - Restore Campaigns as the starting tab after navigation churn when needed.
+
+5. Quick filter bar / badges
+   Observed populated badges on GDC Test Site 2 (treat values as live observations, not permanent assertions):
+   - Data type: #data-type-view (e.g. real user)
+   - Time Period: #time-period-view (live 1-day range observed; do not hard-code)
+   - Device: #device-view — All Devices
+   - Browser: #browser-view — All Browsers
+   - OS: #operating-system-view — All OS (when present)
+   - Visitor Type: #visitor-type-view — all visitors (when present)
+   - Bot Traffic: #bot-traffic-view — exclude-bots / Exclude Bots style text
+   - Landing Page quick filter: #focal-page-view — e.g. (All Landing Pages)
+   - Focal Page: #focal-page-real-view — e.g. PDP (dynamic)
+   - Paths mode: #customer-journey-paths-view — e.g. Top 10 Converted & Non-converted by sessions
+   - Campaign: #campaign-view — e.g. (All Traffic)
+   - Country: #country-view — all countries (when present)
+   - Remainder: #show-remainder-view — Exclude (when present)
+   Related controls may also expose Select2 containers such as #select2-data-type-container (Web Browser Data), #select2-timezone-container, #select2-path-rank-container / #path-rank.
+
+   Cover:
+   - Verify representative badges are visible after page load / View Filters if a strip toggle exists (prefer attached text if strip visibility is flaky).
+   - Change Time Period for Last 6 hours, Last 24 hours, Last 7 days and Last 30 days (or live equivalents) and assert Campaigns / Path Analytics / Path Flow refresh.
+   - Change Campaign, Landing Page and Focal Page quick filters using runtime-derived options.
+   - Change Paths ranking/mode via #customer-journey-paths-view when options are available.
+   - Assert scoped table/card signatures before and after; do not merely count static DOM hosts.
+   - Restore the originally captured quick-filter context.
+
+6. Campaigns tab
+   Controls / hosts:
+   - Tab: #campaigns-toggle
+   - Wrapper: #campaigns-wrapper
+   - Table: #campaigns-table
+   - Related chrome: #campaigns-table-wrapper, #my-campaigns-list, #table-search when present
+   - Actions observed: “Go to my Campaign dashboard”, “Save Campaign to dashboard” — treat Save as out of scope / do not persist shared dashboards unless a disposable dashboard is explicitly authorized
+   - Optional metric view toggles: #view-campaign-conversions / brand-related toggles when present (do not assume #view-campaign-revenue)
+   - Export options observed: CSV / TSV (and any additional JSON/Array if exposed)
+
+   PDF (sales article metrics, adapted for Brand):
+   All Campaigns table lists configured campaigns plus (All Traffic) and (No Campaign Assigned). Metrics include Sessions, Page Views, Bounce Rate, Exit Rate, Onload, Orders, Conversion Rate, and Brand (not Revenue).
+
+   Live headers observed on Brand CJA (prefer live labels; Onload may appear as Onload or Avg Onload):
+   - Campaigns
+   - Journey Sessions
+   - Journey Page Views
+   - Bounce Rate
+   - Exit Rate
+   - Onload / Avg Onload
+   - Orders
+   - Conversion Rate
+   - Brand ($)
+   Explicitly assert Brand ($) is present and Revenue ($) is NOT the terminal currency column for this suite.
+
+   Cover:
+   - Verify Campaigns tab content and All Campaigns table headers including Brand ($).
+   - Verify (All Traffic) and/or (No Campaign Assigned) rows when present; do not fail if a site has only named campaigns / URL rows.
+   - Validate metric formats: rates as %, currency for Brand ($), durations for Onload, counts for sessions/page views/orders — without exact values.
+   - Sort representative columns (including Brand ($)) ascending/descending and assert actual row-order change when multiple rows exist.
+   - Search / filter table text when #table-search or equivalent is present; no-match then clear.
+   - Exercise pagination / pager info (#campaigns-table_pager_info) and page-size options when present.
+   - Export CSV/TSV soft-check when available.
+   - Expand a Campaigns-column URL/name via dropdown arrow (td.text-left svg.dropdown-arrow) and verify landing-page detail rows (tr.load-campaign-landing-page) appear.
+   - Click a landing-page detail record and verify handoff into Path Analytics with Hierarchy Ladder and Journey Details data.
+   - Soft-check Brand Attribution affordance if present; open/close without mutating attribution configuration. Do not expect Revenue Attribution on this page.
+   - Do not Save Campaign to a shared dashboard.
+
+7. Path Analytics tab
+   Controls / hosts:
+   - Tab: #path-analytics-toggle
+   - Wrapper: #path-analytics-wrapper
+   - Hierarchy ladder / overview: #path-analytics-overview-table plus #allPathsRow, #topXPathsRow, #topXPathsEntrances, #topXPathsHits, #topXPathsAvgOrderValue, #topXPathsOrders, #topXPathsRevenue (and any brand-specific markers if present)
+   - Journey Details Pages table: #path-analytics-table
+   - Journey Details Paths table: #paths-table inside #paths / #paths-table-wrapper
+   - Paths vs Pages segmented control: #paths-btn, #pages-btn
+   - Path rank control: #path-rank / #select2-path-rank-container
+
+   PDF:
+   - Path Analytics consists of Hierarchy Ladder and Journey Details table.
+   - Converted and Not Converted paths are ranked separately.
+   - Hierarchy Ladder shows overall campaign performance at top, then campaign performance for traffic landing on the selected Landing Page in the bottom rows.
+   - Journey Details supports Path vs Pages breakdown; Path includes Path Rank; clicking a path focuses Path Analytics on that path.
+   - Quick filters for Paths, Landing Page and Campaign drive the tables.
+
+   Live Path Analytics overview headers observed (Brand):
+   - Journey Sessions, Journey Page Views, Bounce Rate, Exit Rate, Onload/Avg Onload, Avg Order Value ($), Orders, Conversion Rate, Brand ($)
+
+   Live Pages-in-journey headers (#path-analytics-table) observed (Brand):
+   - Pages in Journey, Journey Sessions, Journey Page Views, Exits, Session Exit Rate, Onload/Avg Onload, Orders, Brand ($)
+
+   Live Paths table headers (#paths-table) observed (Brand):
+   - Paths, Path Rank, Landing Page, # of Pages in Path, Journey Sessions, Journey Page Views, Onload/Avg Onload, Avg Order Value ($), Orders, Brand ($)
+
+   Cover:
+   - Open Path Analytics and verify hierarchy ladder / overview metrics render for the current campaign + landing page context, including Brand ($).
+   - Verify converted vs non-converted ranking presentation when shown (labels/sections/path-rank modes).
+   - Toggle #paths-btn and #pages-btn; assert the corresponding Journey Details table/content becomes active and contains data rows for a data-bearing context.
+   - Validate Paths table Path Rank column and clicking a path updates focused path context.
+   - Validate Pages table reflects selected Paths / Landing Page / Campaign filters.
+   - Sort, search, paginate and export Journey Details tables when controls exist.
+   - Change Landing Page via quick filter and verify hierarchy bottom rows and Journey Details refresh.
+   - Change Campaign quick filter and verify hierarchy top/bottom context updates.
+   - Restore original Path Analytics filters/context.
+
+8. Path Flow tab
+   Controls / hosts:
+   - Tab: #path-flow-toggle (last primary tab)
+   - Wrapper: #path-flow-wrapper
+   - Landing Page View container: #landing-page-path-flow / #path-flow
+   - Focal Page View container: #focal-page-path-flow / #path-flow-focal / #path-flow-connectors-focal
+   - View toggles: Landing Page View button and #focal-page-toggle (“Focal Page View”)
+   - Path Flow uses custom SVG/card visualization (.page-card / .page-card.landingCard / .column); Highcharts count may be 0
+
+   PDF:
+   - Path Flow has Landing Page View and Focal Page View.
+   - Selecting a page card highlights the user path associated with that page.
+   - Landing Page View shows paths beginning from the selected landing page.
+   - Focal Page View shows paths from the selected Focal page in Filters.
+
+   Cover:
+   - Open Path Flow and verify it is the last primary tab.
+   - Verify Landing Page View is available/default as designed.
+   - Verify top-left Landing Page card(s) (.page-card.landingCard) render for a data-bearing context OR controlled empty state.
+   - When Landing Page card has data, consecutive Step columns should show page cards accordingly.
+   - Click a representative page card and verify associated path highlighting/connectors update (soft signature / selection state).
+   - Switch to Focal Page View (#focal-page-toggle) and verify #focal-page-path-flow becomes the active view while landing view hides.
+   - Switch back to Landing Page View and verify restoration.
+   - Change Landing Page and Focal Page filters and verify Path Flow cards refresh.
+   - Hover Native Webview / Native App Screen indicators on cards when present (see section 10) and validate tooltip text.
+   - Verify no blocking overlay remains after card selection.
+   - Do not assert exact path geometry coordinates; assert visibility, selection state and refresh.
+
+9. Right-navigation Filters pane
+   Controls:
+   - Toggle: #toggle-filters (and mobile #mobile-controls-filters-btn when relevant)
+   - Apply / Cancel controls when present (#apply-filters / #cancel-filters)
+   - Filter drawer tabs observed: My Filters (#my-filters-tab), Shared Filters (#shared-filters-tab) — inspect read-only; do not Save Filter
+
+   Live filter labels observed include:
+   - Real User Data Type (Web Browser Data / Native App Data)
+   - Time Period
+   - Auto Refresh Start Time Anchor
+   - Timezone
+   - Selected Metric
+   - Bot Traffic: Include Bots / Exclude Bots / Bots Only
+   - Campaign
+   - Traffic Source / Referrer
+   - Traffic Medium
+   - Test / A-B Segment
+   - Visitor Type (new vs. returning)
+   - Test Datacenter
+   - Traffic Segment
+   - Paths
+   - Landing Page
+   - Focal Page
+   - Converting Pages
+   - Included Pages / Excluded Pages
+   - Common Devices / Operating Systems / Browsers
+   - Country / Region
+   - Maximum Exit Rate Threshold
+   - Maximum Onload Threshold
+   - Display Campaigns With Session Count Greater Than
+   - Remainder
+   - SDK Version / App Version / OS Version / Device Model (Native App contexts)
+
+   Cover:
+   - Open Filters and verify representative labels/controls.
+   - Apply Time Period specifically for 6 hours, 24 hours, 7 days and 30 days; verify Campaigns/Path Analytics/Path Flow refresh.
+   - Apply one compatible Campaign, Landing Page or Focal Page filter derived from live options.
+   - Apply a Paths ranking/filter option and verify Path Analytics / Path Flow update.
+   - Apply Device / Browser / Bot Traffic / Visitor Type / Country representative options when available.
+   - Switch Real User Data Type between Web Browser Data and Native App Data when available; verify indicators/cards update or controlled empty state appears; restore original.
+   - Apply a restrictive no-match combination and verify controlled empty states.
+   - Cancel/Escape closes without unintended sticky apply where applicable.
+   - Clear/restore sampled filters to the originally captured context.
+   - Do not Save Filter, create shared filters, clear Genius cache or persist dashboard campaign saves.
+
+10. Real User vs Native App data-type indicators (from Help PDF)
+    - When Real User Data Type = Web Browser Data, Path Flow / cards may show an indicator when Native Webviews are included; hover shows how many Native Webviews were counted.
+    - When Real User Data Type = Native App Data, cards may show an indicator when the page was a Native App Screen (not a Native Webview); hover reminds that the card represents app views.
+    Cover:
+    - Soft-check for indicators under each data type when the live site has mixed traffic.
+    - Annotate absence of indicators when the selected context has no native webview/app-screen mix.
+    - Do not fail solely because a sampled card lacks an indicator.
+
+11. Common actions, accessibility and responsive coverage
+    - Verify i-icon / data-original-title tooltips on filter fields, tabs and Path Flow cards.
+    - Verify keyboard focus for Campaigns / Path Analytics / Path Flow tabs, Paths/Pages toggle, Landing/Focal toggles, table search/pager/export and Filters drawer (annotate non-focusable CI-tabs).
+    - Verify focus returns after closing drawers/menus / jconfirm dialogs.
+    - Verify tables expose meaningful headers including Brand ($).
+    - Sample standard and narrower desktop widths; tabs and quick filters remain reachable.
+    - Verify loading indicators resolve within bounded deadlines.
+    - While navigating controls, if additional functional or UI behaviors are found (Share, Brand Attribution read-only open, export menus, empty states, brand-load confirm dialogs), automate those too using existing framework helpers.
+
+12. Combination, recovery and non-functional scenarios
+    - Time period + Campaigns table signature change (Brand ($) column remains present).
+    - Campaign URL expand → Landing Page select → Path Analytics hierarchy update with Brand ($) data.
+    - Path Analytics Paths vs Pages toggle + path row click focus (both tables data-bearing when live allows).
+    - Path Flow Landing vs Focal toggle + card selection highlight; Landing card + Step columns cascade.
+    - Quick filter Landing Page + Focal Page + Paths mode combination.
+    - Real User Data Type switch + Path Flow indicator soft-check + restore.
+    - Open/close Filters and tab switches sequentially without overlay conflicts (including jconfirm).
+    - Recover from no-data context to the originally captured site/time/campaign/landing/focal/tab state while staying on conversion-type=brand.
+    - Verify repeated refreshes do not duplicate table hosts, wrappers or Path Flow SVGs.
+    - Verify suite never silently navigates to conversion-type=sales.
+
+13. Live reverse-engineering facts to preserve
+    On GDC Test Site 2 the authenticated live UI showed (Aug 2026 probe):
+    - URL: marketing-insights/customer-journey-analysis&conversion-type=brand (via /btportal/web/index.php)
+    - Browser title: Brand Customer Journey Analysis
+    - #page-title: Business Insights / Improve Traffic / Customer Journey Analysis (Brand word may be omitted in breadcrumb)
+    - Distinct sibling menu item: Customer Journey Analysis (conversion-type=sales) — out of scope for this suite
+    - Primary tabs: #campaigns-toggle, #path-analytics-toggle, #path-flow-toggle
+    - Default active tab: Campaigns; wrappers #campaigns-wrapper / #path-analytics-wrapper / #path-flow-wrapper
+    - Campaigns table: #campaigns-table with Journey Sessions / Journey Page Views / Bounce Rate / Exit Rate / Onload / Orders / Conversion Rate / Brand ($)
+    - Path Analytics overview: #path-analytics-overview-table ends with Brand ($) (not Revenue ($)); Avg Order Value ($) still present
+    - Journey Details: #path-analytics-table (Pages) and #paths-table (Paths) use Brand ($) instead of Revenue ($); toggles #paths-btn / #pages-btn
+    - Path Flow: #path-flow-wrapper, #landing-page-path-flow, #focal-page-path-flow; Focal toggle #focal-page-toggle; .page-card.landingCard present
+    - Campaign URL expand + tr.load-campaign-landing-page drilldown works as on sales CJA
+    - Brand Attribution affordance present; Revenue Attribution not observed
+    - A jconfirm modal may intercept clicks after brand page load — dismiss before tab interactions
+    - Quick filters included Time Period, Landing Page (#focal-page-view), Focal Page (#focal-page-real-view), Paths (#customer-journey-paths-view), Campaign (#campaign-view)
+    - Filters drawer included Real User Data Type, Landing Page, Focal Page, Paths, Campaign, Bot Traffic, Device/Browser/OS, thresholds and Remainder
+    - Export CSV/TSV expected from table chrome when exposed
+    - “Go to my Campaign dashboard” / “Save Campaign to dashboard” present; do not save shared dashboards
+    - Path Flow visualization is SVG/card based rather than Highcharts-only
+
+14. Refer to the attached documentation
+    Refer to “The Customer Journey Analysis Page – Blue Triangle Help Center.pdf” and the attached DOC/style reference for:
+    - Page purpose and navigation (adapt labels to Brand Customer Journey Analysis / Brand ($))
+    - Campaigns / All Campaigns table and landing-page drilldown
+    - Path Analytics Hierarchy Ladder and Journey Details (Paths vs Pages)
+    - Converted vs Not Converted ranking
+    - Path Flow Landing Page View vs Focal Page View
+    - Quick filters and full Filters menu
+    - Real User vs Native App data-type indicators and Native Webview hover behavior
+    Treat Revenue mentions in the Help PDF as Brand ($) for this suite unless live UI still shows Revenue on a specific control.
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a separate Playwright automation suite under regression_tests > US2 in the Brand Customer Journey Analysis subfolder specified above. The suite must include thorough individual regression tests covering all applicable points in this Context.
+
+Follow the existing project framework and POM conventions. Reuse existing filter, table, navigation and soft-deadline helpers whenever possible (especially customer.journey.analysis / marketing.overview / rum performance suites patterns). After generation:
+1. Execute only the newly created Brand Customer Journey Analysis regression spec first and fix automation hard failures.
+2. Generate fresh isolated Allure results and an HTML report for this spec.
+3. Generate a manual test-case workbook by referring to the project’s existing manual regression workbooks (including docs/Customer_Journey_Analysis_Regression.xlsx as a structural template).
+4. Use workbook sheets: Summary / Regression TCs / Notes.
+5. Include the executed result summary and any soft annotations for unavailable live data/configuration.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable IDs, visible titles and scoped wrappers/tables; do not depend on dynamic Highcharts/SVG generated IDs.
+6. Do not hard-code campaign names, landing/focal pages, path strings, live totals or initial/default time period.
+7. Capture and restore the original filters, time period, tab, Paths/Pages mode, Landing/Focal view and table state.
+8. Use a serial suite only when shared page state is intentional; optional/data-dependent failures must not abort unrelated tests.
+9. Use bounded soft deadlines and explicit action timeouts.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page actions running into later serial tests; cancel/reload/reset the page before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save Filter, Save Campaign to dashboard, create shared filters, clear Genius cache or mutate Brand Attribution configuration.
+13. Keep scope on conversion-type=brand Brand Customer Journey Analysis; do not silently switch to sales Customer Journey Analysis (conversion-type=sales).
+14. Close all menus, overlays, drawers, jconfirm dialogs and tabs opened by tests.
+15. Do not claim that data refreshed by merely counting pre-existing SVG/table hosts; compare scoped wrapper/table/card state.
+16. Assert Brand ($) (not Revenue ($)) as the campaigns/journey currency column for this suite.
+17. If any requirement is ambiguous or missing, flag it before generating automation.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- Help PDF still says “Marketing Insights” / “Customer Journey Analysis” / “Revenue” while live Brand page uses Brand menu label, conversion-type=brand and Brand ($); confirm live BI Brand path + Brand ($) as source of truth for this suite.
+- #page-title may omit the word “Brand” even though document.title is Brand Customer Journey Analysis — decide whether breadcrumb must include Brand or document title + conversion-type=brand is sufficient.
+- Whether Campaigns table Onload header is “Onload” or “Avg Onload” for the current build (assert either).
+- Exact Path Rank / “Top 10 Converted & Non-converted by sessions” option list for the account.
+- Whether Hierarchy Ladder always exposes #allPathsRow or only #topXPaths* rows for the selected path mode; whether #topXPathsRevenue id still backs Brand ($) cells.
+- Whether brand page always shows a jconfirm on load and what its dismiss control text is.
+- Whether Brand Attribution is in-scope beyond presence / read-only open-close.
+- Expected filter persistence after refresh/navigation.
+- Formal page load/refresh SLA, if one exists.
+- Whether sales Customer Journey Analysis suite helpers should be reused via inheritance vs duplicated Brand POM.
+- Whether Avg Order Value ($) on Brand Path Analytics is always present or site-dependent.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to the existing POM framework and regression suites, especially:
+- customer.journey.analysis.regression.spec.ts (primary twin suite)
+- marketing.overview.regression.spec.ts
+- revenue.opportunity.regression.spec.ts
+- rum.performance-overview.browser.regression.spec.ts / core.web.vitals.regression.spec.ts
+- rum.aggregate-waterfall.browser.regression.spec.ts
+
+Follow their patterns for:
+- POM/locator separation
+- authenticated profile/site selection
+- stable Select2 / filter apply patterns
+- table sort/search/pager/export assertions
+- tab/wrapper visibility assertions
+- campaign URL expand → landing detail → Path Analytics handoff
+- Path Flow Landing card + Step column cascade
+- runtime-derived live options
+- bounded data-dependent annotations with state recovery
+- isolated Allure reporting
+- Excel generators with Summary / Regression TCs / Notes sheets

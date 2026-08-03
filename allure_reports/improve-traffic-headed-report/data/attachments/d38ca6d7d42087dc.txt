@@ -1,0 +1,1 @@
+[BCJA] expanded campaign=https://www.cabelas.com/home 57,465 (40.10% of all traffic)  landing=Homepage 54,985 409,968 11.23% 88.61% 4.14s 0 0.00% 0

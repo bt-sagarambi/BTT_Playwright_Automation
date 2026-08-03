@@ -12,6 +12,15 @@ const PAGE_DEF = {
   titleIncludes: /Performance Overview|VitalScope|Core Web Vitals/i,
 };
 
+/** Business Insights > Improve Traffic > Core Web Vitals (VitalScope) — same route as Performance Overview. */
+const CORE_WEB_VITALS_PAGE_DEF = {
+  id: 'rum.vitalscope',
+  module: 'rum',
+  menuLabel: 'Core Web Vitals (VitalScope)',
+  route: 'real-user-monitoring/performance-overview',
+  titleIncludes: /Vital|Core Web|Performance Overview/i,
+};
+
 /**
  * Performance Overview (RUM Browser / VitalScope) — primarily read-only.
  * Customize Table Save & Close is allowed (column prefs). Does not Save Filter.
@@ -27,6 +36,14 @@ export class RumPerformanceOverviewPage {
     await ensurePortalSession(this.page);
     await new SiteDropdownPage(this.page).ensureProfileSite();
     await new LeftNavPage(this.page).openSmokePage(PAGE_DEF);
+    await this.waitForPageReady();
+  }
+
+  /** Opens via Business Insights > Improve Traffic > Core Web Vitals (VitalScope). */
+  async openViaCoreWebVitalsNavigation(): Promise<void> {
+    await ensurePortalSession(this.page);
+    await new SiteDropdownPage(this.page).ensureProfileSite();
+    await new LeftNavPage(this.page).openSmokePage(CORE_WEB_VITALS_PAGE_DEF);
     await this.waitForPageReady();
   }
 

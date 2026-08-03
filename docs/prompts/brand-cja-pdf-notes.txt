@@ -1,0 +1,35 @@
+# Brand Customer Journey Analysis — live probe notes (GDC Test Site 2 / US)
+
+Captured via authenticated portal probe (conversion-type=brand).
+
+## Identity
+- Document title: Brand Customer Journey Analysis
+- URL: .../marketing-insights/customer-journey-analysis&conversion-type=brand
+- #page-title: Business Insights / Improve Traffic / Customer Journey Analysis (Brand word omitted in breadcrumb on this build)
+- Smoke catalog: mkt.brand-journey
+
+## Campaigns headers
+Campaigns | Journey Sessions | Journey Page Views | Bounce Rate | Exit Rate | Onload | Orders | Conversion Rate | Brand ($)
+
+## Path Analytics overview headers
+Journey Sessions | Journey Page Views | Bounce Rate | Exit Rate | Onload | Avg Order Value ($) | Orders | Conversion Rate | Brand ($)
+
+## Paths headers
+Paths | Path Rank | Landing Page | # of Pages in Path | Journey Sessions | Journey Page Views | Onload | Avg Order Value ($) | Orders | Brand ($)
+
+## Pages headers
+Pages in Journey | Journey Sessions | Journey Page Views | Exits | Session Exit Rate | Onload | Orders | Brand ($)
+
+## Path Flow
+landingCards / pageCards / #focal-page-toggle present (SVG/card based)
+
+## Chrome
+Go to my Campaign dashboard: yes
+Save Campaign to dashboard: yes
+Brand Attribution: yes
+Revenue Attribution: no
+
+## Notes
+- jconfirm modal may block clicks after brand page load — dismiss before interacting
+- Campaign URL expand → tr.load-campaign-landing-page works (landing kids observed)
+- Help PDF for sales CJA is the UX reference; substitute Brand ($) for Revenue ($)

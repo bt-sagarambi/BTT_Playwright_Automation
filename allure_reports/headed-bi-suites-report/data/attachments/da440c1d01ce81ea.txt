@@ -1,0 +1,40 @@
+[Marketing Overview] Metric revenue-campaigns: barPoints=5 linePoints=15 signatureChanged=false
+[Marketing Overview] Campaign metric data/tooltip issue: orders-campaigns: orders-campaigns count tooltip should not use currency/percentage units
+
+expect(received).not.toMatch(expected)
+
+Expected pattern: not /\$|%/
+Received string:      "https://www.cabelas.com/SearchDisplay#q:​ 1 Jul 31, 2026 - 13:30​https://www.cabelas.com/SearchDisplay#q: $0"
+[Marketing Overview] Campaign metric data/tooltip issue: aov-campaigns: expect(received).toBe(expected) // Object.is equality
+
+Expected: "aov-campaigns"
+Received: "revenue-campaigns"
+[Marketing Overview] Campaign metric data/tooltip issue: conv-rate-campaigns: expect(received).toBe(expected) // Object.is equality
+
+Expected: "conv-rate-campaigns"
+Received: "revenue-campaigns"
+[Marketing Overview] Metric bounce-rate-campaigns: barPoints=5 linePoints=15 signatureChanged=true
+[Marketing Overview] Metric exit-rate-campaigns: barPoints=5 linePoints=10 signatureChanged=true
+[Marketing Overview] Campaign metric data/tooltip issue: sessions-campaigns: sessions-campaigns count tooltip should not use currency/percentage units
+
+expect(received).not.toMatch(expected)
+
+Expected pattern: not /\$|%/
+Received string:      "https://www.cabelas.com/SearchDisplay#q:​ 379Sessions Jul 31, 2026 - 13:30​https://www.cabelas.com/SearchDisplay#q: 67.39%"
+[Marketing Overview] Campaign metric soft findings (4): orders-campaigns: orders-campaigns count tooltip should not use currency/percentage units
+
+expect(received).not.toMatch(expected)
+
+Expected pattern: not /\$|%/
+Received string:      "https://www.cabelas.com/SearchDisplay#q:​ 1 Jul 31, 2026 - 13:30​https://www.cabelas.com/SearchDisplay#q: $0" || aov-campaigns: expect(received).toBe(expected) // Object.is equality
+
+Expected: "aov-campaigns"
+Received: "revenue-campaigns" || conv-rate-campaigns: expect(received).toBe(expected) // Object.is equality
+
+Expected: "conv-rate-campaigns"
+Received: "revenue-campaigns" || sessions-campaigns: sessions-campaigns count tooltip should not use currency/percentage units
+
+expect(received).not.toMatch(expected)
+
+Expected pattern: not /\$|%/
+Received string:      "https://www.cabelas.com/SearchDisplay#q:​ 379Sessions Jul 31, 2026 - 13:30​https://www.cabelas.com/SearchDisplay#q: 67.39%"
