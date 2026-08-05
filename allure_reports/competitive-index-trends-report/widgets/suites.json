@@ -1,0 +1,1 @@
+{"total":2,"items":[{"uid":"74b429c728fe20c06f3fd5cf3e43758a","name":"chromium-regression","statistic":{"failed":0,"broken":0,"skipped":0,"passed":30,"unknown":0,"total":30}},{"uid":"64c311893eecf7cf00f4368c9b45b4d5","name":"smoke-setup","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}

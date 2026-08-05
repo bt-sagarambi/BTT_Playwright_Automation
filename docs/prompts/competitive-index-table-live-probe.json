@@ -1,0 +1,1081 @@
+{
+  "base": {
+    "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=competitive-index/index&view=table",
+    "title": "Competitive Index",
+    "pageTitle": "Competitive Index / Table",
+    "interestingIds": [
+      "toggle-navigation",
+      "toggle-user",
+      "toggle-settings",
+      "toggle-help-articles",
+      "toggle-help-video",
+      "toggle-theme",
+      "toggle-tv-mode",
+      "toggle-filters",
+      "toggle-feedback",
+      "mobile-controls-filters-btn",
+      "toggle-filters-li",
+      "toggle-fullscreen-li",
+      "toggle-settings-li",
+      "toggle-user-li",
+      "site-navigation-plus",
+      "user-menu-search",
+      "site-nav-user",
+      "site-nav-full",
+      "site-nav-search-results",
+      "toggle-menu-state-btn",
+      "site-navigation-plus-backdrop",
+      "add-comparison",
+      "toggle-markers-container",
+      "toggle-dropdown-con",
+      "toggleMarkersType",
+      "toggle-dropdown-title-wrapper",
+      "toggle-dropdown-title",
+      "toggle-dropdown-icon",
+      "toggle-dropdown",
+      "toggle-dropdown-items",
+      "report-manager-toggle",
+      "view-active-rule-btn",
+      "data-type-view",
+      "data-origin-view",
+      "revenue-impact-rule-effective-date-view",
+      "time-period-view",
+      "date-of-performance-change-view",
+      "domain-baseline-view",
+      "device-view",
+      "browser-view",
+      "operating-system-view",
+      "visitor-type-view",
+      "bot-traffic-view",
+      "focal-page-view",
+      "focal-page-real-view",
+      "page-name-view",
+      "url-search-view",
+      "hierarchy-min-percent-view",
+      "customer-journey-paths-view",
+      "page-group-view",
+      "traffic-segment-view",
+      "isp-view",
+      "datacenter-view",
+      "a-b-testing-segment-view",
+      "campaign-view",
+      "campaign-name-view",
+      "campaign-medium-view",
+      "campaign-source-view",
+      "country-view",
+      "region-view",
+      "bucket-size-view",
+      "granularity-view",
+      "performance-metric-view",
+      "discard-sessions-over-view",
+      "statistical-method-view",
+      "net-speed-view",
+      "monitor-name-view",
+      "show-remainder-view",
+      "js-error-type-inclusion-exclusion-view",
+      "wcd-data-inclusion-view",
+      "cv-converting-page-view",
+      "cv-include-page-view",
+      "cv-exclude-page-view",
+      "sdktagVersion-view",
+      "netstate-view",
+      "osVersion-view",
+      "appVersion-view",
+      "deviceModel-view",
+      "page-controls-toggle",
+      "viewNavButtons",
+      "table-tab",
+      "trends-tab",
+      "buttons-tab",
+      "resetMetrics",
+      "comp-search-wrapper",
+      "globalSiteSearchInput",
+      "search-icon",
+      "globalSiteSearchResults",
+      "globalSiteSearchListBox",
+      "table-con",
+      "tableHero",
+      "tableContainer",
+      "performance_index_table_pager_info",
+      "table-search",
+      "performance_index_table-table-viewport",
+      "performance_index_table",
+      "speedIndex",
+      "totalBlockingTime",
+      "performance_index_table_pager_info",
+      "companyToggleConatiner",
+      "hideTrendFilters",
+      "trendFilterContent",
+      "searchBox",
+      "comp-search-wrapper",
+      "trendCompSearch",
+      "search-icon",
+      "btnClearSites",
+      "compToggleBox",
+      "companyToggler",
+      "1-800-Flowers_toggle_container",
+      "1000Bulbs.com_toggle_container",
+      "123Stores_toggle_container",
+      "1800PetMeds.com_toggle_container",
+      "1Sale_toggle_container",
+      "4inkjets_toggle_container",
+      "7 For All Mankind_toggle_container",
+      "AAFES_toggle_container",
+      "AMI Clubwear_toggle_container",
+      "ANTonline.com_toggle_container",
+      "APMEX_toggle_container",
+      "ASOS.com_toggle_container",
+      "ASOS.com",
+      "Abercrombie_toggle_container",
+      "Academy Sports_toggle_container",
+      "Accessories4less Inc._toggle_container",
+      "Accessory Geeks_toggle_container",
+      "Activision_toggle_container",
+      "Adam and Eve_toggle_container",
+      "Adore Me_toggle_container",
+      "Advance Auto Parts Inc._toggle_container",
+      "Advantest_toggle_container",
+      "Aeropostale_toggle_container",
+      "Aeropostale",
+      "Albertsons_toggle_container",
+      "Alex and Ani_toggle_container",
+      "Alibris_toggle_container",
+      "Alien Gear Holsters_toggle_container",
+      "Allbirds_toggle_container",
+      "Alligator Diesel Performance LLC_toggle_container",
+      "Allparts_toggle_container",
+      "Alphabroder_toggle_container",
+      "Amazon Business_toggle_container",
+      "Amazon MX_toggle_container",
+      "Amazon.com_toggle_container",
+      "AmeriMark_toggle_container",
+      "American Eagle_toggle_container",
+      "American Girl_toggle_container",
+      "American Meadows Inc._toggle_container",
+      "American Muscle_toggle_container",
+      "American Standard Brands_toggle_container",
+      "Ames Walker International_toggle_container",
+      "Andrew Christian_toggle_container",
+      "Anker_toggle_container",
+      "Ann Taylor_toggle_container",
+      "Anthropologie_toggle_container",
+      "Apple_toggle_container",
+      "Applebees_toggle_container",
+      "Aquasana Inc._toggle_container",
+      "Arbys_toggle_container",
+      "Arhaus_toggle_container",
+      "Aritzia_toggle_container",
+      "Artifact Uprising_toggle_container",
+      "Ashford.com_toggle_container",
+      "Ashley Stewart_toggle_container",
+      "Aubuchon Hardware Store_toggle_container",
+      "Audio-Technica U.S. Inc._toggle_container",
+      "AutoCheck_toggle_container",
+      "Autotrader_toggle_container",
+      "Avery Products Corp._toggle_container",
+      "Avon_toggle_container",
+      "Away_toggle_container",
+      "B and H Photo Video_toggle_container",
+      "BAIT_toggle_container",
+      "BSN Sports_toggle_container",
+      "BabyEarth_toggle_container",
+      "Ballard Designs_toggle_container",
+      "Balsam Hill_toggle_container",
+      "BarkBox_toggle_container",
+      "Barnes and Noble_toggle_container",
+      "Baseball Express_toggle_container",
+      "BaseballMonkey_toggle_container",
+      "Bass Pro_toggle_container",
+      "Bates Footwear_toggle_container",
+      "Baublebar_toggle_container",
+      "Beach Trading Co._toggle_container",
+      "Beachbody_toggle_container",
+      "Bebe_toggle_container",
+      "Bed Bath and Beyond_toggle_container",
+      "Belt Outlet_toggle_container",
+      "Benchmade Knife Co. Inc._toggle_container",
+      "Benq America Corp._toggle_container",
+      "Best Buy_toggle_container",
+      "Big Dot of Happiness_toggle_container",
+      "BigBadToyStore Inc._toggle_container",
+      "Birchbox_toggle_container",
+      "Bissell_toggle_container",
+      "BizChair_toggle_container",
+      "Black Diamond Equipment Ltd._toggle_container",
+      "Black Rifle Coffee Co._toggle_container",
+      "Blinds.com_toggle_container"
+    ],
+    "tabs": [
+      {
+        "tag": "BUTTON",
+        "id": "report-manager-toggle",
+        "cls": "r-p btn btn-default",
+        "text": "",
+        "href": ""
+      },
+      {
+        "tag": "BUTTON",
+        "id": "page-controls-toggle",
+        "cls": "btn btn-default",
+        "text": "",
+        "href": ""
+      },
+      {
+        "tag": "DIV",
+        "id": "table-tab",
+        "cls": "CI-tab width-tab active",
+        "text": "TABLE VIEW",
+        "href": ""
+      },
+      {
+        "tag": "DIV",
+        "id": "trends-tab",
+        "cls": "CI-tab width-tab",
+        "text": "TRENDS VIEW",
+        "href": ""
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "cls": "",
+        "text": "My Filters",
+        "href": "#my-filters"
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "cls": "",
+        "text": "Shared Filters",
+        "href": "#shared-filters"
+      }
+    ],
+    "tables": [
+      {
+        "i": 0,
+        "id": "performance_index_table",
+        "cls": "table table-bordered tablesorter tablesorter-default tablesorter136723de53089 hasFilters",
+        "headers": [
+          "Icon",
+          "Company",
+          "Vertical",
+          "Page Load Time (sec.)",
+          "Time to Interactive (sec.)",
+          "First Byte (sec.)",
+          "DNS (sec.)",
+          "TCP Connection (sec.)",
+          "DOM Complete (sec.)",
+          "SSL (sec.)",
+          "Redirect (sec.)",
+          "Base Page (sec.)",
+          "Time to DOM Interactive (sec.)",
+          "Time to DOM Content Loaded (sec.)",
+          "First Paint (sec.)",
+          "First Contentful Paint (sec.)",
+          "Speed Index (sec.)",
+          "Largest Contentful Paint (sec.)",
+          "Total Blocking Time (sec.)",
+          "Cumulative Layout Shift"
+        ],
+        "rows": 759,
+        "sample": [
+          "GoDaddy Specialty 0.07 2.67",
+          "H-E-B Grocery 0.07 0.17",
+          "Conns Mass Merchant 0.18 0.33"
+        ]
+      }
+    ],
+    "badges": {
+      "toggle-filters": "",
+      "mobile-controls-filters-btn": "View Filters",
+      "toggle-filters-li": "Filters",
+      "data-type-view": "",
+      "data-origin-view": "",
+      "revenue-impact-rule-effective-date-view": "",
+      "time-period-view": "7 days (2026-07-29 11:52 to 2026-08-05 11:52 IST (+5:30))",
+      "date-of-performance-change-view": "",
+      "domain-baseline-view": "",
+      "device-view": "",
+      "browser-view": "",
+      "operating-system-view": "",
+      "visitor-type-view": "",
+      "bot-traffic-view": "",
+      "focal-page-view": "",
+      "focal-page-real-view": "",
+      "page-name-view": "",
+      "url-search-view": "",
+      "hierarchy-min-percent-view": "",
+      "customer-journey-paths-view": "",
+      "page-group-view": "",
+      "traffic-segment-view": "Retail",
+      "isp-view": "",
+      "datacenter-view": "",
+      "a-b-testing-segment-view": "",
+      "campaign-view": "",
+      "campaign-name-view": "",
+      "campaign-medium-view": "",
+      "campaign-source-view": "",
+      "country-view": "",
+      "region-view": "",
+      "bucket-size-view": "",
+      "granularity-view": "",
+      "performance-metric-view": "",
+      "discard-sessions-over-view": "",
+      "statistical-method-view": "Arithmetic Mean",
+      "net-speed-view": "",
+      "monitor-name-view": "",
+      "show-remainder-view": "",
+      "js-error-type-inclusion-exclusion-view": ""
+    },
+    "highcharts": 4,
+    "svgs": 2421,
+    "select2": [
+      {
+        "id": "select2-industrySelector-container",
+        "text": "Retail"
+      },
+      {
+        "id": "select2-verticalSelector-container",
+        "text": "All Verticals"
+      },
+      {
+        "id": "select2-companySelector-container",
+        "text": ""
+      },
+      {
+        "id": "select2-trendIndustrySelector-container",
+        "text": "Retail"
+      },
+      {
+        "id": "select2-verticalSelector_trends-container",
+        "text": "All Verticals"
+      },
+      {
+        "id": "select2-trendGroupSelector-container",
+        "text": "Choose a Group"
+      },
+      {
+        "id": "select2-verticalSelector_edit-container",
+        "text": "×All Verticals"
+      },
+      {
+        "id": "select2-timezone-container",
+        "text": "Asia/Kolkata/Mumbai (+05:30)"
+      },
+      {
+        "id": "select2-traffic-segment-container",
+        "text": "Retail (620 page names)"
+      },
+      {
+        "id": "select2-statistical-method-container",
+        "text": "Arithmetic Mean"
+      },
+      {
+        "id": "select2-percentile-container",
+        "text": "99th"
+      }
+    ],
+    "uniqueButtons": [
+      "View Full Menu",
+      "Revenue Attribution",
+      "Add Comparison",
+      "+ New Rule",
+      "View Active Rule",
+      "Restore Defaults",
+      "Select Metrics",
+      "Export",
+      "CSV",
+      "TSV",
+      "JSON",
+      "Array",
+      "×",
+      "Close",
+      "Clear Sites Toggles",
+      "Create Group",
+      "Manage Groups",
+      "Save",
+      "x",
+      "View Metric",
+      "Cancel",
+      "Clear Cache",
+      "Apply Filters",
+      "Saved Filters",
+      "Save as New Filter",
+      "Save Current Filter",
+      "Learn More",
+      "Dismiss",
+      "Create new saved filter",
+      "Reset",
+      "Clear",
+      "Remove Tooltip",
+      "SUBMIT FEEDBACK",
+      "Apply"
+    ],
+    "headings": [
+      "Competitive Index / Table",
+      "Support",
+      "Hello, Sagar",
+      "Dashboards",
+      "Domain Baseline Analysis",
+      "Executive",
+      "Digital Experience Overview",
+      "Executive KPI Report",
+      "CrUX Report",
+      "Business Insights",
+      "Improve Traffic",
+      "Marketing Overview",
+      "My Campaign",
+      "Core Web Vitals (VitalScope)",
+      "Customer Journey Analysis",
+      "Brand Customer Journey Analysis",
+      "Competitive Index Table",
+      "Competitive Index Trends",
+      "Bottom of the Sales Funnel Analysis",
+      "Improve Conversion",
+      "Revenue Opportunity",
+      "Brand Opportunity",
+      "Revenue Calculator",
+      "Brand Calculator",
+      "Revenue Attribution"
+    ],
+    "bodySnippet": "Competitive Index / Table Get started ADMINISTRATOR Time Period: 7 days (2026-07-29 11:52 to 2026-08-05 11:52 IST (+5:30)) Industry: Retail Statistical Method: Arithmetic Mean TABLE VIEW TRENDS VIEW Restore Defaults Select Metrics Competitive Index Choose an Industry Retail Retail - EU Tourism and Hospitality Financial Services Media Healthcare iGaming DEM Online Streaming Platform Discount Provider Video Conferencing Services Business Services Government Manufacturing Retail - ANZ Retail - APAC Hotels Retail Choose a Vertical All Verticals Apparel and Accessories Automotive Parts and Accessories Baby and Kid Goods Beauty and Skin Care Books Music and Video Department Store Education Electronics Engineering Technologies Fast Food Flowers and Gifts Food Delivery Food and Beverage Food and Drink Gaming Grocery Hardware and Home Improvement Housewares and Home Furnishings Jewelry Mass Merchant Music Instruments and Accessories Office Supplies Pet Care Pharmacy Specialty Sporting Goods Toys and Hobbies Utility All Verticals Choose a Site B and H Photo Video GetFPV.com KEH Inc. ZAGG Intellectual Property Holding Co. VIPOutlet Lorex Technology Inc. SteelSeries ApS Digi-Key Electronics Crutchfield Micro Electronics Inc. Dyson ANTonline.com Full Compass Systems Ltd. Etymotic Research Inc. Accessory Geeks Brookstone hhgregg Appliances Vizio ShowMeCables Case-Mate Spigen Monoprice Incipio FireFold FlexShopper CDW Dell PC Connection Lenovo BulbAmerica Sewell Direct Skinit Zmodo Focus Camera HP Uniden Crucial Technology Beach Trading Co. Ultimate Ears PCLiquidations.com Accessories4less Inc. Lulzbot Microsoft Newark Royal Discount Anker Benq America Corp. Brastemp Sennheiser Electronic GMBH Motion RC RadioShack Bose Apple T-Mobile Consul Europa Google Play Audio-Technica U.S. Inc. Sonos Inc. Klipsch Group Inc. Best Buy Jabra GN Panasonic Corp. CARiD Canadian Tire CarParts.com CarGurus Eastwood Twisted Throttle Summit Racing Equipment JEGS RockAuto OReilly Auto Parts RealTruck Alligator Diesel Performance LLC MarineEngine.com Inc. Tire Rack AutoCheck Carfax.com Jaguar Land Rover Pep Boys Lethal Performance Inc. Carmax.com Kelley Blue Book Carvana Autotrader American Muscle Advance Auto Parts Inc. CubeSmart Extra Space Storage Ryonet Corp. Life Storage VictoryStore MistHub Boats.net United States Mint APMEX Grasscity.com Edens Garden Away American Meadows Inc. Travel Outfitters Inc. Adam and Eve School Outfitters GoDaddy Highland Products Group VaporDNA.com OMEGA Engine"
+  },
+  "filters": {
+    "labels": [
+      "Choose an Industry",
+      "Choose a Vertical",
+      "Choose a Site",
+      "Select Industry",
+      "Select Vertical",
+      "Select Group",
+      "Search Companies",
+      "Time Period",
+      "Timezone",
+      "Industry",
+      "Statistical Method",
+      "Site:",
+      "Time Range:",
+      "Don't show me again",
+      "Term",
+      "Placement",
+      "Definition",
+      "I would like to receive an update",
+      "Upload Images, PDF"
+    ],
+    "myFilters": true,
+    "sharedFilters": true,
+    "apply": true,
+    "cancel": true,
+    "filterPanelVisible": true
+  },
+  "tabClicks": [
+    {
+      "id": "",
+      "text": "Competitive Index Table",
+      "tag": "A"
+    },
+    {
+      "id": "",
+      "text": "Competitive Index Trends",
+      "tag": "A"
+    },
+    {
+      "id": "",
+      "text": "Competitive Index Table",
+      "tag": "A"
+    },
+    {
+      "id": "",
+      "text": "Competitive Index Trends",
+      "tag": "A"
+    },
+    {
+      "id": "add-comparison",
+      "text": "Add Comparison",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "page-controls-toggle",
+      "text": "",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "table-tab",
+      "text": "TABLE VIEW",
+      "tag": "DIV"
+    },
+    {
+      "id": "trends-tab",
+      "text": "TRENDS VIEW",
+      "tag": "DIV"
+    },
+    {
+      "id": "resetMetrics",
+      "text": "Restore Defaults",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "Select Metrics",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "hideTrendFilters",
+      "text": "",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "trendSaveGroup",
+      "text": "Save",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "View Metric",
+      "tag": "BUTTON"
+    },
+    {
+      "id": "",
+      "text": "View Metric",
+      "tag": "BUTTON"
+    }
+  ],
+  "tabSnapshots": [
+    {
+      "tab": {
+        "id": "",
+        "text": "Competitive Index Table",
+        "tag": "A"
+      },
+      "snap": {
+        "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=competitive-index/index&view=table",
+        "tables": [
+          {
+            "id": "performance_index_table",
+            "headers": [
+              "Icon",
+              "Company",
+              "Vertical",
+              "Page Load Time (sec.)",
+              "Time to Interactive (sec.)",
+              "First Byte (sec.)",
+              "DNS (sec.)",
+              "TCP Connection (sec.)",
+              "DOM Complete (sec.)",
+              "SSL (sec.)",
+              "Redirect (sec.)",
+              "Base Page (sec.)",
+              "Time to DOM Interactive (sec.)",
+              "Time to DOM Content Loaded (sec.)",
+              "First Paint (sec.)",
+              "First Contentful Paint (sec.)",
+              "Speed Index (sec.)",
+              "Largest Contentful Paint (sec.)",
+              "Total Blocking Time (sec.)",
+              "Cumulative Layout Shift"
+            ],
+            "rows": 759
+          }
+        ],
+        "charts": 4,
+        "active": [
+          {
+            "id": "dark-plus",
+            "cls": "active",
+            "text": "Dark"
+          },
+          {
+            "id": "table-tab",
+            "cls": "CI-tab width-tab active",
+            "text": "TABLE VIEW"
+          },
+          {
+            "id": "my-filters-tab",
+            "cls": "active",
+            "text": "My Filters"
+          },
+          {
+            "id": "my-filters",
+            "cls": "tab-pane fade in active",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "tab": {
+        "id": "",
+        "text": "Competitive Index Trends",
+        "tag": "A"
+      },
+      "snap": {
+        "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=competitive-index/index&view=table",
+        "tables": [
+          {
+            "id": "performance_index_table",
+            "headers": [
+              "Icon",
+              "Company",
+              "Vertical",
+              "Page Load Time (sec.)",
+              "Time to Interactive (sec.)",
+              "First Byte (sec.)",
+              "DNS (sec.)",
+              "TCP Connection (sec.)",
+              "DOM Complete (sec.)",
+              "SSL (sec.)",
+              "Redirect (sec.)",
+              "Base Page (sec.)",
+              "Time to DOM Interactive (sec.)",
+              "Time to DOM Content Loaded (sec.)",
+              "First Paint (sec.)",
+              "First Contentful Paint (sec.)",
+              "Speed Index (sec.)",
+              "Largest Contentful Paint (sec.)",
+              "Total Blocking Time (sec.)",
+              "Cumulative Layout Shift"
+            ],
+            "rows": 759
+          }
+        ],
+        "charts": 4,
+        "active": [
+          {
+            "id": "dark-plus",
+            "cls": "active",
+            "text": "Dark"
+          },
+          {
+            "id": "table-tab",
+            "cls": "CI-tab width-tab active",
+            "text": "TABLE VIEW"
+          },
+          {
+            "id": "my-filters-tab",
+            "cls": "active",
+            "text": "My Filters"
+          },
+          {
+            "id": "my-filters",
+            "cls": "tab-pane fade in active",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "tab": {
+        "id": "",
+        "text": "Competitive Index Table",
+        "tag": "A"
+      },
+      "snap": {
+        "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=competitive-index/index&view=table",
+        "tables": [
+          {
+            "id": "performance_index_table",
+            "headers": [
+              "Icon",
+              "Company",
+              "Vertical",
+              "Page Load Time (sec.)",
+              "Time to Interactive (sec.)",
+              "First Byte (sec.)",
+              "DNS (sec.)",
+              "TCP Connection (sec.)",
+              "DOM Complete (sec.)",
+              "SSL (sec.)",
+              "Redirect (sec.)",
+              "Base Page (sec.)",
+              "Time to DOM Interactive (sec.)",
+              "Time to DOM Content Loaded (sec.)",
+              "First Paint (sec.)",
+              "First Contentful Paint (sec.)",
+              "Speed Index (sec.)",
+              "Largest Contentful Paint (sec.)",
+              "Total Blocking Time (sec.)",
+              "Cumulative Layout Shift"
+            ],
+            "rows": 759
+          }
+        ],
+        "charts": 4,
+        "active": [
+          {
+            "id": "dark-plus",
+            "cls": "active",
+            "text": "Dark"
+          },
+          {
+            "id": "table-tab",
+            "cls": "CI-tab width-tab active",
+            "text": "TABLE VIEW"
+          },
+          {
+            "id": "my-filters-tab",
+            "cls": "active",
+            "text": "My Filters"
+          },
+          {
+            "id": "my-filters",
+            "cls": "tab-pane fade in active",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "tab": {
+        "id": "",
+        "text": "Competitive Index Trends",
+        "tag": "A"
+      },
+      "snap": {
+        "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=competitive-index/index&view=table",
+        "tables": [
+          {
+            "id": "performance_index_table",
+            "headers": [
+              "Icon",
+              "Company",
+              "Vertical",
+              "Page Load Time (sec.)",
+              "Time to Interactive (sec.)",
+              "First Byte (sec.)",
+              "DNS (sec.)",
+              "TCP Connection (sec.)",
+              "DOM Complete (sec.)",
+              "SSL (sec.)",
+              "Redirect (sec.)",
+              "Base Page (sec.)",
+              "Time to DOM Interactive (sec.)",
+              "Time to DOM Content Loaded (sec.)",
+              "First Paint (sec.)",
+              "First Contentful Paint (sec.)",
+              "Speed Index (sec.)",
+              "Largest Contentful Paint (sec.)",
+              "Total Blocking Time (sec.)",
+              "Cumulative Layout Shift"
+            ],
+            "rows": 759
+          }
+        ],
+        "charts": 4,
+        "active": [
+          {
+            "id": "dark-plus",
+            "cls": "active",
+            "text": "Dark"
+          },
+          {
+            "id": "table-tab",
+            "cls": "CI-tab width-tab active",
+            "text": "TABLE VIEW"
+          },
+          {
+            "id": "my-filters-tab",
+            "cls": "active",
+            "text": "My Filters"
+          },
+          {
+            "id": "my-filters",
+            "cls": "tab-pane fade in active",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "tab": {
+        "id": "add-comparison",
+        "text": "Add Comparison",
+        "tag": "BUTTON"
+      },
+      "snap": {
+        "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=competitive-index/index&view=table",
+        "tables": [
+          {
+            "id": "performance_index_table",
+            "headers": [
+              "Icon",
+              "Company",
+              "Vertical",
+              "Page Load Time (sec.)",
+              "Time to Interactive (sec.)",
+              "First Byte (sec.)",
+              "DNS (sec.)",
+              "TCP Connection (sec.)",
+              "DOM Complete (sec.)",
+              "SSL (sec.)",
+              "Redirect (sec.)",
+              "Base Page (sec.)",
+              "Time to DOM Interactive (sec.)",
+              "Time to DOM Content Loaded (sec.)",
+              "First Paint (sec.)",
+              "First Contentful Paint (sec.)",
+              "Speed Index (sec.)",
+              "Largest Contentful Paint (sec.)",
+              "Total Blocking Time (sec.)",
+              "Cumulative Layout Shift"
+            ],
+            "rows": 759
+          }
+        ],
+        "charts": 4,
+        "active": [
+          {
+            "id": "dark-plus",
+            "cls": "active",
+            "text": "Dark"
+          },
+          {
+            "id": "table-tab",
+            "cls": "CI-tab width-tab active",
+            "text": "TABLE VIEW"
+          },
+          {
+            "id": "my-filters-tab",
+            "cls": "active",
+            "text": "My Filters"
+          },
+          {
+            "id": "my-filters",
+            "cls": "tab-pane fade in active",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "tab": {
+        "id": "page-controls-toggle",
+        "text": "",
+        "tag": "BUTTON"
+      },
+      "snap": {
+        "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=competitive-index/index&view=table",
+        "tables": [
+          {
+            "id": "performance_index_table",
+            "headers": [
+              "Icon",
+              "Company",
+              "Vertical",
+              "Page Load Time (sec.)",
+              "Time to Interactive (sec.)",
+              "First Byte (sec.)",
+              "DNS (sec.)",
+              "TCP Connection (sec.)",
+              "DOM Complete (sec.)",
+              "SSL (sec.)",
+              "Redirect (sec.)",
+              "Base Page (sec.)",
+              "Time to DOM Interactive (sec.)",
+              "Time to DOM Content Loaded (sec.)",
+              "First Paint (sec.)",
+              "First Contentful Paint (sec.)",
+              "Speed Index (sec.)",
+              "Largest Contentful Paint (sec.)",
+              "Total Blocking Time (sec.)",
+              "Cumulative Layout Shift"
+            ],
+            "rows": 759
+          }
+        ],
+        "charts": 4,
+        "active": [
+          {
+            "id": "dark-plus",
+            "cls": "active",
+            "text": "Dark"
+          },
+          {
+            "id": "table-tab",
+            "cls": "CI-tab width-tab active",
+            "text": "TABLE VIEW"
+          },
+          {
+            "id": "my-filters-tab",
+            "cls": "active",
+            "text": "My Filters"
+          },
+          {
+            "id": "my-filters",
+            "cls": "tab-pane fade in active",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "tab": {
+        "id": "table-tab",
+        "text": "TABLE VIEW",
+        "tag": "DIV"
+      },
+      "snap": {
+        "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=competitive-index/index&view=table",
+        "tables": [
+          {
+            "id": "performance_index_table",
+            "headers": [
+              "Icon",
+              "Company",
+              "Vertical",
+              "Page Load Time (sec.)",
+              "Time to Interactive (sec.)",
+              "First Byte (sec.)",
+              "DNS (sec.)",
+              "TCP Connection (sec.)",
+              "DOM Complete (sec.)",
+              "SSL (sec.)",
+              "Redirect (sec.)",
+              "Base Page (sec.)",
+              "Time to DOM Interactive (sec.)",
+              "Time to DOM Content Loaded (sec.)",
+              "First Paint (sec.)",
+              "First Contentful Paint (sec.)",
+              "Speed Index (sec.)",
+              "Largest Contentful Paint (sec.)",
+              "Total Blocking Time (sec.)",
+              "Cumulative Layout Shift"
+            ],
+            "rows": 759
+          }
+        ],
+        "charts": 4,
+        "active": [
+          {
+            "id": "dark-plus",
+            "cls": "active",
+            "text": "Dark"
+          },
+          {
+            "id": "table-tab",
+            "cls": "CI-tab width-tab active",
+            "text": "TABLE VIEW"
+          },
+          {
+            "id": "my-filters-tab",
+            "cls": "active",
+            "text": "My Filters"
+          },
+          {
+            "id": "my-filters",
+            "cls": "tab-pane fade in active",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "tab": {
+        "id": "trends-tab",
+        "text": "TRENDS VIEW",
+        "tag": "DIV"
+      },
+      "snap": {
+        "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=competitive-index/index&view=trends",
+        "tables": [
+          {
+            "id": "performance_index_table",
+            "headers": [
+              "Icon",
+              "Company",
+              "Vertical",
+              "Page Load Time (sec.)",
+              "Time to Interactive (sec.)",
+              "First Byte (sec.)",
+              "DNS (sec.)",
+              "TCP Connection (sec.)",
+              "DOM Complete (sec.)",
+              "SSL (sec.)",
+              "Redirect (sec.)",
+              "Base Page (sec.)",
+              "Time to DOM Interactive (sec.)",
+              "Time to DOM Content Loaded (sec.)",
+              "First Paint (sec.)",
+              "First Contentful Paint (sec.)",
+              "Speed Index (sec.)",
+              "Largest Contentful Paint (sec.)",
+              "Total Blocking Time (sec.)",
+              "Cumulative Layout Shift"
+            ],
+            "rows": 759
+          }
+        ],
+        "charts": 4,
+        "active": [
+          {
+            "id": "dark-plus",
+            "cls": "active",
+            "text": "Dark"
+          },
+          {
+            "id": "trends-tab",
+            "cls": "CI-tab width-tab active",
+            "text": "TRENDS VIEW"
+          },
+          {
+            "id": "my-filters-tab",
+            "cls": "active",
+            "text": "My Filters"
+          },
+          {
+            "id": "my-filters",
+            "cls": "tab-pane fade in active",
+            "text": ""
+          }
+        ]
+      }
+    }
+  ],
+  "menu": [
+    {
+      "text": "(Article) The Competitive Index",
+      "href": "#"
+    },
+    {
+      "text": "(Training Video) The Competitive Index",
+      "href": "#"
+    },
+    {
+      "text": "(Article) The Competitive Index",
+      "href": "#"
+    },
+    {
+      "text": "(Training Video) The Competitive Index",
+      "href": "#"
+    },
+    {
+      "text": "Competitive Index Table",
+      "href": "index.php?r=competitive-index/index&view=table"
+    },
+    {
+      "text": "Competitive Index Trends",
+      "href": "index.php?r=competitive-index/index&view=trends"
+    },
+    {
+      "text": "Competitive Index Table",
+      "href": "index.php?r=competitive-index/index&view=table"
+    },
+    {
+      "text": "Competitive Index Trends",
+      "href": "index.php?r=competitive-index/index&view=trends"
+    }
+  ],
+  "chrome": {
+    "icons": 318,
+    "exportish": [
+      "Export",
+      "CSV",
+      "TSV"
+    ],
+    "search": true,
+    "pager": [
+      "pager pull-left tablesorter-pager",
+      "performance_index_table_pager_info",
+      "pager pull-left tablesorter-pager",
+      "performance_index_table_pager_info"
+    ]
+  }
+}

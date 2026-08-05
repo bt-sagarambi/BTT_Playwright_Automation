@@ -1,0 +1,274 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the “Competitive Index Trends” page (Trends view of Competitive Index / Industry Benchmarks). Reverse-engineer the live application using GDC Test Site 2 and refer to the attached Help Center PDF “The Competitive Index: See How Your Site Stacks Up Against The Competition – Blue Triangle Help Center.pdf” for expected behavior (purpose, Table vs Trends, Industry Benchmarks / Vertical glossary, custom graphs / multi-site trend). Prefer live portal BI labels, hosts and controls when help center wording is older or thinner than the product UI.
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - Competitive Index enables Industry Benchmarks so eCommerce teams can compare performance against competitors.
+   - Trends view (PDF): compile custom graphs to analyze benchmark data; trend multiple sites at a time and/or view the average of the selected metric for the selected industry.
+   - Table view is the sibling surface for grid/export analysis; this suite’s primary landing is Trends (view=trends).
+   - Industry Benchmarks: large multi-industry catalog (help center: 1500+ sites); live site-toggle lists and chart series are filter dependent — do not hard-code totals or company names.
+   - Vertical (PDF: also “Traffic segment”) scopes niches under an industry.
+   - Metrics sources (PDF): 40+ performance metrics (Google Lighthouse API + Blue Triangle synthetic monitors).
+   - Time scope: dynamic live Time Period — do not hard-code default ranges.
+   - Two product surfaces share route competitive-index/index:
+       • Competitive Index Trends — view=trends (this suite’s primary target)
+       • Competitive Index Table — view=table (sibling menu item + in-page TABLE VIEW tab)
+   - Use live UI data only. Do not call APIs or query a database.
+   - Do not hard-code competitor/company names, vertical names, industry names, metric values, chart point totals, time period strings, timezone text, statistical method defaults or group names.
+   - Capture active Trends Industry, Vertical, Group (if any), Time Period, Timezone, Statistical Method / Percentile, site-toggle sampling state and active CI-tab dynamically at suite start.
+   - Assert labels, formats, controlled empty states, before/after chart/filter signatures and sampled data presence rather than exact backend series coordinates.
+   - Site toggles, chart series, industry/vertical options and “Group” lists are live-data/account dependent (probe observed “No results found” for Groups when none configured).
+   - If a selected combination has no chart data or no toggleable sites, assert a controlled empty / no-results state, annotate it, restore a data-bearing context and continue.
+   - Do not confuse this suite’s permanent landing with Competitive Index Table: keep identity on view=trends / #trends-tab unless a test intentionally visits Table and restores Trends.
+
+2. Navigation and implementation paths
+   Live Full Menu path (prefer live BI):
+   Menu > Business Insights > Improve Traffic > Competitive Index Trends
+   Help PDF may only say “left side navigation menu” without BI / Improve Traffic wording — prefer live breadcrumb/menu.
+   Route (reference): competitive-index/index
+   Required query marker: view=trends
+   Browser title observed: Competitive Index
+   Breadcrumb / #page-title observed: Competitive Index / Trends
+   Target automation folder:
+   tests/regression_tests/US2/business-insights/improve-traffic/competitive-index-trends/
+   Suggested spec name:
+   competitive.index.trends.regression.spec.ts
+   Suggested POM / locators:
+   pages/CompetitiveIndexTrendsPage.ts
+   locators/CompetitiveIndexTrendsLocators.ts
+   (Prefer composing / extending shared Competitive Index helpers from CompetitiveIndexTablePage where Table vs Trends differs only by view=trends, Trends selectors and chart hosts — do not duplicate large identical filter/table methods blindly.)
+   Suggested manual test workbook:
+   docs/Competitive_Index_Trends_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:competitive-index-trends
+   Smoke catalog reference: mkt.competitive-trends (menuLabel Competitive Index Trends, hrefIncludes view=trends)
+   Sibling soft-scope: mkt.competitive-table (view=table) — in-page TABLE VIEW only, restore Trends after soft checks
+
+3. Page load, authentication and default context
+   - Verify authenticated navigation succeeds without login redirect, blocking error, blank shell or perpetual loader.
+   - Verify browser title matches /Competitive Index/i.
+   - Verify #page-title matches /Competitive Index\s*\/\s*Trends/i (or live equivalent under Competitive Index).
+   - Verify the URL contains competitive-index/index (slash or %2F) and view=trends.
+   - Verify the selected portal site context is GDC Test Site 2 (global site selector), separate from Competitive Index company/site toggles.
+   - Dismiss any blocking confirm/modal/Get started / Don't show me again overlay before interacting with Trends controls.
+   - Capture active filter badges / strip rather than assuming fixed defaults.
+   - Verify default primary content view is TRENDS VIEW (#trends-tab active / class contains active).
+   - Verify Trends filter chrome and/or chart host(s) finish loading within a bounded UI deadline.
+   - Verify browser Back/Forward and refresh return to a healthy Trends-view page state with view=trends preferred after recovery.
+   - Capture uncaught page errors and distinguish application-blocking errors from known third-party / Highcharts noise.
+
+4. Top-level view tabs (Trends vs Table)
+   Observed primary CI-tabs:
+   - TRENDS VIEW: #trends-tab → #trends-con / #trendFilterContent / #companyToggler / chart containers
+   - TABLE VIEW: #table-tab → #performance_index_table / #table-con (soft only in this suite)
+
+   Cover:
+   - Verify both TRENDS VIEW and TABLE VIEW tabs are visible.
+   - Click each tab and assert corresponding content surface (Trends chrome/charts vs Table grid) becomes active.
+   - Verify active tab class/state updates (#trends-tab / #table-tab).
+   - Soft-assert Table grid still loads when switched without full Table suite depth.
+   - Return to TRENDS VIEW as the suite default after navigation churn.
+   - Rapid switch TRENDS ↔ TABLE and verify final TRENDS VIEW remains healthy.
+   - Note: Menu leaves and URL view= query update when tabs switch on live portal (table ↔ trends).
+
+5. Trends filter chrome (primary)
+   Observed controls on TRENDS VIEW (live GDC probe Aug 2026 — samples not permanent):
+   - Select Industry: #select2-trendIndustrySelector-container / #trendIndustrySelector (e.g. Retail)
+   - Select Vertical: #select2-verticalSelector_trends-container (e.g. All Verticals)
+   - Select Group: #select2-trendGroupSelector-container (e.g. Choose a Group; may show “No results found”)
+   - Search Companies: #trendCompSearch / #searchBox / label “Search Companies”
+   - Clear Sites Toggles: #btnClearSites
+   - Company toggle list: #companyToggler / #compToggleBox / #companyToggleConatiner (note live typo Conatiner)
+   - Collapse/hide filters control: #hideTrendFilters
+   - Create Group / Manage Groups / Save (#trendSaveGroup) buttons — presence soft-check only; do not persist shared groups unless disposable group explicitly authorized
+   - View Metric affordance(s) when present
+   Industry options sampled: Retail, Retail - EU, Tourism and Hospitality, Financial Services, Media, Healthcare, iGaming, DEM, Online Streaming Platform, Discount Provider, Video Conferencing Services, Business Services, Government, Manufacturing, Retail - ANZ, Retail - APAC, Hotels (do not hard-code full catalog).
+   Vertical options sampled: All Verticals, Apparel and Accessories, Electronics, Grocery, etc. (dynamic).
+
+   Cover:
+   - Verify Industry, Vertical and Group Select2 containers are visible under TRENDS VIEW.
+   - Change Industry to a runtime-derived alternate option; assert chart title/signature or series visibility change or controlled empty; restore original.
+   - Change Vertical from All Verticals to a runtime-derived vertical when possible; assert site list / charts refresh signatures; restore.
+   - Soft-open Group selector; if empty (“No results found”), annotate and continue without failure.
+   - Search Companies with a runtime-derived token from a visible toggle label; clear search.
+   - Toggle a small set of site checkboxes (runtime-derived hosts — never hard-code *_toggle_container company IDs list); assert chart signature soft change when possible; then Clear Sites Toggles.
+   - Soft-check Create Group / Manage Groups open/close without Save of permanent groups.
+   - Soft-check View Metric open/close if present.
+   - Exercise #hideTrendFilters collapse/expand of #trendFilterContent when operable.
+   - Do not assume table Industry selectors (#select2-industrySelector-container) are the Trends primary controls (they may exist hidden while Trends-specific select2s are active).
+
+6. Charts / graphs (primary Trends deliverable)
+   PDF: custom graphs; multi-site trend; industry average for selected metric.
+   Live chart hosts observed (prefer stable parent IDs; do not assert dynamic highcharts-* instance IDs):
+   - #industryTrendChartContainer (wraps comparison + industry charts)
+   - #groupsChart — sample title style:
+     “Selected {Industry} Companies Compared to Industry Average For {Metric}”
+     e.g. Page Load Time (sec.)
+   - #industryTrendChart — sample title:
+     “Industry Average Performance and Google Metrics”
+   - Multiple .highcharts-container children may be present (probe observed 4; some may have w/h 0 when inactive — soft-check)
+
+   Cover:
+   - Soft-assert at least one visible chart host under Trends for a data-bearing industry (visible bounding box / highcharts container count > 0).
+   - Soft-assert chart title text mentions industry and/or metric without hard-coding exact wording beyond regex patterns.
+   - After Industry change and/or site toggles, soft-compare chart title text or highcharts series/point signature — do not use SVG path geometry.
+   - Soft-assert “Industry Average…” chart host present or intentionally collapsed/hidden for layout (annotate 0-size).
+   - Do not depend on dynamic Highcharts internal generated IDs (highcharts-*-nn).
+   - Prefer scoped wrapper signatures: #groupsChart / #industryTrendChartContainer visibility and title text.
+
+7. TABLE VIEW soft-checks (parity only — not full Table suite)
+   Cover:
+   - Switch to TABLE VIEW and verify #table-tab active and #performance_index_table attached/visible OR controlled hidden period then visible.
+   - Soft-check Company / Vertical headers exist.
+   - Soft-check Restore Defaults / Select Metrics / Export affordances that remain in page chrome (do not mutate permanent metric defaults when Restore Defaults is risky).
+   - Soft-check Add Comparison presence/open-close without sticky pollution.
+   - Return to TRENDS VIEW and view=trends.
+
+8. Quick-filter badges / page strip
+   Observed populated badges (samples):
+   - Time Period: #time-period-view (e.g. 7 days + range + timezone)
+   - Industry / traffic segment: #traffic-segment-view (e.g. Retail)
+   - Statistical Method: #statistical-method-view (e.g. Arithmetic Mean)
+
+   Cover:
+   - Verify badges visible/attached after load/View Filters if strip flaky.
+   - Do not hard-code badge values; capture then soft-assert non-empty for Time Period and Industry when present.
+
+9. Right-navigation Filters pane
+   Controls:
+   - #toggle-filters / #mobile-controls-filters-btn
+   - #apply-filters / #cancel-filters
+   - My Filters / Shared Filters tabs — inspect read-only; do not Save Filter
+   Live labels / select2: Time Period, Timezone (#select2-timezone-container), Industry/traffic segment, Statistical Method (#select2-statistical-method-container), Percentile (#select2-percentile-container)
+
+   Cover:
+   - Open Filters; verify representative labels (Time Period, Timezone, Statistical Method).
+   - Soft-apply Time Period ~7 days and ~30 days (or live presets); verify Trends charts remain healthy or controlled empty; restore original period if possible.
+   - Soft-switch Statistical Method / Percentile when options exist; restore.
+   - Cancel/Escape closes without unintended sticky save.
+   - Do not Save Filter, Save as New Filter, Create shared filters or Clear Cache.
+
+10. Common actions, accessibility and responsive coverage
+    - Soft-check i-icon / tooltip presence on filters and chart chrome.
+    - Keyboard focus: Filters toggle, search, Clear Sites, Select2 openers; annotate non-focusable CI-tabs (#trends-tab DIV).
+    - Focus recovery after closing drawers/menus.
+    - Standard and narrower desktop widths: Trends filters, site list and primary chart remain reachable (horizontal scroll OK).
+    - Loading indicators resolve within bounded deadlines when Industry/Vertical changes.
+    - Soft-check Help article / training video links for Competitive Index when present.
+    - Soft open/close page-controls / report-manager toggles if encountered.
+
+11. Combination, recovery and non-functional scenarios
+    - Trends Industry change + chart title/signature change + restore Industry.
+    - Vertical change + site list / chart refresh + restore.
+    - Site toggle on → chart soft change → Clear Sites Toggles.
+    - Search Companies → clear → toggles list usable.
+    - TRENDS → TABLE soft → TRENDS restore to view=trends.
+    - Filters open/close + hideTrendFilters toggle without overlay conflict.
+    - Recover to captured Industry/Vertical/Trends view; #trends-tab active; no permanent Group saves.
+    - Verify suite never remains permanently on view=table after recovery.
+    - Repeated refresh does not duplicate primary chart containers unreasonably; assert key hosts still exist singly (#groupsChart / #industryTrendChartContainer).
+
+12. Out-of-scope mutations (always)
+   - Do not Save Filter / Save as New Filter / Save Current Filter.
+   - Do not Create/Manage Groups saving permanent shared groups (unless disposable group authorized explicitly).
+   - Do not Clear Cache.
+   - Do not leave sticky site toggles if Clear Sites Toggles exists — restore cleared baseline at suite end.
+   - Do not mutate Revenue Attribution configuration.
+   - Do not hard-code company toggle container IDs.
+
+13. Live reverse-engineering facts to preserve
+    On GDC Test Site 2 authenticated live UI (Aug 2026 probe):
+    - URL: competitive-index/index&view=trends (via /btportal/web/index.php)
+    - Browser title: Competitive Index
+    - #page-title: Competitive Index / Trends
+    - Menu: Business Insights > Improve Traffic > Competitive Index Trends (and Table sibling)
+    - Tabs: #trends-tab active default from menu; #table-tab sibling; URL flips view= when switching tabs
+    - Trends hosts: #hideTrendFilters, #trendFilterContent, #trendCompSearch, #searchBox, #btnClearSites, #companyToggler, #compToggleBox, #companyToggleConatiner, #trendSaveGroup
+    - Select2: #select2-trendIndustrySelector-container, #select2-verticalSelector_trends-container, #select2-trendGroupSelector-container
+    - ~811 site toggle containers / 811 checkboxes sampled under Retail; do not hard-code
+    - Chart titles: “Selected Retail Companies Compared to Industry Average For Page Load Time (sec.)” (#groupsChart); “Industry Average Performance and Google Metrics” (#industryTrendChart)
+    - Badges: Time Period ~7 days sample, Industry Retail, Arithmetic Mean
+    - Group selector may return “No results found” when no groups exist
+    - Create Group, Manage Groups, View Metric, Clear Sites Toggles present
+    - Filters drawer: Time Period, Timezone, Statistical Method, Percentile, My/Shared Filters
+    - Table hosts remain in DOM when Trends active; prefer Trends-specific selectors for this suite
+
+14. Refer to the attached documentation
+    Refer to “The Competitive Index: See How Your Site Stacks Up Against The Competition – Blue Triangle Help Center.pdf” for:
+    - Module purpose (Industry Benchmarks)
+    - Table view vs Trends view (custom graphs; multi-site trends; industry average metrics)
+    - Glossary: Competitive Index, Industry Benchmarks, Vertical (“Traffic segment”)
+    - Metric source notes (Lighthouse API + synthetic monitors)
+    Prefer live BI Improve Traffic labels, #page-title Trends, view=trends and Trends control IDs when PDF is high-level.
+    Note: the same Help PDF covers both Table and Trends; no separate Trends-only DOC was required for behavior.
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a separate Playwright automation suite under regression_tests > US2 in the Competitive Index Trends subfolder specified above. The suite must include thorough individual regression tests covering all applicable points in this Context.
+
+Follow existing project framework and POM conventions. Reuse filter/table/chart helpers from competitive.index.table / marketing.overview / rum performance / CJA suites. After generation:
+1. Execute only the newly created Competitive Index Trends regression spec first and fix automation hard failures.
+2. Generate fresh isolated Allure results and an HTML report for this spec.
+3. Generate a manual test-case workbook by referring to existing manuals (docs/Competitive_Index_Table_Regression.xlsx, docs/Customer_Journey_Analysis_Regression.xlsx as structural templates).
+4. Use workbook sheets: Summary / Regression TCs / Notes.
+5. Include the executed result summary and any soft annotations for unavailable live data/configuration (e.g. empty Groups).
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable IDs, visible titles and scoped wrappers/charts; do not depend on dynamic Highcharts generated IDs or company-specific *_toggle_container lists.
+6. Do not hard-code industry, vertical, company/group names, metric totals, series point counts or initial time period strings.
+7. Capture and restore original Trends Industry, Vertical, Group, Time Period, Statistical Method, site-toggle cleared baseline, TRENDS/TABLE view mode and filter drawer state where possible.
+8. Use a serial suite only when shared page state is intentional; optional/data-dependent failures must not abort unrelated tests.
+9. Use bounded soft deadlines and explicit action timeouts.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page actions running into later serial tests; cancel/reload/reset the page before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save Filter, persist Groups, Clear Cache or mutate Revenue Attribution permanently.
+13. Keep primary scope on Competitive Index Trends (view=trends / TRENDS VIEW); restore Trends after any Table soft-checks.
+14. Close all menus, overlays, drawers, modals, Metric panels, Export menus and comparison/group dialogs opened by tests.
+15. Do not claim graphs refreshed by merely counting pre-existing SVG hosts; compare scoped chart title/signature or series state.
+16. Treat chart titles and industry-average vs selected-companies wording as soft regex assertions, not fixed copy.
+17. If any requirement is ambiguous or missing, flag it before generating automation.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- Help PDF is overview-level for Trends (custom graphs, multi-site, industry average) without control IDs; confirm live BI Improve Traffic > Competitive Index Trends + probe hosts as source of truth.
+- No separate DOC exclusive to Trends was present; same Competitive Index Help PDF as Table applies.
+- Browser title is “Competitive Index” while #page-title is “Competitive Index / Trends” — assert both patterns.
+- Whether secondary #industryTrendChart with 0×0 bounding box is intentionally collapsed — soft-assert presence, not visibility.
+- Group selector may permanently empty for the account — do not fail solely on missing groups.
+- Exact View Metric panel contents and metric picker list for Trends vs Table Select Metrics.
+- Whether site toggles immediately redraw Highcharts without Apply Filters.
+- Depth of Table soft-checks vs requiring full Competitive Index Table suite reuse via inheritance.
+- Filter persistence after refresh and after TABLE↔TRENDS switches.
+- Formal page load / chart redraw SLA if any.
+- Coach/Get started overlays may appear; dismiss control text varies.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to the existing POM framework and regression suites, especially:
+- competitive.index.table.regression.spec.ts (primary twin)
+- marketing.overview.regression.spec.ts
+- customer.journey.analysis.regression.spec.ts / brand.customer.journey.analysis.regression.spec.ts
+- core.web.vitals.regression.spec.ts
+- rum.performance-overview.browser.regression.spec.ts
+- rum.aggregate-waterfall.browser.regression.spec.ts
+
+Follow their patterns for:
+- POM/locator separation
+- authenticated profile/site selection (GDC Test Site 2)
+- stable Select2 / filter apply patterns
+- tab/wrapper visibility (TRENDS vs TABLE)
+- chart soft signatures (not SVG geometry)
+- runtime-derived Industry/Vertical/site toggles
+- bounded data-dependent annotations with state recovery
+- isolated Allure reporting
+- Excel generators with Summary / Regression TCs / Notes sheets

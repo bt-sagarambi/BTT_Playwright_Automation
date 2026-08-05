@@ -33,11 +33,13 @@ const COLORS = {
   greenDark: 'FF548235',
 };
 
+/** Google Sheets–friendly date text, e.g. 14-Mar-2012 */
 function fmtDate(d) {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const dd = String(d.getDate()).padStart(2, '0');
-  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const mon = months[d.getMonth()];
   const yyyy = d.getFullYear();
-  return `${dd}-${mm}-${yyyy}`;
+  return `${dd}-${mon}-${yyyy}`;
 }
 
 function addDays(d, n) {
@@ -675,8 +677,8 @@ function buildPlanRows() {
     submodule: 'Real User Browser',
     screen: '[Buffer] Bulk regression fix & suite stabilization',
     etaHours: 16,
-    start: '22-07-2026',
-    end: '03-08-2026',
+    start: fmtDate(HIST_START),
+    end: fmtDate(TODAY),
     status: 'Completed',
     notes:
       'Stabilization absorbed across delivery window (defect fixes, Allure isolation, serial soft-deadline hardening). Documented for leadership visibility.',

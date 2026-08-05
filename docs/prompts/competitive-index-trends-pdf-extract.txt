@@ -1,0 +1,94 @@
+
+
+Blue Triangle Help Center > Guides > General
+The Competitive Index: See How Your Site
+Stacks Up Against The Competition
+ 
+Shelby Butt
+2 years ago· Updated
+Follow
+Table of Contents
+Overview
+About the Industry Benchmarks
+Accessing the Competitive Index
+About the Competitive Index
+Glossary
+Overview
+The Competitive Index is a module available in the Blue Triangle Portal designed for customers to
+gain deeper insight into the Industry Benchmarks, enabling eCommerce site owners to see how their
+site stacks up against the competition.
+About the Industry Benchmarks
+Sign in
+☰
+| | | |
+Search
+
+Articles in this section
+▾
+
+8/5/26, 11:45 AMThe Competitive Index: See How Your Site Stacks Up Against The Competition – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/4414489610643-The-Competitive-Index-See-How-Your-Site-Stacks-Up-Against-The-Competition1/5
+
+The Industry Benchmarks are a list of more than 1500 sites organized by industry featuring a few
+performance metrics comparing data from the week prior to the current date, available to be viewed
+on our site.  Each industry is then sorted into a more specific vertical; for example, the Retail
+industry is subcategorized and includes a vertical called Apparel and Accessories. 
+Accessing the Competitive Index
+The Competitive Index is found in the Blue Triangle Portal via the left side navigation menu.
+There are two ways to view the Competitive Index: Table view and Trends view.
+Table view
+8/5/26, 11:45 AMThe Competitive Index: See How Your Site Stacks Up Against The Competition – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/4414489610643-The-Competitive-Index-See-How-Your-Site-Stacks-Up-Against-The-Competition2/5
+
+ 
+Trends view
+The Trends view allows you to compile custom graphs to better analyze the data. You can trend
+multiple sites at a time or view the average of the selected metric for the selected industry.
+About the Competitive Index
+The Competitive Index enables you to have complete access to the Industry Benchmarks data as
+well as allowing you to view the industry averages for over 40 different performance metrics, some
+coming from Google Lighthouse API and the rest being collected by Blue Triangle's synthetic
+monitors. This allows you to compare your sites data with your competitors. You can view the data
+over any time period, the only limitation being when we started collecting the data. There is a video
+explaining the functionality and includes a live walkthrough of the Competitive index available here. 
+Glossary
+Competitive Index: complete access to the Industry Benchmarks data as well as allowing you to
+view the industry averages for over 40 different performance metrics, some coming from Google
+8/5/26, 11:45 AMThe Competitive Index: See How Your Site Stacks Up Against The Competition – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/4414489610643-The-Competitive-Index-See-How-Your-Site-Stacks-Up-Against-The-Competition3/5
+
+Lighthouse API and the rest being collected by Blue Triangle's synthetic monitors
+Industry Benchmarks: a list of more than 1500 sites organized by industry featuring a few
+performance metrics comparing data from the week prior to the current date.
+Vertical: specific description of a group of companies that focus on a shared niche or specialized
+market; also called a 'Traffic segment'
+Was this article helpful?
+✓
+Yes 
+✕
+No
+0 out of 0 found this helpful
+Have more questions? Submit a request
+Return to top
+⬆
+Recently viewed articles
+The Brand Analysis Page
+The Customer Journey Analysis Page
+Performance Overview with VitalScope
+Improve Core Web Vitals
+The Core Web Vitals
+Related articles
+The Competitive Index: See How Your Site Stacks Up Against The Competition
+How to Search Tables: Advanced search techniques and syntax
+The Core Web Vitals Report
+Executive KPI Report
+8/5/26, 11:45 AMThe Competitive Index: See How Your Site Stacks Up Against The Competition – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/4414489610643-The-Competitive-Index-See-How-Your-Site-Stacks-Up-Against-The-Competition4/5
+
+When creating a CSP, what domains do I need to whitelist for the Blue Triangle Service?
+Comments
+0 comments
+Please sign in to leave a comment.
+Blue Triangle Help Center
+8/5/26, 11:45 AMThe Competitive Index: See How Your Site Stacks Up Against The Competition – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/4414489610643-The-Competitive-Index-See-How-Your-Site-Stacks-Up-Against-The-Competition5/5

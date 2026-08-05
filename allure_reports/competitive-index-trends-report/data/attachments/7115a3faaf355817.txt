@@ -1,0 +1,1 @@
+[CITr] create=true manage=true viewMetric=true
