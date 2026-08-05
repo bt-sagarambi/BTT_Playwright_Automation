@@ -1,0 +1,96 @@
+
+
+Blue Triangle Help Center > Documentation > Dashboard
+Bottom of the Sales Funnel Widget
+ 
+Cat Rugari
+2 years ago· Updated
+Follow
+Blue Triangle
+The Bottom of the Sales Funnel WidgetThe Bottom of the Sales Funnel Widget
+Watch on
+Table of Contents
+Overview
+Find Widget
+Sign in
+☰
+| | | |
+Search
+
+Articles in this section
+▾
+
+8/5/26, 3:48 PMBottom of the Sales Funnel Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360037345713-Bottom-of-the-Sales-Funnel-Widget#h_01GF4959455WQPSKQCNA851ZFG1/6
+
+Widget Configuration
+Bottom Funnel Conversion
+Learn More
+Overview
+The Bottom of the Sales Funnel Widget allows you to see step-by-step "conversion" rate as your
+customers proceed through the checkout process. This is the same graph you'll see on the Bottom
+of the Sales Funnel Analysis page. 
+Find Widget
+Once you enter the Add a Widget menu, you will see a variety of filter options on top. One way to find
+the Bottom of the Sales Funnel Widget is to use the filter options listed below.
+Filter TitleFilter Option
+Widget TypeSummaries
+Data TypeReal User
+Insight TypeMarketing
+Another way to find the Bottom of the Sales Funnel Widget is to use the search bar at the top right of
+the menu.
+8/5/26, 3:48 PMBottom of the Sales Funnel Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360037345713-Bottom-of-the-Sales-Funnel-Widget#h_01GF4959455WQPSKQCNA851ZFG2/6
+
+Widget Configuration
+In order to create this widget, you'll need to have first created a Bottom of the Sales Funnel Path. You
+can do this on the Funnel Configuration page. 
+To configure this widget, fill out all required sections, select your Sales Funnel Path, and apply any
+filtering you need.
+Once the widget loads in the page, you'll see the funnel depicted in a graph. For each transition in the
+funnel, there will be an associated conversion rate displayed to the right.
+8/5/26, 3:48 PMBottom of the Sales Funnel Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360037345713-Bottom-of-the-Sales-Funnel-Widget#h_01GF4959455WQPSKQCNA851ZFG3/6
+
+Bottom Funnel Conversion
+At the bottom you will see an overall "Bottom Funnel Conversion." This conversion rate is the total
+number of visitors who entered the funnel and ultimately converted. This graph is based on the
+Dashboard Time Period and you'll see the time period explicitly defined at the top of the widget.
+It's important to include the Order/Purchase Confirmation Page in the funnel so this percentage is
+accurate and includes the entirety of the bottom of your sales funnel. 
+Learn More
+8/5/26, 3:48 PMBottom of the Sales Funnel Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360037345713-Bottom-of-the-Sales-Funnel-Widget#h_01GF4959455WQPSKQCNA851ZFG4/6
+
+If you're interested in learning more about the Bottom of the Sales Funnel analysis, we invite you to
+watch our Product Training session on this topic.
+Was this article helpful?
+✓
+Yes 
+✕
+No
+0 out of 0 found this helpful
+Have more questions? Submit a request
+Return to top
+⬆
+Recently viewed articles
+How to Use the Marketing Insights Module
+The Competitive Index: See How Your Site Stacks Up Against The Competition
+The Competitive Index: See How Your Site Stacks Up Against The Competition
+The Brand Analysis Page
+The Customer Journey Analysis Page
+Related articles
+What is Fully Loaded Time?
+Custom Dashboard Widgets
+The Executive CrUX Report
+DEO Anomalies & Site Opportunities Widget
+1st vs 3rd Party Function Timing Widget
+Comments
+8/5/26, 3:48 PMBottom of the Sales Funnel Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360037345713-Bottom-of-the-Sales-Funnel-Widget#h_01GF4959455WQPSKQCNA851ZFG5/6
+
+0 comments
+Please sign in to leave a comment.
+Blue Triangle Help Center
+8/5/26, 3:48 PMBottom of the Sales Funnel Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360037345713-Bottom-of-the-Sales-Funnel-Widget#h_01GF4959455WQPSKQCNA851ZFG6/6

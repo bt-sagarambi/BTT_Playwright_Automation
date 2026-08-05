@@ -1,0 +1,313 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the “Bottom of the Sales Funnel Conversion Analysis” page (also menu-labeled “Bottom of the Sales Funnel Analysis”). Reverse-engineer the live application using GDC Test Site 2 and refer to:
+  • Help Center PDF: “Bottom of the Sales Funnel Widget - Blue Triangle Help Center.pdf”
+  • Training video segment (Marketing Insights Module, ~21:20–24:35) walkthrough scenarios for this screen
+  • Live portal BI labels, hosts and controls when PDF is widget-centric / older than the product UI
+
+NOTE ON DOCUMENTATION
+The attached PDF primarily documents the **Dashboard “Bottom of the Sales Funnel Widget”**, but explicitly states the **same step-by-step conversion graph** appears on the **Bottom of the Sales Funnel Analysis page**. No separate full Analysis-page DOC exclusive of the Widget was present. Prefer live BI menu, #page-title, filters drawer and chart hosts over widget-dashboard wording. PDF also requires a pre-created **Bottom of the Sales Funnel Path** via Funnel Configuration.
+
+VIDEO WALKTHROUGH SCENARIOS TO FOLD INTO REGRESSION (9 points from training ~21:20–24:35)
+  1. Navigation to Bottom of the Sales Funnel Analysis (Marketing Insights / live BI Improve Traffic).
+  2. Purpose: identify friction in the bottom of the sales funnel (checkout path).
+  3. Create / find path configuration (Funnel Configuration / Other section / search — soft for configuration UI).
+  4. Build path: name each step; map Content Groups / Page Groups and Page Names (do not hard-code group names).
+  5. Always include Order/Purchase Confirmation; path step limit ~8 (soft assert UI constraint when creating/editing path if exposed).
+  6. On Analysis page, select a configured path (runtime-derived; sample may be named like “Typical checkout process” or “Bottom of the funnel” — never hard-code as permanent).
+  7. Step-to-step conversion rates and friction identification between successive steps.
+  8. Overall **Bottom Funnel Conversion** / **Total Funnel Conversion** KPI(s).
+  9. Comparisons (time period vs time period, new vs returning visitors) + broader filter options — soft depth; open/close without sticky pollution.
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - Bottom of the Sales Funnel Conversion Analysis shows **step-by-step “conversion” rates** as customers proceed through a configured late-funnel / checkout path, so teams can find **where friction** (drop-off) is highest.
+   - PDF: same graph as Widget; conversion rate for **each funnel transition** (to the right of/on the graph); **Bottom Funnel Conversion** = visitors who entered the funnel and ultimately converted; path must include **Order/Purchase Confirmation** for accuracy.
+   - Time scope: dynamic live Time Period on the analysis page (badge + Filters) — do not hard-code default ranges or timezone strings.
+   - Paths, step labels, conversion %, page view/session counts are live-data/account dependent.
+   - Use live UI data only. Do not call APIs or query a database.
+   - Do not hard-code path names, step names, page-group names, page names, session/page-view totals, conversion percentages, comparison series titles, time period strings, timezone text or filter chip values.
+   - Capture at suite start: active path (existingPathSelect), View By mode (Page Views vs Sessions), Time Period, Device/Browser/OS badges when populated, filter drawer closed/open state, comparison presence.
+   - Assert labels, formats (%, counts), controlled empty states, before/after chart or KPI signatures and sampled data presence rather than exact backend series coordinates.
+   - If a selected path has no data or zero steps resolved, assert controlled empty / no-results state, annotate, restore a data-bearing path and continue.
+   - Sibling surfaces (do not permanently leave suite on them):
+       • Bottom of the Sales Funnel Configuration — paths/index&path-type=funnel (soft-open via menu/link; restore Analysis)
+       • Dashboard Widget (out of primary suite; PDF context only)
+
+2. Navigation and implementation paths
+   Live Full Menu path (prefer live BI):
+   Menu > Business Insights > Improve Traffic > Bottom of the Sales Funnel Analysis
+   Training video may say “Marketing Insights”; PDF may focus on Dashboard Widget; prefer live breadcrumb/menu.
+   Route (reference): marketing-insights/bottom-sales-funnel
+   Browser title observed: Bottom of the Funnel
+   Breadcrumb / #page-title observed: Business Insights / Improve Traffic / Bottom Of The Sales Funnel Analysis
+   On-page section title observed: Bottom of the Sales Funnel Conversion Analysis
+   Target automation folder:
+   tests/regression_tests/US2/business-insights/improve-traffic/bottom-of-the-sales-funnel-analysis/
+   Suggested spec name:
+   bottom.of.the.sales.funnel.analysis.regression.spec.ts
+   Suggested POM / locators:
+   pages/BottomOfTheSalesFunnelAnalysisPage.ts
+   locators/BottomOfTheSalesFunnelAnalysisLocators.ts
+   (Reuse filter drawer patterns from CJA / Marketing Overview / Competitive Index Table; chart soft-signature helpers from MO / RUM / CI suites — do not reimplement whole filter layers blindly.)
+   Suggested manual test workbook:
+   docs/Bottom_Of_The_Sales_Funnel_Analysis_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:bottom-sales-funnel
+   Smoke catalog reference: mkt.bottom-funnel (menuLabel Bottom of the Sales Funnel Analysis, route marketing-insights/bottom-sales-funnel)
+   Related soft-scope link:
+   Bottom of the Sales Funnel Configuration → routes/paths: paths/index with path-type=funnel
+   Training Help soft-scope:
+   Help / “(Training Video) How to Use the Marketing Insights Module” when present in portal chrome
+
+3. Page load, authentication and default context
+   - Verify authenticated navigation succeeds without login redirect, blocking error, blank shell or perpetual loader.
+   - Verify browser title matches /Bottom of the Funnel|Sales Funnel/i.
+   - Verify #page-title matches /Business Insights\s*\/\s*Improve Traffic\s*\/\s*Bottom Of The Sales Funnel Analysis/i (or live equivalent).
+   - Verify URL contains marketing-insights/bottom-sales-funnel (or bottom-sales-funnel with slash / %2F safe patterns).
+   - Verify selected portal site is GDC Test Site 2 (global #select2-site-id-container), independent of funnel path name.
+   - Dismiss blocking Get started / Don't show me again / jconfirm overlays before interacting.
+   - Capture active filter badges rather than assuming fixed defaults.
+   - Verify primary content hosts settle within a bounded UI deadline (funnel chart and/or conversion cards and/or controlled empty).
+   - Verify browser Back/Forward and refresh return to a healthy Analysis page state on marketing-insights/bottom-sales-funnel after recovery.
+   - Capture uncaught page errors; distinguish app-blocking errors from Highcharts/third-party noise.
+
+4. Primary chrome (path selection, Create Path, View By, Add Comparison)
+   Live hosts / controls observed on GDC probe (Aug 2026 — samples not permanent):
+   - Path Select2: #select2-existingPathSelect-container / #existingPathSelect (sample current path text not hard-coded)
+   - Create Path affordance (button / #create-paths related chrome) — open-close soft; **do not Save permanent shared paths** unless disposable path explicitly authorized
+   - Path config modal soft hosts when opened: #paths-config-modal, #path-name, #path-type / #pathTypeContainer, #paths-header-table
+   - Path step table headers when modal open: Step Name *, Content Groups / Page Groups, Page Names, Add/Remove Steps
+   - Add Comparison control (button label “Add Comparison”) → series configuration soft (#compareList, device/OS/browser compare icons: #desktop-compare, #mobile-compare, #chrome-compare, etc.)
+   - View By: Page Views / Sessions (#sales-funnel-page-views-sessions-selector and accompanying toggles)
+   - Conversion rate cards host: #conversion-rate-cards
+   - Primary funnel wrappers: #today-conversion-wrapper; comparison side #comparison-conversion-wrapper when comparison active
+   - Stable chart hosts: #funnel-1-page-views, #funnel-1-sessions (and comparison #funnel-2-page-views / #funnel-2-sessions when comparison loaded)
+   - Do **not** depend on dynamic Highcharts internal IDs (highcharts-*-nn)
+
+   Cover:
+   - Verify Analysis heading / Conversion Analysis chrome visible after load.
+   - Verify path selector is attached; open Filters if Select2 only fully visible in Filters (probe: existingPathSelect often visible when filters open).
+   - Soft-switch path to a runtime-derived alternate option when available; assert chart/KPI signature soft change or controlled empty; restore original path.
+   - Soft-check Create Path opens path builder labels (Path Name, Path Type, Step Name, Page Groups, Page Names); Escape/Cancel without Save.
+   - Soft-check View By Page Views vs Sessions: active chart host visibility (#funnel-1-page-views vs #funnel-1-sessions may flip size/visibility) and soft signature change when data exists.
+   - Soft-open Add Comparison series config; close without permanent sticky comparison save when possible.
+   - Do not hard-code path dropdown catalog (“Bottom of the funnel”, “Test Path”, etc.).
+
+5. Funnel graph, step conversions and KPI strip (primary analysis deliverable)
+   PDF + Video + Live:
+   - Graph titled with active path name (sample title style “Bottom of the funnel” — regex soft).
+   - Step nodes / segments with counts and **conversion % between steps** (e.g. Home → Product → Cart live samples — **runtime labels only**).
+   - KPI text patterns observed live body / cards:
+       • Bottom Funnel Conversion: …
+       • Total Funnel Conversion: …
+     (do not hard-code percentages)
+
+   Cover:
+   - Soft-assert at least one **visible** funnel chart host with non-zero bounding box for a data-bearing path under Page Views (default) OR Sessions.
+   - Soft-assert chart title/path label regex /conversion|funnel|bottom/i without fixed copy beyond pattern.
+   - Soft-assert conversion % style labels present (/%|conversion/i) for some step transitions when data-bearing.
+   - Soft-assert Bottom Funnel Conversion and/or Total Funnel Conversion text present on page for data-bearing context (regex on cards/body).
+   - After path / View By / time period change, soft-compare chart host signature or KPI text signature — not SVG path geometry.
+   - Soft-assert inactive dual chart (e.g. #funnel-1-sessions when Page Views selected) may be 0×0 — presence soft-only, not hard visibility fail.
+   - If empty funnel, annotate controlled empty and recover.
+
+6. Funnel / Path configuration (video scenarios 3–5) — soft scope + safety
+   Related route soft:
+   - Menu / link “Bottom of the Sales Funnel Configuration” → paths/index&path-type=funnel
+   - In-page Create Path / #paths-config-modal
+
+   Cover:
+   - Soft-navigate or open config entry; verify configuration surface for funnel paths (or Create Path modal labels).
+   - Soft verify step-builder field labels: Path Name *, Path Type *, Step Name *, Content Groups / Page Groups, Page Names, Add/Remove Steps.
+   - Soft assert that adding beyond an 8th step is blocked or warned **if UI enforces** (video: max 8 steps) — annotate if enforcement not UI-visible.
+   - Soft note Order Confirmation importance (Help/PDF/video): if step list contains confirmation-like step names at runtime, annotate presence; **do not fail** if account path lacks it.
+   - **Do not** persist Create/Update (#paths-create-submit / #paths-update-submit) for shared account paths; Escape/Cancel/close only unless disposable path authorized.
+   - Always restore Analysis page (marketing-insights/bottom-sales-funnel) as suite home.
+
+7. Quick-filter badges / page strip
+   Populated badges observed (samples — do not hard-code values):
+   - Data type: #data-type-view (e.g. Real User)
+   - Time Period: #time-period-view (e.g. 1 day + range + IST)
+   - Device: #device-view — All Devices
+   - Browser: #browser-view — All Browsers
+   - OS: #operating-system-view — All OS
+   Other chip hosts may exist empty on load (visitor-type, bot-traffic, campaign, country, traffic-segment) — capture, do not invent values.
+
+   Cover:
+   - Verify Time Period (+ Device/Browser/OS when non-empty) attached/visible after load.
+   - Soft-assert non-empty Time Period text without exact string match.
+
+8. Right-navigation Filters pane (primary filter surface for path + dimensions)
+   Controls:
+   - #toggle-filters / #mobile-controls-filters-btn
+   - #apply-filters / #cancel-filters
+   - #existingPathSelect / #select2-existingPathSelect-container (Path Name)
+   - #select2-timezone-container (Timezone)
+   - Time Period region: #time-period-row / #time-period
+   - Campaign-ish: #campaign-source, #campaign-medium, #campaign-name (and labels Traffic Source / Referrer, Traffic Medium, Campaign)
+   - Visitor Type: #visitor-type (new vs returning)
+   - Device / OS / Browser icon rows: #device-os-browser-row (and common icons)
+   - Country / Region rows when present
+   - Traffic Segment when present
+   - My Filters / Shared Filters: #my-filters-tab / #shared-filters-tab — read-only inspect; **do not Save Filter**
+   - Expand/Collapse all filter sections when present
+
+   Cover:
+   - Open Filters; verify Path Name / Time Period / Timezone labels or Select2 containers.
+   - Soft-apply Time Period ~1 day / ~7 days / ~30 days (or live presets); verify funnel chart/KPI remain healthy or controlled empty; restore original period if possible.
+   - Soft-switch Visitor Type new vs returning when options exist (video scenario 9); soft-assert comparison or main funnel health; restore.
+   - Soft-sample Device/OS/Browser filter toggles without leaving permanent deselect-all empty if avoidable.
+   - Soft-open My Filters / Shared Filters tabs; do not Save as New Filter / Save Current Filter.
+   - Cancel/Escape closes filters without unintended sticky save.
+   - **Do not** Clear Cache / Clear Genius Cache.
+
+9. Add Comparison (video scenario 9 — soft)
+   Hosts observed:
+   - “Add Comparison” button
+   - Heading soft: “Add Comparison: Series Configuration”
+   - #compareList, #add-comparison-to-graph
+   - Common Devices / OS / Browsers labels and icon IDs (*-compare)
+   - Comparison chart wrappers #funnel-2-page-views / #funnel-2-sessions when series applied (soft)
+
+   Cover:
+   - Soft open Add Comparison UI; verify representative labels (Comparison Title*, Common Devices/OS/Browsers when visible).
+   - Soft attempt one non-destructive series configuration if live UI allows cancel; soft-assert secondary funnel host may appear.
+   - Close comparison / remove series to restore clean baseline when possible.
+   - Do not leave permanent dual-series pollution when a Clear/Remove comparison control exists.
+
+10. Accessibility, help chrome and responsive
+    - Soft-check Help Center / training video link for Marketing Insights when present.
+    - Soft-check i-icon / tooltip presence near filters or chart chrome.
+    - Keyboard focus: Filters toggle, Create Path soft, path Select2 opener (when visible).
+    - Focus recovery after closing filters/modals.
+    - Standard and narrower desktop (~1100px): funnel chart, View By and badges remain reachable (horizontal scroll OK).
+    - Loading indicators resolve within bounded deadlines when path / period / View By change.
+
+11. Combination, recovery and non-functional
+    - Path change → chart/KPI soft change → restore path.
+    - View By Page Views ↔ Sessions → dual chart host soft flip → restore original mode.
+    - Filter open + Apply Time Period soft + Cancel/restore.
+    - Soft Create Path modal open/close without Save.
+    - Soft Add Comparison open/close without sticky series when clearable.
+    - Soft Configuration link / paths funnel open then navigate back to Analysis.
+    - Recover to captured path, View By, Time Period; Analysis URL; no permanent path/filter saves.
+    - Repeated refresh does not duplicate primary chart wrappers unreasonably; assert key hosts still exist singly where possible:
+        #funnel-1-page-views / #today-conversion-wrapper / #conversion-rate-cards
+
+12. Out-of-scope mutations (always)
+    - Do not Save Filter / Save as New Filter / Save Current Filter / Create permanent shared filters.
+    - Do not Clear Cache / Clear Genius Cache.
+    - Do not permanently Create/Update/Delete shared funnel paths (#paths-create-submit / #paths-update-submit) unless disposable path explicitly authorized.
+    - Do not mutate Revenue Attribution / permanent comparison rules.
+    - Do not hard-code step/path labels or conversion percentages.
+    - Do not build permanent Dashboard widgets as part of this suite (PDF widget config is reference-only).
+
+13. Live reverse-engineering facts to preserve (GDC Test Site 2 probe Aug 2026)
+    - URL: portal …/index.php?r=marketing-insights/bottom-sales-funnel&sid=…
+    - Browser title: Bottom of the Funnel
+    - #page-title: Business Insights / Improve Traffic / Bottom Of The Sales Funnel Analysis
+    - On-page: “Bottom of the Sales Funnel Conversion Analysis”
+    - Menu: Business Insights > Improve Traffic > Bottom of the Sales Funnel Analysis
+    - Path Select2: #select2-existingPathSelect-container (sample value not permanent) — often fully exposed when Filters open
+    - Charts: #funnel-1-page-views (active under Page Views), #funnel-1-sessions (0×0 when inactive), titles often echo path name
+    - Wrappers: #today-conversion-wrapper, #conversion-rate-cards, #comparison-conversion-wrapper
+    - View By Page Views / Sessions control and #sales-funnel-page-views-sessions-selector
+    - Create Path + path modal field labels present in DOM (may be hidden until open)
+    - Add Comparison present; series config labels/icons present in DOM
+    - Badges sample: Real User; Time Period ~1 day; All Devices/Browsers/OS
+    - KPI text sample presence of “Bottom Funnel Conversion” and “Total Funnel Conversion” (values dynamic)
+    - Step labels sample Home / Product / Cart with conversion % — **runtime only**
+    - Config nav link: Bottom of the Sales Funnel Configuration → path-type=funnel
+    - Filters: Time Period, Timezone, Path Name, campaign dimensions, Visitor Type, devices, etc.
+    - My Filters / Shared Filters tabs in filter chrome
+    - Highcharts internal instance IDs dynamic — ignore
+
+14. Refer to the attached documentation and video
+    PDF “Bottom of the Sales Funnel Widget – Blue Triangle Help Center”:
+    - Overview: step-by-step conversion through checkout; same graph as Analysis page
+    - Prerequisite: create Sales Funnel Path on Funnel Configuration page
+    - Graph: conversion rate for each transition
+    - Bottom Funnel Conversion overall KPI; include Order/Purchase Confirmation
+    - Training: Product Training session on this topic
+    Video “How to Use the Marketing Insights Module” (~21:20–24:35): 9 scenarios listed above.
+    Prefer live BI Improve Traffic labels and Analysis control IDs when PDF is widget-dashboard focused.
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a separate Playwright automation suite under regression_tests > US2 in the Bottom of the Sales Funnel Analysis subfolder specified above. The suite must include thorough individual regression tests covering all applicable points in this Context (including the 9 video walkthrough scenarios mapped into automation).
+
+Follow existing project framework and POM conventions. Reuse filter drawer, badge, Select2, chart soft-signature and serial recovery patterns from:
+  - customer.journey.analysis / brand.customer.journey.analysis
+  - marketing.overview
+  - competitive.index.table / competitive.index.trends
+  - core.web.vitals / RUM performance suites
+
+After generation:
+1. Execute only the newly created Bottom of the Sales Funnel Analysis regression spec first and fix automation hard failures.
+2. Generate fresh isolated Allure results and an HTML report for this spec.
+3. Generate a manual test-case workbook by referring to existing manuals (docs/Customer_Journey_Analysis_Regression.xlsx, docs/Competitive_Index_Trends_Regression.xlsx as structural templates).
+4. Use workbook sheets: Summary / Regression TCs / Notes.
+5. Include the executed result summary and any soft annotations for unavailable live data/configuration (e.g. empty alternate paths, missing Order Confirmation step on account path).
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable IDs, visible titles and scoped wrappers/charts; do not depend on dynamic Highcharts generated IDs.
+6. Do not hard-code path/step/page-group names, metric totals, conversion percentages, series points or initial time period / timezone strings.
+7. Capture and restore original path, View By mode, Time Period, comparison state and filter drawer state where possible.
+8. Use a serial suite only when shared page state is intentional; optional/data-dependent failures must not abort unrelated tests.
+9. Use bounded soft deadlines and explicit action timeouts.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page actions running into later serial tests; cancel/reload/reset the page before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save Filter, Clear Cache, or permanently Save/Update shared funnel paths / comparison series.
+13. Keep primary scope on marketing-insights/bottom-sales-funnel Analysis; restore it after any Configuration soft visits.
+14. Close all menus, overlays, drawers, modals (paths-config, comparison, segment pickers, Help), Export menus opened by tests.
+15. Do not claim graphs refreshed by merely counting pre-existing SVG hosts; compare scoped chart title/signature, View By host visibility or KPI text signature.
+16. Treat funnel titles and conversion/KPI wording as soft regex assertions, not fixed copy.
+17. If any requirement is ambiguous or missing, flag it before generating automation.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- Attached Help PDF is **Widget**-centric; Analysis page behavior is inferred from “same graph” wording + live probe + training video. Live UI is source of truth.
+- No separate full DOC exclusive to “Conversion Analysis” page was provided beyond the Widget PDF.
+- Browser title is “Bottom of the Funnel” while #page-title is the long BI path string — assert both patterns.
+- Path Select2 may be hidden until Filters open — probe showed visible:false until #toggle-filters.
+- Whether Order Confirmation is enforced in Create Path UI or only recommended — soft unless UI validation text appears.
+- Exact enforcement of max 8 steps in UI (video claim) vs soft config guidance.
+- View By Sessions chart host may be 0×0 while Page Views active — soft presence, hard only on active host visibility.
+- Conversion rates >100% observed in live demo data (e.g. step ratio) — treat as possible data artifact; assert **format** (/%/) not business-valid bounds unless product rules are documented.
+- Depth of Add Comparison (time period series vs visitor type vs device icons) varies; keep soft open/close + one sample when safe.
+- Whether “Test Path” label in chrome is a path name, mode label or debug affordance — treat as runtime text, do not hard-require.
+- Filter lists may include many empty badge IDs in DOM common layout template — only assert badges that show non-empty captured values.
+- Formal SLA for chart redraw after path/period change — use project soft bounded deadlines.
+- Coach/Get started overlays may appear; dismiss text varies.
+- Permanent Create Path / Save path is out of scope without disposable authorization.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to the existing POM framework and regression suites, especially:
+- customer.journey.analysis.regression.spec.ts / brand.customer.journey.analysis.regression.spec.ts
+- marketing.overview.regression.spec.ts
+- competitive.index.trends.regression.spec.ts / competitive.index.table.regression.spec.ts
+- core.web.vitals.regression.spec.ts
+- rum.performance-overview.browser.regression.spec.ts
+- rum.aggregate-waterfall.browser.regression.spec.ts
+
+Follow their patterns for:
+- POM/locator separation
+- authenticated profile/site selection (GDC Test Site 2)
+- stable Select2 / filter apply / Cancel patterns
+- dual “View By” or tab/wrapper visibility (Page Views vs Sessions)
+- chart soft signatures (not SVG geometry)
+- runtime-derived path/option selection
+- bounded data-dependent annotations with state recovery
+- isolated Allure reporting
+- Excel generators with Summary / Regression TCs / Notes sheets
