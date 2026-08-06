@@ -101,7 +101,7 @@ test.describe('US2 Regression — Brand Customer Journey Analysis', () => {
     await expect(cja.locators.campaignsTable).toBeVisible();
   });
 
-  test('REG-BCJA-006 — Campaigns table headers include journey metrics and Brand ($)', async () => {
+  test('REG-BCJA-006 — Campaigns table headers include journey metrics and Brand currency', async () => {
     const headers = await cja.expectCampaignsTableHeaders();
     console.log(`[BCJA] campaign headers: ${headers.join(' | ')}`);
   });

@@ -66,7 +66,10 @@ export class CustomerJourneyAnalysisPage {
   }
 
   protected get currencyHeaderRegex(): RegExp {
-    return this.conversionType === 'brand' ? /Brand\s*\(\$\)|Brand\s*\$/i : /Revenue\s*\(\$\)|Revenue/i;
+    // Live Brand CJA header tracks site currency symbol/code, e.g. Brand (€), Brand ($), Brand £.
+    return this.conversionType === 'brand'
+      ? /Brand\s*\([^)]+\)|Brand\s*[\$€£¥]|Brand\b/i
+      : /Revenue\s*\(\$\)|Revenue\s*\([^)]+\)|Revenue/i;
   }
 
   async openViaNavigation(): Promise<void> {

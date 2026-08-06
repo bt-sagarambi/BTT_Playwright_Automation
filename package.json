@@ -29,6 +29,8 @@
     "test:regression:us2:competitive-index-table": "node scripts/run-playwright.js test tests/regression_tests/US2/business-insights/improve-traffic/competitive-index-table/competitive.index.table.regression.spec.ts --project=chromium-regression",
     "test:regression:us2:competitive-index-trends": "node scripts/run-playwright.js test tests/regression_tests/US2/business-insights/improve-traffic/competitive-index-trends/competitive.index.trends.regression.spec.ts --project=chromium-regression",
     "test:regression:us2:bottom-sales-funnel": "node scripts/run-playwright.js test tests/regression_tests/US2/business-insights/improve-traffic/bottom-of-the-sales-funnel-analysis/bottom.of.the.sales.funnel.analysis.regression.spec.ts --project=chromium-regression",
+    "test:regression:us2:site-overview": "node scripts/run-playwright.js test tests/regression_tests/US2/dashboards/preconfigured/site-overview/site.overview.dashboard.regression.spec.ts --project=chromium-regression",
+    "test:regression:us2:vital-pulse": "node scripts/run-playwright.js test tests/regression_tests/US2/dashboards/preconfigured/vital-pulse/vital.pulse.dashboard.regression.spec.ts --project=chromium-regression",
     "allure:generate": "allure generate allure_reports/allure-results -o allure_reports/allure-report --clean",
     "allure:open": "allure open allure_reports/allure-report"
   },

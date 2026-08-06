@@ -1,0 +1,399 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the preconfigured **VitalPulse** dashboard (UI label: “VitalPulse”; suite name: “Vital Pulse Dashboard”). Reverse-engineer the live application using **GDC Test Site 2** and refer to:
+  • Live portal reverse-engineering probe (Aug 2026): docs/prompts/vital-pulse-live-probe.json
+  • Probe script: scripts/probe-vital-pulse.ts
+  • Attached package materials under AI Agents …/dashboards/preconfigured/vital-pulse/
+  • PDF extract notes: docs/prompts/vital-pulse-pdf-extract.txt
+  • Product notes: Portal v9.10 Release Notes — “VitalPulse dashboard is live” (Nov 2025)
+  • Shared dashboard shell patterns from: docs/prompts/AI Prompt (For Automation Regression-Site Overview Dashboard).txt
+    and pages/SiteOverviewDashboardPage.ts / pages/MarketingOverviewPage.ts
+
+NOTE ON DOCUMENTATION VS LIVE PRODUCT — CRITICAL
+The PDF packaged with the VitalPulse request is **NOT** a VitalPulse dashboard guide.
+  • Attached PDF title: **“Performance Overview with VitalScope – Blue Triangle Help Center”**
+  • Help path: Core Web Vitals → Performance Overview with VitalScope
+  • Article (typical): https://help.bluetriangle.com/hc/en-us/articles/21480853898515-Performance-Overview-with-VitalScope
+  • That document describes **VitalScope** enhancements on **RUM Performance Overview**
+    (left menu: Monitoring → Real User Browser → Performance Overview), **not** the
+    preconfigured **VitalPulse** dashboard on **Dashboards** (site/dashboard).
+  • Public Dashboards Help section lists Site Overview, Synthetic Site Health, RUM/Synthetic Performance Detail, etc.; **no dedicated “VitalPulse Dashboard” help article** was found at probe time.
+  • Release note (v9.10): VitalPulse dashboard is live; individual widgets available on custom dashboards — no widget inventory in that note.
+
+Implication for this prompt and for automation:
+  1. **Live reverse engineering is the source of truth** for VitalPulse widgets, chrome, labels, filters, graphs and tabs.
+  2. Use the VitalScope/Performance Overview PDF **only** as soft metric terminology / CWV quality-band guidance (good / needs improvement / poor; LCP / INP / CLS / LoAF attribution concepts) **when** those concepts appear on VitalPulse surfaces.
+  3. Do **not** navigate suite home to RUM Performance Overview, do **not** require VitalScope purple icons, URL drill tables, gear-only column pickers or LoAF columns unless the **live VitalPulse** page exposes them.
+  4. Prefer live control ids, widget titles (“Site Summary”, “Performance Overview”), column headers and CWV card labels when documentation conflicts.
+
+CRITICAL DISTINCTION (do not confuse screens)
+  • **VitalPulse (THIS suite)** = Preconfigured dashboard on route **site/dashboard**, menu **Dashboards**, option **VitalPulse** (one word; optgroup Preconfigured) in #switch-dashboard / #select2-switch-dashboard-container.
+  • **Site Overview** = sibling preconfigured dashboard (Performance / Device Metrics / Revenue Over Time / Geography) — **out of primary scope**; soft-switch sample only; always restore **VitalPulse**.
+  • **VitalScope / RUM Performance Overview** = Monitoring RUM Performance Overview (and BI Core Web Vitals path) — **out of primary scope** even if PDF is attached.
+  • **Digital Experience Overview (DXO)** = overview-dashboard/overview — **out of primary scope**.
+  • **Marketing Overview** = overview-dashboard/marketing — **out of primary scope**.
+  • Other Preconfigured (Synthetic Site Health, Traffic Source and Medium, RUM Performance Detail, …) — soft-switch sample only; always restore **VitalPulse** + GDC Test Site 2.
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - VitalPulse is a **preconfigured CWV + business pulse dashboard**: site-level Core Web Vitals snapshot cards and business counters, plus a page-level Performance Overview table spanning classic timings and CWV columns.
+   - Live purpose inference (from UI, not a VitalPulse PDF): give executives/ops a one-screen view of site health (INP/LCP/CLS quality) with revenue/sessions/orders context, and which page groups drive CWV / onload / first-byte load.
+   - Time period is customizable via dashboard chrome Time Lookback (#time-lookback) and Filters drawer Time Period when open.
+   - Live currency and metric formats are **site/account localized** (probe showed **$** with K-suffix on site summary, e.g. Revenue $148.84 K — other sites may use €/£; do not hard-require a single symbol).
+   - Use live UI data only. Do not call APIs or query a database.
+   - Do not hard-code widget grid instance ids (pattern chartID_{accountId}-{numeric}, e.g. chartID_355897-892114038), Highcharts internal ids (highcharts-*-nn), exact revenue/orders/session totals, LCP/INP/CLS numbers, page-group names (PDP, Homepage, …), N/A cells, time-range strings, timezone strings, dashboard clone names or “0/75 dashboards used” counters.
+   - Capture at suite start: active dashboard label (must be VitalPulse), active quick site, Time Lookback label, Auto Refresh label, presence of Site Summary + Performance Overview, filter drawer closed/open, Carousel state.
+   - Assert titles, column labels, quality-band language (good / needs improvement / poor), formats (currency, K/M suffixes, s/ms units, unitless CLS), chart/card shells, controlled empty states, before/after soft signatures rather than exact backend values.
+   - If a filter/time combo yields empty widgets or zero-series sparkline charts, assert controlled empty / sized Highcharts shell, annotate, restore a data-bearing VitalPulse context and continue.
+   - Widget layout: probe showed two stacked full-width widgets (Site Summary ~top, Performance Overview ~below). Prefer **title / role presence** over absolute coordinates.
+
+2. Navigation and implementation paths
+   Primary live path (prefer this):
+   Menu > **Dashboards**
+   Route (observed): **site/dashboard**
+   Smoke catalog reference: **biz.dashboards** (menuLabel Dashboards, route site/dashboard, hrefIncludes site/dashboard, hrefExcludes marketing=yes)
+   Browser title observed: **Dashboards**
+   #page-title observed: **Dashboards**
+   After load, dashboard switcher #select2-switch-dashboard-container must show / resolve to **VitalPulse** under optgroup **Preconfigured**. First paint may still be Site Overview (or another default) — always select exact option text **VitalPulse** (avoid partial “Vital” matches against other strings).
+
+   Alternate discovery paths (soft coverage — shared dashboard shell):
+   1) Upper-left #switch-dashboard / Select2 → select **VitalPulse** when not already active.
+   2) Wrench / **Dashboard Manager** (#dashboard-manager / #dashboard-settings-toggle) → view list → soft open VitalPulse if listed; close without Save/Delete.
+   Do **not** delete preconfigured dashboards. Do **not** leave manager Save sticky changes.
+
+   Target automation folder:
+   tests/regression_tests/US2/dashboards/preconfigured/vital-pulse/
+   Suggested spec name:
+   vital.pulse.dashboard.regression.spec.ts
+   Suggested POM / locators:
+   pages/VitalPulseDashboardPage.ts
+   locators/VitalPulseDashboardLocators.ts
+   Reuse / extend patterns from:
+   - pages/SiteOverviewDashboardPage.ts (same site/dashboard shell: switch dashboard, lookback, auto refresh, filters, manager soft open/close, ensure profile site, recover)
+   - pages/MarketingOverviewPage.ts (lookback / auto refresh option menus, graph signatures, recoverPage)
+   - pages/RumPerformanceOverviewPage.ts / CWV suites — **only** for shared CWV table column naming patterns if helpful; do **not** use RUM PO as suite home
+   - locators/MarketingOverviewLocators.ts / SiteOverviewDashboardLocators.ts (#switch-dashboard, #time-lookback, #auto-refresh, #refresh-dashboard, #toggle-filters)
+   Suggested manual test workbook:
+   docs/Vital_Pulse_Dashboard_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:vital-pulse
+   Probe script (reference):
+   scripts/probe-vital-pulse.ts → docs/prompts/vital-pulse-live-probe.json
+
+3. Page load, authentication and default context
+   - Verify authenticated navigation succeeds without login redirect, blocking error, blank shell or perpetual loader.
+   - Verify browser title matches /Dashboards/i (and not Marketing-only / Performance Overview-only titles).
+   - Verify #page-title matches /Dashboards/i.
+   - Verify URL contains site/dashboard (slash / %2F safe patterns).
+   - Verify selected portal site is GDC Test Site 2 (#select2-quick-site-id-container when visible; #select2-site-id-container may be hidden on this shell — probe: global site Select2 often not visible).
+   - Dismiss Get started / Don’t show me again / jconfirm overlays before interacting.
+   - Verify #select2-switch-dashboard-container matches /VitalPulse/i. If not, select exact **VitalPulse** from Preconfigured and wait for widgets to settle.
+   - Verify VitalPulse core widgets settle within a bounded UI deadline (by text, not dynamic chartID suffixes):
+       • **Site Summary** (body/heading text observed; may accompany a dynamic time-range subtitle)
+       • **Performance Overview** (table titled /Performance Overview/i with page-level columns)
+   - Soft-assert time-range label on Site Summary area when present (sample shape: “YYYY-MM-DD HH:mm to YYYY-MM-DD HH:mm - GDC Test Site 2”) — do not hard-code dates/times.
+   - Soft-assert “All Matching Pages” when present on Site Summary.
+   - Soft-assert #last-updated-dashboard when present; do not hard-code clock text.
+   - Verify browser Back/Forward and refresh return to a healthy site/dashboard context; re-select VitalPulse + profile site if selection lost.
+   - Capture uncaught page errors; distinguish app-blocking errors from Highcharts/third-party noise.
+
+4. Dashboard chrome (tabs is a soft concept here — chrome + filter/manager panes + in-widget metric toggles)
+   Live chrome hosts/controls observed on GDC VitalPulse (samples — not permanent values):
+   - Dashboard switcher: #switch-dashboard / #select2-switch-dashboard-container (text: **VitalPulse**)
+   - Quick site: #select2-quick-site-id-container (sample: GDC Test Site 2) — keep on profile site after any mis-select recovery
+   - Time Lookback: #time-lookback (button label samples: Last 6 hours, Last 24 hours, Today so far, …)
+   - Dashboard Refresh: #refresh-dashboard (+ “Time Lookback” / “Dashboard Refresh” labels)
+   - Auto Refresh: #auto-refresh / #auto-refresh-frequency / #auto-refresh-btn-group (samples: Auto Refresh (5m), Off, 2/5/10/15/30/60 Minutes)
+   - Carousel when present (sample: Carousel (off) + interval submenu — soft open/close; do not leave carousel cycling)
+   - Filters: #toggle-filters / #mobile-controls-filters-btn
+   - #dashboard-page-controls wrapper
+   - + Widget / + Dashboard — soft open/close wizard/manager only; **do not Save** permanent widgets/dashboards on shared account
+   - Dashboard Manager / wrench: #dashboard-manager, #dashboard-settings-toggle — soft open/close; no delete/share sticky
+   - #toggle-markers-container when present (markers soft)
+   - My Filters / Shared Filters tabs when Filters drawer open: #my-filters-tab / #shared-filters-tab — read-only; **do not Save Filter**
+   - In-widget card metric show/hide (Site Summary): pattern ids under cardThings-chartID_* and toggles such as
+       chartID_*-all-checked | *-cwv | *-revenue | *-sessions | *-orders | *-lcp | *-cls | *-fid
+     plus control “Deselect All Metrics” when present — soft toggle/restore only; do not leave cards permanently hidden if avoidable
+
+   Cover:
+   - Verify dashboard switcher attached; VitalPulse selected or selectable by exact option text.
+   - Soft-list Preconfigured option names when dropdown open (VitalPulse present); close without random sticky navigation, or restore VitalPulse if sampled other options.
+   - Soft-open Auto Refresh menu; verify representative options (Off + interval minutes) without permanently changing shared default if avoidable; restore capture.
+   - Soft-change Time Lookback to another preset (e.g. Last 24 hours / Last 7 days / Last 30 days) and soft-assert widgets remain healthy or controlled empty; restore original lookback.
+   - Click #refresh-dashboard; soft assert widgets re-render (signature change optional; at least no blank crash).
+   - Soft-open Filters; Cancel/Escape without Save.
+   - Soft-open Dashboard Manager (wrench); verify manager chrome / table headers soft; Close without Save/Delete/Unshare.
+   - Soft-open Add Widget wizard titles (“Add a Widget”, Widget Type…); Cancel/Escape; do not Add Widget / Save.
+   - Soft-open + Dashboard / Clone / Share only if present; cancel paths only.
+   - **Tabs:** Cover My Filters / Shared Filters; any in-widget metric toggle “tabs” or show/hide chip groups on Site Summary; Performance Overview does not have a multi-page #nav-tabs strip — do not invent campaign/path tabs.
+   - Soft metric toggles (CWV / Revenue / Sessions / Orders / LCP / CLS / FID-or-INP): verify card visibility soft-changes when checkbox exists; restore defaults (prefer “all-checked” path or re-select captured visibility).
+
+5. Widget — Site Summary (live top widget; CWV + business cards)
+   Purpose (inferred from live UI): high-level pulse of site CWV quality and business volume for the active lookback / page matching scope.
+   Live signals observed (GDC, Aug 2026 — values illustrative only):
+   - Body/heading: **Site Summary**
+   - Subtitle / range sample: “2026-08-06 07:25 to 2026-08-06 13:25 - GDC Test Site 2”
+   - Scope label: **All Matching Pages**
+   - CWV headings/cards: **INP** (UI may show “INP” while card hosts use first-input-delay / * -fid ids), **Largest Contentful Paint**, **Cumulative Layout Shift**
+   - Quality-band language samples: “needs improvement”, “poor”, “good” (Google-style bands also documented in VitalScope PDF — soft assert language when present, not specific band-for-number rules beyond regex)
+   - Business cards: **Revenue**, **Sessions**, **Orders** (sample formats: $148.84 K / 119.02 K / 596 — do not hard-code)
+   - Mini Highcharts sparklines under cards:
+       page-*-graph-{instance}, e.g. page-largest-contentful-paint-graph-*, page-revenue-graph-*, page-sessions-graph-*, page-orders-graph-*
+   - Structural id patterns (suffix dynamic — bind via Site Summary widget / cardThings host):
+       chartID_*
+       cardThings-chartID_*
+       edit-show-hide-chartID_*
+       time-period-chartID_*
+       selected-pages-chartID_*
+       div-*-card-chartID_* / *-card-chartID_*
+       first-input-delay-card-chartID_* | largest-contentful-paint-card-chartID_* | cumulative-layout-shift-card-chartID_*
+       revenue-card-chartID_* | sessions-card-chartID_* | orders-card-chartID_*
+
+   Cover:
+   - Verify Site Summary text (or equivalent primary title in the summary widget) visible after VitalPulse selected.
+   - Soft-assert time-range + site name pattern in summary area without hard-coded timestamps.
+   - Soft-assert **All Matching Pages** (or runtime equivalent page-scope label) when present.
+   - Verify CWV card labels: at least LCP and CLS present by heading/regex; soft INP / FID label variants (INP visible text preferred; id may still say fid).
+   - Soft-assert quality-band text adjacent to CWV metrics when data-bearing (/good|needs improvement|poor/i).
+   - Soft-assert values with units: ms or s for INP/LCP; unitless or decimal for CLS; do not hard-code thresholds.
+   - Verify business cards Revenue / Sessions / Orders labels + soft numeric or currency-like values.
+   - Soft-assert at least one sized Highcharts sparkline / mini-graph shell associated with Site Summary cards.
+   - Soft hover mini-graph → tooltip soft when series exist.
+   - Soft metric visibility toggles (all / cwv / revenue / sessions / orders / lcp / cls / fid) when DOM exposes checkbox/controls: toggle off one metric, assert card soft-hidden or de-emphasized, restore; Annotate if controls unavailable on build.
+   - Soft “Deselect All Metrics” only with reliable restore (re-check all-checked or refresh dashboard to capture); otherwise annotate skip.
+   - Soft export/hamburger if present on widget; do not hard-assert file download contents.
+   - Time-lookback change soft-refreshes summary range label and/or card values signature.
+
+6. Widget — Performance Overview (live table; page-level CWV + timings)
+   Purpose (inferred; naming overlaps PDF “Performance Overview with VitalScope” table, but this is the **dashboard widget**, not the RUM page): page-name breakdown of volume and performance for the lookback.
+   Live column headers observed (assert dynamically present subset):
+   - Page Name
+   - Page Views
+   - Onload (s)
+   - First Byte (s)
+   - Largest Contentful Paint (s)
+   - Interaction to Next Paint (s)
+   - Cumulative Layout Shift
+   Live structural id patterns:
+   - chartID_*
+   - table-for-chartID_*-table-viewport
+   - table-for-chartID_*
+   - table-for-chartID_*-tbody
+   Sample page rows (illustrative only — never hard-code): PDP, Category, Category-vt, Sitelet Landing, Search Results, Homepage, Checkout Shopping Cart, …
+   Cells may show **N/A** for some metrics on some pages.
+
+   Cover:
+   - Verify **Performance Overview** heading/title visible (scoped to the widget; avoid matching left-nav “Performance Overview” links accidentally).
+   - Verify table headers include Page Name plus sampled metric columns from the live list above (regex flexible for units “(s)” optional).
+   - Soft-assert at least one data row when period has traffic; otherwise controlled empty + annotate.
+   - Soft-assert Page Views numeric-like; timings numeric/s or N/A; CLS numeric or N/A.
+   - Soft-assert page-name text not empty on data rows.
+   - Soft sort a column only if UI exposes sort and restore is possible; otherwise annotate.
+   - Soft horizontal scroll if many columns on narrower viewport.
+   - Soft row expand / URL drill / purple VitalScope icons **only if live VitalPulse table exposes them** (PDF describes these on RUM PO — often absent on dashboard widget). Do not fail if missing.
+   - Soft gear/column chooser for this **widget only** if present; cancel without sticky account-level column prefs when possible.
+   - Soft export if menu present on this widget.
+   - After lookback/filter change: soft compare row count signature or first page-name set (soft, not exact equality requirement).
+   - **Column sort:** click headers (Page Name, Page Views, Onload, First Byte, LCP, INP, CLS); soft assert first-row order can change.
+   - **Vital Scope arrow / expand icons:** when present in PO cells, click opens modal/popover or nested Vital Scope attribution detail. If no detail loads: switch quick-site once (e.g. Demo eCommerce Global) and retry; **hard-fail** if still missing (product requirement). Note: VitalScope full attribution UI is primarily documented on RUM Performance Overview — LiveVitalPulse may only expose a subset; if no expand icons exist at all, suite still fails REG-VP-038 until product confirms unavailable.
+
+7. Time Period / Time Lookback (top of page)
+   Host: #time-lookback (and filters Time Period when drawer open).
+   Live presets observed (assert presence as set; menus may fold differently by build):
+   Custom Date Selection; Last 2/7/14/30/90 days; Today so far; This week so far; This month so far;
+   Last 15/30 minutes; Last 1/3/6/12/24 hours.
+   Cover:
+   - Open Time Lookback; soft verify multi-option menu.
+   - **Required apply set:** Last **6 hours**, Last **24 hours**, Last **7 days**, Last **30 days** — widgets ready + soft data/signature refresh; restore original lookback.
+   - Soft Custom Date Selection open/cancel only.
+   - Restore original Time Lookback from suite start capture.
+
+7b. Top chrome icons (above / around Auto Refresh)
+   Hover titled icons (Share, Filters, Manager, Help, switcher); soft click + Escape/Back round-trip to site/dashboard + VitalPulse.
+
+7c. Site quick-switch + lock
+   Switch to Demo eCommerce Global (or alternate); soft data refresh; lock icon soft toggle/impact if present; always restore GDC Test Site 2.
+
+7d. Auto Refresh apply
+   Apply 5 Minutes then Off/interval restore; leave non-aggressive.
+
+7e. + Dashboard → Manager eye
+   Open +Dashboard/Manager; soft eye View switch; restore **VitalPulse** exact.
+
+8. Filters drawer
+   Hosts:
+   - #toggle-filters / #mobile-controls-filters-btn
+   - Apply / Apply Filters button when present (probe listed **Apply**)
+   - #cancel-filters / Cancel
+   - filters-section: Time Period, Timezone, Site, Data Originated From, Marketing Campaign, devices, page groups, bot traffic, country/region, etc. (runtime labels)
+   - My Filters / Shared Filters tabs
+   - Clear Cache / Clear Genius Cache — **do not click**
+   Live soft samples after Filters open (body): Data Originated From (RUM Browser & Native Webview / RUM Browser / Native Webview options); Marketing Campaign clear + long URL lists; Site multi-select samples Demo eCommerce Global; Saved Filters UI
+   Cover:
+   - Open Filters; verify drawer visible with representative labels (Time Period, Timezone, Site, Data Originated From when present).
+   - Soft apply one or two dimensional filters with data likely available (e.g. Data Origin RUM Browser; a soft page-group when options exist); soft assert dashboard still healthy or controlled empty; cancel restore.
+   - Soft open My Filters and Shared Filters tabs; **do not Save as New Filter / Save Current Filter**.
+   - Cancel / Escape closes drawer.
+   - After Apply, verify VitalPulse still selected and both widgets present or controlled loading complete.
+   - Prefer soft filters depth — do not leave permanent shared account filter pollution.
+
+9. Graphs, tables, exports and interactions (cross-widget)
+   - Soft Highcharts signature: prefer scoped host by Site Summary card container or Performance Overview widget, not dynamic highcharts-q* ids.
+   - Accept zero-point series when shell has real dimensions (same pattern as Marketing Overview / Site Overview empty series).
+   - Soft context menu / chart hamburger Export CSV|TSV|JSON|Array — open/close.
+   - Soft Deselect All Metrics only with restore path.
+   - Soft Keyboard Escape recovers from open dropdowns/modals before next test.
+   - Soft a11y: filter toggle focus; Help Center / Help Videos soft presence.
+   - Soft quality colors on CWV metrics (green/yellow/red) when CSS/text bands present — soft presence only; do not pixel-assert RGB thresholds.
+
+10. Soft switches to sibling preconfigured dashboards (negative / recovery)
+    Preconfigured options observed live (catalog is dynamic — use runtime list):
+    Site Overview | VitalPulse | Synthetic Site Health | Traffic Source and Medium | RUM Performance Detail | Synthetic Performance Detail | Native App Performance Detail | Native App Detailed Metrics - Android | Native App Detailed Metrics - iOS
+    Cover:
+    - Soft switch once to a non–VitalPulse preconfigured option for ≤1 interaction cycle (e.g. Site Overview — widgets become Performance/Device Metrics/…); annotate widgets differ; **restore VitalPulse + profile site GDC Test Site 2**.
+    - Optional: soft open Shared group dashboard and restore (do not save shared settings).
+    - **Do not** treat RUM Performance Overview (VitalScope PDF page), DXO, or Marketing Overview as substitute for VitalPulse.
+    - Soft sibling select can change quick site — always re-assert GDC Test Site 2.
+
+11. Combination, recovery and non-functional
+    - Capture context → change Time Lookback → soft assert Site Summary / Performance Overview → restore lookback → assert VitalPulse still selected.
+    - Soft CWV card metric toggle → restore → assert summary still usable.
+    - Open Filters → Apply soft sample → widgets refresh → Cancel/restore → Filter closed.
+    - Refresh dashboard → soft healthy widgets.
+    - Soft Dashboard Manager open/close.
+    - Soft mis-click + Widget wizard open/close.
+    - Soft sibling preconfigured switch → restore VitalPulse + GDC Test Site 2.
+    - Recover to captured dashboard label, site, lookback, auto-refresh preference when restorable without Save.
+    - Repeated refresh does not permanently delete Site Summary / Performance Overview.
+    - Performance: widgets settle within bounded deadlines after lookback/filter change (project soft timeouts).
+    - Viewport: standard desktop + narrower ~1100px: both widgets and chrome still reachable (horizontal scroll OK).
+
+12. Out-of-scope mutations (always)
+    - Do not Save Filter / Save as New Filter / Save Current Filter / Create permanent shared filters.
+    - Do not Clear Cache / Clear Genius Cache.
+    - Do not permanently Save dashboard settings, Share/Unshare, Clone for others, Delete dashboards, or overwrite Preconfigured VitalPulse layout.
+    - Do not Add Widget permanently / Save widget wizard on shared VitalPulse.
+    - Do not Create permanent + Dashboard entries on shared account.
+    - Do not leave Auto Refresh or Carousel in an aggressive cycling mode after suite.
+    - Do not hard-code currency symbols, metric totals, page names, exact time ranges, quality bands tied to fixed numbers, or widget numeric ids.
+    - Do not expand suite into full RUM Performance Overview / VitalScope / DXO / Marketing Overview / Site Overview regression (separate suites).
+    - Do not treat “Vital” partial string matches for dashboard option (could collide with messaging or other labels) — use exact **VitalPulse**.
+
+13. Live reverse-engineering facts to preserve (GDC Test Site 2, Aug 2026)
+    - URL: portal …/index.php?r=site/dashboard
+    - Browser title & #page-title: Dashboards
+    - Menu: Dashboards (biz.dashboards)
+    - #select2-switch-dashboard-container: **VitalPulse** (Preconfigured; value sample 985034 — do not hard-code option value ids)
+    - #select2-quick-site-id-container: GDC Test Site 2
+    - Chrome: #time-lookback, #refresh-dashboard, #auto-refresh, #toggle-filters, + Widget, + Dashboard, Carousel soft
+    - Two primary grid-stack widgets after selection:
+        1) Site Summary / time-range titled card host with CWV + business mini-charts (hasChart true, hasTable false)
+        2) Performance Overview page table (hasChart + hasTable)
+    - Site Summary metrics: INP, Largest Contentful Paint, Cumulative Layout Shift, Revenue, Sessions, Orders; quality text needs improvement / poor
+    - Performance Overview columns: Page Name | Page Views | Onload (s) | First Byte (s) | Largest Contentful Paint (s) | Interaction to Next Paint (s) | Cumulative Layout Shift
+    - chartID_*, cardThings-*, table-for-chartID_*, *-(lcp|cls|fid|cwv|revenue|sessions|orders) are **dynamic** — bind via title/role → container
+    - DOM may still label FID containers while UI presents INP (web-vitals evolution) — soft dual match
+    - N/A cells appear for some Page Name groups without full CWV coverage
+    - Dashboard Manager, widget wizard, My Filters / Shared Filters present in DOM
+    - Filters Apply appears among buttons after drawer interaction; soft wait when testing Apply path
+    - Attached PDF is VitalScope/RUM PO documentation — misfiled for folder name VitalPulse; live dashboard dominates
+    - Lookback options listed in probe.lookbackOptions (Last 6 hours default sample after select: Auto Refresh (5m))
+
+14. Refer to the attached documentation (with scope caveat)
+    PDF “Performance Overview with VitalScope – Blue Triangle Help Center” (use **only** where it maps to shared CWV concepts or to soft-compare Performance Overview **columns**):
+    - CWV color coding: green=good, yellow=needs improvement, red=poor (Google standards)
+    - Metrics: LCP, INP, CLS (+ LoAF attribution on VitalScope — **not required** on VitalPulse unless live)
+    - Table sorted by page name; export CSV/TSV/JSON/Array on RUM page — soft export only if VitalPulse widget offers same menus
+    - Purple VitalScope element icons, gear column pickers, URL top-50 expand — **RUM page behaviors**; soft on VitalPulse only when present
+    Prefer live VitalPulse labels and card structure. Do not require full VitalScope attribution regression on this suite.
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a separate Playwright automation suite under regression_tests > US2 > dashboards > preconfigured > vital-pulse as specified above. Cover thorough regression for:
+  - navigation & identity (VitalPulse on site/dashboard)
+  - Site Summary widget (CWV cards, business cards, mini-graphs, metric show/hide soft, quality bands soft)
+  - Performance Overview widget (all observed columns, rows, N/A soft, sort/export soft if available)
+  - fields, labels, filters, graphs as listed
+  - Time Lookback options and restore
+  - Filters drawer (including Apply soft path) + My/Shared Filters soft tabs
+  - Dashboard chrome: switcher, auto refresh, refresh, manager, soft create controls cancel-only
+  - graphs soft signatures and export menus soft
+  - combination, recovery, empty/soft data paths
+  - explicit non-confusion with Site Overview widgets, RUM VitalScope page, DXO and Marketing Overview
+
+Follow existing project framework and POM conventions. Reuse Site Overview / Marketing Overview dashboard helpers where stable; specialize widget title locators for VitalPulse (Site Summary + Performance Overview). Prefer exact dashboard option text VitalPulse.
+
+After generation:
+1. Execute only the newly created Vital Pulse Dashboard regression spec first and fix automation hard failures.
+2. Generate fresh isolated Allure results and an HTML report for this spec.
+3. Generate a manual test-case workbook (Summary / Regression TCs / Notes).
+4. Include executed result summary and soft annotations for empty data, missing metric toggles, INP vs FID label drift, and N/A-heavy tables.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable control IDs and widget **titles/labels**; do not depend on dynamic Highcharts instance IDs or grid-stack numeric suffixes alone.
+6. Do not hard-code metric totals, currency amounts, page names, N/A rates, or fixed time-period / timezone / quality-band-for-value strings.
+7. Capture and restore VitalPulse selection, GDC Test Site 2, Time Lookback and Auto Refresh where possible.
+8. Use a serial suite only when shared page state is intentional; optional/data-dependent failures must not abort unrelated tests (soft deadlines + recovery).
+9. Use bounded soft deadlines and explicit action timeouts on dashboard interactions.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page actions running into later serial tests; cancel/reload/reset before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save Filter, Clear Cache, permanently Save/Clone/Share/Delete dashboards, or permanently Add Widget on shared VitalPulse.
+13. Keep primary scope on site/dashboard + VitalPulse; restore that home after any soft sibling dashboard visit.
+14. Close all menus, overlays, drawers, modals, Dashboard Manager, widget wizard, Export menus opened by tests.
+15. Do not claim widgets refreshed by merely counting pre-existing SVG hosts; compare scoped widget signatures, titles, range text or lookback text.
+16. Treat currency as locale-tolerant ($/€/£/K-M suffixes/etc.).
+17. Do not use the RUM Performance Overview route as suite home even though the attached PDF documents that page.
+18. If any requirement is ambiguous or missing, flag it before generating automation.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- **No official VitalPulse Help PDF** was available in the request package; attached file is **VitalScope / Performance Overview**. Flag if a correct Help article appears later and deltas vs live widgets.
+- Widget title “Site Summary” is clear in body text; grid-stack title capture sometimes returns only the dynamic time-range string — bind by body text / card host, not solely img[alt]/
+- UI **INP** vs DOM **FID** / first-input-delay id naming may drift by build — soft dual-match; prefer visible text for assertions.
+- Quality-band thresholds (numeric cutoffs for good/needs improvement/poor) are Google’s standards and may not be printed beside values — soft band language only; do not re-implement SC scoring unless product surfaces explicit thresholds.
+- Whether FID card is ever hidden when only INP is shown — soft.
+- Metric show/hide checkboxes (*-cwv / *-lcp / …) may be collapsed under “edit-show-hide” UI — discover at runtime.
+- Performance Overview may render N/A for LCP/CLS on some virtual/tag pages (-vt samples) — soft accept, not fail.
+- Page-row set and order vary by traffic / lookback — soft presence of columns + ≥0 data rows logic, not fixed PDP-first order.
+- Table expand, VitalScope purple icons, LoAF columns: **not observed on VitalPulse probe** — soft only if found; never hard-require from PDF.
+- Dedicated multi-page “tabs” strip on VitalPulse itself: **not observed**; tabs = My/Shared Filters + in-widget metric toggles.
+- Soft sibling preconfigured select can change quick site — always re-anchor GDC Test Site 2.
+- Apply Filters button may only surface when drawer fully open.
+- Currency may switch $ vs € by account/site localization independent of Site Overview probe (€).
+- Carousel defaults and “0/75 dashboards used” counters are environment specific.
+- Whether “All Matching Pages” is a dropdown of page scopes on some builds — soft open if control exists; cancel without sticky save.
+- Formal SLA for widget reload after lookback — use project soft bounded deadlines.
+- Coach/Get started overlays may appear; dismiss text varies.
+- Probe may log ensureProfileSite warning when #select2-site-id-container is hidden — quick site container is the recovery anchor on this shell.
+- Portal version deltas post-v9.10 may add widgets beyond the two observed — soft-discover additional titles; do not fail suite solely for extras, but hard-fail if either **Site Summary** pulse cards or **Performance Overview** table missing when data expected.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to the existing POM framework and regression suites, especially:
+- tests/regression_tests/US2/dashboards/preconfigured/site-overview/site.overview.dashboard.regression.spec.ts
+- pages/SiteOverviewDashboardPage.ts / locators/SiteOverviewDashboardLocators.ts
+- marketing.overview.regression.spec.ts / pages/MarketingOverviewPage.ts
+- rum.performance-overview.browser / core.web.vitals (CWV column soft patterns only)
+- competitive.index.table / competitive.index.trends
+- business-insights suites
+
+Follow their patterns for:
+- POM/locator separation
+- authenticated profile/site selection (GDC Test Site 2)
+- Select2 dashboard switch + restore (**exact VitalPulse**)
+- time lookback / auto refresh menus
+- filter open/apply/cancel + no Save Filter
+- chart soft signatures (empty-series shells allowed)
+- widget title / label scoping (avoid dynamic instance IDs)
+- serial recovery after soft sibling switches
+- isolated Allure + Excel workbooks
+- soft quality-band / locale-tolerant currency assertions

@@ -1,0 +1,356 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the preconfigured “Site Overview” dashboard (Help title: “The Site Overview Dashboard”). Reverse-engineer the live application using GDC Test Site 2 and refer to:
+  • Help Center PDF: “The Site Overview Dashboard – Blue Triangle Help Center.pdf”
+    (article: https://help.bluetriangle.com/hc/en-us/articles/360021406074-The-Site-Overview-Dashboard)
+  • Live portal reverse-engineering probe (Aug 2026): docs/prompts/site-overview-live-probe.json
+  • PDF extract notes: docs/prompts/site-overview-pdf-extract.txt
+
+NOTE ON DOCUMENTATION VS LIVE PRODUCT
+The PDF is short (dashboard guide, ~7 pages) and describes four fixed widgets plus Time Period and Filters. It does **not** document every dashboard-chrome control that the live shell exposes (Auto Refresh, Carousel, Dashboard Manager wrench, + Widget / + Dashboard, My Filters / Shared Filters, site quick-switch, clone/share, currency localization, Brand Value / Brand Orders columns, etc.). Prefer live controls, #page-title, Select2 ids and widget **titles** when PDF is incomplete or older than the product UI.
+
+CRITICAL DISTINCTION (do not confuse screens)
+  • Site Overview (THIS suite) = Preconfigured dashboard selected on route **site/dashboard** under menu **Dashboards**, option **Site Overview** in #switch-dashboard (optgroup Preconfigured).
+  • Digital Experience Overview (DXO) = separate page overview-dashboard/overview with Blue Triangle Scores, many different widgets (“_BTT Overview” custom dashboard on probe) — **out of primary scope**.
+  • Marketing Overview = overview-dashboard/marketing — **out of primary scope**.
+  • Other Preconfigured options (VitalPulse, Synthetic Site Health, RUM Performance Detail, …) — soft-switch sample only; always restore **Site Overview**.
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - Site Overview is a **pre-configured dashboard** that provides a holistic view of site/app performance and revenue broken down by **geography** and **device type over time**.
+   - PDF: time period is customizable at the top of the dashboards page; Filters (top-right filter icon) apply criteria and reload the dashboard.
+   - Live currency and metric formats are **site/account localized** (GDC probe showed € revenue and Brand Value columns — do not hard-require “$” only; accept $/€/£/locale).
+   - Use live UI data only. Do not call APIs or query a database.
+   - Do not hard-code widget grid instance ids (pattern `{accountOrTemplateId}-{numeric}`, e.g. chartID_355897-84963061), Highcharts internal ids (highcharts-*-nn), exact revenue/orders/page-view totals, onload seconds, geo region names, table row counts, time-period strings, timezone strings, dashboard clone names or “0/75 dashboards used” counters.
+   - Capture at suite start: active dashboard label (must be Site Overview), active quick site (#select2-quick-site-id-container / global site), Time Lookback label, Auto Refresh label, key widget titles present, filter drawer closed/open, any Carousel state.
+   - Assert titles, column labels, formats (%, currency symbol/code or amount, time units s/ms), chart/map shells, controlled empty states, before/after soft signatures rather than exact backend values.
+   - If a filter/time combo yields empty widgets or zero-series charts, assert controlled empty / sized Highcharts shell, annotate, restore a data-bearing Site Overview context and continue.
+   - Widget layout positions (PDF: Performance top-left, Device Metrics top-right, Revenue Over Time bottom-left, Geography bottom-right) may change with layouts — prefer **title presence** over absolute coordinates.
+
+2. Navigation and implementation paths
+   PDF + Live primary path (prefer this):
+   Menu > **Dashboards** (PDF: “Dashboard” link in main left-hand navigation)
+   Route (observed): **site/dashboard**
+   Smoke catalog reference: **biz.dashboards** (menuLabel Dashboards, route site/dashboard, hrefIncludes site/dashboard, hrefExcludes marketing=yes)
+   Browser title observed: **Dashboards**
+   #page-title observed: **Dashboards**
+   After load, dashboard switcher #select2-switch-dashboard-container (or #switch-dashboard) must show / resolve to **Site Overview** under optgroup **Preconfigured** (probe default often opens already on Site Overview with the four widgets).
+
+   Alternate discovery paths (PDF — soft coverage):
+   1) Upper-left dashboard dropdown → select **Site Overview** when not already active.
+   2) Wrench / **Dashboard Manager** (#dashboard-manager / #dashboard-settings-toggle / related chrome) → view list → soft **Eye**/open Site Overview if present; close manager without Save/Delete of shared dashboards.
+   Do **not** delete preconfigured dashboards. Do **not** leave manager Save sticky changes.
+
+   Target automation folder:
+   tests/regression_tests/US2/dashboards/preconfigured/site-overview/
+   Suggested spec name:
+   site.overview.dashboard.regression.spec.ts
+   Suggested POM / locators:
+   pages/SiteOverviewDashboardPage.ts
+   locators/SiteOverviewDashboardLocators.ts
+   Reuse / extend patterns from:
+   - pages/MarketingOverviewPage.ts (dashboard switch, time lookback, auto refresh, filters, graph signatures, recoverPage)
+   - pages/DigitalExperienceOverviewPage.ts (time period / auto refresh option menus — DXO is different page but control ids overlap on shared dashboard chrome)
+   - locators/MarketingOverviewLocators.ts (#switch-dashboard, #time-lookback, #auto-refresh, #refresh-dashboard, #toggle-filters)
+   Suggested manual test workbook:
+   docs/Site_Overview_Dashboard_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:site-overview
+   Probe script (reference):
+   scripts/probe-site-overview.ts → docs/prompts/site-overview-live-probe.json
+
+3. Page load, authentication and default context
+   - Verify authenticated navigation succeeds without login redirect, blocking error, blank shell or perpetual loader.
+   - Verify browser title matches /Dashboards/i (and not Marketing-only titles).
+   - Verify #page-title matches /Dashboards/i.
+   - Verify URL contains site/dashboard (slash / %2F safe patterns).
+   - Verify selected portal site is GDC Test Site 2 (global #select2-site-id-container and/or #select2-quick-site-id-container when visible).
+   - Dismiss Get started / Don’t show me again / jconfirm overlays before interacting.
+   - Verify #select2-switch-dashboard-container (or #switch-dashboard selected text) matches /Site Overview/i. If not, select Site Overview from Preconfigured and wait for widgets to settle.
+   - Verify the four PDF widgets settle (visible titles and/or chart/table hosts) within a bounded UI deadline:
+       • Performance
+       • Device Metrics
+       • Revenue Over Time
+       • Geography
+   - Soft-assert “last updated” / #last-updated-dashboard when present; do not hard-code clock text.
+   - Verify browser Back/Forward and refresh return to a healthy site/dashboard context; re-select Site Overview if shell lost selection.
+   - Capture uncaught page errors; distinguish app-blocking errors from Highcharts/third-party noise.
+
+4. Dashboard chrome (tabs is a soft concept here — chrome “tabs” + manager panes)
+   Live chrome hosts/controls observed on GDC Site Overview (samples — not permanent values):
+   - Dashboard switcher: #switch-dashboard / #select2-switch-dashboard-container (text sample: Site Overview)
+   - Quick site: #select2-quick-site-id-container (sample: GDC Test Site 2) — keep on profile site after any mis-select recovery
+   - Time Lookback: #time-lookback (button label samples: Last 6 hours, Last 24 hours, Last 1 hour, etc.)
+   - Dashboard Refresh: #refresh-dashboard (+ “Time Lookback” / “Dashboard Refresh” labels in chrome)
+   - Auto Refresh: #auto-refresh / #auto-refresh-frequency / #auto-refresh-btn-group (samples: Auto Refresh (5m), Off, 2/5/10/15/30/60 Minutes)
+   - Carousel control when present (sample: Carousel (off) + interval submenu — soft open/close, do not leave carousel cycling during suite)
+   - Filters: #toggle-filters / #mobile-controls-filters-btn
+   - #dashboard-page-controls wrapper
+   - + Widget / + Dashboard (create-widget, create-dashboard) — soft open/close wizard/manager only; **do not Save** permanent widgets/dashboards on shared account
+   - Dashboard Manager / wrench: #dashboard-manager, #dashboard-settings-toggle, “DASHBOARD MANAGER”, search-dashboard-manager — soft open/close; no delete/share sticky
+   - #toggle-markers-container when present (markers soft)
+   - My Filters / Shared Filters tabs when Filters drawer open: #my-filters-tab / #shared-filters-tab — read-only; **do not Save Filter**
+
+   Cover:
+   - Verify dashboard switcher attached; Site Overview selected or selectable.
+   - Soft-list Preconfigured option names when dropdown open (Site Overview present); close without random sticky navigation, or restore Site Overview if sampled other options.
+   - Soft-open Auto Refresh menu; verify representative options (Off + interval minutes) without permanently changing shared default if avoidable; restore capture.
+   - Soft-change Time Lookback to another preset (e.g. Last 24 hours / Last 7 days / Last 30 days) and soft-assert widgets remain healthy or controlled empty; restore original lookback.
+   - Click #refresh-dashboard; soft assert widgets re-render (signature change optional; at least no blank crash).
+   - Soft-open Filters; Cancel/Escape without Save.
+   - Soft-open Dashboard Manager (wrench); verify manager chrome / table headers soft; Close without Save/Delete/Unshare.
+   - Soft-open Add Widget wizard titles (“Add a Widget”, Widget Type…); Cancel/Escape; do not Add Widget / Save.
+   - Soft-open + Dashboard / Clone / Share only if present; cancel paths only.
+   - **Tabs:** Treat manager filter tabs (My Filters / Shared Filters) and any in-widget metric tabs as “tabs” coverage when live; there may be no primary multi-page #nav-tabs on Site Overview itself. Cover every **reachable** tab/pane listed in §8–§11 without inventing DXO score tabs.
+
+5. Widget — Performance (PDF default top-left)
+   Purpose (PDF): overview of performance metrics for preferred time period.
+   Live: grid-stack item titled **Performance**; chart host pattern chartID_* under that widget; Highcharts containers.
+   Cover:
+   - Verify Performance widget title visible.
+   - Soft-assert at least one Highcharts shell inside / associated with Performance (sized SVG or series points).
+   - Soft-assert performance-related labels or titles (Onload / timing language) when data-bearing — do not hard-code series title text beyond regex.
+   - Soft hover chart → tooltip soft when data exists.
+   - Soft export/hamburger if present on widget (Export CSV/TSV/JSON soft open; do not download-assert hard).
+   - Time-period change soft-refresh of this widget.
+
+6. Widget — Device Metrics (PDF default top-right)
+   Purpose (PDF): site broken down by device type (**Desktop**, **Tablet**, **Mobile**).
+   Live column headers observed (assert dynamically present subset — site may add Brand columns):
+   - Device
+   - Revenue
+   - Orders
+   - Page Views
+   - Onload
+   - JS Errors (Sampled)
+   - Brand Value
+   - Brand Orders
+   Live structural id patterns (do not hard-code suffix):
+   - deviceMetricsPanel_*
+   - dMetricsTable_*
+   - deviceCol_* / revenueCol_* / ordersCol_* / onloadCol_* / brandOrdersCol_*
+   - dMetricsMobile_* / dMetricsDesktop_* / dMetricsAndroid_* (+ tablet when present)
+   - mobileRev_* / desktopRev_* etc.
+   Cover:
+   - Verify Device Metrics title visible.
+   - Verify table headers include Device plus sampled metric columns from live header list.
+   - Soft-assert at least one of Mobile / Desktop / Tablet (or Android/iOS device rows when rendered under site data) present in row labels or icons — PDF explicitly Desktop/Tablet/Mobile; live may include additional native device rows.
+   - Soft-assert revenue/order amounts format as currency-like or numeric; onload as time unit; counts as numeric.
+   - Soft currency: accept € / $ / £ without requiring a single symbol.
+   - Soft sort on a numeric column only if UI exposes sort and is non-destructive; otherwise annotate.
+   - Soft assert empty-state if no device rows (controlled), restore lookback.
+
+7. Widget — Revenue Over Time (PDF default bottom-left)
+   Purpose (PDF): track **orders**, **revenue**, **page views**, and **sessions** over time for campaign timing insights.
+   Live: widget title **Revenue Over Time**; chartID_* host; Highcharts over time.
+   Cover:
+   - Verify Revenue Over Time title visible.
+   - Soft-assert chart shell rendered (sized) with legend or series when data exists.
+   - Soft assert series/legend or point-related labels that match /revenue|order|session|page view/i when present (not all four may series-render at once depending on widget config).
+   - Soft hover tooltip for a point when series data exists.
+   - Soft legend toggle restore when multi-series.
+   - Soft time-axis / range label change when lookback changes (signature soft compare).
+
+8. Widget — Geography (PDF default bottom-right)
+   Purpose (PDF): performance by geography; colors = quality (red sub-par, green acceptable); click region to zoom / sub-regions.
+   Live: widget title **Geography**; chartID_* / map hosts; soft map containers ([id*='map'], highcharts map series when rendered).
+   Cover:
+   - Verify Geography title visible.
+   - Soft-assert map or geo chart shell present (Highcharts map, map-* host, or colored legend).
+   - Soft note color legend / performance quality coding when visible — do not hard-assert specific region colors against fixed values.
+   - Soft click one visible region / map point if interactable — prefer aria-label **China** when present; soft assert sub-region / country graph; soft assert Performance & Revenue Over Time remain ready / signature soft-refresh; **Back To World Map** restore when UI exposes it.
+   - Soft metric selector on map when present (Displayed Metric: Onload / …) without hard-coding the option list beyond runtime discovery.
+   - Empty map for heavily filtered geo — controlled empty soft.
+
+9. Time Period / Time Lookback (top of page — PDF core)
+   Host: #time-lookback (and filters Time Period when drawer open).
+   Live presets observed in Dashboard chrome (assert presence as set, do not invent missing ones):
+   Custom Date Selection; Last 2/7/14/30/90 days; Today so far; This week so far; This month so far;
+   Last 15/30 minutes; Last 1/3/6/12/24 hours (menus may fold differently by build — capture runtime list).
+   Cover:
+   - Open Time Lookback; soft verify multi-option menu.
+   - **Required apply set:** Last **6 hours**, Last **24 hours**, Last **7 days**, Last **30 days** — after each, soft-assert widgets ready + data/signature refresh; restore original lookback after sequence.
+   - Soft Custom Date Selection open/cancel only.
+   - Restore original Time Lookback from suite start capture.
+
+9b. Top chrome icons (above / around Auto Refresh)
+   Cover:
+   - Hover titled icons (#share-page-btn, #toggle-filters, dashboard manager, switcher titles, Help) — assert title / data-original-title / bootstrap tooltip name.
+   - Soft click Filters / Share / Manager; return via Escape, re-click, or browser Back so suite remains on site/dashboard + Site Overview.
+
+9c. Site quick-switch + lock
+   Cover:
+   - Switch quick site to **Demo eCommerce Global** (or first non-profile option); soft assert widget signature refresh; restore **GDC Test Site 2**.
+   - Site **lock** icon (fa-lock / title “lock”) — soft toggle; if present, soft observe whether site switch is blocked while locked; unlock; always restore profile site.
+   - Lock may be absent on build — soft-annotate when missing (do not hard-fail solely for missing lock glyph).
+
+9d. Auto Refresh **apply** (not menu-only)
+   Cover:
+   - Apply 5 Minutes then Off (or restore interval) from Auto Refresh menu; soft widgets ready; do not leave aggressive cycling.
+
+9e. + Dashboard → Dashboard Manager → View (eye)
+   Cover:
+   - Open **+ Dashboard** (or wrench fallback) to DASHBOARD MANAGER.
+   - Soft click **eye/View** in View column to switch another dashboard if present.
+   - Restore Site Overview (eye on home row or Select2); no Save/Delete/Share permanent.
+
+10. Filters drawer (PDF: filter icon top-right → Apply reloads dashboard)
+    Hosts:
+    - #toggle-filters / #mobile-controls-filters-btn
+    - #apply-filters when present / Apply Filters button
+    - #cancel-filters
+    - filters-section / Time Period / Timezone / Site / Data Origin / devices etc. (runtime labels from filters chrome)
+    - My Filters / Shared Filters tabs
+    - Clear Cache affordance may appear — **do not click Clear Cache / Clear Genius Cache**
+    Cover:
+    - Open Filters; verify drawer visible with representative labels (Time Period, Timezone, Site, Data type/origin, devices when present).
+    - Soft apply one or two dimensional filters with data likely available (e.g. Device, Data Origin RUM Browser when options exist); soft assert dashboard still healthy or controlled empty; cancel restore.
+    - Soft open My Filters and Shared Filters tabs; **do not Save as New Filter / Save Current Filter**.
+    - Cancel / Escape closes drawer.
+    - After Apply, verify Site Overview still selected and four widgets present or controlled loading complete.
+    - Prefer soft filters depth — do not leave permanent shared account filter pollution.
+
+11. Graphs, tables, exports and interactions (cross-widget)
+    - Soft Highcharts signature: prefer scoped host by widget title (grid-stack-item containing “Performance|Device Metrics|Revenue Over Time|Geography”), not dynamic highcharts-*-n ids.
+    - Accept zero-point series when shell has real dimensions (same pattern as Marketing Overview empty series).
+    - Soft context menu / chart hamburger Export CSV|TSV|JSON|Array — open/close.
+    - Soft Deselect All Metrics / All Pages Average only if clearly scoped restore exists — otherwise annotate.
+    - Soft Keyboard Escape recovers from open dropdowns/modals before next test.
+    - Soft a11y: filter toggle focus; Help Center / Help Videos soft presence.
+
+12. Soft switches to sibling preconfigured dashboards (negative / recovery)
+    Preconfigured options observed live (catalog is dynamic — use runtime list):
+    Site Overview | VitalPulse | Synthetic Site Health | Traffic Source and Medium | RUM Performance Detail | Synthetic Performance Detail | Native App Performance Detail | Native App Detailed Metrics - Android | Native App Detailed Metrics - iOS
+    Cover:
+    - Soft switch once to a non–Site Overview preconfigured option for ≤1 interaction cycle; annotate widgets differ; **restore Site Overview + profile site GDC Test Site 2**.
+    - Optional: soft open Shared group dashboard and restore (do not save shared settings).
+    - **Do not** treat Digital Experience Overview (overview-dashboard/overview) or Marketing Overview as substitute for Site Overview.
+
+13. Combination, recovery and non-functional
+    - Capture context → change Time Lookback → soft assert Device Metrics / charts → restore lookback → assert Site Overview still selected.
+    - Open Filters → Apply soft sample → widgets refresh → Cancel/restore → Filter closed.
+    - Refresh dashboard → soft healthy widgets.
+    - Soft Dashboard Manager open/close.
+    - Soft mis-click + Widget wizard open/close.
+    - Soft sibling preconfigured switch → restore Site Overview + GDC Test Site 2.
+    - Recover to captured dashboard label, site, lookback, auto-refresh preference when restorable without Save.
+    - Repeated refresh does not permanently delete the four widget titles.
+    - Performance: widgets settle within bounded deadlines after lookback/filter change (project soft timeouts).
+    - Viewport: standard desktop + narrower ~1100px: four widgets and chrome still reachable (horizontal scroll OK).
+
+14. Out-of-scope mutations (always)
+    - Do not Save Filter / Save as New Filter / Save Current Filter / Create permanent shared filters.
+    - Do not Clear Cache / Clear Genius Cache.
+    - Do not permanently Save dashboard settings, Share/Unshare, Clone for others, Delete dashboards, or overwrite Preconfigured Site Overview layout.
+    - Do not Add Widget permanently / Save widget wizard on shared Site Overview.
+    - Do not Create permanent + Dashboard entries on shared account.
+    - Do not leave Auto Refresh or Carousel in an aggressive cycling mode after suite.
+    - Do not hard-code currency symbols, metric totals, region names, exact time ranges, or widget numeric ids.
+    - Do not expand suite into full DXO / Marketing Overview regression (separate suites).
+
+15. Live reverse-engineering facts to preserve (GDC Test Site 2, Aug 2026)
+    - URL: portal …/index.php?r=site/dashboard
+    - Browser title & #page-title: Dashboards
+    - Menu: Dashboards (biz.dashboards)
+    - #select2-switch-dashboard-container: **Site Overview** (Preconfigured; first load often already selected)
+    - #select2-quick-site-id-container: GDC Test Site 2 (keep after recovery)
+    - Chrome: #time-lookback, #refresh-dashboard, #auto-refresh, #toggle-filters, + Widget, + Dashboard, Carousel soft
+    - Widgets by title: Performance | Device Metrics | Geography | Revenue Over Time
+    - Device Metrics headers: Device, Revenue, Orders, Page Views, Onload, JS Errors (Sampled), Brand Value, Brand Orders
+    - Sample device metrics row values used € currency and multi row Mobile/Desktop-style data (do not hard-code numbers)
+    - chartID_{widgetInstance} and deviceMetricsPanel_/dMetricsTable_ are **dynamic** — bind via title → container
+    - Dashboard Manager, widget wizard, My Filters / Shared Filters present in DOM
+    - Selecting another Preconfigured dashboard (e.g. RUM Performance Detail) can also change quick site in some probes — suite must re-assert GDC Test Site 2 + Site Overview after any soft sibling switch
+    - Filters Apply button may be hidden until drawer opens correctly; soft wait for Apply visibility when testing Apply path
+    - Help article PDF is primary attached guide; no separate lengthy DOC body beyond PDF was required for regression depth
+
+16. Refer to the attached documentation
+    PDF “The Site Overview Dashboard – Blue Triangle Help Center”:
+    - Overview: holistic performance; revenue & performance by geography & device over time; top time period control
+    - How to find: left-nav Dashboard; upper-left dropdown; or Wrench → Dashboard Manager → Eye
+    - Widgets: Performance; Device Metrics (Desktop/Tablet/Mobile); Revenue Over Time (orders, revenue, page views, sessions); Geography (color quality; region expand / zoom sub-regions)
+    - Filters: top-right Filter icon → criteria → Apply reloads dashboard
+    Prefer live labels, chrome and currency formats when PDF omits them.
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a separate Playwright automation suite under regression_tests > US2 > dashboards > preconfigured > site-overview as specified above. Cover thorough regression for:
+  - navigation & identity (Site Overview on site/dashboard)
+  - all four PDF widgets (titles, data/shells, interactions)
+  - Device Metrics fields/labels/columns and device-type breakdown
+  - Time Lookback options and restore
+  - Filters drawer (including Apply soft path) + My/Shared Filters soft tabs
+  - Dashboard chrome: switcher, auto refresh, refresh, manager, soft create controls cancel-only
+  - graphs/maps soft signatures and export menus soft
+  - geography region soft drill
+  - combination, recovery, empty/soft data paths
+  - explicit non-confusion with DXO and Marketing Overview
+
+Follow existing project framework and POM conventions. Reuse Marketing Overview dashboard helpers where stable; specialize widget title locators for Site Overview.
+
+After generation:
+1. Execute only the newly created Site Overview Dashboard regression spec first and fix automation hard failures.
+2. Generate fresh isolated Allure results and an HTML report for this spec.
+3. Generate a manual test-case workbook (Summary / Regression TCs / Notes).
+4. Include executed result summary and soft annotations for empty data / missing Tablet row / maps without drill controls.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable control IDs and widget **titles**; do not depend on dynamic Highcharts instance IDs or grid-stack numeric suffixes alone.
+6. Do not hard-code metric totals, currency amounts, region names, or fixed time-period / timezone strings.
+7. Capture and restore Site Overview selection, GDC Test Site 2, Time Lookback and Auto Refresh where possible.
+8. Use a serial suite only when shared page state is intentional; optional/data-dependent failures must not abort unrelated tests (soft deadlines + recovery).
+9. Use bounded soft deadlines and explicit action timeouts on dashboard interactions.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page actions running into later serial tests; cancel/reload/reset before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save Filter, Clear Cache, permanently Save/Clone/Share/Delete dashboards, or permanently Add Widget on shared Site Overview.
+13. Keep primary scope on site/dashboard + Site Overview; restore that home after any soft sibling dashboard visit.
+14. Close all menus, overlays, drawers, modals, Dashboard Manager, widget wizard, Export menus opened by tests.
+15. Do not claim widgets refreshed by merely counting pre-existing SVG hosts; compare scoped widget signatures, titles or lookback text.
+16. Treat currency as locale-tolerant (€/$/£/etc.).
+17. If any requirement is ambiguous or missing, flag it before generating automation.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- PDF says Desktop/Tablet/Mobile; live Device Metrics may show Mobile/Desktop and additional native rows (Android patterns in DOM) without a dedicated “Tablet” row for a given site — soft Tablet presence, hard any multi-device breakdown when data exists.
+- Brand Value / Brand Orders columns appear live but not in PDF — include as live soft columns, not PDF-required only.
+- Exact Performance widget metric set is not listed in PDF and may be chart-config dependent — soft performance chart shell + Onload-like labels.
+- Revenue Over Time series selection (orders/revenue/page views/sessions) may not all be simultaneous in legend — soft match any revenue/order/session/page-view series.
+- Geography color scale thresholds (red vs green) not numeric in PDF — soft legend/presence, not pixel color assert.
+- Dashboard Manager Eye affordance vs select2 switch may vary by theme/build — soft both discovery paths.
+- Apply Filters vs cancel-only filter chrome: Apply may only mount when drawer fully open — soft wait.
+- Soft sibling preconfigured select can change quick site (probe anomaly) — always re-anchor GDC Test Site 2.
+- DXO page (overview-dashboard/overview) is **not** Site Overview even if labeled “Overview” elsewhere — do not use DXO as suite home.
+- Carousel defaults and “0/75 dashboards used” counters are environment specific.
+- Whether Custom Date Selection requires cancel-only path — yes unless disposable calendar apply can restore captured range.
+- Formal SLA for widget reload after lookback — use project soft bounded deadlines.
+- Coach/Get started overlays may appear; dismiss text varies.
+- No separate multi-page “tabs” strip on Site Overview (unlike CJA campaigns/path flow); interpret “tabs” as filter tabs, manager tabs, and any in-widget metric toggles.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to the existing POM framework and regression suites, especially:
+- marketing.overview.regression.spec.ts / pages/MarketingOverviewPage.ts
+- digital-experience-overview.smoke.spec.ts / pages/DigitalExperienceOverviewPage.ts (chrome option menus only)
+- competitive.index.table / competitive.index.trends
+- core.web.vitals / rum.performance-overview.browser
+- revenue.opportunity / business-insights suites
+
+Follow their patterns for:
+- POM/locator separation
+- authenticated profile/site selection (GDC Test Site 2)
+- Select2 dashboard switch + restore
+- time lookback / auto refresh menus
+- filter open/apply/cancel + no Save Filter
+- chart soft signatures (empty-series shells allowed)
+- widget title scoping (avoid dynamic instance IDs)
+- serial recovery after soft sibling switches
+- isolated Allure + Excel workbooks
