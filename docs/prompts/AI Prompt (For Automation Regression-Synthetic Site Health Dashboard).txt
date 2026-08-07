@@ -1,0 +1,418 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the preconfigured **Synthetic Site Health** dashboard (Help title: “The Synthetic Site Health Dashboard”). Reverse-engineer the live application using **GDC Test Site 2** and refer to:
+  • Help Center PDF: “The Synthetic Site Health Dashboard – Blue Triangle Help Center.pdf”
+    (article: https://help.bluetriangle.com/hc/en-us/articles/360021493373-The-Synthetic-Site-Health-Dashboard)
+  • Live portal reverse-engineering probe (Aug 2026): docs/prompts/synthetic-site-health-live-probe.json
+  • Probe script: scripts/probe-synthetic-site-health.ts
+  • PDF extract notes: docs/prompts/synthetic-site-health-pdf-extract.txt
+  • Optional live screenshot: docs/prompts/synthetic-site-health-live.png
+  • Package folder: AI Agents …/dashboards/preconfigured/synthetic-site-health/ (PDF package materials; **no companion .txt** was present beyond this AI Prompt deliverable)
+  • Shared dashboard shell patterns from:
+      docs/prompts/AI Prompt (For Automation Regression-Site Overview Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Vital Pulse Dashboard).txt
+      pages/SiteOverviewDashboardPage.ts / pages/VitalPulseDashboardPage.ts
+      helpers/preconfiguredDashboardChrome.ts / pages/MarketingOverviewPage.ts
+
+NOTE ON DOCUMENTATION VS LIVE PRODUCT
+The PDF is a short Dashboards guide (~7 pages) covering Overview, navigation, four widget groups (High Level Metrics, Site Availability, Screenshot, Session and Page Scatterplot), and Filters. It does **not** document every live dashboard-chrome control (Auto Refresh labels/menus, Carousel, + Widget / + Dashboard wizards, My Filters / Shared Filters, quick site switcher, clone/share, “Dashboard Auto Refresh Is Now Paused” chrome after scatter drill, Waterfall / Film Strip / Har File / Test Event Log detail tabs, full Displayed Metric lists, etc.). Prefer live control ids, #page-title, Select2 values, table headers, chart titles, and button labels when the PDF is incomplete or older than the product UI.
+
+CRITICAL DISTINCTION (do not confuse screens)
+  • **Synthetic Site Health (THIS suite)** = Preconfigured dashboard on route **site/dashboard**, menu **Dashboards**, option **Synthetic Site Health** under optgroup **Preconfigured** in #switch-dashboard / #select2-switch-dashboard-container.
+  • **Synthetic Performance Detail** = sibling preconfigured dashboard (different widgets; Performance Detail drill target) — **out of primary scope**; soft-switch sample only; always restore **Synthetic Site Health**.
+  • **Synthetic Performance Overview** (Monitoring → Synthetic → Real Browser overview modules) — **out of primary scope** even if product copy links “Performance Detail” drills.
+  • Full **Synthetic** monitoring modules (Real Browser / API Checks / Network Health Checks / Manage) under left-nav Monitoring — **out of primary scope** unless soft-opened via “Drill Into Performance Detail” and then closed/restored.
+  • **Site Overview**, **VitalPulse**, Traffic Source and Medium, RUM Performance Detail, Native App * — sibling preconfigured dashboards — soft-switch sample only; always restore **Synthetic Site Health** + GDC Test Site 2.
+  • Digital Experience Overview (DXO) / Marketing Overview — different routes — **out of primary scope**.
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - Synthetic Site Health is a **pre-configured synthetic monitoring health dashboard**: high-level availability & performance metric cards, availability + error trend, latest measurement screenshot(s), and a dual session/page scatterplot for synthetic script timings with drill-down into object-level waterfall / HAR / filmstrip detail.
+   - PDF: “insight into the availability of your site / app and high-level metrics, as well as drill down capabilities into scripting errors”; time period customizable at the top of the page.
+   - Use live UI data only. Do not call APIs or query a database.
+   - Do not hard-code widget grid instance ids (pattern highLevelMetrics_{acct}-{n}, chartID_{acct}-{n}, page-scatter_*, session-scatter_*, page-waterfall_*), Highcharts internal ids (highcharts-*), exact availability %, onload seconds, resource counts, image sizes (KB), JS error totals, Total Errors counts, scatter point coordinates, script hostnames (e.g. env-cabelas.com samples), Total : N Seconds labels, timezone strings (IST +05:30 samples), monitor names, dashboard clone names or “0/75 dashboards used” counters.
+   - Capture at suite start: active dashboard label (must be Synthetic Site Health), active quick site, Time Lookback label, Auto Refresh label, presence of core widgets (High Level Metrics, Site Availability, Screenshot, Session And Page Scatterplot), filter drawer closed/open, Carousel state, whether auto-refresh pause banner is visible.
+   - Assert titles, column/metric labels, formats (%, s/ms, KB/MB, raw counts), chart/scatter shells, screenshot Previous/Next chrome, detail tabs when drill is open, controlled empty states, before/after soft signatures rather than exact backend values.
+   - If a filter/time combo yields empty widgets or zero-series charts, assert controlled empty / sized Highcharts shell, annotate, restore a data-bearing Synthetic Site Health context and continue.
+   - Widget layout (PDF: High Level Metrics + related cards top-left, Site Availability, Screenshot, scatterplot at bottom) may change with grid layouts — prefer **title presence / role host ids prefixes** over absolute coordinates.
+
+2. Navigation and implementation paths
+   PDF + Live primary path (prefer this):
+   Menu > **Dashboards**
+   Route (observed): **site/dashboard**
+   Smoke catalog reference: **biz.dashboards** (menuLabel Dashboards, route site/dashboard, hrefIncludes site/dashboard, hrefExcludes marketing=yes)
+   Browser title observed: **Dashboards**
+   #page-title observed: **Dashboards**
+   After load, dashboard switcher #select2-switch-dashboard-container must show / resolve to **Synthetic Site Health** under optgroup **Preconfigured**. First paint may still be Site Overview (or another default) — always select exact option text **Synthetic Site Health** (avoid partial “Synthetic” matches that select **Synthetic Performance Detail**).
+
+   Alternate discovery paths (PDF — soft coverage):
+   1) Upper-left #switch-dashboard / Select2 → select **Synthetic Site Health** when not already active.
+   2) Gear / wrench **Dashboard Manager** (#dashboard-manager / #dashboard-settings-toggle) → list → soft **Eye**/open Synthetic Site Health if listed; close without Save/Delete.
+   Do **not** delete preconfigured dashboards. Do **not** leave manager Save sticky changes.
+
+   Target automation folder:
+   tests/regression_tests/US2/dashboards/preconfigured/synthetic-site-health/
+   Suggested spec name:
+   synthetic.site.health.dashboard.regression.spec.ts
+   Suggested POM / locators:
+   pages/SyntheticSiteHealthDashboardPage.ts
+   locators/SyntheticSiteHealthDashboardLocators.ts
+   Reuse / extend patterns from:
+   - helpers/preconfiguredDashboardChrome.ts (switch dashboard exact text, lookback, auto refresh, filters soft, manager soft open/close, ensure profile site, restore suite home)
+   - pages/SiteOverviewDashboardPage.ts / pages/VitalPulseDashboardPage.ts (same site/dashboard shell)
+   - pages/MarketingOverviewPage.ts (lookback / auto refresh option menus, graph signatures, recoverPage)
+   - locators/MarketingOverviewLocators.ts / SiteOverviewDashboardLocators.ts (#switch-dashboard, #time-lookback, #auto-refresh, #refresh-dashboard, #toggle-filters)
+   Suggested manual test workbook:
+   docs/Synthetic_Site_Health_Dashboard_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:synthetic-site-health
+   Probe script (reference):
+   scripts/probe-synthetic-site-health.ts → docs/prompts/synthetic-site-health-live-probe.json
+
+3. Page load, authentication and default context
+   - Verify authenticated navigation succeeds without login redirect, blocking error, blank shell or perpetual loader.
+   - Verify browser title matches /Dashboards/i (not Marketing-only / Performance Overview-only titles alone).
+   - Verify #page-title matches /Dashboards/i.
+   - Verify URL contains site/dashboard (slash / %2F safe patterns).
+   - Verify selected portal site is GDC Test Site 2 (#select2-quick-site-id-container when visible; #select2-site-id-container may be **hidden** on this shell — probe logged ensureProfileSite warning; prefer quick-site recovery).
+   - Dismiss Get started / Don’t show me again / jconfirm overlays before interacting.
+   - Verify #select2-switch-dashboard-container matches /Synthetic Site Health/i. If not, select exact **Synthetic Site Health** from Preconfigured and wait for widgets to settle.
+   - Verify core PDF/live widgets settle within a bounded UI deadline (by text / stable id prefixes, not dynamic chartID suffixes):
+       • **High Level Metrics** (host prefix highLevelMetrics_* / highLevelMetrics_Table_*)
+       • **Site Availability** (chart title **Site Availability Over Time**)
+       • **Screenshot** (body/title + Previous / Next)
+       • **Session And Page Scatterplot** (alt/live title may read “Session And Page Scatterplot”; hosts page-scatter_* / session-scatter_* / scatter-row_*)
+   - Soft-assert “last updated” / #last-updated-dashboard when present; do not hard-code clock text.
+   - Soft-assert time-range + site + timezone sample shape near Site Availability / scatter (e.g. “YYYY-MM-DD HH:mm to YYYY-MM-DD HH:mm, IST (+05:30) GDC Test Site 2”) — do not hard-code dates or offsets.
+   - Verify browser Back/Forward and refresh return to a healthy site/dashboard context; re-select Synthetic Site Health + profile site if selection lost.
+   - Capture uncaught page errors; distinguish app-blocking errors from Highcharts/third-party noise.
+
+4. Dashboard chrome (tabs is a soft concept — chrome panes + in-widget metric menus + detail tabs after scatter drill)
+   Live chrome hosts/controls observed on GDC Synthetic Site Health (samples — not permanent values):
+   - Dashboard switcher: #switch-dashboard / #select2-switch-dashboard-container (text: **Synthetic Site Health**)
+   - Quick site: #select2-quick-site-id-container (sample: GDC Test Site 2) — keep on profile site after any mis-select recovery
+   - Time Lookback: #time-lookback (button label sample: Last 1 hour, …)
+   - Dashboard Refresh: #refresh-dashboard (+ “Time Lookback” / “Dashboard Refresh” labels)
+   - Auto Refresh: #auto-refresh / #auto-refresh-frequency / #auto-refresh-btn-group (samples: Auto Refresh (5m), Off, 2/5/10/15/30/60 Minutes)
+   - Carousel when present (sample: Carousel (off) + interval submenu — soft open/close; do not leave carousel cycling)
+   - Filters: #toggle-filters / #mobile-controls-filters-btn
+   - #dashboard-page-controls wrapper
+   - + Widget / + Dashboard — soft open/close wizard/manager only; **do not Save** permanent widgets/dashboards on shared account
+   - Dashboard Manager / wrench: #dashboard-manager, #dashboard-settings-toggle — soft open/close; no delete/share sticky
+   - #toggle-markers-container when present (markers soft)
+   - My Filters / Shared Filters tabs when Filters drawer open: #my-filters-tab / #shared-filters-tab — read-only; **do not Save Filter**
+
+   Cover:
+   - Verify dashboard switcher attached; Synthetic Site Health selected or selectable by **exact** option text.
+   - Soft-list Preconfigured option names when dropdown open (Synthetic Site Health present; distinguish from Synthetic Performance Detail); close without random sticky navigation, or restore Synthetic Site Health if sampled other options.
+   - Soft-open Auto Refresh menu; verify representative options (Off + interval minutes) without permanently changing shared default if avoidable; restore capture.
+   - Soft-change Time Lookback to another preset (e.g. Last 6 hours / Last 24 hours / Last 7 days / Last 30 days) and soft-assert widgets remain healthy or controlled empty; restore original lookback.
+   - Click #refresh-dashboard; soft assert widgets re-render (signature change optional; at least no blank crash).
+   - Soft-open Filters; Cancel/Escape without Save.
+   - Soft-open Dashboard Manager (wrench); verify manager chrome / table headers soft; Close without Save/Delete/Unshare.
+   - Soft-open Add Widget wizard titles (“Add a Widget”, Widget Type…); Cancel/Escape; do not Add Widget / Save.
+   - Soft-open + Dashboard / Clone / Share only if present; cancel paths only.
+   - **Tabs (required coverage):**
+       1) Filters drawer tabs: My Filters / Shared Filters.
+       2) After scatter drill-down (when detail host opens): detail tabs **Waterfall**, **Film Strip**, **Har File**, **Test Event Log** (probe ids: #wcd-tab / film-strip-tab / agentDetails / test-event-log-tab — bind by visible tab text first).
+       3) Do **not** invent Campaign/Path-style page strips; session vs page scatter are dual Highcharts panes with **Displayed Metric** dropdowns, not primary page tabs.
+
+5. Widget — High Level Metrics (PDF + live top-left metric table/cards)
+   Purpose (PDF): overview of key metrics for site/app along with availability and number of errors (PDF also references “two widgets in the top left” for metrics + availability context; live consolidates **High Level Metrics** as a labeled widget with a metric table).
+   Live metric column / card headers observed (assert dynamically present subset):
+   - **Availability**
+   - **Average Onload**
+   - **Average # of Resources**
+   - **Average First Paint**
+   - **Average Image Size**
+   - **Average JS Errors (Sampled)**
+   Live structural id patterns (suffix dynamic):
+   - chartID_*
+   - highLevelMetrics_*
+   - highLevelMetrics_Table_*
+   - jsErrorCount / jsErrorCountTd / jsErrorCount_*
+   Value format samples (illustrative only — **never hard-code**): 25.41%, 1.6s, 117, 0.9s, 308 KB, 891
+
+   Cover:
+   - Verify **High Level Metrics** title/body text visible after Synthetic Site Health selected.
+   - Verify all six metric headers present by regex (units in headers optional; allow small wording drift).
+   - Soft-assert metric values with unit-tolerant patterns: %, s/ms, count, KB/MB for image size, integer-like JS error count — or controlled empty/N/A.
+   - Soft hover/tooltips on metric cells if exposed — soft only.
+   - Soft export/hamburger if present on widget; do not hard-assert file download contents.
+   - Soft mini-chart shells inside highLevelMetrics host when hasChart is true (probe: hasChart true + hasTable true).
+   - After lookback/filter change: soft compare value signature (not exact equality requirement).
+
+6. Widget — Site Availability (PDF + live availability / errors trend)
+   Purpose (PDF): visual representation of site availability and number of errors; legend click selects which error-type lines are displayed.
+   Live signals:
+   - Widget title text: **Site Availability** (with **Total Errors** adjacent sample; UI may include zero-width joiners between Total and Errors — use /Total\s*Errors/i)
+   - Chart title: **Site Availability Over Time**
+   - Legend series samples: **200's**, **300's**, **400's**, **500's**, **Timeout**, **Missing Text**, **Error True**, **Script Error**, **Content Error**, **Total Errors**
+   - Dual-axis style presentation (error counts + availability % on opposite axes are normal) — soft presence of % and numeric axis, do not hard-code axis ticks.
+   - Host: chartID_* containing the Highcharts “Site Availability Over Time” title
+
+   Cover:
+   - Verify Site Availability title + **Site Availability Over Time** chart shell (sized Highcharts container).
+   - Soft-assert legend entries for representative series (at least 200's / 500's / Total Errors subset when series exist).
+   - Soft-click legend items to toggle series visibility (PDF behavior); restore visibility when possible (re-click legend or refresh dashboard).
+   - Soft hover points → tooltip when series exist.
+   - Soft empty lookback still leaves a sized chart shell (accept zero-point series).
+   - Soft export menu if widget chrome offers Export CSV|TSV|JSON|Array.
+
+7. Widget — Screenshot (PDF + live)
+   Purpose (PDF): screenshot from one of the synthetic measurements in the selected time period; PDF notes filtering by monitor name on the right-side filtering menu.
+   Live chrome:
+   - Title/heading: **Screenshot**
+   - Navigation: **Previous** / **Next** (or << Previous / Next >> variants)
+   - Image may load late or be empty for sparse synthetic coverage — soft assert chrome always; hard-assert img only when src/visible content exists after wait; otherwise annotate controlled empty screenshot host.
+
+   Cover:
+   - Verify Screenshot widget title visible.
+   - Verify Previous and Next controls attached (enabled/disabled soft by data; do not fail solely on disabled when only one shot).
+   - Soft click Next then Previous when enabled; soft assert chrome remains healthy (image change optional).
+   - Soft assert image when present (img / canvas / background) with non-zero dimensions.
+   - Soft filter path: when Filters open exposes **Monitor Name** (PDF + live label “Monitor Name Clear”), soft pick a monitor if options exist, Apply soft, soft assert Screenshot still healthy; Cancel/restore — **do not Save Filter**.
+
+8. Widget — Session And Page Scatterplot (PDF “Session and Page Scatterplot” + live dual pane)
+   Purpose (PDF): synthetic script timings scatter; geometric markers:
+     - **Square** points = measurement includes a screenshot
+     - **Diamond** = screenshot + filmstrip
+     - **Triangle** = data-only measurement
+   PDF interaction model:
+     - Click **left** scatter point → drill into individual pages for the script on the **right**
+     - Click **right** scatter point → open table/detail below with object-level waterfall, HAR file, film strip
+     - After right-side drill: **dashboard pauses** auto-refresh so user can analyze
+     - Options: Continue auto-refresh; show/hide detailed data; **Drill Into Performance Detail** (opens Performance Detail in a **new tab** with same filter criteria applied)
+
+   Live labels/hosts observed:
+   - Title: **Session And Page Scatterplot** (capitalization may vary: And vs and)
+   - Subtitle/timing samples: **Synthetic Script Timing**, **Total : N Seconds** (do not hard-code N)
+   - Dual **Displayed Metric:** selectors (one for each scatter pane) — live option lists (assert subset; menus may fold):
+       Onload | Redirect | First Byte | DNS | TCP | SSL | DOM Duration | Base Page | First Paint |
+       Page Size | Page Wire Size | Element Count | Image Size | Domain Count |
+       Time to Interactive | First Contentful Paint | Largest Contentful Paint | Speed Index |
+       Total Blocking Time | Cumulative Layout Shift | Fully Loaded Time
+   - Legend samples (metric name may prefix shape series): e.g. Onload (Screenshot Only), Onload (Screenshot + FilmStrip / Filmstrip), Onload — spelling FilmStrip vs Filmstrip soft-tolerant
+   - Hosts: chartID_*, scatter-row_*, page-scatter-type_*, session-scatter-type_*, page-scatter_*, session-scatter_*, reset-scatter, page-waterfall_*
+   - After drill / selection pause chrome:
+       banner: ***Dashboard Auto Refresh Is Now Paused***
+       buttons samples: **Continue Auto Refresh**, **Hide Selected Script**, **Hide Details**, **Drill Into Performance Detail**
+   - Page context samples (illustrative): “All Page Views For Selected Script”, “All Page Views For {hostname}”
+
+   Cover:
+   - Verify Session And Page Scatterplot (or Session and Page Scatterplot) title visible.
+   - Verify dual scatter chart shells (page-scatter_* and session-scatter_*) with non-trivial size when data expected.
+   - Soft-assert Displayed Metric controls + default **Onload** (or runtime selection) without hard-coding all options; soft open menu and sample 3–5 option labels from the live list above; restore prior metric if changed.
+   - Soft-assert legend series mentioning Screenshot Only / FilmStrip / plain Onload when metric=Onload series exist.
+   - Soft click a **left** scatter point when points exist; soft assert right pane updates (host/signature), auto-refresh pause banner may appear; **Continue Auto Refresh** to clear pause when banner present before ending test (or at suite recovery).
+   - Soft click a **right** scatter point when available after left selection; soft assert detail area opens (table and/or #page-waterfall_* chart shell).
+   - Soft cover detail tabs when detail open: Waterfall (active sample), Film Strip, Har File, Test Event Log — open each soft; assert host content or controlled empty/download UI; leave on Waterfall or close/Hide Details.
+   - Soft **Hide Details** / **Hide Selected Script** when visible — restore ability to re-select a point soft if suite needs further scatter tests.
+   - Soft **Drill Into Performance Detail**: click only if popup/new-tab handling is reliable; soft assert new tab URL contains performance/synthetic detail route patterns **or** annotate if blocked; always close extra tab and return to Synthetic Site Health on original page; do not fail suite solely because product opens external detail with empty data.
+   - Soft **reset-scatter** (#reset-scatter) when present after multi-select state.
+   - Do **not** leave suite with permanent Auto Refresh Paused if **Continue Auto Refresh** is available — recovery step required.
+   - If no scatter points for lookback: soft empty chart, annotate, try Last 24 hours / Last 7 days once, then continue suite without hard-failing entire pack for sparse synthetic schedule.
+
+9. Time Period / Time Lookback (top of page)
+   Host: #time-lookback (and filters Time Period when drawer open).
+   Live presets observed (assert presence as set; menus may fold differently by build):
+   Custom Date Selection; Last 2/7/14/30/90 days; Today so far; This week so far; This month so far;
+   Last 15/30 minutes; Last 1/3/6/12/24 hours.
+   Cover:
+   - Open Time Lookback; soft verify multi-option menu.
+   - **Required apply set:** Last **6 hours**, Last **24 hours**, Last **7 days**, Last **30 days** — widgets ready + soft data/signature refresh; restore original lookback.
+   - Soft Custom Date Selection open/cancel only.
+   - Restore original Time Lookback from suite start capture.
+
+9b. Top chrome icons (above / around Auto Refresh)
+   Hover titled icons (Share, Filters, Manager, Help, switcher); soft click + Escape/Back round-trip to site/dashboard + Synthetic Site Health.
+
+9c. Site quick-switch + lock
+   Switch to Demo eCommerce Global (or alternate); soft data refresh; lock icon soft toggle/impact if present; always restore GDC Test Site 2.
+   Note: PDF Monitor Name filter is preferred for screenshot/monitor scoping; site switch is shell recovery coverage shared with SO/VP suites.
+
+9d. Auto Refresh apply
+   Apply 5 Minutes then Off/interval restore; leave non-aggressive.
+   Explicitly cover **pause → Continue Auto Refresh** after scatter drill (see §8).
+
+9e. + Dashboard → Manager eye
+   Open +Dashboard/Manager; soft eye View switch; restore **Synthetic Site Health** exact.
+
+10. Filters drawer
+    Hosts:
+    - #toggle-filters / #mobile-controls-filters-btn
+    - Apply / Apply Filters when present
+    - #cancel-filters / Cancel
+    - filters-section labels live-soft for synthetic health: Time Period, Timezone, Site, Data Type / Data Originated From, Monitor Name, Test Segment Filter Selector, Test Datacenter, Content Groups / Page Groups, SLA Filter Groups, Page Name, Common Devices, Common Browsers, Browser/OS/Browser Version, Device Model, Display Screenshot For Latest (wizard residue soft)
+    - My Filters / Shared Filters tabs
+    - Clear Cache / Clear Genius Cache — **do not click**
+    Cover:
+    - Open Filters; verify drawer with Time Period, Timezone, Site when present.
+    - Soft apply one synthetic-relevant filter when options exist (prefer **Monitor Name** or page/test datacenter soft sample); soft assert dashboard healthy or controlled empty; cancel restore.
+    - Soft open My Filters and Shared Filters; **do not Save as New Filter / Save Current Filter**.
+    - Cancel / Escape closes drawer.
+    - After Apply, verify Synthetic Site Health still selected and core widgets present or controlled loading complete.
+    - Prefer soft filters depth — do not leave permanent shared account filter pollution.
+
+11. Graphs, tables, exports and interactions (cross-widget)
+    - Soft Highcharts signature: prefer scoped host by High Level Metrics / Site Availability Over Time / page-scatter / session-scatter / page-waterfall titles/prefixes — not dynamic highcharts-* ids alone.
+    - Accept zero-point series when shell has real dimensions.
+    - Soft context menu / chart hamburger Export — open/close.
+    - Soft Keyboard Escape recovers from open dropdowns/modals/detail before next test.
+    - Soft a11y: filter toggle focus; Help Center / Help Videos soft presence.
+    - PDF marker shapes (square/diamond/triangle) — soft assert legend text (Screenshot Only / Filmstrip) is enough; do not pixel-assert marker geometry unless product exposes alt text.
+
+12. Soft switches to sibling preconfigured dashboards (negative / recovery)
+    Preconfigured options observed live (catalog is dynamic — use runtime list):
+    Site Overview | VitalPulse | Synthetic Site Health | Traffic Source and Medium | RUM Performance Detail | Synthetic Performance Detail | Native App Performance Detail | Native App Detailed Metrics - Android | Native App Detailed Metrics - iOS
+    Cover:
+    - Soft switch once to a non–Synthetic Site Health option for ≤1 interaction cycle (e.g. Site Overview or Synthetic Performance Detail); annotate widgets differ; **restore Synthetic Site Health + GDC Test Site 2**.
+    - Optional: soft open Shared group dashboard and restore (do not save shared settings).
+    - Soft sibling select can change quick site — always re-assert GDC Test Site 2.
+    - Exact match **Synthetic Site Health** only — never accept Synthetic Performance Detail as suite home.
+
+13. Combination, recovery and non-functional
+    - Capture context → change Time Lookback → soft assert High Level Metrics / Site Availability / Screenshot / Scatterplot → restore lookback → assert Synthetic Site Health still selected.
+    - Soft scatter drill → assert pause banner → Continue Auto Refresh → Hide Details if open → assert scatter usable again.
+    - Soft Displayed Metric change (e.g. Onload → First Byte or LCP) → restore Onload if possible.
+    - Open Filters → Apply soft sample → widgets refresh → Cancel/restore → Filter closed.
+    - Refresh dashboard → soft healthy widgets.
+    - Soft Dashboard Manager open/close.
+    - Soft sibling preconfigured switch → restore Synthetic Site Health + GDC Test Site 2.
+    - Recover pause banner, detail panels, open wizards, captured lookback/auto-refresh preference when restorable without Save.
+    - Repeated refresh does not permanently delete core widgets.
+    - Performance: widgets settle within bounded deadlines after lookback/filter/drill changes (project soft timeouts).
+    - Viewport: standard desktop + narrower ~1100px: widgets and chrome still reachable (horizontal scroll OK).
+
+14. Out-of-scope mutations (always)
+    - Do not Save Filter / Save as New Filter / Save Current Filter / Create permanent shared filters.
+    - Do not Clear Cache / Clear Genius Cache.
+    - Do not permanently Save dashboard settings, Share/Unshare, Clone for others, Delete dashboards, or overwrite Preconfigured Synthetic Site Health layout.
+    - Do not Add Widget permanently / Save widget wizard on shared Synthetic Site Health.
+    - Do not Create permanent + Dashboard entries on shared account.
+    - Do not leave Auto Refresh paused, Carousel cycling, or aggressive Auto Refresh intervals after suite.
+    - Do not hard-code metric totals, availability %, onload values, error counts, hostnames, exact time ranges, timezone offsets, or widget numeric ids.
+    - Do not expand suite into full Monitoring → Synthetic Real Browser / API Checks / Network Health Checks / Manage regression (separate modules).
+    - Do not treat Synthetic Performance Detail, Site Overview, or VitalPulse as suite home.
+    - Do not leave extra Performance Detail browser tabs open after soft “Drill Into Performance Detail”.
+
+15. Live reverse-engineering facts to preserve (GDC Test Site 2, Aug 2026)
+    - URL: portal …/index.php?r=site/dashboard
+    - Browser title & #page-title: Dashboards
+    - Menu: Dashboards (biz.dashboards)
+    - #select2-switch-dashboard-container: **Synthetic Site Health** (Preconfigured selected sample; do not hard-code option value ids)
+    - #select2-quick-site-id-container: GDC Test Site 2
+    - Chrome: #time-lookback (Last 1 hour sample), #refresh-dashboard, #auto-refresh (5m sample), Carousel (off), + Widget, + Dashboard
+    - Four primary grid-stack widgets after selection (probe titles abbreviated):
+        1) High Level Metrics — table headers Availability / Average Onload / Average # of Resources / Average First Paint / Average Image Size / Average JS Errors (Sampled); hosts highLevelMetrics_*, highLevelMetrics_Table_*, jsErrorCount*
+        2) Screenshot — Previous / Next chrome
+        3) Site Availability — Total Errors label + chart **Site Availability Over Time** with HTTP/status and error legend series
+        4) Session And Page Scatterplot — dual Displayed Metric menus + page-scatter_* / session-scatter_* + scatter-row_* + reset-scatter + page-waterfall_* after drill
+    - Pause UX after scatter point selection: ***Dashboard Auto Refresh Is Now Paused*** + Continue Auto Refresh / Hide Selected Script / Hide Details / Drill Into Performance Detail
+    - Detail tabs (when open): Waterfall, Film Strip, Har File, Test Event Log
+    - Legend scatter (Onload metric): Onload (Screenshot Only) | Onload (Screenshot + FilmStrip) | Onload (Filmstrip spelling soft)
+    - Filters soft: Monitor Name, Test Datacenter, Test Segment, Page Name, device/browser rows, Site, Time Period, Timezone
+    - Lookback options in probe.lookbackOptions (full list §9)
+    - Probe may log ensureProfileSite warning when global site Select2 hidden — quick site is the recovery anchor
+    - Help article id: 360021493373 (PDF footer / Help Center URL)
+
+16. Refer to the attached documentation (PDF)
+    PDF “The Synthetic Site Health Dashboard – Blue Triangle Help Center” — use for intent and primary widget inventory:
+    - How to find: Menu → Dashboards → Preconfigured → **Synthetic Site Health**; alternate: gear → Dashboard Manager → eye
+    - Widgets: High Level Metrics; Site Availability (legend series toggle); Screenshot (monitor filter for specific monitor); Session and Page Scatterplot (marker shapes; left→right page drill; right→waterfall/HAR/filmstrip table; pause auto-refresh; Continue / show-hide detail / Drill Into Performance Detail new tab)
+    - Filters: top-right Filter icon → apply criteria → Apply reloads dashboard
+    Prefer live labels when wording differs (e.g. “Session And Page Scatterplot”, Full Displayed Metric list, detail tab labels, High Level metric column names). Do not invent widgets not present live.
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a separate Playwright automation suite under regression_tests > US2 > dashboards > preconfigured > synthetic-site-health as specified above. Cover thorough regression for:
+  - navigation & identity (Synthetic Site Health on site/dashboard)
+  - High Level Metrics (all six metric headers + soft values/formats)
+  - Site Availability (chart title, legend series soft toggle, tooltips soft)
+  - Screenshot (title, Previous/Next, soft image or empty)
+  - Session And Page Scatterplot (dual panes, Displayed Metric soft, legends, left/right drill, pause banner, Continue Auto Refresh, Hide Details / Hide Selected Script, detail tabs Waterfall/Film Strip/Har File/Test Event Log, soft Drill Into Performance Detail + tab cleanup, reset-scatter soft)
+  - fields, labels, filters, graphs as listed
+  - Time Lookback options and restore
+  - Filters drawer (including Monitor Name soft path) + My/Shared Filters soft tabs
+  - Dashboard chrome: switcher, auto refresh, refresh, manager, soft create controls cancel-only
+  - combination, recovery, empty/soft synthetic-data paths
+  - explicit non-confusion with Site Overview, VitalPulse, Synthetic Performance Detail and full Synthetic monitoring modules
+
+Follow existing project framework and POM conventions. Reuse preconfigured dashboard chrome helpers and Site Overview / VitalPulse shell patterns; specialize widget title/host locators for Synthetic Site Health. Prefer exact dashboard option text **Synthetic Site Health**.
+
+After generation:
+1. Execute only the newly created Synthetic Site Health Dashboard regression spec first and fix automation hard failures.
+2. Generate fresh isolated Allure results and an HTML report for this spec.
+3. Generate a manual test-case workbook (Summary / Regression TCs / Notes).
+4. Include executed result summary and soft annotations for: empty screenshot, sparse scatter points, N/A metrics, missing FilmStrip data, Performance Detail new-tab friction, auto-refresh pause restore.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable control IDs and widget **titles/labels**; do not depend on dynamic Highcharts instance IDs or grid-stack numeric suffixes alone (bind highLevelMetrics_*, page-scatter_*, session-scatter_*, page-waterfall_* via title → container).
+6. Do not hard-code metric totals, availability %, onload timings, resource counts, image KB, JS error counts, hostnames, Total Seconds, or fixed time-period / timezone strings.
+7. Capture and restore Synthetic Site Health selection, GDC Test Site 2, Time Lookback and Auto Refresh where possible; always clear Auto Refresh pause via **Continue Auto Refresh** when the pause banner is visible after tests.
+8. Use a serial suite only when shared page state is intentional; optional/data-dependent failures must not abort unrelated tests (soft deadlines + recovery).
+9. Use bounded soft deadlines and explicit action timeouts on dashboard interactions.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page actions running into later serial tests; cancel/reload/reset before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save Filter, Clear Cache, permanently Save/Clone/Share/Delete dashboards, or permanently Add Widget on shared Synthetic Site Health.
+13. Keep primary scope on site/dashboard + Synthetic Site Health; restore that home after any soft sibling dashboard visit or Performance Detail tab.
+14. Close all menus, overlays, drawers, modals, Dashboard Manager, widget wizard, detail panels, Export menus opened by tests.
+15. Do not claim widgets refreshed by merely counting pre-existing SVG hosts; compare scoped widget signatures, titles, range text or lookback text.
+16. Treat availability % and size units as format-tolerant; FilmStrip vs Filmstrip spelling soft-tolerant.
+17. Never select **Synthetic Performance Detail** when intending suite home — exact **Synthetic Site Health** only.
+18. If any requirement is ambiguous or missing, flag it before generating automation.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- Package folder contained the Help **PDF only** (no separate product .txt). This AI Prompt + probe JSON are the automation truth layer.
+- PDF “two widgets in the top left” vs live single **High Level Metrics** table — treat one metrics widget + Site Availability as the health pair; do not invent a second unlabelled metrics-only box.
+- Screenshot may have no visible `<img>` on some lookbacks even when Previous/Next chrome exists — soft empty screenshot is acceptable with annotation.
+- Scatter points may be sparse on short lookbacks; suite should soft broaden lookback once rather than hard-fail immediately.
+- Geometric marker types (square/diamond/triangle) are PDF semantics; live automation should rely on legend labels (Screenshot Only / FilmStrip) and presence of points, not SVG shape classification unless easy and stable.
+- Auto-refresh pause timing after left vs right scatter clicks may differ by build — soft assert banner when any point selection pauses; if product no longer pauses, soft-annotate and continue.
+- **Drill Into Performance Detail** may open new tab or navigate same tab — handle both; always restore Synthetic Site Health on original context.
+- Waterfall / Film Strip / HAR / Event Log content richness is data-dependent; soft tabs presence hard; content hard only when product shows a clear error shell instead of controlled empty.
+- Displayed Metric option order and cumulative CWV metrics may expand beyond probe list by build — soft-discover; do not fail on extra options; hard-fail if **Displayed Metric** chrome entirely missing when scatter widget visible.
+- FilmStrip vs Filmstrip legend casing differs between page-scatter and session-scatter hosts — dual match.
+- Filters “Apply” may only mount when drawer fully open — soft wait.
+- Soft sibling preconfigured select can change quick site — always re-anchor GDC Test Site 2.
+- Global #select2-site-id-container often hidden on dashboard shell — soft ensureProfileSite; recover via #select2-quick-site-id-container.
+- Carousel defaults and “0/75 dashboards used” are environment specific.
+- Formal SLA for widget reload after lookback/drill — use project soft bounded deadlines.
+- Coach/Get started overlays may appear; dismiss text varies.
+- Total Errors label may insert zero-width characters (**Total​Errors**) — use flexible regex.
+- Whether Previous/Next screenshot wraps circularly — soft only; do not assert cycle length.
+- Portal version deltas may add widgets beyond the four observed — soft-discover extra titles; **hard-fail** if High Level Metrics, Site Availability, Screenshot host, or Session/Page Scatterplot missing when suite home ready.
+- Synthetic agent/schedule availability on GDC Test Site 2 may yield low Availability % (probe sample ~25%) — treat low availability as valid live data, not suite failure.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to the existing POM framework and regression suites, especially:
+- tests/regression_tests/US2/dashboards/preconfigured/site-overview/site.overview.dashboard.regression.spec.ts
+- tests/regression_tests/US2/dashboards/preconfigured/vital-pulse/vital.pulse.dashboard.regression.spec.ts
+- pages/SiteOverviewDashboardPage.ts / pages/VitalPulseDashboardPage.ts
+- helpers/preconfiguredDashboardChrome.ts
+- pages/MarketingOverviewPage.ts / locators/MarketingOverviewLocators.ts
+- competitive.index.table / competitive.index.trends
+- business-insights suites
+
+Follow their patterns for:
+- POM/locator separation
+- authenticated profile/site selection (GDC Test Site 2) with quick-site recovery when global site Select2 is hidden
+- Select2 dashboard switch + restore (**exact Synthetic Site Health**)
+- time lookback / auto refresh menus
+- filter open/apply/cancel + no Save Filter
+- chart soft signatures (empty-series shells allowed)
+- widget title / host-prefix scoping (avoid dynamic instance IDs)
+- serial recovery after soft sibling switches and new-tab drills
+- isolated Allure + Excel workbooks
+- pause-banner / Continue Auto Refresh recovery pattern specific to this dashboard

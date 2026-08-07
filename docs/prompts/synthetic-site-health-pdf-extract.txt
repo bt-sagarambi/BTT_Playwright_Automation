@@ -1,0 +1,111 @@
+Blue Triangle Help Center > Guides > Dashboards
+The Synthetic Site Health Dashboard
+Alanis Comiotto
+4 years ago · Updated
+Follow
+Table of Contents
+Overview
+How to Find the Synthetic Site Health Dashboard
+Widgets
+High Level Metrics
+Site Availability
+Screenshot
+Session and Page Scatterplot
+How to Filter the Synthetic Site Health Dashboard
+Overview
+The Synthetic Site Health preconfigured dashboard provides you with insight into the availability of
+your site / app and high-level metrics, as well as drill down capabilities into scripting errors. At the
+top of the page you are able to customize the time period you would like to analyze.
+Sign in
+☰ | | | |
+Search	🔍
+Articles in this section 	▾
+8/7/26, 12:14 PM 	The Synthetic Site Health Dashboard – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360021493373-The-Synthetic-Site-Health-Dashboard 	1/7
+
+-- 1 of 7 --
+
+How to Find the Synthetic Site Health Dashboard
+To find the Synthetic Site Health dashboard, first click the menu on the top left hand side of the BT
+Portal, and go to Dashboards.
+Once in the Dashboards page, click the drop down menu on the top left of the page and click on
+Synthetic Site Health from the preconfigured dashboards.
+8/7/26, 12:14 PM 	The Synthetic Site Health Dashboard – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360021493373-The-Synthetic-Site-Health-Dashboard 	2/7
+
+-- 2 of 7 --
+
+Alternatively, clicking on the gear icon at the top right side of the page will open the Dashboard
+Manager, where you can click on the eye icon to view a certain dashboard.
+Widgets
+High Level Metrics
+The two widgets in the top left provide an overview of key metrics for your site / app along with its
+availability and number of errors. This widget provides an overview of key metrics for a site.
+Site Availability
+8/7/26, 12:14 PM 	The Synthetic Site Health Dashboard – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360021493373-The-Synthetic-Site-Health-Dashboard 	3/7
+
+-- 3 of 7 --
+
+This widget gives a visual representation of the site availability and number of errors. You are able to
+select which lines that are displayed in this graph by clicking the corresponding error type in the
+legend.
+Screenshot
+The Screenshot widget provides a screenshot from one of the synthetic measurements in the
+selected time period. To view data for a specific monitor, select a monitor name in the right side
+filtering menu.
+Session and Page Scatterplot
+The bottom widget shows the synthetic script timings. Square points indicate the measurement
+includes a screenshot, diamond represents a measurement with both a screenshot and a filmstrip,
+and triangle points will only include data from the measurement. By clicking a scatter plot point on
+the left you are able to drill down into the individual pages for the script on the right. Clicking a
+scatter plot point on the right opens a new table below with more information including the object
+level detail waterfall, HAR file and film strip.
+8/7/26, 12:14 PM 	The Synthetic Site Health Dashboard – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360021493373-The-Synthetic-Site-Health-Dashboard 	4/7
+
+-- 4 of 7 --
+
+Once you click a scatter plot point in the right, the dashboard will pause so you can analyze the data.
+From here you have a few options: Continue the auto-refresh functionality of the dashboard, show or
+hide the detailed data, or drill into the data further on the Performance Detail page of the portal. This
+will open this page in a new tab with all of your same filter criteria applied.
+How to Filter the Synthetic Site Health Dashboard
+To filter the data, click the Filter icon on the top right of the screen. This will open a menu where you
+can apply any number of criteria to filter on. Click Apply to reload the dashboard with the new filters.
+8/7/26, 12:14 PM 	The Synthetic Site Health Dashboard – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360021493373-The-Synthetic-Site-Health-Dashboard 	5/7
+
+-- 5 of 7 --
+
+Was this article helpful?
+✓ Yes 	✕ No
+0 out of 0 found this helpful
+Have more questions? Submit a request
+Return to top ⬆
+Recently viewed articles
+Performance Overview with VitalScope
+The Site Overview Dashboard
+How to Use the Marketing Insights Module
+Bottom of the Sales Funnel Widget
+The Competitive Index: See How Your Site Stacks Up Against The Competition
+Related articles
+The Site Overview Dashboard
+The RUM Performance Detail Dashboard
+Custom Dashboard Widgets
+Traffic Source and Medium Dashboard
+The Executive KPI Report
+Comments
+0 comments
+Please sign in to leave a comment.
+8/7/26, 12:14 PM 	The Synthetic Site Health Dashboard – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360021493373-The-Synthetic-Site-Health-Dashboard 	6/7
+
+-- 6 of 7 --
+
+Blue Triangle Help Center
+8/7/26, 12:14 PM 	The Synthetic Site Health Dashboard – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360021493373-The-Synthetic-Site-Health-Dashboard 	7/7
+
+-- 7 of 7 --
+
