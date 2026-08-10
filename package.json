@@ -33,6 +33,8 @@
     "test:regression:us2:vital-pulse": "node scripts/run-playwright.js test tests/regression_tests/US2/dashboards/preconfigured/vital-pulse/vital.pulse.dashboard.regression.spec.ts --project=chromium-regression",
     "test:regression:us2:synthetic-site-health": "node scripts/run-playwright.js test tests/regression_tests/US2/dashboards/preconfigured/synthetic-site-health/synthetic.site.health.dashboard.regression.spec.ts --project=chromium-regression",
     "test:regression:us2:traffic-source-medium": "node scripts/run-playwright.js test tests/regression_tests/US2/dashboards/preconfigured/traffic-source-and-medium/traffic.source.medium.dashboard.regression.spec.ts --project=chromium-regression",
+    "test:regression:us2:rum-performance-detail-dashboard": "node scripts/run-playwright.js test tests/regression_tests/US2/dashboards/preconfigured/rum-performance-detail/rum.performance.detail.dashboard.regression.spec.ts --project=chromium-regression",
+    "test:regression:us2:synthetic-performance-detail-dashboard": "node scripts/run-playwright.js test tests/regression_tests/US2/dashboards/preconfigured/synthetic-performance-detail/synthetic.performance.detail.dashboard.regression.spec.ts --project=chromium-regression",
     "allure:generate": "allure generate allure_reports/allure-results -o allure_reports/allure-report --clean",
     "allure:open": "allure open allure_reports/allure-report"
   },

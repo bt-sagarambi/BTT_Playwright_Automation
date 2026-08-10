@@ -1,0 +1,125 @@
+Blue Triangle Help Center > Guides > Synthetic Monitoring
+The Synthetic Real Browser Performance
+Detail Page
+Mark Heideman
+3 years ago · Updated
+Follow
+Table of Contents
+Overview
+Where to Find the Synthetic Performance Detail Page
+Widgets
+Page Hits by HTTP Code
+Site Availability Over Time
+Performance Details
+Performance Graph
+Scatterplots
+Performance Breakdown
+Filters
+Overview
+Sign in
+☰ | | | |
+Search	🔍
+Articles in this section 	▾
+8/10/26, 2:48 PM 	The Synthetic Real Browser Performance Detail Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033775693-The-Synthetic-Real-Browser-Performance-Detail-Page 	1/7
+
+-- 1 of 7 --
+
+The Synthetic Performance Detail page enables you to analyze your synthetic data both at a high-
+level glance and all the way down to individual page measurements.
+Where to Find the Synthetic Performance Detail Page
+To find this page go to the main navigation on the left side of the portal, then Synthetic Monitoring,
+Real Browser, and click on Performance Detail.
+Widgets
+Page Hits by HTTP Code
+8/10/26, 2:48 PM 	The Synthetic Real Browser Performance Detail Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033775693-The-Synthetic-Real-Browser-Performance-Detail-Page 	2/7
+
+-- 2 of 7 --
+
+This widget displays a pie chart of the types of HTTP code errors that a page is experiencing. Click
+on the different error legends to toggle them on and off the chart.
+Site Availability Over Time
+The graph at the top shows site availability trended over time for the given pages or synthetic scripts
+you have selected.
+You’ll be able to tell what kind of errors are occurring given the lines for 400 and 500 series errors,
+timeouts, and others.
+Performance Details
+The bar graph and the cards here show you the high-level overview of metrics during the time period
+selected- in this case, the past 24 hours.
+8/10/26, 2:48 PM 	The Synthetic Real Browser Performance Detail Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033775693-The-Synthetic-Real-Browser-Performance-Detail-Page 	3/7
+
+-- 3 of 7 --
+
+You can click a card in the right to update the bar graph on the left.
+Performance Graph
+Moving down the screen we see the Performance Graph. This shows all of your metrics trended
+across the time period.
+You can click each metric in the legend to enable or disable the metrics in the graph. To see this
+data in a table click the button below to Toggle the Performance Table.
+Scatter Plots
+Below there are two scatter plots. The scatter plot to the left shows the timings for each synthetic
+measurement taken. The scatter plot to the right shows you each page in that measurement,
+whether it’s just a single-page hit or multi-page script. Runs that retry on error will be shown with a
+gray scatterplot point.
+8/10/26, 2:48 PM 	The Synthetic Real Browser Performance Detail Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033775693-The-Synthetic-Real-Browser-Performance-Detail-Page 	4/7
+
+-- 4 of 7 --
+
+Notice the time-frame in the scatter plot corresponds to the shaded region in the performance graph
+above. Click a different section of the graph to see the measurements during that time frame below.
+Clicking a point in the scatter plot to the left allows you to drill in to that measurement for more
+detail. Clicking the point in the right scatter plot opens more details as shown below.
+Performance Breakdown
+Below that we have more graphs and information for the measurement. By default you will see the
+object level detail waterfall. You can also view other related graphs by choosing between the options
+on the tabs above the graph.
+The Domain Level Activity Graph shows a waterfall for the total time each domain was loading
+during the page view. The Object Activity by Domain graph shows a bar graph for the total time each
+domain spent loading during the page view.
+Next, in the selection bar, we have the HAR file, headers and cookies, a screenshot, filmstrip and
+console log. Note all the graphs can be viewed as tables and exported to csv. Also, notice in the
+scatter plots that squares indicate a screenshot is available for that measurement and the diamonds
+indicate both a screenshot and filmstrip are available.
+Filters
+As always, you can change the time period for the page at the top, and if you want to filter down the
+data by script name or page name or agent location, you can do all of that and more by clicking the
+filter icon in the top right.
+8/10/26, 2:48 PM 	The Synthetic Real Browser Performance Detail Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033775693-The-Synthetic-Real-Browser-Performance-Detail-Page 	5/7
+
+-- 5 of 7 --
+
+Was this article helpful?
+✓ Yes 	✕ No
+0 out of 0 found this helpful
+Have more questions? Submit a request
+Return to top ⬆
+Recently viewed articles
+The RUM Performance Detail Dashboard
+Traffic Source and Medium Dashboard
+The Synthetic Site Health Dashboard
+Performance Overview with VitalScope
+The Site Overview Dashboard
+8/10/26, 2:48 PM 	The Synthetic Real Browser Performance Detail Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033775693-The-Synthetic-Real-Browser-Performance-Detail-Page 	6/7
+
+-- 6 of 7 --
+
+Related articles
+Network Health Checks Overview
+The Synthetic Real Browser Performance Overview Page
+Custom Beacon Implementation
+Blue Triangle and FullStory
+Blue Triangle User Permission Matrix
+Comments
+0 comments
+Please sign in to leave a comment.
+Blue Triangle Help Center
+8/10/26, 2:48 PM 	The Synthetic Real Browser Performance Detail Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033775693-The-Synthetic-Real-Browser-Performance-Detail-Page 	7/7
+
+-- 7 of 7 --
+

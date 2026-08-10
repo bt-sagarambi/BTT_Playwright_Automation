@@ -1,0 +1,344 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the preconfigured **Synthetic Performance Detail** dashboard (Help title: “The Synthetic Performance Detail Dashboard”). Reverse-engineer the live application using **GDC Test Site 2** and refer to:
+  • Help Center article (DASHBOARD — primary): https://help.bluetriangle.com/hc/en-us/articles/360033776353-The-Synthetic-Performance-Detail-Dashboard
+  • Package PDF (MONITORING page — distinction / soft-relate only):
+      “The Synthetic Real Browser Performance Detail Page - Blue Triangle Help Center.pdf”
+      article: https://help.bluetriangle.com/hc/en-us/articles/360033775693-The-Synthetic-Real-Browser-Performance-Detail-Page
+  • Combined extract notes: docs/prompts/synthetic-performance-detail-pdf-extract.txt
+  • Package PDF full text: docs/prompts/synthetic-performance-detail-package-pdf-extract.txt
+  • Live portal reverse-engineering probe (Aug 2026): docs/prompts/synthetic-performance-detail-dashboard-live-probe.json
+  • Probe script: scripts/probe-synthetic-performance-detail-dashboard.ts
+  • Optional live screenshot: docs/prompts/synthetic-performance-detail-dashboard-live.png
+  • Package folder: AI Agents …/dashboards/preconfigured/synthetic-performance-details/ (**PDF only; package content is the Real Browser Performance Detail monitoring page, not a companion product .txt**)
+  • Shared dashboard shell patterns from:
+      docs/prompts/AI Prompt (For Automation Regression-RUM Performance Detail Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Synthetic Site Health Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Traffic Source and Medium Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Site Overview Dashboard).txt
+      pages/RumPerformanceDetailDashboardPage.ts / pages/SyntheticSiteHealthDashboardPage.ts / pages/TrafficSourceMediumDashboardPage.ts
+      helpers/preconfiguredDashboardChrome.ts / pages/MarketingOverviewPage.ts
+
+NOTE ON DOCUMENTATION VS LIVE PRODUCT
+1) Package PDF is **not** the dashboard article. It documents **Monitoring → Synthetic → Real Browser → Performance Detail** (HTTP pie, availability over time, scatterplots, HAR/filmstrip breakdown). Those Monitoring-only widgets are **out of primary scope** for this suite; soft-annotate if they appear on body residual chrome, but do **not** fail when absent from the preconfigured board.
+2) Official dashboard help (article 360033776353) covers navigation (Dashboards + gear/eye), Bar Graph & Details (card selection updates bar + Daily Averages), Performance Graph (Page Timings Over Time + gear + legend), Daily Averages, Filters Apply, auto-refresh 2m–1h — parallel to the RUM Performance Detail **Dashboard**.
+3) Prefer **live** control ids, metric **labels**, legend series, Daily Averages headers, pagination/export, and Select2 values from probe when docs are incomplete. Synthetic metric catalog is **richer than RUM** (page size, elements, domains, Speed Index, “PAGE ONLOAD”, Fully Loaded Time, etc.).
+
+CRITICAL DISTINCTION (do not confuse screens)
+  • **Synthetic Performance Detail Dashboard (THIS suite)** = Preconfigured dashboard on route **site/dashboard**, menu **Dashboards**, option **Synthetic Performance Detail** under optgroup **Preconfigured** in #switch-dashboard / #select2-switch-dashboard-container.
+    - Exact option text: **Synthetic Performance Detail** (live). Soft-tolerate rare **Synthetic Performance Detail Dashboard** if renamed; never partial-match “Performance Detail” alone (hits **RUM** / **Native App** siblings).
+  • **Monitoring → Synthetic → Real Browser → Performance Detail** (package PDF / article 360033775693) — **different path**; scatterplots, Site Availability Over Time, HTTP pie, Performance Breakdown/HAR — **out of primary scope**. Do not navigate that menu as suite home; do not re-implement full Monitoring Synthetic PD regression here.
+  • **Synthetic Site Health** preconfigured dashboard — sibling only (Availability/Screenshot scatter); soft-switch then restore **Synthetic Performance Detail**. Never accept as suite home.
+  • **RUM Performance Detail** preconfigured dashboard — sibling only (very similar layout; RUM metric set); soft-switch then restore. Never accept as suite home.
+  • **Native App Performance Detail** / Native App Detailed Metrics-* — sibling only; restore home.
+  • Synthetic Performance Overview, Aggregate Waterfall, API Checks, Network Health — Monitoring Synthetic modules; **out of primary scope**.
+  • Site Overview, VitalPulse, Traffic Source and Medium — sibling preconfigured only; soft-switch then always restore **Synthetic Performance Detail** + GDC Test Site 2.
+  • Marketing Overview / DXO — **out of primary scope**.
+
+⚠️ PROBE / SELECTION PITFALLS
+1) Exact Select2 match: Use `^\s*Synthetic Performance Detail\s*$`. Reject options containing RUM, Site Health, Native App, Overview, Aggregate.
+2) Partial “Synthetic” can hit **Synthetic Site Health**. Partial “Performance Detail” can hit **RUM Performance Detail**. Enforce exact text.
+3) After dashboard switch always **re-assert GDC Test Site 2** (quick site recovery; #select2-site-id-container often hidden). Soft-refresh if widgets still show wrong site subtitle.
+4) GDC may have sparse synthetic traffic on some windows — accept controlled empty Daily Averages or low Page Views; annotate; optional broader lookback once (e.g. Last 7 days) then restore.
+5) Do not reuse npm names for RUM Performance Detail Dashboard (`test:regression:us2:rum-performance-detail-dashboard`) or Monitoring RUM (`test:regression:us2:rum-pd`).
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - Synthetic Performance Detail dashboard is a **preconfigured synthetic monitoring analytics view**: multi-step bar chart of the selected metric by page; Details metric cards for all selected pages (avg); multi-series Page Timings Over Time performance graph (including synthetic content metrics: page size, elements, domains, Speed Index, Fully Loaded Time, …); Daily Averages matrix of selected metric by page/script step name × date (+ 30 Day Average).
+   - Dashboard help: card selection updates bar graph **and** Daily Averages. Performance Graph gear + legend control series.
+   - Metric formats: s/S, ms/MS, unitless CLS, K/M counts, MB/KB page sizes, integers for counts. No Sitewide Revenue requirement.
+   - Use live UI data only. Do not call APIs or query a database.
+   - Do not hard-code Highcharts internal ids, chartID_* suffixes, exact onload values, exact step/page names (step_0_Homepage, Checkout Shopping Cart, …), exact pagers “1 to 10 (21)”, timezone strings, or “0/75 dashboards used”.
+   - Capture at suite start: dashboard label (must be Synthetic Performance Detail), quick site, Time Lookback, Auto Refresh, presence of Bar Graph + Details + Performance Graph + Daily Averages, filter drawer, Carousel, selected Details metric (often Onload / Page Onload).
+   - Assert titles, labels, formats, graph/table shells, pagination chrome, controlled empty states, soft signatures — not exact backend values.
+   - Widget layout may reflow — prefer title/body text and stable host ids.
+
+2. Navigation and implementation paths
+   Dashboard help + Live primary path (prefer this):
+   Menu > **Dashboards**
+   Route (observed): **site/dashboard**
+   Smoke catalog: **biz.dashboards**
+   Browser title / #page-title observed: **Dashboards**
+   After load, switcher must resolve to **Synthetic Performance Detail** under **Preconfigured**. Always select exact option text.
+
+   Alternate discovery (dashboard help — soft):
+   1) #switch-dashboard / Select2 → **Synthetic Performance Detail**
+   2) Gear → Dashboard Manager → soft Eye open Synthetic Performance Detail; close without Save/Delete.
+
+   Target automation folder:
+   tests/regression_tests/US2/dashboards/preconfigured/synthetic-performance-detail/
+   Suggested spec name:
+   synthetic.performance.detail.dashboard.regression.spec.ts
+   Suggested POM / locators:
+   pages/SyntheticPerformanceDetailDashboardPage.ts
+   locators/SyntheticPerformanceDetailDashboardLocators.ts
+   Reuse / extend:
+   - helpers/preconfiguredDashboardChrome.ts
+   - pages/RumPerformanceDetailDashboardPage.ts (same four-widget layout patterns; different exact label + synthetic metric catalog)
+   - pages/SyntheticSiteHealthDashboardPage.ts / TrafficSourceMediumDashboardPage.ts / SiteOverviewDashboardPage.ts
+   - pages/MarketingOverviewPage.ts (lookback / auto refresh / filters)
+   Suggested manual workbook:
+   docs/Synthetic_Performance_Detail_Dashboard_Regression.xlsx
+   Suggested npm:
+   test:regression:us2:synthetic-performance-detail-dashboard
+   Probe script:
+   scripts/probe-synthetic-performance-detail-dashboard.ts → docs/prompts/synthetic-performance-detail-dashboard-live-probe.json
+
+3. Page load, authentication and default context
+   - Authenticated navigation; no login redirect / blank shell / perpetual loader.
+   - Browser title and #page-title match /Dashboards/i.
+   - URL contains site/dashboard.
+   - Site: GDC Test Site 2 via #select2-quick-site-id-container (preferred).
+   - Dismiss Get started / jconfirm overlays.
+   - #select2-switch-dashboard-container matches /^\s*Synthetic Performance Detail\s*$/i.
+   - Core widgets settle (text + hosts, not highcharts-* alone):
+       • **Bar Graph** — #multi-step-bar-graph
+       • **Details** — all selected pages (avg); #page-onload-card / metric cards
+       • **Performance Graph** — **Page Timings Over Time for All Matched Pages**; #perfGraph-page-timings-graph / #page-timings-graph
+       • **Daily Averages** — #table-for-average-performance-chart* / #table-metric
+   - Soft time-range headers (do not hard-code timestamps).
+   - Soft #last-updated-dashboard.
+   - Back/Forward/refresh: re-select Synthetic Performance Detail + GDC if lost.
+   - Capture uncaught page errors; separate Highcharts/third-party noise.
+
+4. Dashboard chrome
+   Live chrome (GDC probe samples — not permanent values):
+   - #switch-dashboard / #select2-switch-dashboard-container → **Synthetic Performance Detail**
+   - #select2-quick-site-id-container → GDC Test Site 2
+   - #time-lookback (sample Last 1 hour)
+   - #refresh-dashboard
+   - #auto-refresh / #auto-refresh-frequency / #auto-refresh-btn-group
+     Options: Off, 2 / 5 / 10 / 15 / 30 / 60 Minutes (matches dashboard help 2m–hourly)
+   - Carousel (off) soft
+   - #toggle-filters / #mobile-controls-filters-btn; Apply soft; #cancel-filters
+   - + Widget / + Dashboard soft cancel only
+   - Dashboard Manager soft — no Save/Delete
+   - My Filters / Shared Filters read-only — **no Save Filter**
+   Cover: exact option select; soft list Preconfigured (include RUM PD + Synthetic Site Health; restore if switched); Auto Refresh menu soft incl. 2m/60m; lookback change restore; refresh; Filters open/Cancel; Manager; wizard cancel.
+   **Tabs:** My/Shared Filters only. Daily Averages uses pagination. Metric card selection is not browser tabs.
+
+5. Widget — Bar Graph & Details
+   Purpose (dashboard help + live): high-level metrics for selected period. Metric card click updates bar (left) **and** Daily Averages (bottom).
+
+   5a. Bar Graph
+   - Body contains **Bar Graph** + current metric (sample **Onload**).
+   - Host **#multi-step-bar-graph**; time-range + site subtitle.
+   - Soft “All Pages”; soft **All Pages Average**, **All Pages Total**, **Deselect All Metrics** when visible (live buttons) — restore series if toggled.
+   - Soft chart shell sized; soft hover tooltips when series exist.
+   - After card click: soft metric name / signature change on bar.
+
+   5b. Details cards
+   Pattern: **Details** + **all selected pages (avg)**.
+   Live metric labels observed on GDC Synthetic board (assert core subset ≥5 with flexible ALL CAPS / Title Case; site may omit some):
+   - **PAGE VIEWS**
+   - **PAGE ONLOAD** / soft **ONLOAD** / **Onload**
+   - **DOM DURATION**
+   - **TIME TO INTERACTIVE**
+   - **FIRST CONTENTFUL PAINT**
+   - **LARGEST CONTENTFUL PAINT**
+   - **SPEED INDEX**
+   - **TOTAL BLOCKING TIME**
+   - **CUMULATIVE LAYOUT SHIFT**
+   - **TIME TO DOM CONTENT LOADED**
+   - **TIME TO DOM INTERACTIVE**
+   - **JS ERRORS (SAMPLED)**
+   - **FIRST BYTE**
+   - **DNS** · **TCP** · **SSL** · **REDIRECT** · **BASE PAGE**
+   - **FIRST PAINT**
+   - **TOTAL ELEMENTS** · **TOTAL DOMAINS**
+   - **PAGE SIZE (UNCOMPRESSED)** · **PAGE SIZE (COMPRESSED)**
+   - **IMAGE SIZE**
+   Soft extra cards possible; do not hard-require RUM-only labels (e.g. ERRORS AND CRASHES / TEST OVERRIDE) though soft OK if present.
+   Value samples (illustrative only — never hard-code): 67; 1.58 S; 641 MS; 8.60 MB; 325 KB; CLS 0.020.
+
+   Cover:
+   - Details region + core subset (Page Views, Page Onload/Onload, LCP or FCP, First Byte, at least one size or content metric soft).
+   - Soft formats: s/ms, MB/KB, integers, unitless CLS.
+   - **Required card interactions soft:** PAGE VIEWS; PAGE ONLOAD/ONLOAD; one of LCP / Speed Index / PAGE SIZE (UNCOMPRESSED) — soft bar and/or Daily header update; restore Onload/Page Onload.
+   - Soft #page-onload-card.
+   - Missing non-core cards → annotate, continue.
+
+6. Widget — Performance Graph
+   Purpose: **Page Timings Over Time for All Matched Pages**. Gear + legend.
+   Host: **#perfGraph-page-timings-graph** (soft #page-timings-graph).
+   Live legend / series sample (assert multi-series subset, not complete fixed list):
+       Page Views · Onload · 1stByte · DNS · TCPCon · DOM Duration · SSL · Redirect · Base Page ·
+       Time to DOM Interactive · Time to DOM Content Loaded · First Paint ·
+       Page Size (Uncompressed) · Page Size (Compressed) · # of Elements · Image Size · # of Domains ·
+       JS Errors (Sampled) · Time to Interactive · First Contentful Paint · Largest Contentful Paint ·
+       Total Blocking Time · Cumulative Layout Shift · Speed Index · Fully Loaded Time
+   (Probe legend may paginate e.g. “1/3” — soft.)
+   Cover: verify title/body; soft sized Highcharts; soft legend toggle + re-toggle restore; soft gear open Escape/Cancel **without Save**; soft hover; after lookback soft re-assert frame.
+
+7. Widget — Daily Averages
+   Purpose: daily averages for Details-selected metric by page name and date.
+   Live: **Daily Averages** + metric name (sample Onload); **Select metric** soft.
+   Hosts: table-for-average-performance-chart*, table-metric.
+   Headers sample: **Page Name** | dated columns **YYYY-MM-DD (Sec)** | **30 Day Average** (unit may change with metric).
+   Pagination: “1 to 10 (21)” style; page sizes 5/10/25/50/100/250/500/All; << Previous / Next >>; **Export** CSV/TSV/JSON/Array soft.
+   Row samples (illustrative): step_0_Homepage, Blue Triangle HomePage, step_10_PDP, Checkout Shopping Cart, Content — synthetic script steps OK; do not hard-code catalog.
+   Cells: numbers or **--**.
+   Cover: Page Name header; ≥1 date or 30 Day Average when data-bearing; soft rows or controlled empty + optional broader lookback; sort Page Name soft; pagination soft (prefer not leave All); Export open/close no file assert; after card click metric header may change (PDF/dashboard help).
+
+8. Time Lookback
+   Host #time-lookback.
+   Live presets (probe): Custom Date Selection; Last 2/7/14/30/90 days; Today/ This week / This month so far; Last 15/30 minutes; Last 1/3/6/12/24 hours.
+   Cover:
+   - Soft multi options.
+   - **Required apply set:** Last **1 hour** or Last **6 hours**, Last **24 hours**, Last **7 days**, Last **30 days** — restore original.
+   - Soft Custom Date open/cancel only.
+   - After each: still Synthetic Performance Detail + GDC + four widget groups soft.
+
+8b. Top chrome icons: soft tooltips + round-trip; return site/dashboard + Synthetic Performance Detail.
+8c. Quick site soft switch (Demo eCommerce Global or alternate); always restore GDC + home dashboard.
+8d. Auto Refresh soft 5 Minutes then Off/restore; leave non-aggressive.
+8e. + Dashboard / Manager eye soft; restore exact **Synthetic Performance Detail**.
+
+9. Filters drawer
+   Hosts: #toggle-filters; Apply soft; #cancel-filters; My/Shared Filters.
+   Soft labels: Time Period, Timezone, Site, Data Type / Data Originated From, Page Name / Script / Probe / Agent Location when present, Bot Traffic soft, synthetic filter rows.
+   Widget editor residue (Performance Metric, Displayed Metric, group-by-synth, xAxis-synth, yAxis-synth, …) may appear if wizard open — **do not Save**.
+   Clear Cache / Save Filter — **do not click**.
+   Cover: open Filters; soft core labels; soft apply one dimensional filter when available else Cancel; My/Shared tabs; after Apply still on Synthetic Performance Detail + widgets.
+
+10. Cross-widget graphs / tables
+    - Soft Highcharts for Bar + Performance Graph independently.
+    - Soft card → bar + daily linkage for ≥2 cards then restore Onload/Page Onload.
+    - Soft legend + gear; soft Daily Export; Escape recovery.
+    - Soft “All Pages Average” / “All Pages Total” / “Deselect All Metrics” with restore.
+    - Do **not** require Monitoring scatter/HTTP pie/HAR.
+    - Soft a11y: filter toggle; Help chrome soft.
+
+11. Soft sibling switches
+    Preconfigured live list includes:
+    Site Overview | VitalPulse | Synthetic Site Health | Traffic Source and Medium | RUM Performance Detail | **Synthetic Performance Detail** | Native App Performance Detail | Native App Detailed Metrics - Android | Native App Detailed Metrics - iOS
+    Cover:
+    - Soft once to RUM Performance Detail (layout sibling) — annotate; **restore Synthetic Performance Detail + GDC**.
+    - Soft once to Synthetic Site Health (name sibling) — prove discrimination; restore.
+    - Soft Shared optional; no save.
+    - Always re-assert GDC after switch.
+
+12. Combination, recovery, non-functional
+    Capture → lookback → four widgets → restore lookback → home dash.
+    Soft LCP or Speed Index or Page Size card → soft daily rename → Export close → restore Onload card.
+    Soft page-size, legend, filters, refresh, manager cancel, sibling restore.
+    Soft desktop + ~1100px; Daily horizontal scroll OK.
+    Soft bounded settle deadlines.
+
+13. Out-of-scope mutations (always)
+    - No Save Filter / Save as New / Save Current / permanent shared filters.
+    - No Clear Cache / Clear Genius Cache.
+    - No permanent Save/Share/Clone/Delete dashboard; no permanent Add Widget / Editing All Widgets Apply.
+    - No leave Auto Refresh/Carousel aggressive; no leave legend fully deselected if avoidable.
+    - No hard-coded totals, page-name catalogs, exact date headers.
+    - No full Monitoring Synthetic PD / RUM PD Dashboard / Synthetic Site Health suite expansion.
+    - No sticky table search that empties Daily Averages for other suites.
+
+14. Live reverse-engineering facts to preserve (GDC Test Site 2, Aug 2026 probe)
+    - URL: …/index.php?r=site/dashboard
+    - Title / #page-title: Dashboards
+    - #select2-switch-dashboard-container: **Synthetic Performance Detail**
+    - #select2-quick-site-id-container: GDC Test Site 2
+    - #time-lookback sample Last 1 hour; Auto Refresh sample 5m; options Off+2m…60m
+    - Four UI groups:
+        1) Bar Graph — #multi-step-bar-graph
+        2) Details — metric cards incl. PAGE VIEWS, PAGE ONLOAD, SPEED INDEX, page sizes, elements/domains, CWV-ish metrics; host page-onload-card
+        3) Performance Graph — #perfGraph-page-timings-graph; Page Timings Over Time; multi-series legend incl. content metrics + Fully Loaded Time
+        4) Daily Averages — table-for-average-performance-chart*; Page Name + dates + 30 Day Average; Export CSV/TSV/JSON/Array; “1 to 10 (21)” sample rows with step_* names
+    - Buttons soft: All Pages Average, All Pages Total, Deselect All Metrics
+    - Dashboard help id: **360033776353**
+    - Package/Monitoring page id: **360033775693** (out of scope for required widgets)
+    - Interesting synth filter hosts soft: performance-metric-synth-row, group-by-synth, displayed-metric-synth, xAxis-synth, yAxis-synth (editor/filter residue)
+
+15. Refer to documentation
+    - Dashboard help: find via Dashboards dropdown; gear/eye; auto-refresh 2m–1h; Bar/Details card linkage; Performance Graph gear+legend; Daily Averages; Filters Apply + time period.
+    - Package PDF: use only for **critical distinction** (Monitoring widgets not on this board) and optional soft naming of synthetic domain concepts.
+    Prefer live synthetic metric names (PAGE ONLOAD, SPEED INDEX, page size units) over inventing RUM-only labels as required hard asserts.
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a separate Playwright automation suite under regression_tests > US2 > dashboards > preconfigured > synthetic-performance-detail. Cover thorough regression for:
+  - navigation & identity (**exact Synthetic Performance Detail** on site/dashboard)
+  - Bar Graph shell + soft All Pages / All Pages Total controls
+  - Details cards (synthetic metric catalog + soft formats) + card → bar + Daily Averages linkage
+  - Performance Graph (Page Timings Over Time, multi-series including content metrics, legend + gear soft)
+  - Daily Averages (Page Name, date columns / 30 Day Average, step/page rows, sort/pagination/Export soft)
+  - fields, labels, filters, graphs, My/Shared filter tabs
+  - Time Lookback (incl. 1h|6h / 24h / 7d / 30d)
+  - Filters soft; chrome Auto Refresh 2–60m; refresh; manager cancel-only
+  - combination, recovery, empty/soft data, quick-site re-anchor
+  - explicit non-confusion with Monitoring Synthetic PD, Synthetic Site Health, RUM Performance Detail, Native App PD
+
+Follow project POM conventions. Reuse preconfiguredDashboardChrome. Prefer exact option **Synthetic Performance Detail**.
+
+After generation:
+1. Run only this new Synthetic Performance Detail **Dashboard** suite first; fix automation hard failures.
+2. Fresh isolated Allure results + HTML report.
+3. Manual workbook (Summary / Regression TCs / Notes).
+4. Result summary + soft annotations: empty Daily Averages, synthetic metric extras, Export variants, legend restore, Monitoring PDF non-overlap, RUM sibling discrimination, step_* page names.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. No API or Database tests.
+2. Prefer existing framework methods; avoid duplicates.
+3. Strict POM structure.
+4. Standard TypeScript + Playwright practices.
+5. Stable control IDs and widget titles (#multi-step-bar-graph, #perfGraph-page-timings-graph, table-for-average-performance-chart*, Details/Bar/Daily text); not dynamic highcharts-* alone.
+6. No hard-coded metric totals, fixed page-name catalogs, exact timezone strings, or exact pager strings.
+7. Capture/restore Synthetic Performance Detail, GDC Test Site 2, lookback, Auto Refresh; restore Details metric to Onload/Page Onload when tests change cards.
+8. Serial suite when shared state intentional; soft deadlines + recovery so data-dependent paths do not abort unrelated tests.
+9. Bounded soft deadlines and action timeouts.
+10. No Promise.race that leaves losing page actions leaking into next tests without cancel/reload.
+11. Do not use expect.soft inside soft try/catch that still fails the serial test incorrectly; hard expect in try/catch + annotate fallback.
+12. No Save Filter, Clear Cache, permanent dashboard mutate, permanent Add Widget.
+13. Primary scope site/dashboard + Synthetic Performance Detail; never Monitoring Synthetic Real Browser Performance Detail as home.
+14. Close menus/overlays/drawers/modals/Export/gear/pager/Manager/wizard opened by tests.
+15. Do not claim refresh by mere SVG count — use titles, signatures, lookback text, Daily metric header.
+16. Unit-tolerant formats (s/ms, MB/KB, CLS unitless).
+17. Never accept RUM Performance Detail, Synthetic Site Health, Native App Performance Detail, or partial matches as suite home. Exact **Synthetic Performance Detail** only. Distinct npm from rum-pd / rum-performance-detail-dashboard.
+18. Flag ambiguities before generating automation when blocked.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- Package included **Monitoring PDF only**, not the dashboard PDF of article 360033776353. Live probe + combined extract are automation truth layer for the dashboard; Monitoring PDF is for exclusion scope.
+- Cloudflare may block automated fetch of help.bluetriangle.com — do not fail suite for help content.
+- Synthetic metric set is larger than RUM Performance Detail Dashboard — dual regex for PAGE ONLOAD vs ONLOAD; core subset hardish (≥5), content metrics soft.
+- “All Pages Total” may be synthetic-board-specific — soft if absent.
+- Sparse synthetic data windows: low Page Views (probe sample 67/hour) can still be healthy; empty Daily Averages possible — annotate.
+- Daily date unit suffixes change with selected metric.
+- Select metric control vs Details cards — prefer cards as dashboard-help primary path; soft both; leave Onload at suite end.
+- Export formats soft; page-size All may be slow — prefer 10/25.
+- Legend may be multi-page (“1/3”) — soft series subset.
+- Performance gear may open widget editor — Escape/Cancel only.
+- sibling switches change quick site — always re-anchor GDC.
+- Global site Select2 hidden — quick site recovery.
+- Formal settle SLAs use soft project deadlines.
+- Coach/Get started overlays.
+- Do not require Monitoring scatter/HTTP pie/availability widget on this preconfigured board.
+- Portal renames of short legend labels (1stByte vs First Byte) — soft dual regex.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to:
+- tests/regression_tests/US2/dashboards/preconfigured/rum-performance-detail/rum.performance.detail.dashboard.regression.spec.ts
+- tests/regression_tests/US2/dashboards/preconfigured/synthetic-site-health/synthetic.site.health.dashboard.regression.spec.ts
+- tests/regression_tests/US2/dashboards/preconfigured/traffic-source-and-medium/traffic.source.medium.dashboard.regression.spec.ts
+- pages/RumPerformanceDetailDashboardPage.ts / SyntheticSiteHealthDashboardPage.ts / TrafficSourceMediumDashboardPage.ts
+- helpers/preconfiguredDashboardChrome.ts
+- pages/MarketingOverviewPage.ts
+
+Follow their patterns for:
+- POM/locator separation
+- GDC Test Site 2 + quick-site recovery
+- Exact Select2 dashboard switch + restore (**Synthetic Performance Detail**)
+- lookback / auto refresh menus
+- filter open/apply/cancel + no Save Filter
+- metric card linkage soft; Highcharts legend soft
+- table sort/pagination/export soft (no hard file asserts)
+- sibling discrimination (RUM PD + Synthetic Site Health)
+- isolated Allure + Excel
+- npm name that does not collide with Monitoring or RUM PD dashboard suites

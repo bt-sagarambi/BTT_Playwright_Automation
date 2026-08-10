@@ -1,0 +1,44 @@
+# Synthetic Performance Detail — documentation extracts (Aug 2026)
+
+## A) Official preconfigured DASHBOARD help (primary for this suite)
+Article: https://help.bluetriangle.com/hc/en-us/articles/360033776353-The-Synthetic-Performance-Detail-Dashboard
+Title: The Synthetic Performance Detail Dashboard
+
+Overview (public summary):
+- The Synthetic Performance Detail page enables analysis of synthetic data from high-level glance down to individual page measurements.
+- Top of page: customize time period to analyze.
+- Access: Portal menu → Dashboards; preconfigured dropdown on left; alternate gear → Dashboard Manager → eye.
+- Auto-refresh: as low as every 2 minutes up to once every hour.
+Widgets:
+- Bar Graph & Details cards: high-level overview; selecting a metric updates bar graph by page AND Daily Averages bottom widget.
+- Performance Graph: Page Timings Over Time for All Matched Pages; gear controls included metrics; legend toggles series.
+- Daily Averages: table of daily averages for metric selected in Details, by page name and date.
+Filters:
+- Filter icon top right → criteria → Apply reloads; time period selector top left.
+
+NOTE: Help Center fetch from automation hosts may be Cloudflare-blocked; use live probe + this summary when full HTML/PDF of article 360033776353 is unavailable.
+
+## B) Package PDF actually shipped under AI Agents package
+Folder: AI Agents …/dashboards/preconfigured/synthetic-performance-details/
+File: “The Synthetic Real Browser Performance Detail Page - Blue Triangle Help Center.pdf”
+Article: https://help.bluetriangle.com/hc/en-us/articles/360033775693-The-Synthetic-Real-Browser-Performance-Detail-Page
+Path: Monitoring → Synthetic Monitoring → Real Browser → Performance Detail
+Widgets documented there (MONITORING page — out of primary scope for preconfigured dashboard suite):
+- Page Hits by HTTP Code (pie)
+- Site Availability Over Time
+- Performance Details (bar + cards)
+- Performance Graph (+ Toggle Performance Table)
+- Scatterplots (runs + per-page; gray retry points; screenshot/filmstrip shapes)
+- Performance Breakdown (object waterfall, domain graphs, HAR, headers, cookies, screenshot, filmstrip, console)
+- Filters (script name, page name, agent location, …)
+
+Extract of package PDF lives at:
+  docs/prompts/synthetic-performance-detail-package-pdf-extract.txt
+
+## C) Live preconfigured dashboard (site/dashboard) — source of truth for automation
+Probe: docs/prompts/synthetic-performance-detail-dashboard-live-probe.json
+Script: scripts/probe-synthetic-performance-detail-dashboard.ts
+Observed option: **Synthetic Performance Detail**
+Widgets observed: Bar Graph; Details (all selected pages avg); Performance Graph Page Timings Over Time; Daily Averages (page × date + 30 Day Average).
+Hosts: #multi-step-bar-graph, #page-onload-card, #perfGraph-page-timings-graph, #table-for-average-performance-chart*
+Does NOT show Monitoring scatter / HTTP pie / HAR drilldown on the preconfigured board.
