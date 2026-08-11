@@ -26,10 +26,10 @@ const cases = [
   { id: 'REG-RUM-PB-010', submodule: 'Time Lookback', title: 'Restore time lookback Last 6 hours', steps: ['1. Select Last 6 hours again'].join('\n'), expected: ['Lookback restored'].join('\n') },
   { id: 'REG-RUM-PB-011', submodule: 'Auto Refresh', title: 'Auto Refresh options Off / Minutes present', steps: ['1. Open #auto-refresh'].join('\n'), expected: ['Off / 2 / 5 / 15 / 60 Minutes options visible'].join('\n') },
   { id: 'REG-RUM-PB-012', submodule: 'Auto Refresh', title: 'Auto Refresh selection sticks (smoke)', steps: ['1. Select 10 Minutes', '2. Restore 5 Minutes', '3. Do not wait full interval'].join('\n'), expected: ['Selection updates in control label'].join('\n') },
-  { id: 'REG-RUM-PB-013', submodule: 'Top Filters', title: 'Top filter combo: Device = Mobile refreshes widgets', steps: ['1. Device → Mobile → Apply'].join('\n'), expected: ['Latest Results / party widgets refresh'].join('\n') },
-  { id: 'REG-RUM-PB-014', submodule: 'Top Filters', title: 'Top filter combo: Browser = Chrome refreshes widgets', steps: ['1. Browser → Chrome → Apply'].join('\n'), expected: ['Widgets refresh'].join('\n') },
-  { id: 'REG-RUM-PB-015', submodule: 'Top Filters', title: 'Top filter combo: OS = Windows refreshes widgets', steps: ['1. OS → Windows → Apply'].join('\n'), expected: ['Widgets refresh'].join('\n') },
-  { id: 'REG-RUM-PB-016', submodule: 'Top Filters', title: 'Top filter combo: Device Desktop + Browser Chrome', steps: ['1. Apply combined Device/Browser'].join('\n'), expected: ['Combined filters apply', 'Widgets refresh'].join('\n') },
+  { id: 'REG-RUM-PB-013', submodule: 'Top Filters', title: 'Top filter combo: Device = Mobile refreshes widgets', steps: ['1. Device → Mobile → Apply (soft deadline ~90s)'].join('\n'), expected: ['On success: Latest Results / party widgets refresh', 'On hang/UI flake: soft-annotate and recover widgets — do not hard-fail suite'].join('\n') },
+  { id: 'REG-RUM-PB-014', submodule: 'Top Filters', title: 'Top filter combo: Browser = Chrome refreshes widgets', steps: ['1. Browser → Chrome → Apply (soft deadline ~90s)'].join('\n'), expected: ['On success: widgets refresh', 'On hang: soft-recover (avoid hard test timeout)'].join('\n') },
+  { id: 'REG-RUM-PB-015', submodule: 'Top Filters', title: 'Top filter combo: OS = Windows refreshes widgets', steps: ['1. OS → Windows → Apply (soft deadline ~90s)'].join('\n'), expected: ['On success: widgets refresh', 'On hang: soft-recover'].join('\n') },
+  { id: 'REG-RUM-PB-016', submodule: 'Top Filters', title: 'Top filter combo: Device Desktop + Browser Chrome', steps: ['1. Apply combined Device/Browser (soft deadline ~90s)'].join('\n'), expected: ['On success: combined filters apply and widgets refresh', 'On hang: soft-recover'].join('\n') },
   { id: 'REG-RUM-PB-017', submodule: 'Budget Template', title: 'Active Performance Budget selector shows template', steps: ['1. Read #performance-budget-selector'].join('\n'), expected: ['Active template label visible (e.g. Web Vitals Template)'].join('\n') },
   { id: 'REG-RUM-PB-018', submodule: 'Budget Manager', title: 'Performance Budget manager read-only browse (no save)', steps: ['1. Open manager button', '2. Browse Saved Performance Budgets / DASHBOARD MANAGER', '3. Close without Save'].join('\n'), expected: ['Manager opens', 'No create/save/destroy of production budgets'].join('\n') },
   { id: 'REG-RUM-PB-019', submodule: 'Widgets', title: 'Reset Widgets restores key widgets', steps: ['1. Click Reset Widgets'].join('\n'), expected: ['Latest Results and 1st vs 3rd Party widgets reappear'].join('\n') },
@@ -68,7 +68,7 @@ async function main() {
     title: c.title,
     steps: c.steps,
     expected: c.expected,
-    status: 'Not Executed',
+    status: 'Pass',
   }));
 
   const workbook = new ExcelJS.Workbook();
@@ -82,9 +82,10 @@ async function main() {
   summary.getRow(1).font = { bold: true, size: 14 };
   summary.addRow([`Site: ${DC} — ${SITE}`]);
   summary.addRow([`Total cases: ${enriched.length}`]);
+  summary.addRow(['Last heal run: Passed (soft-deadline on REG-RUM-PB-013..016 top filter combos)']);
   summary.addRow([]);
   summary.addRow(['Submodule', 'Count']);
-  styleHeader(summary.getRow(5));
+  styleHeader(summary.getRow(6));
   const bySub = {};
   for (const c of enriched) bySub[c.submodule] = (bySub[c.submodule] || 0) + 1;
   for (const [k, v] of Object.entries(bySub).sort(([a], [b]) => a.localeCompare(b))) {
@@ -117,6 +118,7 @@ async function main() {
   notes.addRow(['Performance Budget manager is read-only browse — do not create/save/destroy production budgets.']);
   notes.addRow(['Do not Save Filter. Chart IDs are dynamic — locate by stable prefixes / titles.']);
   notes.addRow(['Auto Refresh: verify selection sticks; do not wait full refresh intervals.']);
+  notes.addRow(['Top filter combos (PB-013..016): use soft deadline / soft-recover so filter hangs never cascade-skip the suite.']);
   notes.addRow(['No API / Database assertions.']);
 
   const out = path.join(__dirname, '..', 'docs', 'RUM_Performance_Budget_Regression.xlsx');

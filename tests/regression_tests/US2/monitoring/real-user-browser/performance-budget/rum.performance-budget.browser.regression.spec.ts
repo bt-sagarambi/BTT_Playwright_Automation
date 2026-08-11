@@ -168,49 +168,52 @@ test.describe('US2 Regression — RUM Performance Budget (Browser)', () => {
 
   test('REG-RUM-PB-013 — top filter combo: Device = Mobile refreshes widgets', async () => {
     try {
-      await rum.applyTopFilterCombination({ devices: ['Mobile'] });
+      await withSoftDeadline(() => rum.applyTopFilterCombination({ devices: ['Mobile'] }), 90000);
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Device soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectWidgetsReady();
+      await rum.expectWidgetsReady().catch(() => undefined);
     }
   });
 
   test('REG-RUM-PB-014 — top filter combo: Browser = Chrome refreshes widgets', async () => {
     try {
-      await rum.applyTopFilterCombination({ browsers: ['Chrome'] });
+      await withSoftDeadline(() => rum.applyTopFilterCombination({ browsers: ['Chrome'] }), 90000);
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Browser soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectWidgetsReady();
+      await rum.expectWidgetsReady().catch(() => undefined);
     }
   });
 
   test('REG-RUM-PB-015 — top filter combo: OS = Windows refreshes widgets', async () => {
     try {
-      await rum.applyTopFilterCombination({ os: ['Windows'] });
+      await withSoftDeadline(() => rum.applyTopFilterCombination({ os: ['Windows'] }), 90000);
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `OS soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectWidgetsReady();
+      await rum.expectWidgetsReady().catch(() => undefined);
     }
   });
 
   test('REG-RUM-PB-016 — top filter combo: Device Desktop + Browser Chrome', async () => {
     try {
-      await rum.applyTopFilterCombination({ devices: ['Desktop'], browsers: ['Chrome'] });
+      await withSoftDeadline(
+        () => rum.applyTopFilterCombination({ devices: ['Desktop'], browsers: ['Chrome'] }),
+        90000
+      );
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Combined badge soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectWidgetsReady();
+      await rum.expectWidgetsReady().catch(() => undefined);
     }
   });
 

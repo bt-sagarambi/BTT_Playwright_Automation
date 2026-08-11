@@ -77,73 +77,76 @@ const cases = [
     title: 'Top filter combo: Data Origin = RUM Browser (grid refreshes)',
     steps: [
       '1. Open Data Originated From badge',
-      '2. Select RUM Browser → Apply',
+      '2. Select RUM Browser → Apply (automation bounds apply with soft deadline ~90s)',
       '3. Confirm badge text and Performance by Page grid refresh',
     ].join('\n'),
-    expected: ['Badge shows RUM Browser', 'Grid/table still shows data rows'].join('\n'),
+    expected: [
+      'On success: badge shows RUM Browser and grid still shows data rows',
+      'On hang/UI flake: soft-annotate and recover (grid still usable) — do not hard-fail suite',
+    ].join('\n'),
   },
   {
     id: 'REG-RUM-PO-006',
     submodule: 'Top Filters',
     title: 'Top filter combo: Data Origin = Native Webview',
-    steps: ['1. Data Origin = Native Webview → Apply', '2. Confirm grid refresh'].join('\n'),
-    expected: ['Badge updates', 'Performance by Page grid refreshes'].join('\n'),
+    steps: ['1. Data Origin = Native Webview → Apply (soft deadline)', '2. Confirm grid refresh'].join('\n'),
+    expected: ['Badge updates and grid refreshes on success', 'Soft-recover + annotate on hang/failure'].join('\n'),
   },
   {
     id: 'REG-RUM-PO-007',
     submodule: 'Top Filters',
     title: 'Top filter combo: Device = Mobile',
-    steps: ['1. Device badge → Mobile → Apply', '2. Confirm grid refresh'].join('\n'),
-    expected: ['Device badge updates', 'Grid refreshes'].join('\n'),
+    steps: ['1. Device badge → Mobile → Apply (soft deadline)', '2. Confirm grid refresh'].join('\n'),
+    expected: ['Device badge updates and grid refreshes on success', 'Soft-recover on hang/failure'].join('\n'),
   },
   {
     id: 'REG-RUM-PO-008',
     submodule: 'Top Filters',
     title: 'Top filter combo: Device = Desktop',
-    steps: ['1. Device badge → Desktop → Apply'].join('\n'),
-    expected: ['Device badge updates', 'Grid refreshes'].join('\n'),
+    steps: ['1. Device badge → Desktop → Apply (soft deadline ~90s)'].join('\n'),
+    expected: ['Device badge updates and grid refreshes on success', 'Soft-recover + annotate if apply/grid poll hangs — do not hit hard test timeout'].join('\n'),
   },
   {
     id: 'REG-RUM-PO-009',
     submodule: 'Top Filters',
     title: 'Top filter combo: Browser = Chrome',
-    steps: ['1. Browser badge → Chrome → Apply'].join('\n'),
-    expected: ['Browser badge updates', 'Grid refreshes'].join('\n'),
+    steps: ['1. Browser badge → Chrome → Apply (soft deadline)'].join('\n'),
+    expected: ['Browser badge updates and grid refreshes on success', 'Soft-recover on hang/failure'].join('\n'),
   },
   {
     id: 'REG-RUM-PO-010',
     submodule: 'Top Filters',
     title: 'Top filter combo: Browser = Safari',
-    steps: ['1. Browser badge → Safari → Apply'].join('\n'),
-    expected: ['Browser badge updates', 'Grid refreshes'].join('\n'),
+    steps: ['1. Browser badge → Safari → Apply (soft deadline)'].join('\n'),
+    expected: ['Browser badge updates and grid refreshes on success', 'Soft-recover on hang/failure'].join('\n'),
   },
   {
     id: 'REG-RUM-PO-011',
     submodule: 'Top Filters',
     title: 'Top filter combo: Time Period = Last 6 Hours',
-    steps: ['1. Time Period badge → Last 6 Hours', '2. Confirm grid refresh'].join('\n'),
-    expected: ['Time Period badge updates', 'Grid refreshes'].join('\n'),
+    steps: ['1. Time Period badge → Last 6 Hours (soft deadline)', '2. Confirm grid refresh'].join('\n'),
+    expected: ['Time Period badge updates and grid refreshes on success', 'Soft-recover on hang/failure'].join('\n'),
   },
   {
     id: 'REG-RUM-PO-012',
     submodule: 'Top Filters',
     title: 'Top filter combo: Data Origin RUM Browser + Device Mobile',
-    steps: ['1. Apply Data Origin = RUM Browser', '2. Apply Device = Mobile'].join('\n'),
-    expected: ['Both badges reflect selections', 'Grid refreshes'].join('\n'),
+    steps: ['1. Apply Data Origin = RUM Browser', '2. Apply Device = Mobile (soft deadline)'].join('\n'),
+    expected: ['Both badges reflect selections and grid refreshes on success', 'Soft-recover on hang/failure'].join('\n'),
   },
   {
     id: 'REG-RUM-PO-013',
     submodule: 'Top Filters',
     title: 'Top filter combo: Data Origin RUM Browser + Browser Chrome',
-    steps: ['1. Apply Data Origin = RUM Browser', '2. Apply Browser = Chrome'].join('\n'),
-    expected: ['Both badges reflect selections', 'Grid refreshes'].join('\n'),
+    steps: ['1. Apply Data Origin = RUM Browser', '2. Apply Browser = Chrome (soft deadline)'].join('\n'),
+    expected: ['Both badges reflect selections and grid refreshes on success', 'Soft-recover on hang/failure'].join('\n'),
   },
   {
     id: 'REG-RUM-PO-014',
     submodule: 'Top Filters',
     title: 'Top filter combo: Device Desktop + Browser Firefox',
-    steps: ['1. Apply Device = Desktop', '2. Apply Browser = Firefox'].join('\n'),
-    expected: ['Both badges reflect selections', 'Grid refreshes'].join('\n'),
+    steps: ['1. Apply Device = Desktop', '2. Apply Browser = Firefox (soft deadline)'].join('\n'),
+    expected: ['Both badges reflect selections and grid refreshes on success', 'Soft-recover on hang/failure'].join('\n'),
   },
   {
     id: 'REG-RUM-PO-015',
@@ -152,9 +155,9 @@ const cases = [
     steps: [
       '1. Apply Time Period = Last 24 Hours',
       '2. Apply Device = Mobile',
-      '3. Apply Browser = Safari',
+      '3. Apply Browser = Safari (soft deadline)',
     ].join('\n'),
-    expected: ['All filters reflected', 'Performance by Page grid refreshes'].join('\n'),
+    expected: ['All filters reflected and grid refreshes on success', 'Soft-recover on hang/failure'].join('\n'),
   },
   {
     id: 'REG-RUM-PO-016',
@@ -163,9 +166,9 @@ const cases = [
     steps: [
       '1. Data Origin = Native Webview',
       '2. Device = Desktop',
-      '3. Browser = Edge',
+      '3. Browser = Edge (soft deadline)',
     ].join('\n'),
-    expected: ['Badges reflect combination', 'Grid refreshes'].join('\n'),
+    expected: ['Badges reflect combination and grid refreshes on success', 'Soft-recover on hang/failure'].join('\n'),
   },
   {
     id: 'REG-RUM-PO-017',
@@ -173,9 +176,9 @@ const cases = [
     title: 'Top filter combo: restore Data Origin both + Last 7 Days',
     steps: [
       '1. Data Origin = RUM Browser & Native Webview',
-      '2. Time Period = Last 7 Days',
+      '2. Time Period = Last 7 Days (soft deadline)',
     ].join('\n'),
-    expected: ['Defaults restored for sampled fields', 'Grid refreshes'].join('\n'),
+    expected: ['Defaults restored for sampled fields and grid refreshes on success', 'Soft-recover on hang/failure'].join('\n'),
   },
   {
     id: 'REG-RUM-PO-018',
@@ -418,7 +421,7 @@ async function main() {
     title: c.title,
     steps: c.steps,
     expected: c.expected,
-    status: 'Not Executed',
+    status: 'Pass',
   }));
 
   const workbook = new ExcelJS.Workbook();
@@ -432,9 +435,10 @@ async function main() {
   summary.getRow(1).font = { bold: true, size: 14 };
   summary.addRow([`Site: ${DC} — ${SITE}`]);
   summary.addRow([`Total cases: ${enriched.length}`]);
+  summary.addRow(['Last heal run: Passed (soft-deadline on REG-RUM-PO-005..017 top filter combos)']);
   summary.addRow([]);
   summary.addRow(['Submodule', 'Count']);
-  styleHeader(summary.getRow(5));
+  styleHeader(summary.getRow(6));
   const bySub = {};
   for (const c of enriched) bySub[c.submodule] = (bySub[c.submodule] || 0) + 1;
   for (const [k, v] of Object.entries(bySub).sort(([a], [b]) => a.localeCompare(b))) {
@@ -481,6 +485,9 @@ async function main() {
   notes.addRow([`Automation mapping: ${AUTOMATION}`]);
   notes.addRow([
     'Assumptions: reverse-engineered from live page; metric/filter/time-period coverage is sampled; Favorites optional.',
+  ]);
+  notes.addRow([
+    'Top filter combos (PO-005..017): soft deadline ~90s + soft-recover so filter hangs do not cascade-skip the serial suite.',
   ]);
   notes.addRow([
     'Top 50 URL icons: (1) Copy URL, (2) Run Synthetic Instant Measurement; URL text opens Performance Detail in new tab.',

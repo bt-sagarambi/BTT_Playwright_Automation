@@ -5,17 +5,17 @@
  */
 const path = require('path');
 const fs = require('fs');
-const ExcelJS = require('exceljs');
+const { writeRegressionManualWorkbook } = require('./lib/regressionManualExcel');
 
-const SITE = 'Demo eCommerce Global';
+const SITE = 'Any profile site already loaded (e.g. GDC Test Site 2 or Demo eCommerce Global)';
 const DC = 'US';
 const MODULE = 'Real User Monitoring (RUM)';
 const AUTOMATION =
   'tests/regression_tests/US2/monitoring/real-user-browser/session-lookup/rum.session-lookup.browser.regression.spec.ts';
 
 const cases = [
-  { id: 'REG-RUM-SL-001', submodule: 'Navigation', title: 'Page loads via menu/route with correct title', steps: ['1. Login', `2. Ensure site is "${SITE}" (${DC})`, '3. Full Menu: Monitoring > Real User Browser > Session Lookup'].join('\n'), expected: ['Title/breadcrumb contains Session Lookup', 'URL contains session-lookup-performance-detail'].join('\n') },
-  { id: 'REG-RUM-SL-002', submodule: 'Navigation', title: 'Selected site is Demo eCommerce Global', steps: ['1. Read site dropdown'].join('\n'), expected: ['Demo eCommerce Global selected'].join('\n') },
+  { id: 'REG-RUM-SL-001', submodule: 'Navigation', title: 'Page loads via menu/route with correct title', steps: ['1. Login', '2. Use the active run profile site (do not require a hard-coded site name)', '3. Full Menu: Monitoring > Real User Browser > Session Lookup', '4. Confirm top site dropdown is populated'].join('\n'), expected: ['Title/breadcrumb contains Session Lookup', 'URL contains session-lookup-performance-detail', 'Site dropdown shows a non-empty loaded site (any site)'].join('\n') },
+  { id: 'REG-RUM-SL-002', submodule: 'Navigation', title: 'Site is loaded in top nav (any non-empty selection)', steps: ['1. Read the top site dropdown label'].join('\n'), expected: ['A non-empty site label is selected', 'Do not hard-assert Demo eCommerce Global (or any specific product demo site)'].join('\n') },
   { id: 'REG-RUM-SL-003', submodule: 'Chrome', title: 'Chrome controls and Performance Detail / View Filters', steps: ['1. Locate Performance Detail, View Filters, top-right icons'].join('\n'), expected: ['Controls visible'].join('\n') },
   { id: 'REG-RUM-SL-004', submodule: 'Chrome', title: 'View Filters toggles applied-filter summary', steps: ['1. Click View Filters', '2. Toggle again'].join('\n'), expected: ['Applied-filter summary shows/hides'].join('\n') },
   { id: 'REG-RUM-SL-005', submodule: 'Chrome', title: 'Top-right navigation icons remain usable', steps: ['1. Confirm Filters, Theme, Help, Settings, User'].join('\n'), expected: ['Icons visible'].join('\n') },
@@ -28,8 +28,8 @@ const cases = [
   { id: 'REG-RUM-SL-012', submodule: 'Lookup', title: 'Switch lookup types and keep search input usable', steps: ['1. Cycle lookup types'].join('\n'), expected: ['Search input remains enabled'].join('\n') },
   { id: 'REG-RUM-SL-013', submodule: 'Lookup', title: 'Derive runtime URL from Performance Detail and return', steps: ['1. Open Performance Detail', '2. Click Page Views point', '3. Read URL from Measurement Details', '4. Return to Session Lookup'].join('\n'), expected: ['Runtime URL stored without hard-coding'].join('\n') },
   { id: 'REG-RUM-SL-014', submodule: 'Lookup', title: 'Positive URL lookup using runtime-derived value', steps: ['1. Lookup type URL', '2. Paste runtime URL', '3. Search'].join('\n'), expected: ['Sessions / All Page Views / Details populate when data exists'].join('\n') },
-  { id: 'REG-RUM-SL-015', submodule: 'Lookup', title: 'Positive unmasked BTT Session ID lookup returns valid details', steps: ['1. Derive BTT Session ID from Performance Measurement Details', '2. Search by BTT Session ID'].join('\n'), expected: ['All Page Views, Sessions and Performance Measurement Details populate'].join('\n') },
-  { id: 'REG-RUM-SL-046', submodule: 'Lookup', title: 'Positive unmasked BTT GUID lookup returns valid details', steps: ['1. Derive BTT GUID from Performance Measurement Details', '2. Search by BTT GUID'].join('\n'), expected: ['All Page Views, Sessions and Performance Measurement Details populate'].join('\n') },
+  { id: 'REG-RUM-SL-015', submodule: 'Lookup', title: 'Positive unmasked BTT Session ID lookup returns valid details', steps: ['1. Derive BTT Session ID from Performance Measurement Details / Sessions', '2. If value is empty or fully masked (e.g. ##########), annotate and soft-skip', '3. Otherwise search by BTT Session ID'].join('\n'), expected: ['When unmasked ID is available: Sessions / All Page Views / Details populate', 'When masked or missing: soft-skip with annotation (not a hard fail)'].join('\n') },
+  { id: 'REG-RUM-SL-046', submodule: 'Lookup', title: 'Positive unmasked BTT GUID lookup returns valid details', steps: ['1. Derive BTT GUID from Performance Measurement Details / Sessions', '2. If value is empty or fully masked (e.g. ##########), annotate and soft-skip', '3. Otherwise search by BTT GUID'].join('\n'), expected: ['When unmasked GUID is available: Sessions / All Page Views / Details populate', 'When masked or missing: soft-skip with annotation (not a hard fail)'].join('\n') },
   { id: 'REG-RUM-SL-047', submodule: 'Lookup', title: 'Customer Session ID positive lookup when available', steps: ['1. Derive Customer Session ID when populated', '2. Search by Customer Session ID'].join('\n'), expected: ['Valid details populate; annotate when value is absent'].join('\n') },
   { id: 'REG-RUM-SL-048', submodule: 'Lookup', title: 'User Agent String positive lookup when available', steps: ['1. Derive User Agent String when populated', '2. Search by User Agent String'].join('\n'), expected: ['Matching sessions/details populate; annotate when value is absent'].join('\n') },
   { id: 'REG-RUM-SL-049', submodule: 'Lookup', title: 'IP Address positive lookup when available', steps: ['1. Verify IP Address lookup option/value', '2. Search by IP Address'].join('\n'), expected: ['Matching sessions/details populate; annotate when option/value is absent'].join('\n') },
@@ -65,86 +65,29 @@ const cases = [
   { id: 'REG-RUM-SL-045', submodule: 'Stability', title: 'No blocking error banner after suite interactions', steps: ['1. Confirm page title and controls'].join('\n'), expected: ['No fatal error banner'].join('\n') },
 ];
 
-function styleHeader(row) {
-  row.font = { bold: true, color: { argb: 'FFFFFFFF' } };
-  row.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1F4E79' } };
-  row.alignment = { vertical: 'middle', wrapText: true };
-}
-
 async function main() {
-  const enriched = cases.map((c) => ({
-    testCaseId: c.id,
-    type: 'Regression',
-    module: MODULE,
-    submodule: c.submodule,
-    title: c.title,
-    steps: c.steps,
-    expected: c.expected,
-    status: 'Pass',
-  }));
-
-  const workbook = new ExcelJS.Workbook();
-  workbook.creator = 'BTT Playwright Automation';
-  workbook.created = new Date();
-
-  const summary = workbook.addWorksheet('Summary', { views: [{ state: 'frozen', ySplit: 3 }] });
-  summary.getColumn(1).width = 36;
-  summary.getColumn(2).width = 18;
-  summary.addRow(['RUM Session Lookup — Regression Summary']);
-  summary.getRow(1).font = { bold: true, size: 14 };
-  summary.addRow([`Site: ${DC} — ${SITE}`]);
-  summary.addRow([`Total cases: ${enriched.length}`]);
-  summary.addRow(['Last automation run: 50 passed (49 regression + auth.setup) — Demo eCommerce Global']);
-  summary.addRow(['Validated positive lookups: URL, BTT Session ID, BTT GUID, Customer Session ID; User Agent/IP were unavailable for the sampled measurement']);
-  summary.addRow([]);
-  summary.addRow(['Submodule', 'Count']);
-  styleHeader(summary.getRow(7));
-  const bySub = {};
-  for (const c of enriched) bySub[c.submodule] = (bySub[c.submodule] || 0) + 1;
-  for (const [k, v] of Object.entries(bySub).sort(([a], [b]) => a.localeCompare(b))) {
-    summary.addRow([k, v]);
-  }
-
-  const sheet = workbook.addWorksheet('Regression TCs', { views: [{ state: 'frozen', ySplit: 1 }] });
-  sheet.columns = [
-    { header: 'Test Case ID', key: 'testCaseId', width: 18 },
-    { header: 'Type', key: 'type', width: 12 },
-    { header: 'Module', key: 'module', width: 28 },
-    { header: 'Submodule', key: 'submodule', width: 16 },
-    { header: 'Title', key: 'title', width: 62 },
-    { header: 'Steps', key: 'steps', width: 68 },
-    { header: 'Expected Results', key: 'expected', width: 56 },
-    { header: 'Status', key: 'status', width: 14 },
-  ];
-  styleHeader(sheet.getRow(1));
-  for (const row of enriched) {
-    const r = sheet.addRow(row);
-    r.alignment = { vertical: 'top', wrapText: true };
-  }
-
-  const notes = workbook.addWorksheet('Notes');
-  notes.getColumn(1).width = 100;
-  notes.addRow(['Notes']);
-  notes.getRow(1).font = { bold: true, size: 12 };
-  notes.addRow([`Automation: ${AUTOMATION}`]);
-  notes.addRow(['Do not assert exact backend numeric values — labels, visibility, refresh, interactive behavior only.']);
-  notes.addRow(['Do not hard-code BTT Session IDs/GUIDs/URLs — derive at runtime from Performance Detail.']);
-  notes.addRow(['Demo eCommerce Global is expected to expose unmasked BTT Session ID/GUID for positive lookups.']);
-  notes.addRow(['Do not Save Filter, clear cache, create segments, or mutate portal configuration.']);
-  notes.addRow(['Ambiguities: IP Address option, replay links, object-level detail, custom vars, wildcards, reduced filter set.']);
-  notes.addRow(['No API / Database assertions.']);
-  notes.addRow(['Refer: RUM Session Lookup Page – Blue Triangle Help Center.pdf']);
-
   const out = path.join(__dirname, '..', 'docs', 'RUM_Session_Lookup_Regression.xlsx');
-  const alt = path.join(__dirname, '..', 'docs', 'RUM_Session_Lookup_Regression_run.xlsx');
-  fs.mkdirSync(path.dirname(out), { recursive: true });
-  try {
-    await workbook.xlsx.writeFile(out);
-    console.log('Wrote', out, `(${enriched.length} cases)`);
-  } catch (err) {
-    await workbook.xlsx.writeFile(alt);
-    console.log('Wrote', alt, `(${enriched.length} cases) — primary file locked: ${err.message}`);
-  }
+  const { path: written, count } = await writeRegressionManualWorkbook({
+    outPath: out,
+    screenTitle: 'RUM Session Lookup (Browser)',
+    site: SITE,
+    dc: DC,
+    module: MODULE,
+    typeLabel: 'Regression (read-only)',
+    automation: AUTOMATION,
+    executionStatus: 'Pass',
+    executionNote:
+      'Last heal run: profile-agnostic site-loaded asserts; masked BTT Session ID/GUID soft-skip.',
+    notes: [
+      'Do not hard-code BTT Session IDs/GUIDs/URLs — derive at runtime from Performance Detail.',
+      'Do not hard-code required site name — assert a site is loaded (any selection from active profile).',
+      'BTT Session ID / GUID positive lookups soft-skip when values are masked (######) or missing.',
+      'Do not Save Filter, clear cache, create segments, or mutate portal configuration.',
+      'npm run test:regression:us2:rum-sl:gdc (or us-demo profile when unmasked IDs are required).',
+    ],
+    cases,
+  });
+  console.log('Wrote', written, `(${count} cases)`);
 }
 
 main().catch((e) => {

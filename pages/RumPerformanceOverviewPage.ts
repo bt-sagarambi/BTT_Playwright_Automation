@@ -376,11 +376,11 @@ export class RumPerformanceOverviewPage {
     return ((await map[which].textContent().catch(() => '')) || '').replace(/\s+/g, ' ').trim();
   }
 
-  async expectGridRefreshed(): Promise<{ rows: number }> {
-    await expect(this.locators.performanceByPageTable).toBeVisible({ timeout: 60000 });
+  async expectGridRefreshed(timeout = 45000): Promise<{ rows: number }> {
+    await expect(this.locators.performanceByPageTable).toBeVisible({ timeout });
     await expect
       .poll(async () => this.locators.performanceByPageTable.locator('tbody tr').count(), {
-        timeout: 60000,
+        timeout: Math.min(timeout, 45000),
       })
       .toBeGreaterThan(0);
     const rows = await this.locators.performanceByPageTable.locator('tbody tr').count();

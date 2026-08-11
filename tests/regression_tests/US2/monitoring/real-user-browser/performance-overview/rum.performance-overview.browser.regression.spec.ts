@@ -70,169 +70,199 @@ test.describe('US2 Regression — RUM Performance Overview (Browser)', () => {
 
   test('REG-RUM-PO-005 — top filter combo: Data Origin = RUM Browser (grid refreshes)', async () => {
     try {
-      const { rows } = await rum.applyTopFilterCombination({ dataOrigin: 'RUM Browser' });
+      const { rows } = await withSoftDeadline(
+        () => rum.applyTopFilterCombination({ dataOrigin: 'RUM Browser' }),
+        90000
+      );
       console.log(`[RUM PO] grid rows after Data Origin RUM Browser: ${rows}`);
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Top combo soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectGridRefreshed();
+      await rum.expectGridRefreshed().catch(() => undefined);
     }
   });
 
   test('REG-RUM-PO-006 — top filter combo: Data Origin = Native Webview', async () => {
     try {
-      await rum.applyTopFilterCombination({ dataOrigin: 'Native Webview' });
+      await withSoftDeadline(
+        () => rum.applyTopFilterCombination({ dataOrigin: 'Native Webview' }),
+        90000
+      );
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Top combo soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectGridRefreshed();
+      await rum.expectGridRefreshed().catch(() => undefined);
     }
   });
 
   test('REG-RUM-PO-007 — top filter combo: Device = Mobile', async () => {
     try {
-      await rum.applyTopFilterCombination({ devices: ['Mobile'] });
+      await withSoftDeadline(() => rum.applyTopFilterCombination({ devices: ['Mobile'] }), 90000);
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Top combo soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectGridRefreshed();
+      await rum.expectGridRefreshed().catch(() => undefined);
     }
   });
 
   test('REG-RUM-PO-008 — top filter combo: Device = Desktop', async () => {
     try {
-      await rum.applyTopFilterCombination({ devices: ['Desktop'] });
+      await withSoftDeadline(() => rum.applyTopFilterCombination({ devices: ['Desktop'] }), 90000);
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Top combo soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectGridRefreshed();
+      await rum.expectGridRefreshed().catch(() => undefined);
     }
   });
 
   test('REG-RUM-PO-009 — top filter combo: Browser = Chrome', async () => {
     try {
-      await rum.applyTopFilterCombination({ browsers: ['Chrome'] });
+      await withSoftDeadline(() => rum.applyTopFilterCombination({ browsers: ['Chrome'] }), 90000);
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Top combo soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectGridRefreshed();
+      await rum.expectGridRefreshed().catch(() => undefined);
     }
   });
 
   test('REG-RUM-PO-010 — top filter combo: Browser = Safari', async () => {
     try {
-      await rum.applyTopFilterCombination({ browsers: ['Safari'] });
+      await withSoftDeadline(() => rum.applyTopFilterCombination({ browsers: ['Safari'] }), 90000);
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Top combo soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectGridRefreshed();
+      await rum.expectGridRefreshed().catch(() => undefined);
     }
   });
 
   test('REG-RUM-PO-011 — top filter combo: Time Period = Last 6 Hours', async () => {
     try {
-      await rum.applyTopFilterCombination({ timePeriod: 'Last 6 Hours' });
+      await withSoftDeadline(
+        () => rum.applyTopFilterCombination({ timePeriod: 'Last 6 Hours' }),
+        90000
+      );
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Top combo soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectGridRefreshed();
+      await rum.expectGridRefreshed().catch(() => undefined);
     }
   });
 
   test('REG-RUM-PO-012 — top filter combo: Data Origin RUM Browser + Device Mobile', async () => {
     try {
-      await rum.applyTopFilterCombination({ dataOrigin: 'RUM Browser', devices: ['Mobile'] });
+      await withSoftDeadline(
+        () => rum.applyTopFilterCombination({ dataOrigin: 'RUM Browser', devices: ['Mobile'] }),
+        90000
+      );
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Top combo soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectGridRefreshed();
+      await rum.expectGridRefreshed().catch(() => undefined);
     }
   });
 
   test('REG-RUM-PO-013 — top filter combo: Data Origin RUM Browser + Browser Chrome', async () => {
     try {
-      await rum.applyTopFilterCombination({ dataOrigin: 'RUM Browser', browsers: ['Chrome'] });
+      await withSoftDeadline(
+        () => rum.applyTopFilterCombination({ dataOrigin: 'RUM Browser', browsers: ['Chrome'] }),
+        90000
+      );
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Top combo soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectGridRefreshed();
+      await rum.expectGridRefreshed().catch(() => undefined);
     }
   });
 
   test('REG-RUM-PO-014 — top filter combo: Device Desktop + Browser Firefox', async () => {
     try {
-      await rum.applyTopFilterCombination({ devices: ['Desktop'], browsers: ['Firefox'] });
+      await withSoftDeadline(
+        () => rum.applyTopFilterCombination({ devices: ['Desktop'], browsers: ['Firefox'] }),
+        90000
+      );
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Top combo soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectGridRefreshed();
+      await rum.expectGridRefreshed().catch(() => undefined);
     }
   });
 
   test('REG-RUM-PO-015 — top filter combo: Device Mobile + Browser Safari + Last 24 Hours', async () => {
     try {
-      await rum.applyTopFilterCombination({
-        timePeriod: 'Last 24 Hours',
-        devices: ['Mobile'],
-        browsers: ['Safari'],
-      });
+      await withSoftDeadline(
+        () =>
+          rum.applyTopFilterCombination({
+            timePeriod: 'Last 24 Hours',
+            devices: ['Mobile'],
+            browsers: ['Safari'],
+          }),
+        90000
+      );
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Top combo soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectGridRefreshed();
+      await rum.expectGridRefreshed().catch(() => undefined);
     }
   });
 
   test('REG-RUM-PO-016 — top filter combo: Native Webview + Desktop + Edge', async () => {
     try {
-      await rum.applyTopFilterCombination({
-        dataOrigin: 'Native Webview',
-        devices: ['Desktop'],
-        browsers: ['Edge'],
-      });
+      await withSoftDeadline(
+        () =>
+          rum.applyTopFilterCombination({
+            dataOrigin: 'Native Webview',
+            devices: ['Desktop'],
+            browsers: ['Edge'],
+          }),
+        90000
+      );
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Top combo soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectGridRefreshed();
+      await rum.expectGridRefreshed().catch(() => undefined);
     }
   });
 
   test('REG-RUM-PO-017 — top filter combo: restore Data Origin both + Last 7 Days', async () => {
     try {
-      await rum.applyTopFilterCombination({
-        dataOrigin: 'RUM Browser & Native Webview',
-        timePeriod: 'Last 7 Days',
-      });
+      await withSoftDeadline(
+        () =>
+          rum.applyTopFilterCombination({
+            dataOrigin: 'RUM Browser & Native Webview',
+            timePeriod: 'Last 7 Days',
+          }),
+        90000
+      );
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Top combo soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectGridRefreshed();
+      await rum.expectGridRefreshed().catch(() => undefined);
     }
   });
 

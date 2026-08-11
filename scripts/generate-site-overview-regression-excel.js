@@ -6,7 +6,7 @@
  */
 const path = require('path');
 const fs = require('fs');
-const ExcelJS = require('exceljs');
+const { writeRegressionManualWorkbook } = require('./lib/regressionManualExcel');
 
 const SITE = 'GDC Test Site 2';
 const DC = 'US';
@@ -57,76 +57,26 @@ const cases = [
 ];
 
 async function main() {
-  const wb = new ExcelJS.Workbook();
-  wb.creator = 'BlueTriangle_Automation';
-  wb.created = new Date();
-
-  const summary = wb.addWorksheet('Summary');
-  summary.columns = [
-    { header: 'Field', key: 'field', width: 28 },
-    { header: 'Value', key: 'value', width: 100 },
-  ];
-  [
-    ['Module', MODULE],
-    ['Screen', 'Site Overview (preconfigured dashboard)'],
-    ['Site', SITE],
-    ['Data center', DC],
-    ['Menu path', 'Dashboards'],
-    ['Route', 'site/dashboard'],
-    ['Smoke catalog', 'biz.dashboards'],
-    ['Dashboard option', 'Site Overview (Preconfigured)'],
-    ['Browser title', 'Dashboards'],
-    ['#page-title', 'Dashboards'],
-    ['Automation spec', AUTOMATION],
-    ['POM', 'pages/SiteOverviewDashboardPage.ts'],
-    ['Locators', 'locators/SiteOverviewDashboardLocators.ts'],
-    ['npm command', 'npm run test:regression:us2:site-overview'],
-    ['PDF', 'The Site Overview Dashboard – Blue Triangle Help Center'],
-    ['Case count', String(cases.length)],
-    ['Execution status', EXECUTION_STATUS],
-    ['Execution note', EXECUTION_NOTE],
-  ].forEach(([field, value]) => summary.addRow({ field, value }));
-
-  const tcs = wb.addWorksheet('Regression TCs');
-  tcs.columns = [
-    { header: 'ID', key: 'id', width: 14 },
-    { header: 'Submodule', key: 'submodule', width: 18 },
-    { header: 'Title', key: 'title', width: 55 },
-    { header: 'Steps', key: 'steps', width: 70 },
-    { header: 'Expected', key: 'expected', width: 55 },
-    { header: 'Automation', key: 'auto', width: 14 },
-    { header: 'Priority', key: 'priority', width: 10 },
-  ];
-  for (const c of cases) {
-    tcs.addRow({
-      id: c.id,
-      submodule: c.submodule,
-      title: c.title,
-      steps: c.steps,
-      expected: c.expected,
-      auto: 'Yes',
-      priority: 'High',
-    });
-  }
-
-  const notes = wb.addWorksheet('Notes');
-  notes.columns = [
-    { header: 'Topic', key: 'topic', width: 28 },
-    { header: 'Detail', key: 'detail', width: 100 },
-  ];
-  [
-    ['Out of scope mutations', 'No Save Filter, Clear Cache, permanent widget/dashboard save, share/delete, aggressive carousel/auto-refresh changes.'],
-    ['Not this suite', 'Digital Experience Overview (overview-dashboard/overview) and Marketing Overview (overview-dashboard/marketing).'],
-    ['Widget IDs', 'chartID_* and grid instance suffixes are dynamic — bind via widget titles.'],
-    ['Currency', 'Locale-tolerant (€/$/£); Brand Value / Brand Orders are live soft columns.'],
-    ['Tablet row', 'PDF lists Tablet; live data may omit Tablet — soft annotate.'],
-    ['Ambiguities', 'See AI Prompt §6; soft data/empty maps/drill controls annotated in Allure.'],
-  ].forEach(([topic, detail]) => notes.addRow({ topic, detail }));
-
   const out = path.join(__dirname, '..', 'docs', 'Site_Overview_Dashboard_Regression.xlsx');
-  fs.mkdirSync(path.dirname(out), { recursive: true });
-  await wb.xlsx.writeFile(out);
-  console.log('Wrote', out, 'cases=', cases.length);
+  const { path: written, count } = await writeRegressionManualWorkbook({
+    outPath: out,
+    screenTitle: 'Site Overview Dashboard (Preconfigured)',
+    site: SITE,
+    dc: DC,
+    module: MODULE,
+    typeLabel: 'Regression (read-only)',
+    automation: AUTOMATION,
+    executionStatus: EXECUTION_STATUS,
+    executionNote: EXECUTION_NOTE,
+    notes: [
+      'Exact Preconfigured option: Site Overview.',
+      'Not DXO (overview-dashboard/overview) or Marketing Overview.',
+      'No Save Filter / Clear Cache / permanent dashboard mutations.',
+      'npm run test:regression:us2:site-overview',
+    ],
+    cases,
+  });
+  console.log('Wrote', written, 'cases=', count);
 }
 
 main().catch((e) => {

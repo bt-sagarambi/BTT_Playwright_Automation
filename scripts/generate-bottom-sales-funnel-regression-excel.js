@@ -6,7 +6,7 @@
  */
 const path = require('path');
 const fs = require('fs');
-const ExcelJS = require('exceljs');
+const { writeRegressionManualWorkbook } = require('./lib/regressionManualExcel');
 
 const SITE = 'GDC Test Site 2';
 const DC = 'US';
@@ -21,7 +21,7 @@ const EXECUTION_NOTE =
 const cases = [
   { id: 'REG-BSF-001', submodule: 'Navigation', title: 'Page loads with Bottom of the Funnel title and BI breadcrumb', steps: 'Open BI > Improve Traffic > Bottom of the Sales Funnel Analysis; observe title, breadcrumb, URL.', expected: 'Title matches Funnel pattern; #page-title BI path; URL has bottom-sales-funnel.' },
   { id: 'REG-BSF-002', submodule: 'Default Load', title: 'Analysis chrome and funnel surface settle', steps: 'Wait for funnel charts/cards or controlled empty.', expected: 'Conversion Analysis chrome present; charts or annotated empty.' },
-  { id: 'REG-BSF-003', submodule: 'Context', title: 'Portal site GDC Test Site 2; badges present', steps: 'Confirm site; capture Time Period / Device badges.', expected: 'Site GDC Test Site 2; non-empty Time Period badge.' },
+  { id: 'REG-BSF-003', submodule: 'Context', title: 'Portal site GDC Test Site 2; Time Period / device badges present', steps: 'Confirm active profile site; capture #time-period-view / device / browser / OS / data-type badges when rendered; if badge strip empty, open Filters and soft-capture Path / Timezone / Visitor Type (or site context).', expected: 'Site matches GDC Test Site 2 (profile); at least one badge, filter-context label, or site-context text is non-empty. Soft-accept when badge strip is hidden on this build (filters/context fallback).' },
   { id: 'REG-BSF-004', submodule: 'Path', title: 'Path Select2 accessible (Filters if needed)', steps: 'Open Filters when path Select2 hidden; capture path text.', expected: 'Path Select2 attached with non-empty selection.' },
   { id: 'REG-BSF-005', submodule: 'Chrome', title: 'Create Path / Add Comparison / View By soft presence', steps: 'Locate primary chrome controls.', expected: 'Representative chrome present or soft-annotated.' },
   { id: 'REG-BSF-006', submodule: 'Path', title: 'Change path runtime and soft-compare signature; restore', steps: 'Select alternate path; compare chart/KPI signature; restore.', expected: 'No hard-coded path names; original restored.' },
@@ -52,97 +52,26 @@ const cases = [
 ];
 
 async function main() {
-  const wb = new ExcelJS.Workbook();
-  wb.creator = 'BlueTriangle_Automation';
-  wb.created = new Date();
-
-  const summary = wb.addWorksheet('Summary');
-  summary.columns = [
-    { header: 'Field', key: 'field', width: 28 },
-    { header: 'Value', key: 'value', width: 100 },
-  ];
-  [
-    ['Module', MODULE],
-    ['Screen', 'Bottom of the Sales Funnel Conversion Analysis'],
-    ['Site', SITE],
-    ['Data center', DC],
-    ['Menu path', 'Business Insights > Improve Traffic > Bottom of the Sales Funnel Analysis'],
-    ['Route', 'marketing-insights/bottom-sales-funnel'],
-    ['Smoke catalog', 'mkt.bottom-funnel'],
-    ['Browser title', 'Bottom of the Funnel'],
-    ['#page-title', 'Business Insights / Improve Traffic / Bottom Of The Sales Funnel Analysis'],
-    ['Automation spec', AUTOMATION],
-    ['POM', 'pages/BottomOfTheSalesFunnelAnalysisPage.ts'],
-    ['Locators', 'locators/BottomOfTheSalesFunnelAnalysisLocators.ts'],
-    ['npm command', 'npm run test:regression:us2:bottom-sales-funnel'],
-    ['Case count', String(cases.length)],
-    ['Execution status', EXECUTION_STATUS],
-    ['Execution note', EXECUTION_NOTE],
-    [
-      'Out of scope',
-      'API/DB, Save Filter, permanent Create Path, Clear Cache, hard-coded path/step/conversion values, Dashboard widget creation',
+  const out = path.join(__dirname, '..', 'docs', 'Bottom_Of_The_Sales_Funnel_Analysis_Regression.xlsx');
+  const { path: written, count } = await writeRegressionManualWorkbook({
+    outPath: out,
+    screenTitle: 'Bottom of the Sales Funnel Conversion Analysis',
+    site: SITE,
+    dc: DC,
+    module: MODULE,
+    typeLabel: 'Regression (read-only)',
+    automation: AUTOMATION,
+    executionStatus: EXECUTION_STATUS,
+    executionNote: EXECUTION_NOTE,
+    notes: [
+      'Purpose: step-by-step late-funnel conversion analysis; path-based.',
+      'Do not hard-code path/step names or conversion %. No Save Filter / permanent Create Path / Clear Cache.',
+      'Badge strip may be empty — Filters path/context soft-fallback is acceptable (REG-BSF-003).',
+      'POM: pages/BottomOfTheSalesFunnelAnalysisPage.ts | npm run test:regression:us2:bottom-sales-funnel',
     ],
-    ['Video scenarios', '9 Marketing Insights training points (21:20–24:35) mapped into REG-BSF cases'],
-    ['PDF', 'Bottom of the Sales Funnel Widget (same graph as Analysis)'],
-  ].forEach(([field, value]) => summary.addRow({ field, value }));
-  summary.getRow(1).font = { bold: true };
-
-  const tcs = wb.addWorksheet('Regression TCs');
-  tcs.columns = [
-    { header: 'TC ID', key: 'id', width: 14 },
-    { header: 'Module', key: 'module', width: 36 },
-    { header: 'Submodule', key: 'submodule', width: 16 },
-    { header: 'Title', key: 'title', width: 70 },
-    { header: 'Priority', key: 'priority', width: 10 },
-    { header: 'Type', key: 'type', width: 12 },
-    { header: 'Steps', key: 'steps', width: 55 },
-    { header: 'Expected Result', key: 'expected', width: 55 },
-    { header: 'Automation', key: 'auto', width: 14 },
-    { header: 'Status', key: 'status', width: 14 },
-  ];
-  cases.forEach((c) => {
-    tcs.addRow({
-      id: c.id,
-      module: MODULE,
-      submodule: c.submodule,
-      title: c.title,
-      priority: 'High',
-      type: 'Regression',
-      steps: c.steps,
-      expected: c.expected,
-      auto: 'Automated',
-      status: EXECUTION_STATUS,
-    });
+    cases,
   });
-  tcs.getRow(1).font = { bold: true };
-  tcs.eachRow((row, n) => {
-    if (n === 1) return;
-    row.getCell('steps').alignment = { wrapText: true, vertical: 'top' };
-    row.getCell('expected').alignment = { wrapText: true, vertical: 'top' };
-  });
-
-  const notes = wb.addWorksheet('Notes');
-  notes.columns = [
-    { header: 'Topic', key: 'topic', width: 28 },
-    { header: 'Detail', key: 'detail', width: 110 },
-  ];
-  [
-    ['Purpose', 'Step-by-step conversion through late-funnel/checkout path to find friction; path-based analysis.'],
-    ['Docs', 'Widget Help PDF + Marketing Insights video; live BI Analysis page is source of truth.'],
-    ['Do not hard-code', 'Path/step/page-group names, conversion %, counts, time period, timezone, Highcharts internal IDs.'],
-    ['Path Select2', 'May require Filters open to fully expose #select2-existingPathSelect-container.'],
-    ['View By', 'Page Views vs Sessions dual chart hosts; inactive side may be 0×0 — soft.'],
-    ['Mutations out of scope', 'No Save Filter, permanent Create/Update path, Clear Cache, permanent comparison series.'],
-    ['Order Confirmation', 'Recommended by PDF/video for accurate Bottom Funnel Conversion — soft annotate if missing.'],
-    ['Execution', EXECUTION_NOTE],
-  ].forEach(([topic, detail]) => notes.addRow({ topic, detail }));
-  notes.getRow(1).font = { bold: true };
-
-  const outDir = path.join(__dirname, '..', 'docs');
-  fs.mkdirSync(outDir, { recursive: true });
-  const out = path.join(outDir, 'Bottom_Of_The_Sales_Funnel_Analysis_Regression.xlsx');
-  await wb.xlsx.writeFile(out);
-  console.log(`Wrote ${out}`);
+  console.log(`Wrote ${written} (${count} cases)`);
 }
 
 main().catch((err) => {

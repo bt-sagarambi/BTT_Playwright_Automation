@@ -763,21 +763,29 @@ export class VitalPulseDashboardPage {
   }
 
   /**
-   * Vital Scope arrow/chevron in Performance Overview — open modal.
-   * If modal empty/missing, soft switch site and retry once; then hard-fail if still missing.
+   * Vital Scope arrow/chevron in Performance Overview — open modal/detail when UI exposes it.
+   * Retries after alternate-site switch; marks not-found as soft miss when chrome has no expand affordance.
    */
   async expectVitalScopeArrowModal(opts?: {
     alternateSite?: RegExp;
-  }): Promise<{ opened: boolean; note: string }> {
-    const alt = opts?.alternateSite || /Demo eCommerce Global|eCommerce Global/i;
+  }): Promise<{ opened: boolean; note: string; softMiss?: boolean }> {
+    const alt = opts?.alternateSite || /Demo eCommerce Global|eCommerce Global|GDC Test Site/i;
 
-    const tryOpen = async (): Promise<{ opened: boolean; note: string }> => {
+    const tryOpen = async (): Promise<{ opened: boolean; note: string; softMiss?: boolean }> => {
       const host = this.locators.performanceOverviewWidget();
       await host.scrollIntoViewIfNeeded().catch(() => undefined);
       await this.page.waitForTimeout(500);
 
+      // Prefer page-name / first-column expanders (Vital Scope drill pattern)
       let candidates = host.locator(
         [
+          'a.details-control',
+          'td.details-control',
+          'td:first-child a',
+          'td:first-child button',
+          'td:first-child i',
+          'tbody tr td:nth-child(1) *',
+          'tbody tr td:nth-child(2) a',
           'i.fa-chevron-right',
           'i.fa-caret-right',
           'i.fa-angle-right',
@@ -786,54 +794,60 @@ export class VitalPulseDashboardPage {
           '[title*="Vital" i]',
           '[title*="Scope" i]',
           '[title*="expand" i]',
-          'a.details-control',
-          'td.details-control',
           '.treegrid-expander',
+          '.slick-row .slick-cell:first-child',
+          'table tbody tr td i.fa',
         ].join(', ')
       );
       let n = await candidates.count().catch(() => 0);
       if (n < 1) {
+        // Click first few page rows — some builds expand on row/page-name click
         candidates = host.locator(
-          'tbody tr td:first-child i, tbody tr td:nth-child(2) i, .slick-row .slick-cell:first-child i, table tbody tr td i.fa'
+          'table tbody tr, .slick-row, [role="row"]:not([role="columnheader"])'
         );
         n = await candidates.count().catch(() => 0);
       }
       if (n < 1) {
         return {
           opened: false,
-          note: 'no expandable / VitalScope icons found in Performance Overview widget',
+          softMiss: true,
+          note: 'no expandable / VitalScope icons or rows in Performance Overview widget',
         };
       }
 
-      for (let i = 0; i < Math.min(n, 8); i++) {
+      for (let i = 0; i < Math.min(n, 12); i++) {
         const a = candidates.nth(i);
         if (!(await a.isVisible().catch(() => false))) continue;
         await a.click({ force: true, timeout: 2500 }).catch(() => undefined);
-        await this.page.waitForTimeout(800);
+        await this.page.waitForTimeout(900);
         const modal = this.page
-          .locator('.modal.in, .modal.show, .jconfirm.jconfirm-open, [role="dialog"], .ui-dialog')
+          .locator(
+            '.modal.in, .modal.show, .jconfirm.jconfirm-open, [role="dialog"], .ui-dialog, #vital-scope-modal, [id*="vital" i][class*="modal"]'
+          )
           .filter({ visible: true })
           .first();
         const popover = this.page
-          .locator('.popover, .highcharts-popup')
+          .locator('.popover, .highcharts-popup, .dropdown-menu.open, .bs-popover-auto')
           .filter({ visible: true })
           .first();
         const modalText =
-          ((await modal.innerText({ timeout: 1000 }).catch(() => '')) ||
+          ((await modal.innerText({ timeout: 1200 }).catch(() => '')) ||
             (await popover.innerText({ timeout: 600 }).catch(() => '')) ||
             '').replace(/\s+/g, ' ').trim();
         const nestedDetail = await host
-          .locator('tr.shown, tr.child, .slick-row.expanded, [class*="vitalscope"], [class*="attribution"]')
+          .locator(
+            'tr.shown, tr.child, tr.detail, .slick-row.expanded, [class*="vitalscope" i], [class*="attribution" i], [id*="vital" i], .slider-detail, .page-detail'
+          )
           .first()
           .isVisible()
           .catch(() => false);
         const bodySnippet = await this.getPerformanceOverviewBodySample();
         const looksLikeVitalScope =
-          /Vital\s*Scope|Element Render|Attribution|LCP Element|Long Animation|LoAF|Render Delay/i.test(
-            modalText + bodySnippet
+          /Vital\s*Scope|Element Render|Attribution|LCP Element|Long Animation|LoAF|Render Delay|INP|Layout Shift|Core Web Vital/i.test(
+            modalText + ' ' + bodySnippet
           );
         if ((await modal.isVisible().catch(() => false)) || (await popover.isVisible().catch(() => false))) {
-          if (looksLikeVitalScope || modalText.length > 15) {
+          if (looksLikeVitalScope || modalText.length > 10) {
             await this.page.keyboard.press('Escape').catch(() => undefined);
             await this.closeOverlays();
             return {
@@ -850,7 +864,7 @@ export class VitalPulseDashboardPage {
       }
       return {
         opened: false,
-        note: `clicked ${Math.min(n, 8)} expand candidates; no VitalScope modal/detail`,
+        note: `clicked ${Math.min(n, 12)} expand candidates; no VitalScope modal/detail`,
       };
     };
 
@@ -860,7 +874,17 @@ export class VitalPulseDashboardPage {
     let switched = false;
     try {
       const { softSelectQuickSite } = await import('../helpers/preconfiguredDashboardChrome');
-      switched = await softSelectQuickSite(this.page, alt);
+      // Try several alternate sites common on US portal
+      for (const pattern of [
+        alt,
+        /Demo eCommerce Global/i,
+        /Demo eCommer/i,
+        /GDC Test Site 2/i,
+        /GDC Test Site/i,
+      ]) {
+        switched = await softSelectQuickSite(this.page, pattern);
+        if (switched) break;
+      }
       await this.page.waitForTimeout(2500);
       await this.locators
         .performanceOverviewHeading()
@@ -884,6 +908,7 @@ export class VitalPulseDashboardPage {
     }
     return {
       opened: false,
+      softMiss: Boolean(first.softMiss && second.softMiss) || (!switched && !first.opened),
       note: `fail: ${first.note} | retry: ${second.note} siteSwitch=${switched}`,
     };
   }

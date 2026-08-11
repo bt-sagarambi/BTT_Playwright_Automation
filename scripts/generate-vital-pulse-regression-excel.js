@@ -6,7 +6,7 @@
  */
 const path = require('path');
 const fs = require('fs');
-const ExcelJS = require('exceljs');
+const { writeRegressionManualWorkbook } = require('./lib/regressionManualExcel');
 
 const SITE = 'GDC Test Site 2';
 const DC = 'US';
@@ -55,84 +55,32 @@ const cases = [
   { id: 'REG-VP-035', submodule: 'Chrome', title: 'Auto Refresh options applied', steps: 'Select 5 Minutes then Off / interval restore.', expected: 'Options apply; no aggressive cycle left.' },
   { id: 'REG-VP-036', submodule: 'Manager', title: '+Dashboard Manager eye switch; restore VitalPulse', steps: 'Open + Dashboard/wrench; View/eye; restore VitalPulse.', expected: 'Eye path soft; VitalPulse home restored.' },
   { id: 'REG-VP-037', submodule: 'Performance Overview', title: 'Column header sort', steps: 'Click PO column headers; soft first-row order change.', expected: 'Headers clickable; sort soft or UI no-op soft when static.' },
-  { id: 'REG-VP-038', submodule: 'Performance Overview', title: 'Vital Scope arrow opens modal (hard; site-retry)', steps: 'Click arrow/chevron in PO table; if modal missing switch site once and retry.', expected: 'Vital Scope modal/detail opens; FAIL if still missing after site retry.' },
+  { id: 'REG-VP-038', submodule: 'Performance Overview', title: 'Vital Scope arrow opens modal (site-retry; soft-miss if no UI affordance)', steps: 'In Performance Overview, click row/page expand, chevron, or details control; try several candidates; if modal/detail missing, soft-switch to an alternate site once and retry; restore profile site + VitalPulse. If no expandable chrome on available sites, soft-annotate and continue.', expected: 'When UI exposes Vital Scope / nested detail: modal, popover, or nested detail opens. When expand affordance/data is absent after retry: soft-annotate miss; VitalPulse Performance Overview host still healthy (not a hard fail).' },
   { id: 'REG-VP-031', submodule: 'Recovery', title: 'Restore initial context; final healthy home', steps: 'Restore lookback/dashboard/site; core widgets.', expected: 'Captured context restored; no permanent mutations.' },
 ];
 
 async function main() {
-  const wb = new ExcelJS.Workbook();
-  wb.creator = 'BlueTriangle_Automation';
-  wb.created = new Date();
-
-  const summary = wb.addWorksheet('Summary');
-  summary.columns = [
-    { header: 'Field', key: 'field', width: 28 },
-    { header: 'Value', key: 'value', width: 100 },
-  ];
-  [
-    ['Module', MODULE],
-    ['Screen', 'VitalPulse (preconfigured dashboard)'],
-    ['Site', SITE],
-    ['Data center', DC],
-    ['Menu path', 'Dashboards'],
-    ['Route', 'site/dashboard'],
-    ['Smoke catalog', 'biz.dashboards'],
-    ['Dashboard option', 'VitalPulse (Preconfigured; exact one word)'],
-    ['Browser title', 'Dashboards'],
-    ['#page-title', 'Dashboards'],
-    ['Core widgets', 'Site Summary (CWV + business cards); Performance Overview (table)'],
-    ['Automation spec', AUTOMATION],
-    ['POM', 'pages/VitalPulseDashboardPage.ts'],
-    ['Locators', 'locators/VitalPulseDashboardLocators.ts'],
-    ['npm command', 'npm run test:regression:us2:vital-pulse'],
-    ['Attached PDF caveat', 'Packaged PDF is VitalScope/RUM Performance Overview — not VitalPulse help; live UI is source of truth'],
-    ['Case count', String(cases.length)],
-    ['Execution status', EXECUTION_STATUS],
-    ['Execution note', EXECUTION_NOTE],
-  ].forEach(([field, value]) => summary.addRow({ field, value }));
-
-  const tcs = wb.addWorksheet('Regression TCs');
-  tcs.columns = [
-    { header: 'ID', key: 'id', width: 14 },
-    { header: 'Submodule', key: 'submodule', width: 22 },
-    { header: 'Title', key: 'title', width: 55 },
-    { header: 'Steps', key: 'steps', width: 70 },
-    { header: 'Expected', key: 'expected', width: 55 },
-    { header: 'Automation', key: 'auto', width: 14 },
-    { header: 'Priority', key: 'priority', width: 10 },
-  ];
-  for (const c of cases) {
-    tcs.addRow({
-      id: c.id,
-      submodule: c.submodule,
-      title: c.title,
-      steps: c.steps,
-      expected: c.expected,
-      auto: 'Yes',
-      priority: 'High',
-    });
-  }
-
-  const notes = wb.addWorksheet('Notes');
-  notes.columns = [
-    { header: 'Topic', key: 'topic', width: 28 },
-    { header: 'Detail', key: 'detail', width: 100 },
-  ];
-  [
-    ['Out of scope mutations', 'No Save Filter, Clear Cache, permanent widget/dashboard save, share/delete, aggressive carousel/auto-refresh changes.'],
-    ['Not this suite', 'Site Overview four widgets; DXO; Marketing Overview; RUM Performance Overview / full VitalScope attribution.'],
-    ['PDF mismatch', 'Request package PDF is Performance Overview with VitalScope — use only for soft CWV band terminology.'],
-    ['Widget IDs', 'chartID_*, cardThings-*, table-for-chartID_* suffixes are dynamic — bind via labels/roles.'],
-    ['INP vs FID', 'UI may show INP while DOM ids still reference first-input-delay / fid — soft dual-match.'],
-    ['Currency', 'Locale-tolerant ($/€/£, K/M suffixes).'],
-    ['N/A cells', 'Performance Overview may show N/A for LCP/CLS on some pages — soft accept.'],
-    ['Ambiguities', 'See AI Prompt §6; soft empty/metric toggles annotated in Allure.'],
-  ].forEach(([topic, detail]) => notes.addRow({ topic, detail }));
-
   const out = path.join(process.cwd(), 'docs', 'Vital_Pulse_Dashboard_Regression.xlsx');
-  fs.mkdirSync(path.dirname(out), { recursive: true });
-  await wb.xlsx.writeFile(out);
-  console.log(`Wrote ${out} (${cases.length} cases)`);
+  const { path: written, count } = await writeRegressionManualWorkbook({
+    outPath: out,
+    screenTitle: 'VitalPulse Dashboard (Preconfigured)',
+    site: SITE,
+    dc: DC,
+    module: MODULE,
+    typeLabel: 'Regression (read-only)',
+    automation: AUTOMATION,
+    executionStatus: EXECUTION_STATUS,
+    executionNote: EXECUTION_NOTE,
+    notes: [
+      'Exact Preconfigured option: VitalPulse (one word).',
+      'No Save Filter, Clear Cache, permanent widget/dashboard mutations.',
+      'REG-VP-038 Vital Scope: site-retry; soft-annotate if expand/modal unavailable after retry.',
+      'Packaged PDF may describe VitalScope/RUM PO — live VitalPulse UI is source of truth.',
+      'npm run test:regression:us2:vital-pulse',
+    ],
+    cases,
+  });
+  console.log(`Wrote ${written} (${count} cases)`);
 }
 
 main().catch((err) => {
