@@ -10,17 +10,17 @@ import {
 import { getActiveProfile } from '../../../../../../config/profiles';
 
 /**
- * Regression: Native App Detailed Metrics (preconfigured dashboard family)
+ * Regression: Native App Detailed Metrics - Android (preconfigured dashboard)
  * Site: GDC Test Site 2
- * Path: tests/regression_tests/US2/dashboards/preconfigured/native-app-detailed-metrics
+ * Path: tests/regression_tests/US2/dashboards/preconfigured/native-app-detailed-metrics-android
  *
- * Default home: Native App Detailed Metrics - Android
+ * Suite home: Native App Detailed Metrics - Android
  * Soft dual: Native App Detailed Metrics - iOS
  *
  * Read-only: no Save Filter, permanent widget save, dashboard delete/share/clone sticky.
  * Exact option only — never Native App Performance Detail / RUM-SPD partial match.
  *
- * npm: test:regression:us2:native-app-detailed-metrics-dashboard
+ * npm: test:regression:us2:native-app-detailed-metrics-android-dashboard
  */
 
 const AUTH_STATE = path.join(__dirname, '../../../../../../playwright/.auth/user.json');
@@ -50,7 +50,7 @@ async function withSoftDeadline<T>(
   }
 }
 
-test.describe('US2 Regression — Native App Detailed Metrics Dashboard', () => {
+test.describe('US2 Regression — Native App Detailed Metrics - Android Dashboard', () => {
   test.describe.configure({ mode: 'serial' });
   test.setTimeout(150000);
 

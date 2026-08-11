@@ -11,7 +11,7 @@ You are generating thorough regression test cases for the preconfigured **Native
       docs/prompts/native-app-detailed-metrics-ios-dashboard-live.png
   • Package folder (AI Agents package):
       D:\Project_Work\BlueTriangle\AI Agents\US2\dashboards\preconfigured\native-app-detailed-metrics\
-      (or relative AI Agents/US2/dashboards/preconfigured/native-app-detailed-metrics/)
+      (or relative AI Agents/US2/dashboards/preconfigured/native-app-detailed-metrics-android/)
   • **No dedicated Help Center PDF / product .txt was supplied for this preconfigured board.** Prefer live Select2 labels, widget titles, table headers, legend series, host-id **prefixes**, empty-state copy, and soft filters from the probe as automation SoT.
   • Soft product vocabulary only (not suite navigation home):
       Custom Dashboard Widgets (Native App family): https://help.bluetriangle.com/hc/en-us/articles/27022168923923-Custom-Dashboard-Widgets
@@ -93,9 +93,9 @@ CRITICAL DISTINCTION (do not confuse screens)
    Left nav **Native App** → Performance Detail / Overview / Errors — soft optional identity only.
 
    Target automation folder:
-   tests/regression_tests/US2/dashboards/preconfigured/native-app-detailed-metrics/
+   tests/regression_tests/US2/dashboards/preconfigured/native-app-detailed-metrics-android/
    Suggested spec name (pick one; document):
-   native.app.detailed.metrics.dashboard.regression.spec.ts
+   native.app.detailed.metrics.android.dashboard.regression.spec.ts
      (Android primary + required soft iOS; parameterized where helpful)
    Suggested POM / locators:
    pages/NativeAppDetailedMetricsDashboardPage.ts
@@ -108,7 +108,7 @@ CRITICAL DISTINCTION (do not confuse screens)
    Suggested manual test workbook:
    docs/Native_App_Detailed_Metrics_Dashboard_Regression.xlsx
    Suggested npm command (**must differ from Native App Performance Detail Dashboard & Monitoring**):
-   test:regression:us2:native-app-detailed-metrics-dashboard
+   test:regression:us2:native-app-detailed-metrics-android-dashboard
    Suggested test case ID prefix:
    REG-NADM-DASH-###
    Probe script (reference):
@@ -455,7 +455,7 @@ CRITICAL DISTINCTION (do not confuse screens)
     - Do **not** require Bar Graph + Details cards + Daily Averages four-widget PD layout (belongs to **Native App Performance Detail** sibling).
 
 3️⃣ TASK — EXACTLY WHAT TO GENERATE
-Generate a separate Playwright automation suite under regression_tests > US2 > dashboards > preconfigured > native-app-detailed-metrics as specified above. Cover thorough regression for:
+Generate a separate Playwright automation suite under regression_tests > US2 > dashboards > preconfigured > native-app-detailed-metrics-android as specified above. Cover thorough regression for:
   - navigation & identity (**exact Native App Detailed Metrics - Android** default home; soft **iOS** dual)
   - Native App Performance graph shell, multi-series legend toggle soft, multi-axis soft
   - 1st vs 3rd Party Activity - Native (Domains / Network Requests toggles soft, tables Domain/Network Request/Total Load Time soft)

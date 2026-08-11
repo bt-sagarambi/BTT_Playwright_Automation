@@ -11,11 +11,11 @@ const SITE = 'GDC Test Site 2';
 const DC = 'US';
 const MODULE = 'Dashboards — Preconfigured';
 const AUTOMATION =
-  'tests/regression_tests/US2/dashboards/preconfigured/native-app-detailed-metrics/native.app.detailed.metrics.dashboard.regression.spec.ts';
+  'tests/regression_tests/US2/dashboards/preconfigured/native-app-detailed-metrics-android/native.app.detailed.metrics.android.dashboard.regression.spec.ts';
 const EXECUTION_STATUS = process.env.NADM_EXECUTION_STATUS || 'Not Executed';
 const EXECUTION_NOTE =
   process.env.NADM_EXECUTION_NOTE ||
-  'Run npm run test:regression:us2:native-app-detailed-metrics-dashboard and record live-data annotations from Allure.';
+  'Run npm run test:regression:us2:native-app-detailed-metrics-android-dashboard and record live-data annotations from Allure.';
 
 const cases = [
   { id: 'REG-NADM-DASH-001', submodule: 'Navigation', title: 'Page loads via Dashboards menu/route with correct title', steps: 'Login; open Dashboards; observe route and title.', expected: 'URL site/dashboard; title Dashboards; not login.' },
@@ -81,7 +81,7 @@ async function main() {
       'Always re-assert GDC Test Site 2 after dashboard or site switch.',
       'No Save Filter / Clear Cache / permanent dashboard Save-Share-Clone-Delete.',
       'chartID_* and widget id numeric suffixes are dynamic — use prefixes and titles.',
-      'npm run test:regression:us2:native-app-detailed-metrics-dashboard',
+      'npm run test:regression:us2:native-app-detailed-metrics-android-dashboard',
     ],
     cases: cases.map((c) => ({ ...c, module: MODULE, type: 'Regression' })),
   });
