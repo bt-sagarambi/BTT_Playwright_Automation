@@ -686,6 +686,7 @@ export class NativeAppDetailedMetricsDashboardPage {
     return { toggled: true, note: `Legend soft toggle items≈${count}` };
   }
 
+  /** From Android home: visit iOS then restore Android. */
   async softIosRoundTrip(): Promise<{ note: string; frictionIos: boolean; restored: boolean }> {
     await this.ensureOsSelected('ios');
     await this.expectCoreWidgetsReady().catch(() => undefined);
@@ -701,18 +702,36 @@ export class NativeAppDetailedMetricsDashboardPage {
     };
   }
 
-  async softPerformanceDetailSiblingDiscrimination(): Promise<{ note: string; restored: boolean }> {
+  /** From iOS home: visit Android then restore iOS. */
+  async softAndroidRoundTrip(): Promise<{ note: string; frictionAndroid: boolean; restored: boolean }> {
+    await this.ensureOsSelected('android');
+    await this.expectCoreWidgetsReady().catch(() => undefined);
+    const friction = await this.softAssertFrictionOs('android');
+    await this.ensureOsSelected('ios');
+    await this.ensureProfileSiteSelected();
+    await this.expectCoreWidgetsReady().catch(() => undefined);
+    const restored = isNativeAppDetailedMetricsLabel(await this.getDashboardLabel(), 'ios');
+    return {
+      note: `Android friction sample="${friction.sample}"; restoredIos=${restored}`,
+      frictionAndroid: friction.ok,
+      restored,
+    };
+  }
+
+  async softPerformanceDetailSiblingDiscrimination(
+    homeOs: DetailedMetricsOs = 'android'
+  ): Promise<{ note: string; restored: boolean }> {
     const names = await this.listPreconfiguredDashboardNames();
     const napd = names.find((n) => /^\s*Native App Performance Detail\s*$/i.test(n));
     if (!napd) return { note: 'Native App Performance Detail not in switcher', restored: true };
     await this.selectDashboard(/^\s*Native App Performance Detail\s*$/i);
     await this.page.waitForTimeout(3000);
     const after = await this.getDashboardLabel();
-    await this.ensureOsSelected('android');
+    await this.ensureOsSelected(homeOs);
     await this.ensureProfileSiteSelected();
-    const restored = isNativeAppDetailedMetricsLabel(await this.getDashboardLabel(), 'android');
+    const restored = isNativeAppDetailedMetricsLabel(await this.getDashboardLabel(), homeOs);
     return {
-      note: `Visited sibling="${after}"; restoredDetailedMetricsAndroid=${restored}`,
+      note: `Visited sibling="${after}"; restoredDetailedMetrics${homeOs}=${restored}`,
       restored,
     };
   }
@@ -743,10 +762,10 @@ export class NativeAppDetailedMetricsDashboardPage {
     return results;
   }
 
-  async softSiteChangeAndLock() {
+  async softSiteChangeAndLock(homeOs: DetailedMetricsOs = 'android') {
     const { softSiteChangeAndLock } = await import('../helpers/preconfiguredDashboardChrome');
     const r = await softSiteChangeAndLock(this.page);
-    await this.ensureOsSelected('android', { soft: true });
+    await this.ensureOsSelected(homeOs, { soft: true });
     await this.ensureProfileSiteSelected();
     await this.expectCoreWidgetsReady().catch(() => undefined);
     return r;
@@ -759,14 +778,15 @@ export class NativeAppDetailedMetricsDashboardPage {
     return r;
   }
 
-  async softPlusDashboardEyeSwitchHome() {
+  async softPlusDashboardEyeSwitchHome(homeOs: DetailedMetricsOs = 'android') {
     const { softPlusDashboardEyeSwitch } = await import('../helpers/preconfiguredDashboardChrome');
-    let r = await softPlusDashboardEyeSwitch(this.page, NADM_ANDROID_EXACT);
+    const exact = homeOs === 'ios' ? NADM_IOS_EXACT : NADM_ANDROID_EXACT;
+    let r = await softPlusDashboardEyeSwitch(this.page, exact);
     if (!r.restoredHome) {
-      await this.ensureOsSelected('android', { soft: true });
+      await this.ensureOsSelected(homeOs, { soft: true });
       r = {
         ...r,
-        restoredHome: isNativeAppDetailedMetricsLabel(await this.getDashboardLabel(), 'android'),
+        restoredHome: isNativeAppDetailedMetricsLabel(await this.getDashboardLabel(), homeOs),
       };
     }
     await this.ensureProfileSiteSelected();
@@ -774,7 +794,7 @@ export class NativeAppDetailedMetricsDashboardPage {
     return r;
   }
 
-  async expectNotConfusedSurfaces(): Promise<void> {
+  async expectNotConfusedSurfaces(homeOs?: DetailedMetricsOs): Promise<void> {
     await expect(this.page).not.toHaveURL(/overview-dashboard\/marketing/i);
     await expect(this.page).not.toHaveURL(/overview-dashboard\/overview/i);
     await expect(this.page).not.toHaveURL(
@@ -785,9 +805,11 @@ export class NativeAppDetailedMetricsDashboardPage {
     );
     await expect(this.page).toHaveURL(/site\/dashboard|r=site%2Fdashboard/i);
     const dash = await this.getDashboardLabel();
-    expect(isNativeAppDetailedMetricsLabel(dash), `dash="${dash}"`).toBeTruthy();
+    expect(isNativeAppDetailedMetricsLabel(dash, homeOs), `dash="${dash}"`).toBeTruthy();
     expect(dash).not.toMatch(/^\s*Native App Performance Detail\s*$/i);
     expect(dash).not.toMatch(/RUM Performance Detail/i);
     expect(dash).not.toMatch(/Synthetic Performance Detail/i);
+    if (homeOs === 'ios') expect(dash).not.toMatch(NADM_ANDROID_EXACT);
+    if (homeOs === 'android') expect(dash).not.toMatch(NADM_IOS_EXACT);
   }
 }

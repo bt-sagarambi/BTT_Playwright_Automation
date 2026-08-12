@@ -1,0 +1,584 @@
+Purpose (For Native App Detailed Metrics - iOS Dashboard)
+Generate thorough Playwright + TypeScript POM regression for the preconfigured **Native App Detailed Metrics - iOS** board on GDC Test Site 2 (US). Reverse-engineer live UI via probe JSON section `ios` and screenshot docs/prompts/native-app-detailed-metrics-ios-dashboard-live.png. Navigation SoT: Login → Dashboards → Select2 **Native App Detailed Metrics - iOS**. Cover chrome, filters, nine multi-widgets (Performance, Party Activity, Network Failures, **iOS Friction Map**, Crash Summary, HTTP Responses ×2, ANR/OOM, CPU & Memory), tables/graphs/toggles, lookbacks, recovery, and explicit non-confusion with Android Detailed Metrics and Native App Performance Detail.
+
+Live observations (GDC Test Site 2 — probe.ios, Aug 2026)
+- Route: site/dashboard | Title/#page-title: Dashboards
+- Switcher: Native App Detailed Metrics - iOS | Quick site: GDC Test Site 2 | Lookback sample: Last 6 hours | Auto Refresh (5m) | Carousel (off)
+- Preconfigured siblings listed: Site Overview, VitalPulse, Synthetic Site Health, Traffic Source and Medium, RUM Performance Detail, Synthetic Performance Detail, Native App Performance Detail, Native App Detailed Metrics - Android, Native App Detailed Metrics - iOS
+- Widgets (probe.ios.snap.widgets):
+  1) Native App Performance — multi-series (Group / Page Views, Performance Timing / Onload, Errors and Crashes, CPU Usage, Memory Usage + CWV/timing series); hosts #perfGraph-page-timings-graph*
+  2) 1st vs 3rd Party Activity - Native — DOMAINS / NETWORK REQUESTS; 1st Party / 3rd Party / All; Domain / Network Request / Total Load Time
+  3) Network Request Failures Over Time — Network Request Failures + Client Side Failures; soft HTTP 400s & HTTP 500s
+  4) **iOS Friction Map** / **iOS App Friction Map** — **No data to display** (controlled empty OK)
+  5) Native App Crash Summary — No data to display (controlled empty OK)
+  6) Native App HTTP Responses — tiles with Number of Requests / Avg Load Time / 200s–500s buckets (nativeAppHttpResponse*)
+  7) Native App HTTP Responses By Error Count — companion tiles (nativeAppHttpResponseByError*)
+  8) Native App ANR & Out Of Memory Warnings — empty OK
+  9) CPU and Memory Usage / Average CPU And Memory Usage — graph + table (Page Name, Avg CPU Usage, AVG Memory Usage, Page Hits); cpu-and-memory-*
+- Soft note: Get started / “Consultant access denied” / jconfirm overlays may appear — dismiss before asserts
+- Prefer probe.ios.lookbackOptions / probe.ios.autoRefreshOptions; #select2-site-id-container often hidden — use quick site
+
+Cover
+- Exact iOS Select2 home; soft Android dual then restore iOS + GDC
+- All nine widget shells + party/CPU toggles + filters My/Shared + lookbacks 1h|6h / 24h / 7d / 30d + chrome round-trips
+- Empty Friction/Crash/ANR soft success; no Save Filter / Clear Cache / permanent dashboard mutations
+
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the preconfigured **Native App Detailed Metrics - iOS** dashboard (user / package name may also say “Native App Performance Detailed Metrics - iOS Dashboard”). Reverse-engineer the live application using **GDC Test Site 2** and refer to:
+  • Live portal reverse-engineering probe (Aug 2026): docs/prompts/native-app-detailed-metrics-dashboard-live-probe.json
+    — sections `android` and `ios` (select, snap, filtersOpen, lookbackOptions, autoRefreshOptions)
+  • Probe script: scripts/probe-native-app-detailed-metrics-dashboard.ts
+  • Optional live screenshots:
+      docs/prompts/native-app-detailed-metrics-android-dashboard-live.png
+      docs/prompts/native-app-detailed-metrics-ios-dashboard-live.png
+  • Package folder (AI Agents package):
+      D:\Project_Work\BlueTriangle\AI Agents\US2\dashboards\preconfigured\native-app-detailed-metrics-ios\
+      (or relative AI Agents/US2/dashboards/preconfigured/native-app-detailed-metrics-ios/)
+  • Sibling Android suite / prompt (discrimination only):
+      docs/prompts/AI Prompt (For Automation Regression-Native App Detailed Metrics Dashboard).txt
+      tests/regression_tests/US2/dashboards/preconfigured/native-app-detailed-metrics-android/
+  • **No dedicated Help Center PDF / product .txt was supplied for this preconfigured board.** Prefer live Select2 labels, widget titles, table headers, legend series, host-id **prefixes**, empty-state copy, and soft filters from the probe as automation SoT.
+  • Soft product vocabulary only (not suite navigation home):
+      Custom Dashboard Widgets (Native App family): https://help.bluetriangle.com/hc/en-us/articles/27022168923923-Custom-Dashboard-Widgets
+      SDK installation / validation docs that mention “Native App Detailed Metrics for Android or iOS” as a validation path
+  • Shared dashboard shell patterns from:
+      docs/prompts/AI Prompt (For Automation Regression-Native App Performance Detail Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-RUM Performance Detail Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Synthetic Performance Detail Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Synthetic Site Health Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Traffic Source and Medium Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Site Overview Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Vital Pulse Dashboard).txt
+      pages/RumPerformanceDetailDashboardPage.ts / pages/NativeAppPerformanceDetailDashboardPage.ts (if present) — **sibling discrimination only**
+      helpers/preconfiguredDashboardChrome.ts / pages/MarketingOverviewPage.ts
+
+NOTE ON DOCUMENTATION VS LIVE PRODUCT
+1) Package materials for this board are **live-probe + this AI Prompt** (no PDF package article named “Native App Detailed Metrics Dashboard”). Custom Dashboard Widgets documents **addable** native widgets (Crash Summary, ANR & OOM, Average CPU & Memory, Network Request Failures, Native App Performance, HTTP Failure / Response widgets, etc.). Map TCs to **live grid titles on the preconfigured board**, not arbitrary custom builder combinations.
+2) Live GDC Preconfigured dropdown exposes **two** OS Detailed Metrics options:
+   - **Native App Detailed Metrics - Android** (sibling only for this suite)
+   - **Native App Detailed Metrics - iOS** (**THIS suite home**)
+   User navigation SoT: Login → left menu **Dashboards** → Select2 **Native App Detailed Metrics - iOS**. Soft-tolerate product renames that insert “Performance” into Select2 text **only if** the **- iOS** suffix remains exact.
+3) These boards are **multi-widget operational dashboards** (~nine grid widgets: performance trend, 1st vs 3rd party activity, network failures, OS friction map, crash summary, HTTP responses (two views), ANR/OOM, CPU & memory). They are **not** the four-widget Bar Graph / Details / Performance Graph / Daily Averages layout used by **Native App Performance Detail**.
+4) Controlled empty states are common and expected on GDC for **Friction Map**, **Crash Summary**, and **ANR & Out Of Memory Warnings** (“No data to display”) — soft-assert healthy empty shells; do **not** hard-require crash/ANR/friction series.
+5) Prefer live control ids / id **prefixes**, widget **titles**, metric **labels**, table **headers**, legend series names, page-size menus, and Select2 values when any external doc is incomplete or older than the product UI.
+
+CRITICAL DISTINCTION (do not confuse screens)
+  • **Native App Detailed Metrics - iOS Dashboard (THIS suite)** = Preconfigured dashboard on route **site/dashboard**, menu **Dashboards**, under optgroup **Preconfigured** in #switch-dashboard / #select2-switch-dashboard-container:
+      - Exact option: **Native App Detailed Metrics - iOS** — **suite home**
+      - Soft dual / discrimination: **Native App Detailed Metrics - Android** (soft-switch then restore **iOS**)
+    Soft-tolerate rare “Native App Performance Detailed Metrics - iOS” if product renames; never partial-match “Native App”, “Detailed Metrics” without OS, or “Performance Detail” alone.
+    Never accept **Native App Detailed Metrics - Android** as suite home for this iOS suite.
+  • **Native App Performance Detail** (preconfigured Select2 exact) — **sibling only**; similar name; **different** four-widget Performance Detail layout. Soft-switch then restore **Native App Detailed Metrics - iOS**. Never accept as suite home.
+  • **Monitoring → Native App → Performance Detail / Performance Overview / Errors Explorer / Session Lookup paths** — different menus; **out of primary scope**. Do not navigate as suite home; do not re-implement full Monitoring Native App suites here.
+  • **RUM Performance Detail** / **Synthetic Performance Detail** preconfigured dashboards — sibling only; soft-switch then restore.
+  • Site Overview, VitalPulse, Synthetic Site Health, Traffic Source and Medium — sibling preconfigured only; always restore **Native App Detailed Metrics - iOS** + **GDC Test Site 2**.
+  • Marketing Overview / DXO — **out of primary scope**.
+
+⚠️ PROBE / SELECTION PITFALLS
+1) Exact Select2 matches:
+   - Android: `^\s*Native App Detailed Metrics\s*-\s*Android\s*$`
+   - iOS: `^\s*Native App Detailed Metrics\s*-\s*iOS\s*$`
+   Reject options containing **Performance Detail** (without Detailed Metrics), RUM, Synthetic, Site Health, Overview, Detailed Metrics without an OS suffix when both OS boards exist.
+2) Partial “Native App” is unsafe (hits Performance Detail + Detailed Metrics + OS pair). Partial “Detailed Metrics” without OS is unsafe. Partial “Android” / “iOS” alone is unsafe.
+3) After every dashboard or site switch **re-assert GDC Test Site 2** via #select2-quick-site-id-container (#select2-site-id-container often **hidden** on this shell — prefer quick-site recovery). Soft-refresh if widget subtitles still show another site.
+4) Android vs iOS boards share widget **families**; primary OS chrome difference observed: Friction Map titles (**iOS Friction Map** / **iOS App Friction Map** on this home vs **Android Friction Map** / **Android App Friction Map** on sibling). Prove OS home via **exact switcher text + iOS friction title soft**; soft-switch Android once only to prove discrimination then restore iOS.
+5) chartID_*, nativeAppHttpResponse_*, cpu-and-memory-*-NNN suffixes change per load — locate by **prefix regex** / title text, never hard exact dynamic suffixes.
+6) Sparse windows: empty Friction / Crash / ANR OK; sparse HTTP tiles possible — controlled empty + annotate; optional broader lookback once (e.g. Last 7 days) then restore.
+7) Do not reuse npm for Native App Performance Detail Dashboard (`test:regression:us2:native-app-performance-detail-dashboard`), RUM/Synthetic PD dashboards, or Monitoring suites (e.g. `test:regression:us2:rum-pd`).
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - Native App Detailed Metrics boards are preconfigured **OS-scoped native app health & performance analytics views** on the shared Dashboards shell: multi-series **Native App Performance** over the selected period; **1st vs 3rd Party Activity - Native** network domain/request breakdown; **Network Request Failures Over Time** (HTTP 400/500 + client-side failures soft); **OS Friction Map**; **Crash Summary**; **HTTP Responses** and **HTTP Responses By Error Count** (status-bucket mix per resource); **ANR & Out Of Memory Warnings**; **Average CPU And Memory Usage** with graph + per-page table.
+   - Metric / value formats: s/S, ms/MS, %, MB/bytes, K/M or comma counts, status bucket percents (200s–500s). No Sitewide Revenue requirement.
+   - Use live UI data only. Do not call APIs or query a database.
+   - Do not hard-code Highcharts internal ids, chartID_* suffixes, exact request counts, exact percents, exact load times, exact page/domain/endpoint catalogs (connect, collect, fonts, PDP, Cart, … are probe samples only), exact pager strings, timezone offsets, or “0/75 dashboards used”.
+   - Capture at suite start (**default home iOS**): active dashboard label (exact **Native App Detailed Metrics - iOS**), active quick site, Time Lookback label, Auto Refresh label, inventory of ≥8 core widget title shells, filter drawer closed/open, Carousel state (prefer off).
+   - Assert titles, labels, formats, graph/table shells, pagination chrome, controlled empty states, before/after soft signatures rather than exact backend values.
+   - If a filter/time combo yields empty HTTP tiles or zero-series graphs, assert controlled empty / “No data to display”, annotate, restore a data-bearing context and continue.
+   - Widget layout may reflow with grid — prefer **title / body text presence** and stable host **id prefixes** when present.
+
+2. Navigation and implementation paths
+   User + live primary path (prefer this — exact user navigation):
+   Login → Left menu **Dashboards** → Select dashboards dropdown → **Native App Detailed Metrics - iOS**
+   Route (observed): **site/dashboard**
+   Smoke catalog reference: **biz.dashboards** (menuLabel Dashboards, route site/dashboard, hrefIncludes site/dashboard, hrefExcludes marketing=yes)
+   Browser title observed: **Dashboards**
+   #page-title observed: **Dashboards**
+   After load, dashboard switcher #select2-switch-dashboard-container must resolve to:
+     **Native App Detailed Metrics - iOS** (suite home — exact)
+   First paint may still be Site Overview, Android Detailed Metrics, or another default — **always select exact iOS option text**.
+
+   Alternate discovery paths (soft coverage):
+   1) Upper-left #switch-dashboard / Select2 → exact OS Detailed Metrics label.
+   2) Gear / wrench **Dashboard Manager** (#dashboard-manager / #dashboard-settings-toggle) → list → soft **Eye**/open the matching Detailed Metrics OS board if listed; close without Save/Delete.
+   Do **not** delete preconfigured dashboards. Do **not** leave manager Save sticky changes.
+
+   Monitoring paths (discrimination only — **not** suite home):
+   Left nav **Native App** → Performance Detail / Overview / Errors — soft optional identity only.
+
+   Target automation folder:
+   tests/regression_tests/US2/dashboards/preconfigured/native-app-detailed-metrics-ios/
+   Suggested spec name:
+   native.app.detailed.metrics.ios.dashboard.regression.spec.ts
+   Suggested POM / locators (reuse shared NADM POM with OS='ios' home, or dedicated iOS wrappers):
+   pages/NativeAppDetailedMetricsDashboardPage.ts
+   locators/NativeAppDetailedMetricsDashboardLocators.ts
+   Optional thin wrappers if preferred:
+   pages/NativeAppDetailedMetricsIosDashboardPage.ts
+   locators/NativeAppDetailedMetricsIosDashboardLocators.ts
+   Reuse / extend patterns from:
+   - helpers/preconfiguredDashboardChrome.ts
+   - pages/SiteOverviewDashboardPage.ts / VitalPulseDashboardPage.ts / SyntheticSiteHealthDashboardPage.ts / TrafficSourceMediumDashboardPage.ts / RumPerformanceDetailDashboardPage.ts / NativeAppPerformanceDetailDashboardPage.ts (if present) — same site/dashboard shell; **different** widget homes
+   - pages/MarketingOverviewPage.ts (lookback / auto refresh / filters / recoverPage)
+   - Monitoring Native App POMs **only** for filter/metric naming ideas — **not** as navigation home
+   Suggested manual test workbook:
+   docs/Native_App_Detailed_Metrics_iOS_Dashboard_Regression.xlsx
+   Suggested npm command (**must differ from Android Detailed Metrics, Native App Performance Detail Dashboard & Monitoring**):
+   test:regression:us2:native-app-detailed-metrics-ios-dashboard
+   Suggested test case ID prefix:
+   REG-NADM-IOS-DASH-###
+   Probe script (reference):
+   scripts/probe-native-app-detailed-metrics-dashboard.ts → docs/prompts/native-app-detailed-metrics-dashboard-live-probe.json
+
+3. Page load, authentication and default context
+   - Verify authenticated navigation succeeds without login redirect, blocking error, blank shell or perpetual loader.
+   - Verify browser title matches /Dashboards/i.
+   - Verify #page-title matches /Dashboards/i.
+   - Verify URL contains site/dashboard (slash / %2F safe patterns).
+   - Verify selected portal site is GDC Test Site 2 (#select2-quick-site-id-container when visible; prefer quick-site when #select2-site-id-container is hidden).
+   - Dismiss Get started / Don’t show me again / jconfirm overlays before interacting.
+   - Verify #select2-switch-dashboard-container matches `/^\s*Native App Detailed Metrics\s*-\s*iOS\s*$/i`. If not, select exact **Native App Detailed Metrics - iOS** and wait for widgets to settle.
+   - Verify core live widgets settle within a bounded UI deadline (by text / stable host **prefixes** — not dynamic highcharts-* instance alone):
+       • **Native App Performance** — multi-series native performance graph; hosts **#perfGraph-page-timings-graph*** / **#perf-graph-div-chartID_*** soft
+       • **1st vs 3rd Party Activity - Native** — Domains / Network Requests chrome; hosts **first-vs-third-*** / **slowest-domains-*** / **slowest-files-*** / **table-for-slowest-*** prefixes
+       • **Network Request Failures Over Time** — chart shell; soft subtitle **HTTP 400s & HTTP 500s**
+       • **iOS Friction Map**; soft body **iOS App Friction Map**; empty **No data to display** OK (probe SoT). Must **not** show Android Friction Map as home inventory title.
+       • **Native App Crash Summary** — empty OK
+       • **Native App HTTP Responses** — hosts **nativeAppHttpResponse*** / **response_native-***
+       • **Native App HTTP Responses By Error Count** (casing soft by/By) — hosts **nativeAppHttpResponseByError*** / **responseByError_native-***
+       • **Native App ANR and Memory Warnings** / body **Native App ANR & Out Of Memory Warnings** — empty OK
+       • **CPU and Memory Usage** / **Average CPU And Memory Usage** — hosts **cpu-and-memory-*** / **table-for-cpu-and-memory-***
+   - Soft-assert time-range text on time-series widgets (sample: “YYYY-MM-DD HH:mm to YYYY-MM-DD HH:mm, IST (+05:30)” + site) — do not hard-code timestamps or IST offset.
+   - Soft-assert #last-updated-dashboard when present.
+   - Verify browser Back/Forward and refresh return to a healthy site/dashboard context; re-select OS Detailed Metrics home + GDC if lost.
+   - Capture uncaught page errors; distinguish app-blocking errors from Highcharts/third-party noise.
+
+4. Dashboard chrome (tabs = My/Shared Filters + soft concept; no multi-campaign page tabs)
+   Live chrome hosts/controls observed on GDC Native App Detailed Metrics (samples — not permanent values):
+   - Dashboard switcher: #switch-dashboard / #select2-switch-dashboard-container
+     Sample texts: **Native App Detailed Metrics - Android** | **Native App Detailed Metrics - iOS**
+   - Quick site: #select2-quick-site-id-container (sample: GDC Test Site 2)
+   - Time Lookback: #time-lookback (probe sample: **Last 6 hours**; changeable; may also show Last 1 hour depending on session)
+   - Dashboard Refresh: #refresh-dashboard
+   - Auto Refresh: #auto-refresh / #auto-refresh-frequency / #auto-refresh-btn-group
+     Live options (probe): **Off**, **2 Minutes**, **5 Minutes**, **10 Minutes**, **15 Minutes**, **30 Minutes**, **60 Minutes**
+     Soft-assert subset; sample button **Auto Refresh (5m)**.
+   - Carousel when present (sample: Carousel (off)) — soft open/close; do not leave cycling
+   - Filters: #toggle-filters / #mobile-controls-filters-btn; Apply soft; #cancel-filters / Cancel
+   - #dashboard-page-controls wrapper soft
+   - + Widget / + Dashboard — soft open/close only; **do not Save**
+   - Dashboard Manager / wrench — soft open/close; no delete/share sticky
+   - My Filters / Shared Filters (#my-filters-tab / #shared-filters-tab) — read-only; **do not Save Filter**
+   - #last-updated-dashboard soft
+
+   Cover:
+   - Verify switcher attached; home **Native App Detailed Metrics - iOS** selected or selectable by exact option text.
+   - Soft-list Preconfigured names (both Detailed Metrics OS boards present; distinguish **Native App Performance Detail** / RUM / Synthetic / Site Overview / Android Detailed Metrics); restore **iOS** if sampled others.
+   - Soft Auto Refresh menu options (include 2m and 60m soft); restore.
+   - Soft Time Lookback change + restore (see §8).
+   - Click #refresh-dashboard; soft healthy multi-widget inventory.
+   - Soft Filters open/Cancel/Escape.
+   - Soft Dashboard Manager; soft Add Widget cancel.
+   - **Tabs:** My Filters / Shared Filters only for page-level filter tabs. Party-activity Domain vs Network Request and CPU graph vs table are **widget chrome toggles**, not browser tabs.
+
+5. Widget — Native App Performance
+   Purpose: multi-series native / performance timings and health metrics over the selected lookback for matching pages/groups.
+
+   Live observations:
+   - Body/title contains **Native App Performance**.
+   - Header chips / series short names sample: **Performance Timing / Onload**, **Group / Page Views**, **Errors and Crashes**, **CPU Usage**, **Memory Usage**.
+   - Soft subtitle **Groups / Pages: All Matching Groups / Pages**.
+   - Time-range + site subtitle (sample GDC Test Site 2).
+   - Hosts: **#perfGraph-page-timings-graph*** / **#perf-graph-div-chartID_*** (suffix dynamic).
+   - Legend / series (probe; assert multi-series presence, not exact order/all):
+       Group / Page Views · Performance Timing / Onload · Errors and Crashes · CPU Usage · Memory Usage ·
+       Largest Contentful Paint · INP · Cumulative Layout Shift · First Byte · TCP · DNS · DOM Duration · SSL · Redirect · Base Page ·
+       Time To DOM Interactive · Time To DOM Content Loaded · Time to Interactive · First Contentful Paint · Total Blocking Time
+     Soft dual regex for spellings (Onload vs Performance Timing / Onload; Group / Page Views vs Page Views).
+   - Multi Y axes soft (seconds / counts / % / MB) — do not hard-assert tick values.
+   - Soft legend paging sample **1/9**.
+
+   Cover:
+   - Verify Native App Performance region visible after OS board selection.
+   - Soft-assert Highcharts container sized (probe ~608×400 sample) when hasChart.
+   - Soft **legend toggle**: click one series (CPU Usage, Memory Usage, Performance Timing / Onload, or Errors and Crashes); soft visual still healthy; re-click to restore if toggled off.
+   - Soft **gear** open if present; **Cancel/Escape without Save**; do not permanently deselect all series.
+   - Soft hover/crosshair when series non-empty.
+   - After lookback change: soft re-assert graph frame + legend or title still present.
+   - Soft-assert at least one of **CPU Usage** / **Memory Usage** / **Errors and Crashes** appears in legend or header chips when settle (annotate if missing on sparse window).
+
+6. Widget — 1st vs 3rd Party Activity - Native
+   Purpose: compare first-party vs third-party native network activity; surface slowest domains / network requests for the selected period.
+
+   Live observations:
+   - Body/title: **1st vs 3rd Party Activity - Native**.
+   - Controls soft: **DOMAINS**, **NETWORK REQUESTS**, **1st Party**, **3rd Party**, **All**.
+   - Subtitle soft: **Duration (sec)**; **Slowest Network Requests** / **Slowest Domains By Activity**.
+   - Graph + table dual mode soft (buttons first-vs-third-graph-btn-* / first-vs-third-table-btn-*).
+   - Hosts soft prefixes: slowest-domains-graph-*, slowest-files-graph-*, slowest-domains-table-*, slowest-files-table-*, table-for-slowest-domains-table-*, table-for-slowest-files-table-*, select2-slowest-metric-* when present.
+   - Table headers when visible: **Domain**, **Network Request**, **Total Load Time** (headers may stack depending on Domains vs Requests mode).
+   - Sample bar labels (illustrative only): manifest.jpg, product.jpg, banner.jpg, fonts, connect, collect, … — **never hard-code** as required catalog.
+
+   Cover:
+   - Verify region visible after selection.
+   - Soft toggle **DOMAINS** vs **NETWORK REQUESTS** and soft restore original.
+   - Soft **1st Party** / **3rd Party** / **All** if interactive without permanent sticky filter — restore.
+   - Soft graph vs table button if present; soft assert table headers when in table mode and data exists.
+   - Soft table search if present — clear before suite end.
+   - Soft hover/tooltip when bars/rows exist; soft empty table OK on sparse sites.
+   - Soft assert Duration (sec) or time-range subtitle when shown.
+
+7. Widget — Network Request Failures Over Time
+   Purpose: trend HTTP and client-side failure counts over the selected period.
+
+   Live observations:
+   - Body/title: **Network Request Failures Over Time**.
+   - Soft **Number of Failures**.
+   - Soft subtext / chart annotation: **HTTP 400s & HTTP 500s**.
+   - Legend soft: **Network Request Failures**, **Client Side Failures**.
+   - Time-range + site subtitle soft.
+
+   Cover:
+   - Verify chart shell after selection.
+   - Soft-assert Highcharts container present (probe sample ~413×363).
+   - Soft **legend toggle** for one series then restore.
+   - Soft hover when series non-empty; soft accept flat/zero series as controlled empty.
+   - After lookback change: soft re-assert title still present.
+
+8. Widget — iOS Friction Map (home OS chrome)
+   Purpose: iOS-scoped friction map visualization for app user friction (product-defined plot); often empty when no friction events in window.
+
+   Live observations (iOS probe Aug 2026):
+   - Title soft **iOS Friction Map**; body soft **iOS App Friction Map**.
+   - Probe empty: **No data to display**.
+   - Chart host soft chartID_* (dynamic); sample widget ~421×390.
+   - Must not treat **Android Friction Map** as this suite’s home friction title.
+
+   Cover:
+   - On iOS home: soft assert friction title matches **iOS** (not Android).
+   - Soft healthy empty vs non-empty map; **do not fail** on empty GDC windows.
+   - Soft once switch to Android Detailed Metrics → soft Android friction title → **restore Native App Detailed Metrics - iOS** + assert iOS friction title again.
+   - Soft chart shell when multi series appear only after data-bearing period.
+
+9. Widget — Native App Crash Summary
+   Purpose: summary of native crashes (often by page/screen) over the selected period.
+
+   Live observations:
+   - Title/body: **Native App Crash Summary**.
+   - Probe common empty: **No data to display**.
+   - Soft multi-series crash-by-page only when data exists — do **not** invent a hard top-5 page list.
+
+   Cover:
+   - Verify shell visible after selection.
+   - Soft empty state healthy; soft non-empty series only when present.
+   - Soft hover when data; no permanent sticky filter.
+
+10. Widget — Native App HTTP Responses
+    Purpose: per-resource / per-endpoint HTTP response mix for native traffic (status family buckets and load stats).
+
+    Live observations:
+    - Title: **Native App HTTP Responses**.
+    - Time-range + site subtitle soft.
+    - Per-tile soft fields when data: resource / path name; **Number of Requests**; **Avg Requests per Minute**; **Avg Load Time**; buckets **200s**, **300s**, **400s**, **500s** with percent and count (e.g. “200s - 90.00% (2,097)” samples — never hard-code).
+    - Host prefixes: **nativeAppHttpResponse***, **nativeAppHttpResponseTitle***, **nativeAppHttpResponseData***, **response_native-graph_***, **response_native-data_***.
+    - Multiple mini charts/tiles when multi endpoints (probe often several tiles).
+
+    Cover:
+    - Verify region visible after selection.
+    - Soft-assert ≥1 tile/graph when request traffic exists; otherwise controlled empty annotate.
+    - Soft format tolerance for %, ms/s, integer request counts, comma thousands.
+    - Soft do **not** require exact endpoint name set (connect / collect / fonts / product.jpg are GDC samples only).
+    - Soft hover on a mini chart when present.
+
+11. Widget — Native App HTTP Responses By Error Count
+    Purpose: HTTP responses tiled/sorted with emphasis on error / status mix (parallel companion to §10).
+
+    Live observations:
+    - Titles soft dual casing: **Native App HTTP Responses By Error Count** / **… by Error Count**.
+    - Same field family as §10 (Number of Requests, Avg Load Time, 200s–500s buckets).
+    - Host prefixes: **nativeAppHttpResponseByError***, **responseByError_native-*** .
+
+    Cover:
+    - Verify distinct region from §10 (both shells present on board).
+    - Soft ≥1 tile when data; soft empty OK.
+    - Soft format checks parallel §10; soft hover.
+    - Soft do not require identical tile order/count as §10.
+
+12. Widget — Native App ANR and Memory Warnings
+    Purpose: counts/trends of ANR and Out-of-Memory style warnings for the native app.
+
+    Live observations:
+    - Title soft: **Native App ANR and Memory Warnings**.
+    - Body soft: **Native App ANR & Out Of Memory Warnings**.
+    - Probe common empty: **No data to display**.
+    - Chart host soft chartID_*; sample size ~624×429 when chart frame paints.
+
+    Cover:
+    - Verify shell visible.
+    - Soft empty healthy; soft series labels if non-empty (ANR / OOM / Memory Warnings soft dual wording).
+    - Soft hover if data; no hard required non-empty GDC data.
+
+13. Widget — CPU and Memory Usage
+    Purpose: average CPU and memory usage over time and/or by page/view for native traffic.
+
+    Live observations:
+    - Titles: **CPU and Memory Usage** and/or **Average CPU And Memory Usage**.
+    - Graph legend soft: **CPU Usage**, **Memory Usage**.
+    - Graph host prefix: **cpu-and-memory-graph-*** ; table host **cpu-and-memory-table-*** / **table-for-cpu-and-memory-table-***.
+    - Soft toggle buttons: **cpu-and-memory-graph-btn-***, **cpu-and-memory-table-btn-***.
+    - Table headers (probe when table mode/data): **Page Name** | **Avg CPU Usage** | **AVG Memory Usage** | **Page Hits**.
+    - Soft axes: % CPU; bytes / MB memory.
+    - Sample category labels (illustrative only — never hard-code): PDP, Category, Checkout, Cart, Home, ColdLaunch…, WarmLaunch…, HotLaunch… .
+
+    Cover:
+    - Verify region visible after selection (graph and/or table shell).
+    - Soft graph/table toggle when buttons present; restore a preferred view (graph or table as captured at start) before suite end when practical.
+    - Soft-assert graph series **CPU Usage** and/or **Memory Usage** when data-bearing.
+    - Soft table headers when table mode; soft ≥1 data row when traffic exists or controlled empty.
+    - Soft Page Name non-empty on data rows; soft numeric CPU / memory / hits formats.
+    - Soft sort by Page Name if sortable; soft table-search clear.
+    - Soft pager if present — soft size change + restore (prefer 10/25; avoid leaving **All** if slow).
+
+14. Time Period / Time Lookback
+    Host: #time-lookback (+ Filters Time Period when open).
+    Live presets observed in probe.android.lookbackOptions / probe.ios.lookbackOptions (assert multi-option set; casing flexible):
+    Last 6 hours (often selected sample); Custom Date Selection; Last 2/7/14/30/90 days; Today so far; This week so far; This month so far;
+    Last 15/30 minutes; Last 1/3/12/24 hours. (Menu may omit currently selected item from option list.)
+    Cover:
+    - Open menu; soft multi options.
+    - **Required apply set:** Last **1 hour** or Last **6 hours**, Last **24 hours**, Last **7 days**, Last **30 days** — widgets ready soft; restore original lookback.
+    - Soft Custom Date open/cancel only.
+    - After each applied change: soft re-assert Detailed Metrics OS home still selected; core widget inventory still present or controlled loading complete; GDC site still selected.
+    - Soft time-range text on graphs can change without asserting exact timestamps.
+
+14b. Top chrome icons (tooltips + round-trip)
+    Soft hover/click Filters, Share, Manager; return to site/dashboard + OS Detailed Metrics home.
+
+14c. Site quick-switch + lock
+    Soft switch Demo eCommerce Global (or alternate available site); soft assert widgets still Detailed Metrics OS home; soft lock if present; **always restore GDC Test Site 2 + home OS Detailed Metrics**.
+    Soft re-check widget site subtitle eventually matches GDC or quick site after settle (annotate lag if subtitle lags selector).
+
+14d. Auto Refresh apply
+    Soft apply 5 Minutes then Off/restore; leave non-aggressive (not 2m for remainder of suite unless restored).
+
+14e. + Dashboard → Manager eye
+    Soft eye View switch; restore exact **Native App Detailed Metrics - Android** (or active iOS target) home.
+
+15. Filters drawer
+    Hosts:
+    - #toggle-filters / #mobile-controls-filters-btn
+    - Apply / Apply Filters soft
+    - #cancel-filters / Cancel
+    - Soft filter labels common to dashboard shell / editor residue when open (presence soft; not all required simultaneously):
+        Time Period, Timezone, Site, Data Type, Data Originated From, Graph Type, Performance Metric, Displayed Metric, Group Lines By / group-by-native,
+        Traffic Segment, Bot Traffic, Common Devices / OS / Browsers, Campaign / Source / Medium soft,
+        **native-oriented soft when present:** SDK Version, App Version, OS Version, Device Model, Network Protocol, Beacon Type,
+        Content Groups / Page Groups, Country / Region, Monitor Name, Net Speed, Domain, Custom Categories, …
+    - My Filters / Shared Filters
+    - Clear Cache / Clear Genius Cache — **do not click**
+    - Save Filter / Save as New / Save Current — **do not click**
+    Cover:
+    - Open Filters; verify Time Period / Timezone / Site soft when present.
+    - Soft apply one dimensional filter (e.g. Traffic Segment, Bot Traffic, App Version, OS Version, Device Model when options exist); soft healthy or empty widgets; Cancel or re-apply default — **no Save Filter**.
+    - Soft My/Shared tabs.
+    - After Apply, verify OS Detailed Metrics home still selected and multi-widget inventory present or controlled loading complete.
+    - Soft close Filters before leaving suite home.
+    - Soft ignore sticky widget-editor-only fields (unless opened accidentally — Escape/Cancel only; never Save widget).
+
+16. Graphs, tables, exports and interactions (cross-widget)
+    - Soft Highcharts signatures independently for Native App Performance, Network Failures, HTTP mini tiles, CPU/Memory graph.
+    - Soft party Domains ↔ Network Requests toggle restore.
+    - Soft CPU graph ↔ table toggle restore.
+    - Soft legend toggles on Performance and Failures with restore.
+    - Soft Export if present on any table — open/close only; formats soft CSV/TSV/JSON/Array when offered; do **not** hard-assert downloaded file contents.
+    - Soft Escape recovers menus/modals/manager/wizard.
+    - Soft a11y: filter toggle focus; Help chrome soft.
+    - Soft do not claim refresh by SVG host counts alone — use scoped titles / signatures / lookback text.
+
+17. Android ↔ iOS dual coverage (required soft)
+    - Suite home default: **Native App Detailed Metrics - Android**.
+    - Soft switch to **Native App Detailed Metrics - iOS** at least once: re-assert multi-widget family still present; soft assert friction title flips to iOS variant; re-assert GDC; soft sample one data widget (e.g. Native App Performance or HTTP Responses) still healthy.
+    - Soft reverse switch back to Android home and settle.
+    - Do **not** hard-require different numeric series between OS boards on GDC — identity + OS chrome only.
+    - Soft optional second iOS cycle only if first was flaky after recovery.
+
+18. Soft switches to sibling preconfigured dashboards
+    Preconfigured observed live (probe switcher lists):
+    Site Overview | VitalPulse | Synthetic Site Health | Traffic Source and Medium | RUM Performance Detail | Synthetic Performance Detail | **Native App Performance Detail** | **Native App Detailed Metrics - Android** | **Native App Detailed Metrics - iOS**
+    Cover:
+    - Soft switch once to a non-native option (e.g. Site Overview or Traffic Source and Medium) for ≤1 cycle; annotate difference; **restore Android Detailed Metrics + GDC**.
+    - Soft once to **Native App Performance Detail** to prove exact-name discrimination (not Detailed Metrics); **restore Android Detailed Metrics**.
+    - Soft Shared dashboard sample optional; no save.
+    - Soft sibling can change quick site — always re-assert GDC.
+
+19. Combination, recovery and non-functional
+    - Capture → lookback change → soft core multi-widget inventory → restore lookback → dash still OS Detailed Metrics home.
+    - Soft: Domains/Requests toggle → soft table headers change soft → restore.
+    - Soft: CPU table mode → soft Page Name header → restore graph/table as captured.
+    - Soft: legend toggle CPU Usage or Network Request Failures → restore.
+    - Soft: HTTP Responses tile hover → continue healthy.
+    - Filters Apply soft → restore.
+    - Refresh keeps multi-widget inventory.
+    - Soft Manager / wizard cancel.
+    - Soft sibling switch → restore home + site.
+    - Soft Android switch → restore **iOS** home.
+    - Recover overlays, clear sticky table searches, restore lookback/auto-refresh when restorable without Save.
+    - Performance: widgets settle within project soft bounded deadlines.
+    - Viewport: desktop + ~1100px; wide tables may horizontal-scroll — OK.
+
+20. Out-of-scope mutations (always)
+    - Do not Save Filter / Save as New / Save Current / permanent shared filters.
+    - Do not Clear Cache / Clear Genius Cache.
+    - Do not permanently Save dashboard settings, Share/Unshare, Clone for others, Delete, overwrite Preconfigured layout.
+    - Do not Add Widget permanently / Save widget wizard / leave “Editing All Widgets” applied.
+    - Do not Create permanent + Dashboard on shared account.
+    - Do not leave Auto Refresh or Carousel aggressive.
+    - Do not hard-code metric totals, page/domain/endpoint catalogs, date/time-range strings, or exact “1 to N (M)” pager strings.
+    - Do not expand into full Monitoring Native App Performance Detail (scatter, session lookup, Choose Metrics page control), Native App Performance Detail four-widget board full suite, or RUM/Synthetic PD Dashboard full suites — soft sibling only.
+    - Do not leave Performance graph with all series deselected if product allows zero series — restore default visibility if possible.
+    - Do not leave sticky table search that hides all rows for next suites — clear/restore.
+
+21. Live reverse-engineering facts to preserve (GDC Test Site 2, Aug 2026 probe)
+    - URL: portal …/index.php?r=site/dashboard
+    - Browser title & #page-title: Dashboards
+    - Menu: Dashboards (biz.dashboards)
+    - #select2-switch-dashboard-container home:
+        **Native App Detailed Metrics - iOS** (selected)
+      Sibling listed:
+        **Native App Detailed Metrics - Android**
+    - #select2-quick-site-id-container: GDC Test Site 2
+    - Chrome: #time-lookback (sample Last 6 hours), #refresh-dashboard, Auto Refresh (5m) with Off/2m/5m/10m/15m/30m/60m, Carousel (off), + Widget, + Dashboard
+    - Nine primary UI groups (§5–§13):
+        1) Native App Performance — multi-series; #perfGraph-page-timings-graph*
+        2) 1st vs 3rd Party Activity - Native — Domains/Network Requests; Domain / Network Request / Total Load Time tables
+        3) Network Request Failures Over Time — Network Request Failures + Client Side Failures; soft HTTP 400s & 500s
+        4) **iOS Friction Map** / **iOS App Friction Map** — empty OK (probe)
+        5) Native App Crash Summary — empty OK
+        6) Native App HTTP Responses — 200s–500s tiles; nativeAppHttpResponse*
+        7) Native App HTTP Responses By Error Count — companion tiles; nativeAppHttpResponseByError*
+        8) Native App ANR and Memory Warnings / ANR & Out Of Memory Warnings — empty OK
+        9) CPU and Memory Usage — Average CPU And Memory Usage graph + table (Page Name, Avg CPU Usage, AVG Memory Usage, Page Hits)
+    - Lookback options: probe.android.lookbackOptions / probe.ios.lookbackOptions
+    - AutoRefresh options: probe.*.autoRefreshOptions
+    - Tabs when filters open: my-filters-tab / shared-filters-tab
+    - Global site Select2 may be hidden; quick site is recovery anchor
+    - Graph subtitle site may lag after switch — re-assert site + soft refresh
+    - Probe JSON keys: `android`, `ios`, `savedAt`
+
+22. Refer to soft documentation (no board-specific PDF package)
+    - Prefer live probe JSON + this prompt as automation truth layer.
+    - Custom Dashboard Widgets (Help) soft catalogs native widget types — use only as naming vocabulary.
+    - Do **not** invent Monitoring-only widgets (scatterplots, BTT session lookup, Monitoring Choose Metrics) as hard requirements on this preconfigured board.
+    - Do **not** require Bar Graph + Details cards + Daily Averages four-widget PD layout (belongs to **Native App Performance Detail** sibling).
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a separate Playwright automation suite under regression_tests > US2 > dashboards > preconfigured > native-app-detailed-metrics-ios as specified above. Cover thorough regression for:
+  - navigation & identity (**exact Native App Detailed Metrics - iOS** suite home; soft **Android** dual discrimination then restore iOS)
+  - Native App Performance graph shell, multi-series legend toggle soft, multi-axis soft
+  - 1st vs 3rd Party Activity - Native (Domains / Network Requests toggles soft, tables Domain/Network Request/Total Load Time soft)
+  - Network Request Failures Over Time (legend, HTTP 400/500 soft annotation)
+  - **iOS Friction Map** empty/soft (iOS title hardish; Android sibling soft then restore)
+  - Crash Summary empty/soft
+  - HTTP Responses + HTTP Responses By Error Count (tiles, 200s–500s soft formats)
+  - ANR & OOM warnings empty/soft
+  - CPU and Memory Usage (graph + table headers Page Name / Avg CPU / AVG Memory / Page Hits; graph/table toggle soft)
+  - fields, labels, filters (incl. soft native dimensions: SDK/App/OS Version, Device Model, Network Protocol), graphs, tables, My/Shared filter tabs
+  - Time Lookback options and restore (incl. 1h or 6h / 24h / 7d / 30d set)
+  - Filters drawer soft + no Save Filter / no Clear Cache
+  - Dashboard chrome: switcher, auto refresh (2m–60m bounds soft), refresh, manager, soft create cancel-only
+  - combination, recovery, empty/soft data paths, quick-site re-anchor after switch
+  - explicit non-confusion with **Native App Performance Detail**, Monitoring Native App pages, RUM/Synthetic Performance Detail dashboards
+
+Follow existing project framework and POM conventions. Reuse preconfigured dashboard chrome helpers. Prefer exact dashboard option text **Native App Detailed Metrics - iOS** (suite home). Soft dual **Native App Detailed Metrics - Android** for discrimination only.
+
+After generation:
+1. Execute only the newly created Native App Detailed Metrics **- iOS Dashboard** regression suite first and fix automation hard failures.
+2. Generate fresh isolated Allure results and an HTML report for this suite.
+3. Generate a manual test-case workbook (Summary / Regression TCs / Notes).
+4. Include executed result summary and soft annotations for: empty iOS Friction/Crash/ANR, iOS↔Android switch + friction title restore to iOS, HTTP tile set variance, party Domains vs Requests, CPU graph/table toggle, Export menu variants if any, Native App Performance Detail non-overlap, Android Detailed Metrics name discrimination, GDC site re-anchor.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable control **titles/headers** and id **prefixes** (#perfGraph-page-timings-graph*, first-vs-third-*, slowest-domains-*, table-for-slowest-*, nativeAppHttpResponse*, nativeAppHttpResponseByError*, cpu-and-memory-*, table-for-cpu-and-memory-*); do not depend on dynamic Highcharts instance IDs or chartID_* numeric suffixes alone.
+6. Do not hard-code CPU/memory/request totals, endpoint catalogs, page-name sets, fixed time-period / timezone strings, or exact “1 to N (M)” pager strings.
+7. Capture and restore Detailed Metrics OS selection (**default iOS**), GDC Test Site 2, Time Lookback and Auto Refresh where possible; restore party-activity and CPU graph/table toggles and legend visibility when tests change them.
+8. Use a serial suite only when shared page state is intentional; optional/data-dependent failures must not abort unrelated tests (soft deadlines + recovery).
+9. Use bounded soft deadlines and explicit action timeouts.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page actions running into later serial tests; cancel/reload/reset before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save Filter, Clear Cache, permanently Save/Clone/Share/Delete dashboards, or permanently Add Widget on this shared board; do not leave Editing All Widgets applied.
+13. Keep primary scope on site/dashboard + **Native App Detailed Metrics - iOS**; restore that home after soft sibling or Android visits. Never target Monitoring → Native App pages as suite home.
+14. Close all menus, overlays, drawers, modals, Dashboard Manager, widget wizard, Export menus, gear menus, pager menus opened by tests.
+15. Do not claim widgets refreshed by merely counting SVG hosts; compare scoped widget signatures, titles, lookback text, or table metric headers.
+16. Treat timing units as format-tolerant (s/S/ms/MS), counts K/M or comma format-tolerant, memory MB/bytes soft, CPU % soft, status bucket % soft.
+17. Never accept **Native App Performance Detail**, **Native App Detailed Metrics - Android**, **RUM Performance Detail**, **Synthetic Performance Detail**, or partial “Performance Detail” / partial “Native App” Shared options as suite home — exact **Native App Detailed Metrics - iOS** only for this suite.
+18. If any requirement is ambiguous or missing, flag it before generating automation.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- User / package name may say “Native App Performance Detailed Metrics”; live Select2 uses **Native App Detailed Metrics - {Android|iOS}** (no “Performance” in option text). Prefer live strings; suite docs may alias both names.
+- Package had **no board-specific PDF**; this AI Prompt + probe JSON are the automation truth layer.
+- This prompt defines a **dedicated iOS suite** (separate from Android). Soft Android coverage is discrimination-only then restore iOS. Do not merge into the Android npm script.
+- Empty Friction / Crash / ANR on GDC is normal for many windows — soft healthy empty, not fail.
+- Same site feed may power Android and iOS boards — do not require numeric OS series divergence.
+- chartID_* / nativeAppHttpResponse_* / cpu-and-memory-*-NNN suffixes change each load — prefix regex only.
+- HTTP endpoint tile set/order data-dependent — soft multi-tile presence when traffic exists; never hard catalog.
+- Graph vs table button suffixes for party-activity / CPU are dynamic.
+- Filter drawer inventory may blend shell filters with residual widget-editor fields — Apply only real filter apply; never Save Filter/widget.
+- Graph/site subtitle may lag quick site after switch — always re-assert GDC; soft annotate lag.
+- Default lookback sample was Last 6 hours (probe); suite capture/restore whatever is active at start.
+- Formal SLA for widget reload after lookback/toggle — use project soft deadlines.
+- Coach/Get started overlays may appear.
+- Custom Dashboard Widgets catalogs addable crash/ANR/HTTP widgets as types — only require the titles that paint on this preconfigured board’s grid (probe).
+- Portal may rename legend short forms — soft dual regex.
+- Relationship of Monitoring Native App pages to these dashboards is purpose-related only; do not require widget parity.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to the existing POM framework and regression suites, especially:
+- docs/prompts/AI Prompt (For Automation Regression-Native App Performance Detail Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-RUM Performance Detail Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Synthetic Performance Detail Dashboard).txt
+- tests/regression_tests/US2/dashboards/preconfigured/site-overview/site.overview.dashboard.regression.spec.ts
+- tests/regression_tests/US2/dashboards/preconfigured/vital-pulse/vital.pulse.dashboard.regression.spec.ts
+- tests/regression_tests/US2/dashboards/preconfigured/synthetic-site-health/synthetic.site.health.dashboard.regression.spec.ts
+- tests/regression_tests/US2/dashboards/preconfigured/traffic-source-and-medium/traffic.source.medium.dashboard.regression.spec.ts
+- tests/regression_tests/US2/dashboards/preconfigured/rum-performance-detail/ (if present)
+- tests/regression_tests/US2/dashboards/preconfigured/native-app-performance-detail/ (if present)
+- pages/SiteOverviewDashboardPage.ts / pages/VitalPulseDashboardPage.ts / pages/SyntheticSiteHealthDashboardPage.ts / pages/TrafficSourceMediumDashboardPage.ts
+- pages/RumPerformanceDetailDashboardPage.ts / pages/NativeAppPerformanceDetailDashboardPage.ts (if present)
+- helpers/preconfiguredDashboardChrome.ts
+- pages/MarketingOverviewPage.ts / locators/MarketingOverviewLocators.ts
+- competitive.index.table / traffic-source-and-medium (sort/pagination/export soft patterns)
+
+Follow their patterns for:
+- POM/locator separation
+- authenticated profile/site selection (GDC Test Site 2) with quick-site recovery
+- Select2 dashboard switch + restore (**exact Native App Detailed Metrics - iOS** / soft **Android** discrimination)
+- time lookback / auto refresh menus
+- filter open/apply/cancel + no Save Filter
+- Highcharts shell + legend soft toggles
+- table sort/pagination/export soft without hard file asserts
+- serial recovery after soft sibling and OS switches
+- isolated Allure + Excel workbooks
+- explicit npm naming that does **not** collide with Android Detailed Metrics (`test:regression:us2:native-app-detailed-metrics-android-dashboard`), Native App Performance Detail Dashboard, or Monitoring `test:regression:us2:rum-pd`
