@@ -1,1 +1,0 @@
-[CJA] filter labels sample: Dashboard title * | Favorite dashboard | Add to carousel | Dashboard refresh rate | Dashboard time period | Real User Data Type | Time Period | Auto Refresh Start Time Anchor | Timezone | Selected Metric | Bot Traffic | Include Bots

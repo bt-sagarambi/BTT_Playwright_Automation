@@ -1,1 +1,0 @@
-[CJA] native indicators=6 sample=Native App Performance Overview

@@ -1,1 +1,0 @@
-[CJA] overview headers: Journey Sessions | Journey Page Views | Bounce Rate | Exit Rate | Onload | Avg Order Value ($) | Orders | Conversion Rate | Revenue ($) hasTopX=true

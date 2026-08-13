@@ -1,0 +1,2389 @@
+{
+  "nav": {
+    "id": "biz.revenue-calculator",
+    "module": "biz",
+    "menuLabel": "Revenue Calculator",
+    "route": "business-analytics/revenue-calculator",
+    "hrefIncludes": [
+      "conversion-type=sales",
+      "revenue-calculator"
+    ],
+    "titleIncludes": {}
+  },
+  "snap": {
+    "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=business-analytics/revenue-calculator&sid=305836&conversion-type=sales",
+    "title": "Revenue Calculator",
+    "pageTitle": "Business Insights / Improve Conversion / Revenue Calculator",
+    "highcharts": 12,
+    "headings": [
+      "Event Markers",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Executive",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks"
+    ],
+    "badges": {
+      "time-period-view": {
+        "text": "1 day (2026-08-12 13:13 to 2026-08-13 13:13 IST (+5:30))",
+        "visible": true
+      },
+      "device-view": {
+        "text": "",
+        "visible": true
+      },
+      "browser-view": {
+        "text": "All Browsers",
+        "visible": true
+      },
+      "operating-system-view": {
+        "text": "All OS",
+        "visible": true
+      },
+      "visitor-type-view": {
+        "text": "",
+        "visible": false
+      },
+      "bot-traffic-view": {
+        "text": "",
+        "visible": false
+      },
+      "data-type-view": {
+        "text": "Real User",
+        "visible": true
+      },
+      "campaign-view": {
+        "text": "",
+        "visible": false
+      },
+      "country-view": {
+        "text": "",
+        "visible": false
+      },
+      "traffic-segment-view": {
+        "text": "",
+        "visible": false
+      },
+      "page-name-view": {
+        "text": "PDP",
+        "visible": true
+      },
+      "page-group-view": {
+        "text": "",
+        "visible": false
+      },
+      "statistical-method-view": {
+        "text": "",
+        "visible": false
+      }
+    },
+    "tabs": [
+      {
+        "id": "",
+        "text": "Save",
+        "cls": "btn btn-notify update-current-filter-list",
+        "active": false
+      },
+      {
+        "id": "my-filters-tab",
+        "text": "My Filters",
+        "cls": "active",
+        "active": true
+      },
+      {
+        "id": "",
+        "text": "My Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "shared-filters-tab",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      }
+    ],
+    "buttons": [
+      "6",
+      "View Full Menu",
+      "Revenue Attribution",
+      "Add Comparison",
+      "+ New Rule",
+      "View Active Rule",
+      "Reset",
+      "Submit for Approval",
+      "Toggle Pie Charts",
+      "Export",
+      "CSV",
+      "TSV",
+      "JSON",
+      "Array",
+      "WHAT IF WE SPED PAGE UP BY",
+      "WHAT IF PAGE SPEED WAS",
+      "Toggle Filter Legend",
+      "Close",
+      "Run Report",
+      "Select Segment",
+      "Prev",
+      "Next",
+      "Site Variables Change Log",
+      "Clear Cache",
+      "Cancel",
+      "Apply Filters",
+      "Saved Filters",
+      "Save",
+      "Save as New Filter",
+      "Save Current Filter",
+      "Clear",
+      "Deselect All",
+      "Select All Common",
+      "×",
+      "+ New Group",
+      "Save As New Segment",
+      "Create Segment",
+      "Continue",
+      "← Back",
+      "View All Segments"
+    ],
+    "labels": [
+      "Event Markers",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "Calibration Multiplier",
+      "(2026-08-12 13:13 to 2026-08-13 13:13 IST (+5:30))",
+      "Seconds",
+      "Sessions",
+      "Avg Order Value ( )",
+      "Conversion Rate (%)",
+      "Page Views / Session",
+      "Percent of Total Sessions (%)",
+      "Bounce Rate (%)",
+      "(2026-08-12 13:13 to 2026-08-13 13:13)",
+      "Date",
+      "Onload (s)",
+      "Revenue Attribution Report Config",
+      "Current Time Period",
+      "Revenue Attribution Comparison Time Period",
+      "Recipient",
+      "Add Comparison: Series Configuration",
+      "Comparison Time Period",
+      "Comparison Legend Name*",
+      "Conversion Rate Legend Configuration",
+      "Avg Order Value",
+      "Conversion Rate",
+      "Page Views/Session",
+      "Percent of Total Sessions",
+      "Bounce Rate",
+      "Site Variable Change Requests",
+      "Real User Data Type",
+      "Data Originated From",
+      "Time Period",
+      "Timezone",
+      "Bucket Size",
+      "Traffic Source / Referrer Clear",
+      "Traffic Medium Clear",
+      "Campaign Clear"
+    ],
+    "select2": [
+      {
+        "id": "select2-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": true
+      },
+      {
+        "id": "select2-data-type-container",
+        "text": "Web Browser Data",
+        "visible": false
+      },
+      {
+        "id": "select2-data-origin-container",
+        "text": "RUM Browser & Native Webview",
+        "visible": false
+      },
+      {
+        "id": "select2-timezone-container",
+        "text": "Asia/Kolkata/Mumbai (+05:30)",
+        "visible": false
+      },
+      {
+        "id": "select2-bucket-size-container",
+        "text": "Auto",
+        "visible": false
+      },
+      {
+        "id": "select2-a-b-segment-filter-selector-container",
+        "text": "Multi-Select",
+        "visible": false
+      },
+      {
+        "id": "select2-page-name-container",
+        "text": "PDP",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-discard-sessions-over-container",
+        "text": "80th",
+        "visible": false
+      }
+    ],
+    "charts": [
+      {
+        "i": 0,
+        "id": "page-views-by-page",
+        "parentId": "",
+        "grandParentId": "pie-chart-row",
+        "title": "Page Views By Page",
+        "legend": [],
+        "w": 0,
+        "h": 0
+      },
+      {
+        "i": 1,
+        "id": "highcharts-phfyo8p-39",
+        "parentId": "page-views-by-page",
+        "grandParentId": "",
+        "title": "Page Views By Page",
+        "legend": [],
+        "w": 0,
+        "h": 0
+      },
+      {
+        "i": 2,
+        "id": "page-views-by-traffic-segment",
+        "parentId": "",
+        "grandParentId": "pie-chart-row",
+        "title": "Page Views By Traffic Segment",
+        "legend": [],
+        "w": 0,
+        "h": 0
+      },
+      {
+        "i": 3,
+        "id": "highcharts-phfyo8p-35",
+        "parentId": "page-views-by-traffic-segment",
+        "grandParentId": "",
+        "title": "Page Views By Traffic Segment",
+        "legend": [],
+        "w": 0,
+        "h": 0
+      },
+      {
+        "i": 4,
+        "id": "conversion-rate-curve-graph",
+        "parentId": "",
+        "grandParentId": "",
+        "title": "Conversion Rate, Avg Order Value, and Page Views / Converted Session",
+        "legend": [
+          "Sessions",
+          "Sessions",
+          "Avg Order Value",
+          "Avg Order Value",
+          "Conversion Rate",
+          "Conversion Rate",
+          "Page Views / Session",
+          "Page Views / Session",
+          "Percent of Total Sessions",
+          "Percent of Total Sessions",
+          "Bounce Rate",
+          "Bounce Rate"
+        ],
+        "w": 1408,
+        "h": 400
+      },
+      {
+        "i": 5,
+        "id": "highcharts-phfyo8p-43",
+        "parentId": "conversion-rate-curve-graph",
+        "grandParentId": "",
+        "title": "Conversion Rate, Avg Order Value, and Page Views / Converted Session",
+        "legend": [
+          "Sessions",
+          "Sessions",
+          "Avg Order Value",
+          "Avg Order Value",
+          "Conversion Rate",
+          "Conversion Rate",
+          "Page Views / Session",
+          "Page Views / Session",
+          "Percent of Total Sessions",
+          "Percent of Total Sessions",
+          "Bounce Rate",
+          "Bounce Rate"
+        ],
+        "w": 1407,
+        "h": 400
+      },
+      {
+        "i": 6,
+        "id": "revenue-calculator-sped-up-by",
+        "parentId": "",
+        "grandParentId": "",
+        "title": "What If Users Are Sped Up By X Seconds",
+        "legend": [
+          "Revenue Opportunity",
+          "Revenue Opportunity"
+        ],
+        "w": 1408,
+        "h": 400
+      },
+      {
+        "i": 7,
+        "id": "highcharts-phfyo8p-58",
+        "parentId": "revenue-calculator-sped-up-by",
+        "grandParentId": "",
+        "title": "What If Users Are Sped Up By X Seconds",
+        "legend": [
+          "Revenue Opportunity",
+          "Revenue Opportunity"
+        ],
+        "w": 1407,
+        "h": 400
+      },
+      {
+        "i": 8,
+        "id": "revenue-calculator-sped-up-to",
+        "parentId": "",
+        "grandParentId": "",
+        "title": "What If Users Are Sped Up To X Seconds",
+        "legend": [
+          "Revenue Opportunity",
+          "Revenue Opportunity"
+        ],
+        "w": 0,
+        "h": 0
+      },
+      {
+        "i": 9,
+        "id": "highcharts-phfyo8p-52",
+        "parentId": "revenue-calculator-sped-up-to",
+        "grandParentId": "",
+        "title": "What If Users Are Sped Up To X Seconds",
+        "legend": [
+          "Revenue Opportunity",
+          "Revenue Opportunity"
+        ],
+        "w": 0,
+        "h": 0
+      },
+      {
+        "i": 10,
+        "id": "conversion-rate-over-time-graph",
+        "parentId": "",
+        "grandParentId": "",
+        "title": "Conversion Rate and Avg Order Value / Converted Session Over Time",
+        "legend": [
+          "Conversion Rate",
+          "Conversion Rate",
+          "Avg Order Value",
+          "Avg Order Value",
+          "Onload",
+          "Onload"
+        ],
+        "w": 1408,
+        "h": 400
+      },
+      {
+        "i": 11,
+        "id": "highcharts-phfyo8p-64",
+        "parentId": "conversion-rate-over-time-graph",
+        "grandParentId": "",
+        "title": "Conversion Rate and Avg Order Value / Converted Session Over Time",
+        "legend": [
+          "Conversion Rate",
+          "Conversion Rate",
+          "Avg Order Value",
+          "Avg Order Value",
+          "Onload",
+          "Onload"
+        ],
+        "w": 1407,
+        "h": 400
+      }
+    ],
+    "tables": [
+      {
+        "id": "table-for-conversion-rate-curve-table",
+        "className": "table table-striped exportable tablesorter tablesorter-default tablesorter198bed4b21db08 hasFilters",
+        "headers": [
+          "Seconds",
+          "Sessions",
+          "Avg Order Value ( )",
+          "Conversion Rate (%)",
+          "Page Views / Session",
+          "Percent of Total Sessions (%)",
+          "Bounce Rate (%)"
+        ],
+        "rows": 39,
+        "visible": false
+      },
+      {
+        "id": "table-for-conversion-rate-over-time-table",
+        "className": "table table-striped exportable tablesorter tablesorter-default tablesorter4d8b6fe54bb008 hasFilters",
+        "headers": [
+          "Date",
+          "Conversion Rate (%)",
+          "Avg Order Value ( )",
+          "Onload (s)"
+        ],
+        "rows": 23,
+        "visible": false
+      }
+    ],
+    "inputs": [
+      {
+        "id": "user-id",
+        "name": "",
+        "type": "hidden",
+        "value": "355897",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "",
+        "name": "r",
+        "type": "hidden",
+        "value": "business-analytics/revenue-calculator",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "",
+        "name": "conversion-type",
+        "type": "hidden",
+        "value": "sales",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "site-id",
+        "name": "sid",
+        "type": "select",
+        "value": "305836",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "user-menu-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search",
+        "visible": false
+      },
+      {
+        "id": "toggleMarkersType",
+        "name": "toggleMarkersType",
+        "type": "hidden",
+        "value": "global-markers",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "report-list",
+        "name": "",
+        "type": "select",
+        "value": "Loading Reports...",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "table-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": false
+      },
+      {
+        "id": "table-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": false
+      },
+      {
+        "id": "time-period-clone",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "revenue-attribution-comparison-date",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "recipients",
+        "name": "recipients",
+        "type": "email",
+        "value": "",
+        "placeholder": "jane_smith@email.com",
+        "visible": false
+      },
+      {
+        "id": "add-comparison-segment-id-input",
+        "name": "",
+        "type": "hidden",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "add-comparison-segment-name-input",
+        "name": "",
+        "type": "hidden",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "current-existing-time-period",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "comparison-existing-time-period",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "comparison-legend-name",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "sessions-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "avg-order-value-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "conversion-rate-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "page-views-per-session-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "session-percent-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "bounce-rate-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "apply-segment-rerun",
+        "name": "",
+        "type": "hidden",
+        "value": "0",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "apply-segment-id-input",
+        "name": "segmentID",
+        "type": "hidden",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "apply-segment-name-input",
+        "name": "segment_name",
+        "type": "hidden",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "data-type",
+        "name": "data-type",
+        "type": "select",
+        "value": "real-user",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "data-origin",
+        "name": "data-origin",
+        "type": "select",
+        "value": "combined-rum",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "time-period",
+        "name": "time-period",
+        "type": "text",
+        "value": "2026-08-12 13:13 to 2026-08-13 13:13",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "timezone",
+        "name": "timezone",
+        "type": "select",
+        "value": "Asia/Kolkata",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "bucket-size",
+        "name": "bucket-size",
+        "type": "select",
+        "value": "auto",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "campaign-source",
+        "name": "campaign-source[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "campaign-medium",
+        "name": "campaign-medium[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "campaign-name",
+        "name": "campaign-name[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "a-b-segment-filter-selector",
+        "name": "a-b-segment-filter-selector",
+        "type": "select",
+        "value": "multi-select",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "a-b-testing-segment",
+        "name": "a-b-testing-segment[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "a-b-testing-segment-search",
+        "name": "a-b-testing-segment-search[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "Enter a A/B Testing Segment using asterisks as wildcards",
+        "visible": false
+      },
+      {
+        "id": "visitor-type",
+        "name": "visitor-type[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "datacenter",
+        "name": "datacenter[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "isp",
+        "name": "isp[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "traffic-segment",
+        "name": "traffic-segment[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "page-group",
+        "name": "page-group[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "page-name-mode-in",
+        "name": "",
+        "type": "radio",
+        "value": "multi-select",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "page-name-mode-contains",
+        "name": "",
+        "type": "radio",
+        "value": "search",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "page-name",
+        "name": "page-name",
+        "type": "select",
+        "value": "PDP",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "browser-version",
+        "name": "browser-version[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "country",
+        "name": "country[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "region",
+        "name": "region[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "sdktagVersion",
+        "name": "sdktagVersion[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "appVersion",
+        "name": "appVersion[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      }
+    ],
+    "relevantIds": [
+      "toggle-navigation",
+      "select2-site-id-container",
+      "page-title",
+      "exclamation-view-alerts",
+      "toggle-user",
+      "toggle-settings",
+      "toggle-help-articles",
+      "toggle-help-video",
+      "toggle-theme",
+      "toggle-tv-mode",
+      "toggle-filters",
+      "toggle-feedback",
+      "toggle-assistant-chat",
+      "view-alerts-1",
+      "view-alerts-2",
+      "toggle-revenue-calibration",
+      "alert-box-close-1",
+      "alert-box-close-2",
+      "mobile-controls-filters-btn",
+      "toggle-filters-li",
+      "toggle-fullscreen-li",
+      "toggle-settings-li",
+      "toggle-user-li",
+      "toggle-menu-state-btn",
+      "page-wrapper",
+      "page-controls",
+      "revenue-calculator-btn-container",
+      "revenue-attribution",
+      "toggle-markers-container",
+      "toggle-dropdown-con",
+      "toggleMarkersType",
+      "toggle-dropdown-title-wrapper",
+      "toggle-dropdown-title",
+      "toggle-dropdown-icon",
+      "toggle-dropdown",
+      "toggle-dropdown-items",
+      "opportunity-attribution-container",
+      "report-manager-toggle",
+      "revenue-impact-controls-container",
+      "revenue-impact-rules-config-button",
+      "view-active-rule-btn",
+      "data-type-view",
+      "apply-segment-page-badge-wrap",
+      "apply-segment-comparison-page-badge-wrap",
+      "data-origin-view",
+      "revenue-impact-rule-effective-date-view",
+      "time-period-view",
+      "date-of-performance-change-view",
+      "domain-baseline-view",
+      "device-view",
+      "browser-view",
+      "operating-system-view",
+      "visitor-type-view",
+      "bot-traffic-view",
+      "focal-page-view",
+      "focal-page-real-view",
+      "page-name-view",
+      "url-search-view",
+      "hierarchy-min-percent-view",
+      "customer-journey-paths-view",
+      "page-group-view",
+      "traffic-segment-view",
+      "isp-view",
+      "datacenter-view",
+      "a-b-testing-segment-view",
+      "campaign-view",
+      "campaign-name-view",
+      "campaign-medium-view",
+      "campaign-source-view",
+      "country-view",
+      "region-view",
+      "bucket-size-view",
+      "granularity-view",
+      "performance-metric-view",
+      "discard-sessions-over-view",
+      "statistical-method-view",
+      "net-speed-view",
+      "monitor-name-view",
+      "show-remainder-view",
+      "js-error-type-inclusion-exclusion-view",
+      "wcd-data-inclusion-view",
+      "cv-converting-page-view",
+      "cv-include-page-view",
+      "cv-exclude-page-view",
+      "sdktagVersion-view",
+      "netstate-view",
+      "osVersion-view",
+      "appVersion-view",
+      "deviceModel-view",
+      "page-controls-toggle",
+      "calibration-slider",
+      "reset-calibration-slider",
+      "save-calibration-slider",
+      "page-contents",
+      "toggle-pie-chart-row",
+      "pie-chart-row",
+      "page-views-by-page",
+      "highcharts-phfyo8p-39",
+      "highcharts-drop-shadow-7",
+      "highcharts-phfyo8p-40-",
+      "highcharts-phfyo8p-42-",
+      "page-views-by-traffic-segment",
+      "highcharts-phfyo8p-35",
+      "highcharts-drop-shadow-6",
+      "highcharts-phfyo8p-36-",
+      "highcharts-phfyo8p-38-",
+      "high-level-page-name",
+      "metric-date",
+      "total-sessions",
+      "total-conversions",
+      "avg-page-views",
+      "avg-bounce-rate",
+      "selected-percentile",
+      "rev-opportunity",
+      "graph-conv-curve-btn",
+      "table-conv-curve-btn",
+      "conversion-rate-curve-graph",
+      "highcharts-phfyo8p-43",
+      "highcharts-drop-shadow-8",
+      "highcharts-phfyo8p-44-"
+    ],
+    "bodySample": "GDC Test Site 2 Demo eCommerce Global GDC Test Site 2 Business Insights / Improve Conversion / Revenue Calculator Get started 6 ADMINISTRATOR Revenue Attribution Add Comparison Toggle Global Markers Real User Data Originated From: RUM Browser & Native Webview Time Period: 1 day (2026-08-12 13:13 to 2026-08-13 13:13 IST (+5:30)) Device: Browser: All Browsers OS: All OS Page Name: PDP Bucket Size: Auto Performance Metric: Onload Discard Sessions Over: 80th Percentile Toggle Pie Charts PDP (2026-08-12 13:13 to 2026-08-13 13:13 IST (+5:30)) 97,603 TOTAL SESSIONS 1,568 TOTAL CONVERSIONS 194 AVG ORDER VALUE 1.61% AVG CONVERSION RATE 1.83 AVG PAGE VIEWS 49.68% AVG BOUNCE RATE 80th PERCENTILE 92,365 REVENUE OPPORTUNITY What if We Sped Page Up By 52,851 1 SECOND 72,728 2 SECONDS 86,931 3 SECONDS Sessions Conversion Rate Onload (Seconds)​PDP - 2026-08-12 13:13 to 2026-08-13 13:13 Conversion Rate, Avg Order Value, and Page Views / Converted Session GDC Test Site 2 Sessions Avg Order Value Conversion Rate Page Views / Session Percent of Total Sessions Bounce Rate 0 1.2 K 2.4 K 3.6 K 4.8 K 0 % 0.6 % 1.2 % 1.8 % 2.4 % 1 1.25 1.5 1.75 2 2.25 2.5 2.75 3 3.25 3.5 3.75 4 4.25 4.5 4.75 WHAT IF WE SPED PAGE UP BY WHAT IF PAGE SPEED WAS Revenue Gain PDP - 2026-08-12 13:13 to 2026-08-13 13:13, IST (+5:30)​ What If Users Are Sped Up By X Seconds GDC Test Site 2 Revenue Opportunity 0 25.0 K 50.0 K 75.0 K 100 K 0.25 0.5 0.75 1 1.25 1.5 1.75 2 2.25 2.5 2.75 3 3.25 3.5 3.75 4 4.25 4.5 4.75 Toggle Filter Legend Filters for PDP (2026-08-12 13:13 to 2026-08-13 13:13) DATA TYPE: Real User DATA ORIGIN: Browser & Native Webview TIME PERIOD: 2026-08-12 13:13 to 2026-08-13 13:13 TIMEZONE: Asia/Kolkata BUCKET SIZE: auto A B SEGMENT FILTER SELECTOR: multi-select PAGE NAME: PDP MIN PAGE LOAD: 0 PERFORMANCE METRIC: onload DISCARD SESSIONS OVER: 80 Conversion Rate Avg Order Value PDP​2026-08-12 13:13 to 2026-08-13 13:13, IST (+5:30)​GDC Test Site 2 Conversion Rate and Avg Order Value / Converted Session Over Time All Transactions Conversion Rate Avg Order Value Onload 0% 2.4% 0.8% 1.6% 0 120 240 360 14:00 16:00 18:00 20:00 22:00 13 Aug 02:00 04:00 06:00 08:00 10:00"
+  },
+  "screenshot": "D:\\Project_Work\\BlueTriangle_Automation\\docs\\prompts\\revenue-calculator-live.png",
+  "savedAt": "2026-08-13T07:44:20.549Z",
+  "filtersOpen": {
+    "labels": [
+      "Event Markers",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "Calibration Multiplier",
+      "(2026-08-12 13:13 to 2026-08-13 13:13 IST (+5:30))",
+      "Seconds",
+      "Sessions",
+      "Avg Order Value ( )",
+      "Conversion Rate (%)",
+      "Page Views / Session",
+      "Percent of Total Sessions (%)",
+      "Bounce Rate (%)",
+      "(2026-08-12 13:13 to 2026-08-13 13:13)",
+      "Date",
+      "Onload (s)",
+      "Revenue Attribution Report Config",
+      "Current Time Period",
+      "Revenue Attribution Comparison Time Period",
+      "Recipient",
+      "Add Comparison: Series Configuration",
+      "Comparison Time Period",
+      "Comparison Legend Name*",
+      "Conversion Rate Legend Configuration",
+      "Avg Order Value",
+      "Conversion Rate",
+      "Page Views/Session",
+      "Percent of Total Sessions",
+      "Bounce Rate",
+      "Site Variable Change Requests",
+      "Real User Data Type",
+      "Data Originated From",
+      "Time Period",
+      "Timezone",
+      "Bucket Size",
+      "Traffic Source / Referrer Clear",
+      "Traffic Medium Clear",
+      "Campaign Clear",
+      "A/B Testing Segment Filter Selector",
+      "A/B Testing Segment Clear",
+      "A/B Testing Segment",
+      "Visitor Type (new vs. returning) Clear",
+      "Datacenter Location Clear",
+      "Internet Service Provider / Organization Clear",
+      "Traffic Segment Clear",
+      "Content Groups / Page Groups Clear",
+      "Page Name",
+      "IN",
+      "CONTAINS",
+      "Common Devices:",
+      "Common Operating Systems:",
+      "Common Browsers:",
+      "Browser/OS/Browser Version Clear",
+      "Country Clear",
+      "Region Clear",
+      "SDK Version Clear",
+      "App Version Clear",
+      "OS Version Clear"
+    ],
+    "select2": [
+      {
+        "id": "select2-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": true
+      },
+      {
+        "id": "select2-data-type-container",
+        "text": "Web Browser Data",
+        "visible": true
+      },
+      {
+        "id": "select2-data-origin-container",
+        "text": "RUM Browser & Native Webview",
+        "visible": true
+      },
+      {
+        "id": "select2-timezone-container",
+        "text": "Asia/Kolkata/Mumbai (+05:30)",
+        "visible": true
+      },
+      {
+        "id": "select2-bucket-size-container",
+        "text": "Auto",
+        "visible": true
+      },
+      {
+        "id": "select2-a-b-segment-filter-selector-container",
+        "text": "Multi-Select",
+        "visible": true
+      },
+      {
+        "id": "select2-page-name-container",
+        "text": "PDP",
+        "visible": true
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": true
+      },
+      {
+        "id": "select2-discard-sessions-over-container",
+        "text": "80th",
+        "visible": true
+      }
+    ],
+    "badges": {
+      "time-period-view": {
+        "text": "1 day (2026-08-12 13:13 to 2026-08-13 13:13 IST (+5:30))",
+        "visible": true
+      },
+      "device-view": {
+        "text": "",
+        "visible": true
+      },
+      "browser-view": {
+        "text": "All Browsers",
+        "visible": true
+      },
+      "operating-system-view": {
+        "text": "All OS",
+        "visible": true
+      },
+      "visitor-type-view": {
+        "text": "",
+        "visible": false
+      },
+      "bot-traffic-view": {
+        "text": "",
+        "visible": false
+      },
+      "data-type-view": {
+        "text": "Real User",
+        "visible": true
+      },
+      "campaign-view": {
+        "text": "",
+        "visible": false
+      },
+      "country-view": {
+        "text": "",
+        "visible": false
+      },
+      "traffic-segment-view": {
+        "text": "",
+        "visible": false
+      },
+      "page-name-view": {
+        "text": "PDP",
+        "visible": true
+      },
+      "page-group-view": {
+        "text": "",
+        "visible": false
+      },
+      "statistical-method-view": {
+        "text": "",
+        "visible": false
+      }
+    },
+    "inputs": [
+      {
+        "id": "user-id",
+        "name": "",
+        "type": "hidden",
+        "value": "355897",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "",
+        "name": "r",
+        "type": "hidden",
+        "value": "business-analytics/revenue-calculator",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "",
+        "name": "conversion-type",
+        "type": "hidden",
+        "value": "sales",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "site-id",
+        "name": "sid",
+        "type": "select",
+        "value": "305836",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "user-menu-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search",
+        "visible": false
+      },
+      {
+        "id": "toggleMarkersType",
+        "name": "toggleMarkersType",
+        "type": "hidden",
+        "value": "global-markers",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "report-list",
+        "name": "",
+        "type": "select",
+        "value": "Loading Reports...",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "table-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": false
+      },
+      {
+        "id": "table-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": false
+      },
+      {
+        "id": "time-period-clone",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "revenue-attribution-comparison-date",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "recipients",
+        "name": "recipients",
+        "type": "email",
+        "value": "",
+        "placeholder": "jane_smith@email.com",
+        "visible": false
+      },
+      {
+        "id": "add-comparison-segment-id-input",
+        "name": "",
+        "type": "hidden",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "add-comparison-segment-name-input",
+        "name": "",
+        "type": "hidden",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "current-existing-time-period",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "comparison-existing-time-period",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "comparison-legend-name",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "sessions-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "avg-order-value-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "conversion-rate-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "page-views-per-session-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "session-percent-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "bounce-rate-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "apply-segment-rerun",
+        "name": "",
+        "type": "hidden",
+        "value": "0",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "apply-segment-id-input",
+        "name": "segmentID",
+        "type": "hidden",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "apply-segment-name-input",
+        "name": "segment_name",
+        "type": "hidden",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "data-type",
+        "name": "data-type",
+        "type": "select",
+        "value": "real-user",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "data-origin",
+        "name": "data-origin",
+        "type": "select",
+        "value": "combined-rum",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "time-period",
+        "name": "time-period",
+        "type": "text",
+        "value": "2026-08-12 13:13 to 2026-08-13 13:13",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "timezone",
+        "name": "timezone",
+        "type": "select",
+        "value": "Asia/Kolkata",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "bucket-size",
+        "name": "bucket-size",
+        "type": "select",
+        "value": "auto",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "campaign-source",
+        "name": "campaign-source[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "campaign-medium",
+        "name": "campaign-medium[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "campaign-name",
+        "name": "campaign-name[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "a-b-segment-filter-selector",
+        "name": "a-b-segment-filter-selector",
+        "type": "select",
+        "value": "multi-select",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "a-b-testing-segment",
+        "name": "a-b-testing-segment[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "a-b-testing-segment-search",
+        "name": "a-b-testing-segment-search[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "Enter a A/B Testing Segment using asterisks as wildcards",
+        "visible": false
+      },
+      {
+        "id": "visitor-type",
+        "name": "visitor-type[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "datacenter",
+        "name": "datacenter[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "isp",
+        "name": "isp[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "traffic-segment",
+        "name": "traffic-segment[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "page-group",
+        "name": "page-group[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "page-name-mode-in",
+        "name": "",
+        "type": "radio",
+        "value": "multi-select",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "page-name-mode-contains",
+        "name": "",
+        "type": "radio",
+        "value": "search",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "page-name",
+        "name": "page-name",
+        "type": "select",
+        "value": "PDP",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "browser-version",
+        "name": "browser-version[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "country",
+        "name": "country[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "region",
+        "name": "region[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "sdktagVersion",
+        "name": "sdktagVersion[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "appVersion",
+        "name": "appVersion[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "osVersion",
+        "name": "osVersion[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "deviceModel",
+        "name": "deviceModel[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "netstate",
+        "name": "netstate[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "min-page-load",
+        "name": "min-page-load",
+        "type": "number",
+        "value": "0",
+        "placeholder": "15",
+        "visible": true
+      },
+      {
+        "id": "performance-metric",
+        "name": "performance-metric",
+        "type": "select",
+        "value": "onload",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "net-speed",
+        "name": "net-speed[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "discard-sessions-over",
+        "name": "discard-sessions-over",
+        "type": "select",
+        "value": "80",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "segment-create-name",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "Segment name",
+        "visible": false
+      },
+      {
+        "id": "segment-create-access-level",
+        "name": "",
+        "type": "select",
+        "value": "user",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "segment-create-status",
+        "name": "",
+        "type": "select",
+        "value": "1",
+        "placeholder": "",
+        "visible": false
+      }
+    ],
+    "buttons": [
+      "6",
+      "View Full Menu",
+      "Revenue Attribution",
+      "Add Comparison",
+      "+ New Rule",
+      "View Active Rule",
+      "Reset",
+      "Submit for Approval",
+      "Toggle Pie Charts",
+      "Export",
+      "CSV",
+      "TSV",
+      "JSON",
+      "Array",
+      "WHAT IF WE SPED PAGE UP BY",
+      "WHAT IF PAGE SPEED WAS",
+      "Toggle Filter Legend",
+      "Close",
+      "Run Report",
+      "Select Segment",
+      "Prev",
+      "Next",
+      "Site Variables Change Log",
+      "Clear Cache",
+      "Cancel",
+      "Apply Filters",
+      "Saved Filters",
+      "Save",
+      "Save as New Filter",
+      "Save Current Filter",
+      "Clear",
+      "Deselect All",
+      "Select All Common",
+      "×",
+      "+ New Group",
+      "Save As New Segment",
+      "Create Segment",
+      "Continue",
+      "← Back",
+      "View All Segments"
+    ],
+    "bodySample": "GDC Test Site 2 Demo eCommerce Global GDC Test Site 2 Business Insights / Improve Conversion / Revenue Calculator Get started 6 ADMINISTRATOR Revenue Attribution Add Comparison Toggle Global Markers Real User Data Originated From: RUM Browser & Native Webview Time Period: 1 day (2026-08-12 13:13 to 2026-08-13 13:13 IST (+5:30)) Device: Browser: All Browsers OS: All OS Page Name: PDP Bucket Size: Auto Performance Metric: Onload Discard Sessions Over: 80th Percentile Toggle Pie Charts PDP (2026-08-12 13:13 to 2026-08-13 13:13 IST (+5:30)) 97,603 TOTAL SESSIONS 1,568 TOTAL CONVERSIONS 194 AVG ORDER VALUE 1.61% AVG CONVERSION RATE 1.83 AVG PAGE VIEWS 49.68% AVG BOUNCE RATE 80th PERCENTILE 92,365 REVENUE OPPORTUNITY What if We Sped Page Up By 52,851 1 SECOND 72,728 2 SECONDS 86,931 3 SECONDS Sessions Conversion Rate Onload (Seconds)​PDP - 2026-08-12 13:13 to 2026-08-13 13:13 Conversion Rate, Avg Order Value, and Page Views / Converted Session GDC Test Site 2 Sessions Avg Order Value Conversion Rate Page Views / Session Percent of Total Sessions Bounce Rate 0 1.2 K 2.4 K 3.6 K 4.8 K 0 % 0.6 % 1.2 % 1.8 % 2.4 % 1 1.25 1.5 1.75 2 2.25 2.5 2.75 3 3.25 3.5 3.75 4 4.25 4.5 4.75 WHAT IF WE SPED PAGE UP BY WHAT IF PAGE SPEED WAS Revenue Gain PDP - 2026-08-12 13:13 to 2026-08-13 13:13, IST (+5:30)​ What If Users Are Sped Up By X Seconds GDC Test Site 2 Revenue Opportunity 0 25.0 K 50.0 K 75.0 K 100 K 0.25 0.5 0.75 1 1.25 1.5 1.75 2 2.25 2.5 2.75 3 3.25 3.5 3.75 4 4.25 4.5 4.75 Toggle Filter Legend Filters for PDP (2026-08-12 13:13 to 2026-08-13 13:13) DATA TYPE: Real User DATA ORIGIN: Browser & Native Webview TIME PERIOD: 2026-08-12 13:13 to 2026-08-13 13:13 TIMEZONE: Asia/Kolkata BUCKET SIZE: auto A B SEGMENT FILTER SELECTOR: multi-select PAGE NAME: PDP MIN PAGE LOAD: 0 PERFORMANCE METRIC: onload DISCARD SESSIONS OVER: 80 Conversion Rate Avg Order Value PDP​2026-08-12 13:13 to 2026-08-13 13:13, IST (+5:30)​GDC Test Site 2 Conversion Rate and Avg Order Value / Converted Session Over Time All Transactions Conversion Rate Avg Order Value Onload 0% 2.4% 0.8% 1.6% 0 120 240 360 14:00 16:00 18:00 20:00 22:00 13 Aug 02:00 04:00 06:00 08:00 10:00 Cancel Apply Filters Saved Filters Select Segment Expand All | Collapse All Real User Data Type Web Browser Data Native App Data Web Browser Data Data Originated From RUM Browser & Native Webview RUM Browser Native Webview RUM Browser & Native Webview Time Period Time Period Timezone Pacific/Midway (-11:00) Pacific/Honolulu (-10:00) A"
+  },
+  "select2Samples": [
+    {
+      "id": "select2-site-id-container",
+      "error": "ReferenceError: CSS is not defined"
+    }
+  ],
+  "comparisonSoft": {
+    "opened": true,
+    "headings": [
+      "Event Markers",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Executive",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "(2026-08-12 13:13 to 2026-08-13 13:13 IST (+5:30))",
+      "(2026-08-12 13:13 to 2026-08-13 13:13)",
+      "Revenue Attribution Report Config",
+      "Add Comparison: Series Configuration",
+      "Site Variable Change Requests",
+      "Create New Segment",
+      "Select Segment",
+      "Privacy Policy",
+      "What we do with the information we gather"
+    ],
+    "uniqueButtons": [
+      "6",
+      "View Full Menu",
+      "Revenue Attribution",
+      "Add Comparison",
+      "+ New Rule",
+      "View Active Rule",
+      "Reset",
+      "Submit for Approval",
+      "Toggle Pie Charts",
+      "Export",
+      "CSV",
+      "TSV",
+      "JSON",
+      "Array",
+      "WHAT IF WE SPED PAGE UP BY",
+      "WHAT IF PAGE SPEED WAS",
+      "Toggle Filter Legend",
+      "Close",
+      "Run Report",
+      "Select Segment",
+      "Prev",
+      "Next",
+      "Site Variables Change Log",
+      "Clear Cache",
+      "Cancel",
+      "Apply Filters",
+      "Saved Filters",
+      "Save",
+      "Save as New Filter",
+      "Save Current Filter"
+    ],
+    "labels": [
+      "Event Markers",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "Calibration Multiplier",
+      "(2026-08-12 13:13 to 2026-08-13 13:13 IST (+5:30))",
+      "Seconds",
+      "Sessions",
+      "Avg Order Value ( )",
+      "Conversion Rate (%)",
+      "Page Views / Session",
+      "Percent of Total Sessions (%)",
+      "Bounce Rate (%)",
+      "(2026-08-12 13:13 to 2026-08-13 13:13)",
+      "Date",
+      "Onload (s)",
+      "Revenue Attribution Report Config",
+      "Current Time Period"
+    ]
+  },
+  "whatIfSoft": {
+    "opened": true,
+    "headings": [
+      "Event Markers",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Executive",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "(2026-08-12 13:13 to 2026-08-13 13:13 IST (+5:30))",
+      "(2026-08-12 13:13 to 2026-08-13 13:13)",
+      "Revenue Attribution Report Config",
+      "Add Comparison: Series Configuration",
+      "Site Variable Change Requests",
+      "Create New Segment",
+      "Select Segment",
+      "Privacy Policy",
+      "What we do with the information we gather"
+    ],
+    "inputs": [
+      {
+        "id": "user-id",
+        "name": "",
+        "type": "hidden",
+        "value": "355897",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "",
+        "name": "r",
+        "type": "hidden",
+        "value": "business-analytics/revenue-calculator",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "",
+        "name": "conversion-type",
+        "type": "hidden",
+        "value": "sales",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "site-id",
+        "name": "sid",
+        "type": "select",
+        "value": "305836",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "user-menu-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search",
+        "visible": false
+      },
+      {
+        "id": "toggleMarkersType",
+        "name": "toggleMarkersType",
+        "type": "hidden",
+        "value": "global-markers",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "report-list",
+        "name": "",
+        "type": "select",
+        "value": "Loading Reports...",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "table-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": false
+      },
+      {
+        "id": "table-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": false
+      },
+      {
+        "id": "time-period-clone",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "revenue-attribution-comparison-date",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "recipients",
+        "name": "recipients",
+        "type": "email",
+        "value": "",
+        "placeholder": "jane_smith@email.com",
+        "visible": false
+      },
+      {
+        "id": "add-comparison-segment-id-input",
+        "name": "",
+        "type": "hidden",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "add-comparison-segment-name-input",
+        "name": "",
+        "type": "hidden",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "current-existing-time-period",
+        "name": "",
+        "type": "text",
+        "value": "2026-08-12 13:13 to 2026-08-13 13:13",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "comparison-existing-time-period",
+        "name": "",
+        "type": "text",
+        "value": "2026-08-12 13:13 to 2026-08-13 13:13",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "comparison-legend-name",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "sessions-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "avg-order-value-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "conversion-rate-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "page-views-per-session-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "session-percent-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "bounce-rate-check",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "apply-segment-rerun",
+        "name": "",
+        "type": "hidden",
+        "value": "0",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "apply-segment-id-input",
+        "name": "segmentID",
+        "type": "hidden",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "apply-segment-name-input",
+        "name": "segment_name",
+        "type": "hidden",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "data-type",
+        "name": "data-type",
+        "type": "select",
+        "value": "real-user",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "data-origin",
+        "name": "data-origin",
+        "type": "select",
+        "value": "combined-rum",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "time-period",
+        "name": "time-period",
+        "type": "text",
+        "value": "2026-08-12 13:13 to 2026-08-13 13:13",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "timezone",
+        "name": "timezone",
+        "type": "select",
+        "value": "Asia/Kolkata",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "bucket-size",
+        "name": "bucket-size",
+        "type": "select",
+        "value": "auto",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "campaign-source",
+        "name": "campaign-source[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "campaign-medium",
+        "name": "campaign-medium[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "campaign-name",
+        "name": "campaign-name[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "a-b-segment-filter-selector",
+        "name": "a-b-segment-filter-selector",
+        "type": "select",
+        "value": "multi-select",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "a-b-testing-segment",
+        "name": "a-b-testing-segment[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "a-b-testing-segment-search",
+        "name": "a-b-testing-segment-search[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "Enter a A/B Testing Segment using asterisks as wildcards",
+        "visible": false
+      },
+      {
+        "id": "visitor-type",
+        "name": "visitor-type[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "datacenter",
+        "name": "datacenter[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "isp",
+        "name": "isp[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      }
+    ],
+    "buttons": [
+      "6",
+      "View Full Menu",
+      "Revenue Attribution",
+      "Add Comparison",
+      "+ New Rule",
+      "View Active Rule",
+      "Reset",
+      "Submit for Approval",
+      "Toggle Pie Charts",
+      "Export",
+      "CSV",
+      "TSV",
+      "JSON",
+      "Array",
+      "WHAT IF WE SPED PAGE UP BY",
+      "WHAT IF PAGE SPEED WAS",
+      "Toggle Filter Legend",
+      "Close",
+      "Run Report",
+      "Select Segment",
+      "Prev",
+      "Next",
+      "Site Variables Change Log",
+      "Clear Cache",
+      "Cancel",
+      "Apply Filters",
+      "Saved Filters",
+      "Save",
+      "Save as New Filter",
+      "Save Current Filter"
+    ]
+  },
+  "graphTableToggles": [
+    {
+      "id": "",
+      "text": "Revenue Calculator",
+      "cls": "help-page-option"
+    },
+    {
+      "id": "",
+      "text": "Revenue Calculator",
+      "cls": "help-video-option"
+    },
+    {
+      "id": "toggle-revenue-calibration",
+      "text": "",
+      "cls": "ctrl r-p pull-right hidden-xs"
+    },
+    {
+      "id": "",
+      "text": "Revenue Calculator",
+      "cls": "help-video-option"
+    },
+    {
+      "id": "",
+      "text": "Revenue Calculator",
+      "cls": "help-page-option"
+    },
+    {
+      "id": "",
+      "text": "Competitive Index Table",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Revenue Opportunity",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Revenue Calculator",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Revenue Attribution",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Revenue Analysis",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Revenue Assurance",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Competitive Index Table",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Revenue Opportunity",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Revenue Calculator",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Revenue Attribution",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Revenue Analysis",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Revenue Assurance",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Bounce & Exit Analysis",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Bounce & Exit Analysis",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "revenue-attribution",
+      "text": "Revenue Attribution",
+      "cls": "btn btn-primary pull-left"
+    },
+    {
+      "id": "revenue-impact-rules-config-button",
+      "text": "",
+      "cls": "btn btn-default"
+    },
+    {
+      "id": "toggle-pie-chart-row",
+      "text": "Toggle Pie Charts",
+      "cls": "btn btn-action r-p pull-right"
+    },
+    {
+      "id": "graph-conv-curve-btn",
+      "text": "",
+      "cls": "left active btn btn-default tab-btn"
+    },
+    {
+      "id": "table-conv-curve-btn",
+      "text": "",
+      "cls": "right btn btn-default tab-btn"
+    },
+    {
+      "id": "graph-conversion-time-btn",
+      "text": "",
+      "cls": "active left btn btn-default tab-btn"
+    },
+    {
+      "id": "table-conversion-time-btn",
+      "text": "",
+      "cls": "right btn btn-default tab-btn"
+    },
+    {
+      "id": "run-revenue-attribution",
+      "text": "Run Report",
+      "cls": "btn btn-primary"
+    },
+    {
+      "id": "add-comparison-to-graph",
+      "text": "Add Comparison",
+      "cls": "btn btn-success"
+    }
+  ]
+}

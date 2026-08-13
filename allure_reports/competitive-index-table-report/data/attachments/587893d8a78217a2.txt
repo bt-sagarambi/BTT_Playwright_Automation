@@ -1,1 +1,0 @@
-[CIT] charts table=4 trends=4

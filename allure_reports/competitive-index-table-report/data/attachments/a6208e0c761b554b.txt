@@ -1,2 +1,0 @@
-[CIT] industry Retail → Business Services changed=true
-[CIT] industry restore; beforeLen=811 afterLen=811

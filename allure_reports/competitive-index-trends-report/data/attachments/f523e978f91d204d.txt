@@ -1,1 +1,0 @@
-[CITr] period 7d=true 30d=true

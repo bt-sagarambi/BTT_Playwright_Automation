@@ -1,1 +1,0 @@
-{"total":2,"items":[{"uid":"01f4b2f757b57c9464e9b2367e1bf743","name":"chromium-smoke","statistic":{"failed":1,"broken":0,"skipped":0,"passed":78,"unknown":0,"total":79}},{"uid":"64c311893eecf7cf00f4368c9b45b4d5","name":"smoke-setup","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}

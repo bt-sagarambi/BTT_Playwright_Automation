@@ -1,2 +1,0 @@
-[CITr] industry Retail -> Retail - EU sigChanged=true
-[CITr] sig before=Selected Retail Companies Compared to Industry Average For Page Load Time (sec.) restore=Selected Retail Companies Compared to Industry Average For Page Load Time (sec.)

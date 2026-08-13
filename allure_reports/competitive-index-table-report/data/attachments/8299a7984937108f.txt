@@ -1,2 +1,0 @@
-[CIT] applied7d=true
-[CIT] time7d signature changed=false

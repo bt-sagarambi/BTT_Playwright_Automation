@@ -1,1 +1,0 @@
-[CITr] visibleCharts=2 groupsPresent=true industryHost=true

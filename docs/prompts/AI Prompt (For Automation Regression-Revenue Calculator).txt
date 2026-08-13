@@ -1,0 +1,329 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the **“Revenue Calculator”** page (Business Insights → Improve Conversion). Reverse-engineer the live application using **GDC Test Site 2** and refer to:
+  • Live portal reverse-engineering probe (Aug 2026): docs/prompts/revenue-calculator-live-probe.json
+  • Live screenshot: docs/prompts/revenue-calculator-live.png
+  • Probe script: scripts/probe-revenue-calculator.ts
+  • Soft Help Center / product docs (when a dedicated Revenue Calculator PDF is supplied, prefer it; until then use these as vocabulary + behavior SoT):
+      – Brand Calculator mirror article (same calculator family, brand conversion-type): https://help.bluetriangle.com/hc/en-us/articles/16938426249875-The-Brand-Calculator-Page
+      – Improve User Experience and Conversions (mentions Business Analytics – Revenue Calculator KPIs): https://help.bluetriangle.com/hc/en-us/articles/33576875353363-Improve-User-Experience-and-Conversions
+      – Release notes (Min load-time filter + native filters on Revenue Calculator): Portal v9.11.0
+  • Sibling Improve Conversion suites for shared chrome patterns only:
+      tests/regression_tests/US2/business-insights/improve-conversion/revenue-opportunity/
+      pages/RevenueOpportunityPage.ts / locators (if present)
+      pages/MarketingOverviewPage.ts (filters / lookback / recover patterns)
+      Customer Journey Analysis prompt/suite (conversion-type=sales vs brand discrimination pattern)
+
+NOTE ON DOCUMENTATION VS LIVE PRODUCT
+1) If a package PDF named like **“The Revenue Calculator Page – Blue Triangle Help Center.pdf”** (or a txt package brief) is provided later, fold its steps into this prompt — **prefer live control ids / titles / KPI labels / graph hosts when PDF is older or incomplete**.
+2) Live BI path (probe Aug 2026): Menu → **Business Insights** → **Improve Conversion** → **Revenue Calculator**.
+3) Route: **business-analytics/revenue-calculator** with required query **conversion-type=sales**.
+4) Sibling **Brand Calculator** uses the **same route** with **conversion-type=brand** — discrimination only; never accept Brand Calculator as suite home for this suite.
+5) Sibling **Revenue Opportunity / Revenue Attribution / Revenue Analysis** — soft-switch then restore Revenue Calculator + GDC; do not expand into full RO/Attribution suites here.
+6) Product purpose (Help + live): predict impact of page-load-time changes on **revenue** and visualize KPI response vs performance (Conversion Rate, Sessions, AOV, Page Views/Sessions, Bounce Rate) via Conversion Rate Curve (CRC) + “What If” speed scenarios.
+
+CRITICAL DISTINCTION (do not confuse screens)
+  • **Revenue Calculator (THIS suite)** = Improve Conversion → Revenue Calculator; route business-analytics/revenue-calculator&conversion-type=sales; browser title **Revenue Calculator**; breadcrumb **Business Insights / Improve Conversion / Revenue Calculator**.
+  • **Brand Calculator** — same calculator UI family, conversion-type=brand; soft dual only then restore sales Revenue Calculator.
+  • **Revenue Opportunity** — different multi-report opportunity page (By Page / Platform / What If Save, etc.); soft sibling only.
+  • **Revenue Attribution / Revenue Analysis / Revenue Assurance** — siblings/out of primary scope.
+  • Monitoring RUM pages — out of primary scope.
+
+Live observations (GDC Test Site 2 — probe, Aug 2026)
+- URL sample: …/index.php?r=business-analytics/revenue-calculator&sid=…&conversion-type=sales
+- Browser title: Revenue Calculator
+- #page-title: Business Insights / Improve Conversion / Revenue Calculator
+- Site: GDC Test Site 2
+- Badge strip samples (capture/restore; do not hard-code values):
+    Time Period: e.g. “1 day (YYYY-MM-DD … IST (+5:30))”
+    Data Type: Real User
+    Browser: All Browsers | OS: All OS | Page Name: e.g. PDP
+    Soft: Device, Bot Traffic, Campaign, Country, Traffic Segment, Page Group when populated
+  Filter drawer Select2 soft (when open): Data Type / Data Origin (RUM Browser & Native Webview) / Timezone / Bucket Size (Auto) / A/B Testing Segment Filter Selector / Page Name / Performance Metric (Onload) / Discard Sessions Over (e.g. 80th)
+- Top chrome soft: Revenue Attribution button (#revenue-attribution), Add Comparison, Toggle Global Markers / Event Markers, Toggle Pie Charts (#toggle-pie-chart-row), Calibration Multiplier (#toggle-revenue-calibration / #calibration-slider — Cancel/Reset only; **do not Save** calibration permanently)
+- KPI / summary strip (ids soft): #total-sessions, #total-conversions, #avg-page-views, #avg-bounce-rate, #selected-percentile, #rev-opportunity (+ live labels Total Sessions / Total Conversions / Avg Order Value / Avg Conversion Rate / Avg Page Views / Avg Bounce Rate / Nth Percentile / Revenue Opportunity)
+- What-if speed cards: “What if We Sped Page Up By” **1 SECOND / 2 SECONDS / 3 SECONDS** opportunity amounts (live values — never hard-code)
+- Optional pie row (#pie-chart-row): #page-views-by-page, #page-views-by-traffic-segment
+- Primary CRC graph: #conversion-rate-curve-graph — title soft “Conversion Rate, Avg Order Value, and Page Views / Converted Session”; legend soft Sessions / Avg Order Value / Conversion Rate / Page Views / Session / Percent of Total Sessions / Bounce Rate
+  Graph/table toggles: #graph-conv-curve-btn / #table-conv-curve-btn
+  Table host: #table-for-conversion-rate-curve-table — headers Seconds | Sessions | Avg Order Value | Conversion Rate (%) | Page Views / Session | Percent of Total Sessions (%) | Bounce Rate (%)
+- What-If graphs toggles: **WHAT IF WE SPED PAGE UP BY** / **WHAT IF PAGE SPEED WAS**
+  Hosts: #revenue-calculator-sped-up-by (“What If Users Are Sped Up By X Seconds”), #revenue-calculator-sped-up-to (“What If Users Are Sped Up To X Seconds”); legend soft Revenue Opportunity
+- Over-time graph: #conversion-rate-over-time-graph — “Conversion Rate and Avg Order Value / Converted Session Over Time”; legend Conversion Rate / Avg Order Value / Onload (or active performance metric)
+  Toggles: #graph-conversion-time-btn / #table-conversion-time-btn
+  Table: #table-for-conversion-rate-over-time-table — Date | Conversion Rate (%) | Avg Order Value | Onload (s)
+- Toggle Filter Legend soft; Export soft CSV/TSV/JSON/Array
+- Soft coach / Get started overlays — dismiss before asserts
+- chart highcharts-* instance suffixes dynamic — use stable host **ids / prefixes** + titles
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - Revenue Calculator predicts revenue impact of speeding pages up (by X seconds / to X seconds) and visualizes how load time correlates with business KPIs on the selected page/filter context.
+   - Metric formats soft: currency/counts (K/M/comma), %, seconds/s/S/ms — format-tolerant; do not hard-code totals, opportunity dollars, conversion %, AOV, session counts, percentile cutoffs, page names, or time-range strings.
+   - Use live UI data only. Do not call APIs or query a database.
+   - Capture at suite start: breadcrumb/title, conversion-type=sales, active Page Name, Time Period, Performance Metric, Discard Sessions Over / percentile, Bucket Size, Calibration state if visible, graph vs table mode for CRC and over-time, What-If By vs To mode, pie charts open/closed, comparison presence.
+   - Assert labels, formats, graph/table shells, controlled empty states, before/after soft signatures rather than exact backend series.
+   - If a filter/page combo yields empty CRC / zero opportunity, assert controlled empty, annotate, restore a data-bearing page (e.g. runtime PDP/Home) and continue.
+   - Do not hard-code Highcharts internal ids.
+
+2. Navigation and implementation paths
+   User + live primary path:
+   Login → Left menu **Business Insights** → **Improve Conversion** → **Revenue Calculator**
+   Route: **business-analytics/revenue-calculator** (+ conversion-type=sales)
+   Smoke catalog: **biz.revenue-calculator** (menuLabel Revenue Calculator, hrefIncludes conversion-type=sales)
+   Browser title: **Revenue Calculator**
+   #page-title: **Business Insights / Improve Conversion / Revenue Calculator**
+
+   Soft alternate: Favorites / Help deep-link if present — still require sales conversion-type + Revenue Calculator title.
+
+   Target automation folder:
+   tests/regression_tests/US2/business-insights/improve-conversion/revenue-calculator/
+   Suggested spec name:
+   revenue.calculator.regression.spec.ts
+   Suggested POM / locators:
+   pages/RevenueCalculatorPage.ts
+   locators/RevenueCalculatorLocators.ts
+   Reuse filter/apply/cancel + soft signature patterns from Revenue Opportunity / Marketing Overview / CJA; do not treat Brand Calculator POM as home.
+   Suggested manual workbook:
+   docs/Revenue_Calculator_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:revenue-calculator
+   Suggested test case ID prefix:
+   REG-RC-###
+   Probe:
+   scripts/probe-revenue-calculator.ts → docs/prompts/revenue-calculator-live-probe.json
+
+3. Page load, authentication and default context
+   - Authenticated navigation without login redirect, blank shell, or perpetual loader.
+   - Browser title matches /Revenue Calculator/i.
+   - #page-title matches /Business Insights\s*\/\s*Improve Conversion\s*\/\s*Revenue Calculator/i.
+   - URL contains business-analytics/revenue-calculator and conversion-type=sales (slash / %2F safe).
+   - Selected site is GDC Test Site 2 (#select2-site-id-container).
+   - Dismiss Get started / Don’t show me again / jconfirm before interacting.
+   - Verify core inventory settles within bounded UI deadline:
+       • KPI strip (sessions/conversions/AOV/conversion rate/bounce/revenue opportunity soft)
+       • #conversion-rate-curve-graph (or CRC table mode)
+       • What-If host #revenue-calculator-sped-up-by and/or #revenue-calculator-sped-up-to
+       • #conversion-rate-over-time-graph (or table mode)
+       • Soft pie charts when toggled on
+   - Soft-assert time-range / page subtitle text without hard-coding timestamps.
+   - Back/Forward/refresh return to healthy Revenue Calculator + GDC; re-select if lost.
+   - Capture uncaught page errors; distinguish blocking vs Highcharts noise.
+
+4. Top chrome (badges, attribution shortcut, markers, pie toggle, calibration)
+   Cover:
+   - Verify badge strip hosts present for Time Period / Data Type / Browser / OS / Page Name when populated.
+   - Soft Toggle Pie Charts (#toggle-pie-chart-row): show/hide #pie-chart-row; restore preferred state.
+   - Soft Event Markers / Toggle Global Markers open/close without sticky pollution.
+   - Soft Revenue Attribution (#revenue-attribution) click → soft assert navigation or modal → **Back/restore Revenue Calculator** (do not run full Attribution suite).
+   - Soft Calibration Multiplier (#toggle-revenue-calibration): open slider (#calibration-slider); **Reset/Cancel only** — never click #save-calibration-slider / Submit for Approval / sticky Save.
+   - Soft Revenue Impact rules chrome (#revenue-impact-rules-config-button / + New Rule / View Active Rule) — open/close only; no permanent rule submit.
+   - Soft Help Videos / Help page “Revenue Calculator” chrome when present.
+
+5. Tabs / modes (page-level vs widget chrome)
+   Page-level filter tabs when Filters open: **My Filters** (#my-filters-tab) / **Shared Filters** (#shared-filters-tab) — read-only; **do not Save Filter**.
+   Widget chrome toggles (NOT browser tabs — still must cover):
+   - CRC: #graph-conv-curve-btn ↔ #table-conv-curve-btn
+   - Over time: #graph-conversion-time-btn ↔ #table-conversion-time-btn
+   - What-If mode: **WHAT IF WE SPED PAGE UP BY** ↔ **WHAT IF PAGE SPEED WAS** (maps to sped-up-by vs sped-up-to hosts)
+   Cover soft restore of modes captured at suite start.
+
+6. KPI / summary strip + 1s/2s/3s What-If cards
+   Purpose: high-level page health + incremental revenue if page sped by 1/2/3 seconds.
+   Cover:
+   - Soft-assert label presence for Total Sessions, Total Conversions, Avg Order Value, Avg Conversion Rate, Avg Page Views, Avg Bounce Rate, Percentile, Revenue Opportunity (dual-regex soft for Avg vs Average).
+   - Soft numeric/currency/% format tolerance on visible values — never hard-code probe samples (e.g. 97,603 sessions).
+   - Soft-assert 1 / 2 / 3 second opportunity cards visible when data-bearing; annotate if sparse.
+   - Soft hover/info icons when present.
+
+7. Pie charts (Page Views By Page / By Traffic Segment)
+   Hosts: #page-views-by-page, #page-views-by-traffic-segment under #pie-chart-row.
+   Cover:
+   - Soft Toggle Pie Charts on → shells present (size may be 0 when collapsed — use toggle + visibility).
+   - Soft legend/slice hover when painted; soft empty OK.
+   - Restore pie visibility preference.
+
+8. Conversion Rate Curve (primary CRC graph + table)
+   Purpose: show KPI response across load-time buckets (Seconds axis).
+   Cover:
+   - Verify #conversion-rate-curve-graph visible in graph mode (or table host in table mode).
+   - Soft legend series presence (subset OK): Sessions, Avg Order Value, Conversion Rate, Page Views / Session, Percent of Total Sessions, Bounce Rate.
+   - Soft legend toggle one series then restore.
+   - Soft graph → table: assert headers Seconds / Sessions / Avg Order Value / Conversion Rate (%) / Page Views / Session / Percent of Total Sessions (%) / Bounce Rate (%); soft ≥1 data row when traffic exists or controlled empty.
+   - Soft table search (#table-search) clear before suite end; soft Export open/close (CSV/TSV/JSON/Array) without hard file asserts.
+   - Soft hover/crosshair when series non-empty.
+   - Soft sort on Seconds or Sessions if sortable — restore.
+   - After lookback/filter change: soft re-assert CRC title/host.
+
+9. What-If speed graphs (By X seconds / To X seconds)
+   Cover:
+   - Soft toggle WHAT IF WE SPED PAGE UP BY → #revenue-calculator-sped-up-by title soft “What If Users Are Sped Up By X Seconds”.
+   - Soft toggle WHAT IF PAGE SPEED WAS → #revenue-calculator-sped-up-to title soft “What If Users Are Sped Up To X Seconds”.
+   - Soft legend Revenue Opportunity; soft hover; soft empty annotate.
+   - Restore By/To mode captured at start when practical.
+
+10. Conversion Rate / AOV Over Time
+    Cover:
+    - Verify #conversion-rate-over-time-graph (or table) after settle.
+    - Soft legend Conversion Rate / Avg Order Value / Onload (or active performance metric label).
+    - Soft legend toggle + restore.
+    - Soft table mode headers Date / Conversion Rate (%) / Avg Order Value / Onload (s); soft rows or empty.
+    - Soft Export/search clear.
+
+11. Add Comparison
+    Cover:
+    - Soft open Add Comparison → “Add Comparison: Series Configuration” (or live equivalent).
+    - Soft fields: Comparison Time Period, Comparison Legend Name*, metric checkboxes (Sessions / AOV / Conversion Rate / Page Views/Session / Percent of Total Sessions / Bounce Rate).
+    - Soft Cancel/Close/Escape — **do not leave sticky comparison** unless product auto-applies and can be cleared without Save.
+    - Soft assert CRC/over-time still healthy after cancel.
+
+12. Time Period / lookback
+    Host: Time Period badge + Filters Time Period.
+    Cover:
+    - Open Filters; soft multi time presets when menu offers them.
+    - **Required apply set (soft):** Last **1 day** or current “1 day” sample, Last **7 days**, Last **30 days** (and Last 24 hours / Last 6 hours if offered) — widgets ready soft; restore original Time Period.
+    - Soft Custom Date open/cancel only.
+    - After each apply: still Revenue Calculator + conversion-type=sales + GDC; KPI/CRC/What-If inventory present or controlled loading complete.
+
+13. Filters drawer
+    Hosts: #toggle-filters / #mobile-controls-filters-btn; Apply Filters; #cancel-filters / Cancel.
+    Soft filter inventory (presence soft; not all required simultaneously):
+      Real User Data Type / Data Originated From / Time Period / Timezone / Bucket Size /
+      Traffic Source / Medium / Campaign / A/B Testing Segment / Visitor Type /
+      Traffic Segment / Content Groups / Page Groups / Page Name /
+      Common Devices / OS / Browsers / Country / Region /
+      Performance Metric / Discard Sessions Over / Min Page Load (Minimum load time — release-note feature) /
+      SDK Version / App Version / OS Version (native soft) /
+      Converting/Include/Exclude page soft (#cv-converting-page-view etc. when shown)
+    My Filters / Shared Filters — no Save Filter / Save as New / Save Current.
+    Clear Cache / Clear Genius Cache — **do not click**.
+    Cover:
+    - Open Filters; soft assert Time Period / Timezone / Page Name / Performance Metric when present.
+    - Soft apply one dimensional change (e.g. alternate Page Name when options exist, or Device/Browser); soft healthy or empty; Cancel or re-apply default — **no Save Filter**.
+    - Soft My/Shared tabs.
+    - Close Filters before leaving suite home.
+
+14. Graphs, tables, exports, a11y (cross-widget)
+    - Soft Highcharts signatures independently for CRC, What-If, Over Time, pies.
+    - Soft do not claim refresh by SVG host counts alone — use titles / KPI text / lookback / table headers.
+    - Soft Escape recovers menus/modals/comparison/calibration.
+    - Soft focus Filters toggle; Help chrome soft.
+
+15. Sibling discrimination (soft)
+    - Soft once Brand Calculator (conversion-type=brand or menu Brand Calculator): soft title Brand Calculator → restore **Revenue Calculator** + sales + GDC.
+    - Soft once Revenue Opportunity or Revenue Attribution → restore Revenue Calculator.
+    - Soft Shared/Favorites sample optional; no save.
+    - Always re-assert GDC Test Site 2 after site/dashboard-like switches.
+
+16. Combination, recovery, non-functional
+    - Capture → lookback change → soft KPI/CRC inventory → restore lookback.
+    - Soft CRC table mode → headers → restore graph.
+    - Soft What-If By ↔ To → restore.
+    - Soft pie toggle → restore.
+    - Soft legend toggle on CRC → restore.
+    - Soft Filters Apply → restore.
+    - Soft comparison cancel; soft calibration cancel.
+    - Refresh keeps Revenue Calculator identity.
+    - Performance: widgets settle within project soft deadlines.
+    - Viewport: desktop + ~1100px OK.
+
+17. Out-of-scope mutations (always)
+    - Do not Save Filter / Save as New / Save Current / permanent shared filters.
+    - Do not Clear Cache.
+    - Do not Save Calibration Multiplier / Submit for Approval sticky / permanent revenue-impact rules.
+    - Do not permanently Save What-If configurations if a Save path exists (Cancel only).
+    - Do not create permanent segments / campaigns.
+    - Do not leave sticky table search hiding all rows.
+    - Do not expand into full Revenue Opportunity / Attribution / Brand Calculator suites — soft sibling only.
+    - Do not hard-code page catalogs (PDP, Cart, …), KPI totals, or exact time-range strings from the probe.
+
+18. Live reverse-engineering facts to preserve (GDC Test Site 2, Aug 2026 probe)
+    - Route + conversion-type=sales; title Revenue Calculator; BI Improve Conversion breadcrumb
+    - KPI strip + 1s/2s/3s opportunity cards
+    - Pie toggles: Page Views By Page / By Traffic Segment
+    - CRC graph/table; What-If By/To graphs; Over-time graph/table
+    - Filters: Page Name, Onload performance metric, Discard Sessions Over percentile, Bucket Size, Min Page Load soft
+    - Add Comparison series config; Revenue Attribution shortcut; Calibration soft
+    - Export CSV/TSV/JSON/Array soft
+    - Probe JSON keys: nav, snap, filtersOpen, comparisonSoft, whatIfSoft, graphTableToggles, savedAt
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a Playwright automation suite under
+tests/regression_tests/US2/business-insights/improve-conversion/revenue-calculator
+covering thorough regression for:
+  - navigation & identity (exact Revenue Calculator + conversion-type=sales; soft Brand Calculator dual then restore)
+  - badge strip + Filters drawer (incl. Min Page Load / Discard Sessions Over / Performance Metric / Page Name soft)
+  - My/Shared filter tabs (no Save Filter)
+  - KPI strip + 1s/2s/3s What-If cards
+  - Toggle Pie Charts + Page Views pies
+  - Conversion Rate Curve graph + table headers/legend toggles/export soft
+  - What-If By X / To X graphs
+  - Conversion Rate & AOV Over Time graph + table
+  - Add Comparison cancel-only
+  - Calibration / Revenue Impact rules cancel-only
+  - Revenue Attribution soft round-trip restore
+  - Time Period apply set + restore
+  - combination, recovery, empty/soft data paths, GDC re-anchor
+  - explicit non-confusion with Brand Calculator, Revenue Opportunity, Revenue Attribution, Monitoring RUM
+
+Follow existing project framework and POM conventions. Prefer live probe hosts/titles as SoT.
+
+After generation:
+1. Execute only the newly created Revenue Calculator regression suite and fix automation hard failures.
+2. Generate fresh isolated Allure results + HTML report for this suite.
+3. Generate manual test-case workbook (Summary / Regression TCs / Notes).
+4. Include executed result summary and soft annotations for: empty/sparse CRC or What-If windows, Page Name samples, pie toggle, CRC graph/table, By vs To What-If, comparison cancel, calibration cancel, Brand Calculator discrimination, GDC re-anchor.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable control titles/headers and id prefixes (#conversion-rate-curve-graph, #revenue-calculator-sped-up-by, #revenue-calculator-sped-up-to, #conversion-rate-over-time-graph, #table-for-conversion-rate-curve-table, #table-for-conversion-rate-over-time-table, #page-views-by-page, #total-sessions, #rev-opportunity, etc.); do not depend on dynamic Highcharts instance IDs alone.
+6. Do not hard-code KPI totals, opportunity dollars, page-name sets, fixed time-period/timezone strings, or exact pager strings.
+7. Capture and restore Revenue Calculator home (sales), GDC Test Site 2, Time Period, CRC/over-time graph|table mode, What-If By|To mode, pie visibility when restorable without Save.
+8. Use a serial suite only when shared page state is intentional; optional/data-dependent failures must not abort unrelated tests (soft deadlines + recovery).
+9. Use bounded soft deadlines and explicit action timeouts.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page actions running into later serial tests; cancel/reload/reset before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save Filter, Clear Cache, permanently Save calibration/rules/comparisons, or leave sticky searches.
+13. Keep primary scope on Revenue Calculator (sales); restore after soft sibling/Brand visits.
+14. Close all menus, overlays, drawers, modals, Export menus opened by tests.
+15. Do not claim widgets refreshed by merely counting SVG hosts.
+16. Treat timing/currency/% units as format-tolerant.
+17. Never accept Brand Calculator, Revenue Opportunity, or partial “Calculator” without Revenue + sales conversion-type as suite home.
+18. If any requirement is ambiguous or missing, flag it before generating automation.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- **Attached PDF/txt were not present in the chat that requested this prompt.** Proceed with live probe + Brand Calculator Help mirror + Improve Conversion Help KPI list as documentation layer until the dedicated Revenue Calculator PDF/txt is re-attached.
+- Live Select2/menu uses **Revenue Calculator**; Help may say “Business Analytics – Revenue Calculator” — prefer live BI Improve Conversion breadcrumb.
+- Brand Calculator is a parallel product surface (conversion-type=brand) — dedicated suite should stay sales-only with soft dual.
+- Default Time Period sample was **1 day** on GDC probe — capture/restore whatever is active at start.
+- Page Name sample **PDP** is data-dependent — never hard-require that exact page.
+- Min Page Load / Discard Sessions Over / Bucket Size may be filter-drawer-only.
+- Calibration Save / Revenue Impact Submit for Approval must remain out of scope on shared accounts.
+- Pie chart containers may report 0×0 when collapsed — use Toggle Pie Charts before asserting.
+- What-If “By” vs “To” hosts may show one visible at a time — soft toggle coverage.
+- CRC table may be hidden while graph active — toggle before header asserts.
+- Formal SLA for widget reload — use project soft deadlines.
+- Coach/Get started overlays may appear.
+- Relationship to Revenue Opportunity What-If is purpose-related; do not require RO layout parity.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to:
+- docs/prompts/AI Prompt (For Automation Regression-Bottom of the Sales Funnel Analysis).txt
+- docs/prompts/AI Prompt (For Automation Regression-Customer Journey Analysis).txt
+- docs/prompts/AI Prompt (For Automation Regression-Core Web Vitals).txt
+- tests/regression_tests/US2/business-insights/improve-conversion/revenue-opportunity/
+- pages/RevenueOpportunityPage.ts / pages/MarketingOverviewPage.ts / pages/CustomerJourneyAnalysisPage.ts
+- helpers used by Improve Conversion / Improve Traffic suites
+
+Follow their patterns for POM/locator separation, authenticated GDC site selection, filter open/apply/cancel, Highcharts + legend soft toggles, table sort/export soft, serial recovery after soft sibling switches, isolated Allure + Excel workbooks, and npm naming that does not collide with Brand Calculator or Revenue Opportunity.

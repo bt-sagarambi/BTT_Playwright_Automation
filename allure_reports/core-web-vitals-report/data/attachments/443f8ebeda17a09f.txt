@@ -1,1 +1,0 @@
-[PortalSession] profile=us-gdc-test-site-2 | datacenter=US | site=GDC Test Site 2

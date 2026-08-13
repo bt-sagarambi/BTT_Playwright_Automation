@@ -1,1 +1,0 @@
-[LeftNav] Favorites UI not found for this user/site (non-fatal). URL=https://portal.bluetriangle.com/btportal/web/index.php?r=real-user-monitoring/performance-overview&sid=305836

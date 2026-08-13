@@ -1,1 +1,0 @@
-[CWV] headers sample: Page Name | Page Views | Onload (s) | First Byte (s) | Largest Contentful Paint (s) | Interaction to Next Paint (s) | Cumulative Layout Shift | LCP Time to First Byte (ms)

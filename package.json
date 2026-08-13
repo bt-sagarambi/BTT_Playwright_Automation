@@ -13,6 +13,7 @@
     "test:smoke:pages": "node scripts/run-playwright.js test tests/smoke_tests/portal-pages.smoke.spec.ts --project=chromium-smoke",
     "test:regression:us2": "node scripts/run-playwright.js test tests/regression_tests/US2 --project=chromium-regression",
     "test:regression:us2:ro": "node scripts/run-playwright.js test tests/regression_tests/US2/business-insights/improve-conversion/revenue-opportunity/revenue.opportunity.regression.spec.ts --project=chromium-regression",
+    "test:regression:us2:revenue-calculator": "node scripts/run-playwright.js test tests/regression_tests/US2/business-insights/improve-conversion/revenue-calculator/revenue.calculator.regression.spec.ts --project=chromium-regression",
     "test:regression:us2:rum-pd": "node scripts/run-playwright.js test tests/regression_tests/US2/monitoring/real-user-browser/performance-detail/rum.performance-detail.browser.regression.spec.ts --project=chromium-regression",
     "test:regression:us2:rum-po": "node scripts/run-playwright.js test tests/regression_tests/US2/monitoring/real-user-browser/performance-overview/rum.performance-overview.browser.regression.spec.ts --project=chromium-regression",
     "test:regression:us2:rum-pc": "node scripts/run-playwright.js test tests/regression_tests/US2/monitoring/real-user-browser/performance-comparison/rum.performance-comparison.browser.regression.spec.ts --project=chromium-regression",

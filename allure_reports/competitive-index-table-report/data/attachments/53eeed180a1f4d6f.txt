@@ -1,1 +1,0 @@
-[CIT] default table settled=data rows=10

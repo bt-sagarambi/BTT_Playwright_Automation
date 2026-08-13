@@ -1,1 +1,0 @@
-[Core Web Vitals] profile=us-gdc-test-site-2 site=GDC Test Site 2 dc=US

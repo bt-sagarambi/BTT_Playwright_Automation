@@ -1,1 +1,0 @@
-[BCJA] goToDashboard=true saveCampaign=true

@@ -1,2 +1,0 @@
-[CJA] paths: Paths | Path Rank | Landing Page | # of Pages in Path | Journey Sessions | Journey Page Views | Onload | Avg Order Value ($) | Orders | Revenue ($) rows=26
-[CJA] pages: Pages in Journey | Journey Sessions | Journey Page Views | Exits | Session Exit Rate | Onload | Orders | Revenue ($) rows=10

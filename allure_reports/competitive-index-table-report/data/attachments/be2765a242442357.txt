@@ -1,2 +1,0 @@
-[CIT] filter labels sample: Choose an Industry | Choose a Vertical | Choose a Site | Select Industry | Select Vertical | Select Group | Search Companies | Time Period | Timezone | Industry | Statistical Method | Site:
-[CIT] myFilters=false sharedFilters=false

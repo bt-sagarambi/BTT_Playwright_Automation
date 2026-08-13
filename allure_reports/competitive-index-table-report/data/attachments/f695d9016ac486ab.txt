@@ -1,1 +1,0 @@
-[CIT] headers sample: Icon | Company | Vertical | Page Load Time (sec.) | Time to Interactive (sec.) | First Byte (sec.) | DNS (sec.) | TCP Connection (sec.) | DOM Complete (sec.) | SSL (sec.) | Redirect (sec.) | Base Page (sec.)

@@ -1,1 +1,0 @@
-[CJA] profile=us-gdc-test-site-2 site=GDC Test Site 2 dc=US period=1 day (2026-07-30 18:58 to 2026-07-31 18:58)

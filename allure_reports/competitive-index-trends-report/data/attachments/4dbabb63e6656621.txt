@@ -1,1 +1,0 @@
-[CITr] apply filters still visible after close=false

@@ -1,1 +1,0 @@
-[BCJA] settled=data rows=1070 allTraffic=true noCampaign=false

@@ -1,2 +1,0 @@
-[CIT] trends charts=4 healthy=true
-[CIT] createGroup=true manageGroup=true
