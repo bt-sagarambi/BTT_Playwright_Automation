@@ -1,0 +1,322 @@
+Blue Triangle Help Center > Guides > Business Analytics
+The Revenue Attribution Page
+Cat Rugari
+3 months ago · Updated
+Follow
+Table of Contents
+Overview
+Introduction to Revenue Attribution Influences
+Experience Influences
+Experience Influences Example
+Marketing Influences
+Marketing Influences Example
+The Revenue Attribution Report
+Section 1: Revenue Attribution
+KPI Change
+Sessions
+Average Order Value
+Conversion Rate
+Revenue Per Session
+Section 2: Revenue Attribution by Platform
+Section 3: Revenue Attribution by Page
+Navigating the Report
+Sign in
+☰ | | | |
+Search	🔍
+Articles in this section 	▾
+👤
+8/14/26, 2:24 PM 	The Revenue Attribution Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033773973-The-Revenue-Attribution-Page 	1/13
+
+-- 1 of 13 --
+
+Left Navigation Menu
+Filtering
+Running a New Report
+Report Selection
+Device Selection
+Scaling
+Overview
+The Revenue Attribution page utilizes an algorithm based on Sessions to identify and quantify the
+key
+influences driving weekly revenue changes. These factors are grouped into two categories:
+Experience Influences (Performance and Stability) and
+Marketing Influences (Sessions, Average
+Order Value, and Intent). Together, they contribute to the overall Revenue Influence.
+As a best practice, select a meaningful comparison date, such as the rollout of a performance
+improvement, to compare revenue metrics from the week before and after the change. By default,
+this report runs once everyone week on Monday.
+Example report:
+PLEASE NOTE: All devices includes tablet, but this is not included as it's own category. This
+means that selecting both "Desktop" and "Mobile" will NOT show data for All Devices (it will
+exclude Tablet).
+Introduction to Revenue Attribution Influences
+8/14/26, 2:24 PM 	The Revenue Attribution Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033773973-The-Revenue-Attribution-Page 	2/13
+
+-- 2 of 13 --
+
+This report breaks down five distinct influences into two categories:
+Experience Influences
+(Performance and Stability) and
+Marketing Influences (Sessions, Average Order Value, and Intent).
+Each influence is measured in terms of the revenue it generated, isolating its impact by controlling
+for the other four factors. The combined effect of all five influences represents the total Revenue
+Influence.
+Experience Influences
+Revenue attributed to Experience Influences reflects changes, positive or negative, in the user
+experience and how users perceive the page. These influences are evaluated in terms of
+Performance and Stability, and their combined impact is summed to represent the total Experience
+Influence.
+Influence 	Definition 	Example
+Performance 	Measures users’ willingness to
+stay engaged and complete
+their journey, directly impacting
+conversion rates and driving
+changes in revenue.
+In general, improved page
+performance (e.g., faster onload
+times) leads to greater user
+engagement and higher
+conversion rates however this is
+not always the case. Please see
+our blog post on How the Friction
+Five Impact User Experiences and
+Conversion Rates for more
+information on how a faster page
+8/14/26, 2:24 PM 	The Revenue Attribution Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033773973-The-Revenue-Attribution-Page 	3/13
+
+-- 3 of 13 --
+
+Influence 	Definition 	Example
+does not always lead to an
+increase in revenue.
+Stability 	The tendency for page
+reliability and content stability
+to result in revenue.
+Improving perceived performance
+to create a more seamless user
+experience is captured in the
+Stability section. This area also
+highlights reliability issues such as
+missing content, slow-loading
+images, or key features that are
+valuable to users but load
+inconsistently or with delays.
+Experience Influences Example:
+In this example, there was a slight improvement in onload timing. This slight improvement resulted
+in:
+Many sessions benefiting from an improved performance
+A slightly higher (improved) conversion curve
+Many sessions transitioning into a higher conversion curve area indicates higher revenue.
+A flattened conversion curve, where most sessions convert at a similar rate, is also a desirable
+outcome. This indicates consistency in the user experience, even under varying conditions.
+Since not all performance-related issues are within the website owner's control, it's important to
+optimize for users who may not receive an ideal experience. This can be achieved by prioritizing the
+loading of key elements, enabling earlier user interaction, displaying background content
+progressively, and clearly communicating delays when performance is slow.
+Marketing Influences
+Revenue attributed to Marketing Influences is associated with changes in the market, price, product,
+or promotion. These influences are evaluated in terms of Sessions, Average Order Value, and Intent,
+8/14/26, 2:24 PM 	The Revenue Attribution Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033773973-The-Revenue-Attribution-Page 	4/13
+
+-- 4 of 13 --
+
+and their combined impact is summed to represent the total Marketing Influence.
+Influence 	Definition 	Example
+Traffic 	The increase or decrease in
+the volume of sessions week
+over week.
+When weekly sessions increase due
+to factors like marketing campaigns
+or seasonality, a positive revenue
+impact is reported. Conversely, if
+sessions decrease, the report will
+show a negative impact.
+Average Order Value 	The impact of change in the
+average order value on the
+overall revenue.
+A change in average order value
+could result from a modification in
+pricing, packaging, or promotions.
+Intent 	The tendency for the users to
+complete their journey and
+convert.
+With all other influences held
+constant, users who show strong
+intent to purchase are more likely to
+convert. Intent measures this
+determination to complete a
+purchase.
+Marketing Influences Example:
+Consider a scenario where a marketing campaign is well-executed but promotes the wrong product
+for the target audience. In this case, the report would likely show an increase in Sessions (more
+users visiting the page), but a negative value for Intent, as those visitors are not converting. This
+indicates a mismatch between the audience and the offering.
+The Revenue Attribution Report
+Section 1: Revenue Attribution
+8/14/26, 2:24 PM 	The Revenue Attribution Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033773973-The-Revenue-Attribution-Page 	5/13
+
+-- 5 of 13 --
+
+The top section of this report shows the calculated Revenue attributed from each influence. It is a
+display of the data in sections 2 and 3 in one succinct location.
+Please see the Device Selection section of this article to see how to change which devices are
+visible on the page.
+KPI Change
+This section of the page uses all of the filters that are applied
+EXCEPT FOR SELECTED PAGE NAME.
+This is the
+actual measured revenue and measured KPI differences week over week.
+Sessions
+8/14/26, 2:24 PM 	The Revenue Attribution Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033773973-The-Revenue-Attribution-Page 	6/13
+
+-- 6 of 13 --
+
+This is the actual measured difference in the number of sessions week over week. A positive
+number indicates an increase in sessions from the previous period and a negative number indicates
+a decrease in sessions for the previous period.
+Average Order Value
+This is the actual measured difference in Average Order Value week over week. A positive number
+indicates an increase from the previous period while a negative number indicates a decreased from
+the previous period.
+Conversion Rate
+This is the actual measured difference between Conversion Rate week over week. A positive number
+indicates an increase in Conversion Rate from the previous period while a negative number indicates
+a decreased from the previous period.
+This is measured in basis points which represents the direction of conversion rate percentage in
+hundredths. One basis point is 1/100th of a percentage.
+Revenue Per Session
+This is the actual measured average of revenue per session week over week. A positive number
+indicates that there is an increase in average revenue per session from the previous week while a
+negative number indicates a decrease.
+Section 2: Revenue Attribution by Platform
+This section displays Influence data broken down by platform (device). Each bar in the chart
+represents an individual influence, while the whisker represents the revenue attributed to the
+Influence Group.
+The legend below the chart identifies which color corresponds to each influence. Hovering over a bar
+or whisker will display the exact value it represents.
+The bar direction indicates performance; bar extending to the right (green) represents a positive
+change from the previous period while the bar extending to the left (red) represents a negative
+change from the previous period.
+Please see the Device Selection section of this article to see how to change which devices are
+visible on the page.
+8/14/26, 2:24 PM 	The Revenue Attribution Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033773973-The-Revenue-Attribution-Page 	7/13
+
+-- 7 of 13 --
+
+Section 3: Revenue Attribution by Page
+This section shows Influence data on a page by page basis in both a bar chart and table format. This
+section will allow you to look at how Influences are impacted on specific pages on your site to
+determine if one page is impacting Revenue more than others. You can find the table format
+underneath the section of page level bar charts on the page.
+Each bar in the chart represents an individual influence, while the whisker represents the revenue
+attributed to the Influence Group.
+The legend below the chart identifies which color corresponds to each influence. Hovering over a bar
+or whisker will display the exact value it represents.
+The bar direction indicates performance; bar extending to the right (green) represents a positive
+change from the previous period while the bar extending to the left (red) represents a negative
+change from the previous period.
+Please see the Device Selection section of this article to see how to change which devices are
+visible on the page.
+Scaling is not applied to data at the page level.
+Chart example:
+8/14/26, 2:24 PM 	The Revenue Attribution Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033773973-The-Revenue-Attribution-Page 	8/13
+
+-- 8 of 13 --
+
+Table example:
+Navigating the Report
+Left Navigation Menu
+To find the report in the Left Navigation menu, click on Business Insights → Improve Conversion →
+Revenue Attribution. You can also use the search bar at the to of the menu to search for the report.
+Please see our documentation on our Left Navigation menu, for more information.
+8/14/26, 2:24 PM 	The Revenue Attribution Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033773973-The-Revenue-Attribution-Page 	9/13
+
+-- 9 of 13 --
+
+Filtering
+To adjust the data displayed in your Revenue Attribution report, click the filter icon located in the top
+right corner of the page.
+Updating the filters will automatically trigger a new report to run after you press the “Save & Run
+Report” button. You can choose to give this new report a custom name, or it will be saved with a
+default name that includes the site title and the date of performance change that you are measuring.
+8/14/26, 2:24 PM 	The Revenue Attribution Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033773973-The-Revenue-Attribution-Page 	10/13
+
+-- 10 of 13 --
+
+All filters will impact the entire report, except page name. Page name will not impact the KPI
+Changes column.
+Running a New Report
+By default, he Revenue Attribution report runs automatically at the start of each fiscal week. When a
+new report is generated, the initial processing may take 5 to 20 minutes to complete. This delay only
+occurs during the first run; subsequent views of the same report (accessed via the report selection
+dropdown menu) will load instantly.
+For details on how to run a report with updated filters, please refer to the filtering section of this
+article.
+Report Selection
+Each report you run can be found in the drop down menu located in the top left of the page. After
+clicking on the drop down menu, you can see a list of all the reports that have been previously run.
+To change reports, simply click on the one you want to look at and that report with its associated
+filters will load on the screen.
+Device Selection
+All influences can be broken down by Desktop, Mobile, or All Devices. You can decide which devices
+you want to display on your report by clicking the device buttons in the top left corner of the page.
+When the device button is outlined in blue, that device selection will be visible on the page.
+8/14/26, 2:24 PM 	The Revenue Attribution Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033773973-The-Revenue-Attribution-Page 	11/13
+
+-- 11 of 13 --
+
+When the button is grayed out, that device selection will not be visible on the page and the remaining
+devices visuals will adjust to fill the width of the page.
+PLEASE NOTE: All devices includes tablet, but this is not included as it's own category. This
+means that selecting both "Desktop" and "Mobile" will NOT show data for All Devices (it will
+exclude Tablet).
+Scaling
+KPI change and measured differences are calculated to understand actual revenue differences. The
+Influences are then scaled to match that measured difference. That scaling happens every time the
+direction of the number is the same. If we predict a positive number and the actual number is
+positive, it will scale to match the measured number. If we predict a negative number and the actual
+difference is positive, it will not scale and will show an artifact letting users know that scaling was
+not applied. This can happen when the numbers are very close to 0 due to standard variance.
+PLEASE NOTE: Scaling does not get applied to page level data.
+Was this article helpful?
+✓ Yes 	✕ No
+0 out of 0 found this helpful
+8/14/26, 2:24 PM 	The Revenue Attribution Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033773973-The-Revenue-Attribution-Page 	12/13
+
+-- 12 of 13 --
+
+Have more questions? Submit a request
+Return to top ⬆
+Recently viewed articles
+The Revenue Calculator Page
+The Native App Performance Overview Page
+The Site Overview Dashboard
+The Native App Performance Detail Page
+The RUM Performance Detail Dashboard
+Related articles
+BI Dashboard: Core Web Vital URL Volume
+Network Health Checks Overview
+The Revenue Calculator Page
+The Executive CrUX Report
+The Revenue Analysis Page
+Comments
+0 comments
+Please sign in to leave a comment.
+Blue Triangle Help Center
+8/14/26, 2:24 PM 	The Revenue Attribution Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033773973-The-Revenue-Attribution-Page 	13/13
+
+-- 13 of 13 --
+

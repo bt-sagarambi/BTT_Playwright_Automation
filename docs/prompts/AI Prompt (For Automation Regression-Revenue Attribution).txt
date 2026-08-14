@@ -1,0 +1,346 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the **“Revenue Attribution”** page (Business Insights → Improve Conversion). Reverse-engineer the live application using **GDC Test Site 2** and refer to:
+  • Help Center PDF (reattached): **“The Revenue Attribution Page - Blue Triangle Help Center.pdf”** (13 pages)
+      docs/prompts/The_Revenue_Attribution_Page___Blue_Triangle_Help_Center.pdf
+      (article: https://help.bluetriangle.com/hc/en-us/articles/360033773973-The-Revenue-Attribution-Page)
+  • PDF extract notes: docs/prompts/revenue-attribution-pdf-extract.txt
+  • PDF raw text dump: docs/prompts/revenue-attribution-pdf-extract-raw.txt
+  • Live portal reverse-engineering probe (Aug 2026): docs/prompts/revenue-attribution-live-probe.json
+  • Live screenshot: docs/prompts/revenue-attribution-live.png
+  • Probe script: scripts/probe-revenue-attribution.ts
+  • Soft sibling Improve Conversion suites for shared chrome patterns only:
+      tests/regression_tests/US2/business-insights/improve-conversion/revenue-calculator/
+      tests/regression_tests/US2/business-insights/improve-conversion/revenue-opportunity/
+      pages/RevenueCalculatorPage.ts / pages/RevenueOpportunityPage.ts / pages/MarketingOverviewPage.ts
+      docs/prompts/AI Prompt (For Automation Regression-Revenue Calculator).txt
+  • No companion product .txt package was attached with this PDF — PDF + live probe are the documentation pair.
+
+NOTE ON DOCUMENTATION VS LIVE PRODUCT
+The PDF (13 pages, Business Analytics guide) covers Overview, five Influences (Experience = Performance + Stability; Marketing = Traffic/Sessions + AOV + Intent), Section 1 summary + KPI Change (Sessions / AOV / Conversion Rate in **basis points** / Revenue Per Session), Section 2 by Platform (bar + whisker + legend + hover; green right / red left), Section 3 by Page (chart + table under charts; **no page-level scaling**), Left Nav (BI → Improve Conversion → Revenue Attribution), Filtering + **Save & Run Report** (custom or default name = site title + date of performance change), fiscal-week auto-run + **5–20 min** first-run SLA, Report Selection dropdown, Device Selection (PDF: Desktop / Mobile / All Devices; blue outline vs grayed), Scaling artifact when predicted vs actual direction mismatch, and the Tablet caveat (All Devices ≠ Desktop+Mobile).
+PDF typos to ignore as SoT: “once everyone week”, “By default, he Revenue Attribution”, “search bar at the to of the menu”.
+
+1) Live BI path (probe Aug 2026): Menu → **Business Insights** → **Improve Conversion** → **Revenue Attribution**.
+2) Route: **business-analytics/revenue-attribution** (sid query soft).
+3) Live UI is richer than PDF device set: toggles **All Devices / Desktop / Mobile / iOS / Android** (`#rev-attr-values-vis_toggle-*`) plus table section tabs `#desktop-table-section-tab` / `#mobile-table-section-tab` / `#ios-table-section-tab` / `#android-table-section-tab`. Prefer live device inventory; still soft-cover PDF Desktop/Mobile/All Devices semantics + tablet caveat.
+4) Live report chrome uses `#report-list` (many **(Ad-Hoc)** named reports + Date of Performance Change) and `#report-time-period` (Week of A → Week of B) — PDF “dropdown top-left” maps here.
+5) Prefer live control **ids / card labels / table headers / graph host prefixes** when PDF is incomplete (Add Comparison, Revenue Impact rules, Export, Native/Web data-type, Onload columns on page table, Run Ad-Hoc Report).
+6) Product purpose (PDF + live): quantify week-over-week **Revenue Influence** of Experience vs Marketing factors for a chosen **Date of Performance Change**, broken down by device/platform and by page.
+
+CRITICAL DISTINCTION (do not confuse screens)
+  • **Revenue Attribution (THIS suite)** = Improve Conversion → Revenue Attribution; route **business-analytics/revenue-attribution**; browser title **Revenue Attribution**; breadcrumb **Business Insights / Improve Conversion / Revenue Attribution**.
+  • **Brand Attribution** — sibling (`business-analytics/brand-attribution`, smoke `biz.brand-attribution`); soft dual only then restore Revenue Attribution + GDC. Never accept as suite home.
+  • **Revenue Calculator** — calculator CRC / What-If page (`revenue-calculator&conversion-type=sales`); soft round-trip via `#revenue-attribution` / calculator button container then restore Attribution home.
+  • **Revenue Opportunity / Revenue Analysis / Revenue Assurance** — siblings/out of primary scope (soft presence or one-hop restore only).
+  • Monitoring RUM pages — out of primary scope.
+
+⚠️ PROBE / MUTATION PITFALLS
+1) **Do not click Save & Run Report / permanent Save Filter / Clear Cache** on shared accounts. Soft-assert `#apply-filters` (“Save & Run Report”) and **Run Ad-Hoc Report** presence; Cancel/Escape filters without running unless a disposable ad-hoc path is explicitly approved and cleaned up.
+2) Prefer **switching among already-generated reports** in `#report-list` over creating new ones (first run can take 5–20 minutes per Help).
+3) Device toggles use `btn-primary` vs `grayed` classes — do not hard-require PDF-only Desktop/Mobile/All Devices; include iOS/Android soft.
+4) Page-name samples in graph ids (Customer_Service_Login_Page, Outdoor_Rewards_Dashboard, …) are **data-dependent** — never hard-code page catalogs.
+5) Highcharts instance ids (`highcharts-*`) are dynamic — use stable hosts: `#rev-attr-values-bar-graph-{device}`, `#*-revenue-attribution-by-page-graph`, `#rev-attr-values-*-pages`, `#total-attribution-graph-container`, `#all-total-performance-cost-contribution-bar-graph`.
+6) After device toggle / report switch, always re-assert GDC Test Site 2 + Revenue Attribution identity.
+
+Live observations (GDC Test Site 2 — probe + screenshot, Aug 2026)
+- URL sample: …/index.php?r=business-analytics/revenue-attribution&sid=…
+- Browser title: Revenue Attribution
+- #page-title: Business Insights / Improve Conversion / Revenue Attribution
+- Site: GDC Test Site 2 (#select2-site-id-container)
+- Data-type chrome soft: Web Browser / Native Android / Native iOS (rev-attr-values-dataType region)
+- Device visibility toggles: #rev-attr-values-vis_toggle-all_devices | -desktop | -mobile | -ios | -android
+- Report list: #report-list — sample entries like “[YYYY-MM-DD] (Ad-Hoc) … - Date of Performance Change: YYYY-MM-DD” (never hard-code names/dates)
+- Week range: #report-time-period — e.g. “Week of Jul 26, 2026 -> Week of Aug 3, 2026” (format-tolerant)
+- Report manager soft: #report-manager-div / #report-manager-toggle
+- Section heading soft: **Revenue Attributed to Performance**
+- Section 1 cards / KPI hosts (per device prefix soft: all_devices | desktop | mobile | ios | android | native):
+    #total-attribution-card-container, #all-devices-card, #all-device-card-time-period
+    #rev-attr-values-{device}-revenue
+    Experience: -performance, -stability, -experience_total
+    Marketing: -sessions / Traffic label, -AoV, -intent, -marketing_total
+    KPI Change: -session_change, -AoV_change, -conversion_rate_change, -revenue_per_session_change
+  Live card column labels (screenshot): Revenue Change | Revenue from Experience Influences (Performance / Stability / Total) | Revenue from Marketing Influences (Traffic / Average Order Value / Intent / Total) | KPI Change (Sessions / Average Order Value / Conversion Rate (bps) / Revenue per Session)
+  Positive/negative cells soft green/red styling — assert presence/format, not exact colors as sole SoT
+- Platform graphs: #rev-attr-values-bar-graph-all_devices | -desktop | -ios | -android | (mobile when visible)
+- Page graphs host prefixes: #rev-attr-values-bar-graph-{device}-pages and per-page child ids; also #desktop-revenue-attribution-by-page-graph / #mobile-… / #ios-… / #android-…
+- Page tables: #rev-attr-values-table-all_devices | -desktop | -mobile | -ios | -android | -native
+  Headers soft: Onload | Onload Difference | Revenue from Experience Influences | Revenue from Marketing Influences | Page Name | Before (s) | After (s) | Diff (%) | Diff (s) | Performance | Stability | Total | Traffic | Average Order Value | Intent | Total
+- Table section tabs: #desktop-table-section-tab (often active), #mobile-table-section-tab, #ios-table-section-tab, #android-table-section-tab
+- Top chrome soft: Add Comparison; Export CSV/TSV/JSON/Array; Revenue Impact (#revenue-impact-rules-config-button / + New Rule / View Active Rule — open/close only); Markers soft; Filters #toggle-filters
+- Filter drawer labels soft: Data Originated From, Date of Performance Change, Timezone, Traffic Source/Medium/Campaign, A/B Testing Segment, Visitor Type, Datacenter, ISP, Traffic Segment, Content/Page Groups, Dynamic Top Pages (Top 30 Pages sample), Country/Region, Performance Metric (Onload), Discard Sessions Over (80th sample), SDK/App/Network Protocol/Net Speed soft
+- Filter actions soft: Cancel (#cancel-filters), Save & Run Report (#apply-filters), Run Ad-Hoc Report — **Cancel preferred**
+- My Filters / Shared Filters tabs — read-only; **do not Save Filter**
+- Soft coach / Get started — dismiss before asserts
+- Probe highcharts count can be large (many page mini-bars) — assert shells/prefixes, not exact chart counts
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - Revenue Attribution isolates revenue impact of Performance, Stability, Traffic/Sessions, AOV, and Intent across a comparison centered on Date of Performance Change (typically week-before vs week-after), with platform and page breakdowns.
+   - Metric formats soft: currency/counts (K/M/comma/parentheses for negatives), bps for conversion delta, seconds/s for onload — format-tolerant; **never hard-code** revenue totals, influence dollars, session deltas, AOV deltas, bps, page names, report names, or week-range strings from the probe/screenshot.
+   - Use live UI data only. Do not call APIs or query a database.
+   - Capture at suite start: active report text (#report-list selection), #report-time-period, device-toggle pressed/grayed set, active table-section tab, filter drawer closed, comparison presence, data-type if visible.
+   - Assert labels, formats, graph/table shells, controlled empty states, before/after soft signatures rather than exact backend series.
+   - If a report/device combo yields empty page graphs/tables or zero cards, assert controlled empty, annotate, switch to a data-bearing existing report (runtime from #report-list) and continue.
+   - Do not hard-code Highcharts internal ids.
+
+2. Navigation and implementation paths
+   PDF + Live primary path:
+   Login → Left menu **Business Insights** → **Improve Conversion** → **Revenue Attribution**
+   Route: **business-analytics/revenue-attribution**
+   Smoke catalog: **biz.revenue-attribution** (menuLabel Revenue Attribution, route business-analytics/revenue-attribution)
+   Browser title: **Revenue Attribution**
+   #page-title: **Business Insights / Improve Conversion / Revenue Attribution**
+
+   Soft alternate: menu search “Revenue Attribution”; Revenue Calculator `#revenue-attribution` shortcut — still require Attribution title/route after hop.
+
+   Target automation folder:
+   tests/regression_tests/US2/business-insights/improve-conversion/revenue-attribution/
+   Suggested spec name:
+   revenue.attribution.regression.spec.ts
+   Suggested POM / locators:
+   pages/RevenueAttributionPage.ts
+   locators/RevenueAttributionLocators.ts
+   Reuse filter open/cancel + soft signature patterns from Revenue Calculator / Revenue Opportunity / Marketing Overview; do not treat Brand Attribution or Calculator POM as home.
+   Suggested manual workbook:
+   docs/Revenue_Attribution_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:revenue-attribution
+   Suggested test case ID prefix:
+   REG-RA-###
+   Probe:
+   scripts/probe-revenue-attribution.ts → docs/prompts/revenue-attribution-live-probe.json
+
+3. Page load, authentication and default context
+   - Authenticated navigation without login redirect, blank shell, or perpetual loader.
+   - Browser title matches /Revenue Attribution/i.
+   - #page-title matches /Business Insights\s*\/\s*Improve Conversion\s*\/\s*Revenue Attribution/i.
+   - URL contains business-analytics/revenue-attribution (slash / %2F safe).
+   - Selected site is GDC Test Site 2 (#select2-site-id-container).
+   - Dismiss Get started / Don’t show me again / jconfirm before interacting.
+   - Verify core inventory settles within bounded UI deadline:
+       • Section heading soft “Revenue Attributed to Performance” (or live equivalent)
+       • At least one device card region (#total-attribution-card-container / #rev-attr-values-all_devices / desktop / ios / android soft)
+       • Soft Experience + Marketing + KPI Change label groups
+       • Soft platform bar host (#rev-attr-values-bar-graph-* or #total-attribution-graph-container)
+       • Soft page table/graph region when report has pages
+   - Soft-assert report list + week range without hard-coding names/dates.
+   - Back/Forward/refresh return to healthy Revenue Attribution + GDC; re-select if lost.
+   - Capture uncaught page errors; distinguish blocking vs Highcharts noise.
+
+4. Top chrome (report list, week range, device toggles, comparison, rules, export)
+   Cover:
+   - Verify #report-list attached; soft-open list; soft sample ≥1 existing report option text (Ad-Hoc or scheduled); Escape/close without sticky pollution when possible.
+   - Soft switch to an alternate **existing** report when ≥2 options; wait for cards/graphs settle; restore original report selection captured at start.
+   - Soft-assert #report-time-period matches /Week of/i or live week-range pattern (format-tolerant).
+   - Soft Report Manager (#report-manager-toggle) open/close — no delete/permanent edits.
+   - Soft device visibility toggles (#rev-attr-values-vis_toggle-all_devices / desktop / mobile / ios / android): toggle one off (grayed) then on; soft assert cards/graphs reflow; restore initial pressed set.
+   - Soft PDF caveat awareness: All Devices ≠ Desktop+Mobile only (tablet included in All Devices) — annotate if UI messaging appears; do not fail solely on tablet absence as its own button.
+   - Soft Add Comparison open → Cancel/Escape — **do not leave sticky comparison**.
+   - Soft Revenue Impact rules (+ New Rule / View Active Rule) open/close only — **no permanent rule submit**.
+   - Soft Export open/close (CSV/TSV/JSON/Array) without hard file download asserts.
+   - Soft Markers / page-controls toggles open/close when present.
+   - Soft Help Videos / Help “Revenue Attribution” chrome when present.
+
+5. Tabs / modes (page-level)
+   Page-level tabs to cover:
+   - **Device table-section tabs:** Desktop / Mobile / iOS / Android (`#*-table-section-tab`) — switch each when visible; soft assert matching page graph/table hosts (`#desktop-revenue-attribution-by-page-graph` / `#desktop-revenue-attribution-table`, etc.) or controlled empty; restore start tab.
+   - **My Filters / Shared Filters** when Filters open — read-only; **do not Save Filter**.
+   Device visibility toggles are chrome state (not browser tabs) but **must** be covered in §4.
+   Data-type Web Browser / Native soft (not a full Native Attribution suite).
+
+6. Section 1 — Revenue Attribution summary cards (PDF Section 1)
+   Purpose: succinct revenue attributed per influence + KPI Change for visible devices.
+   Cover:
+   - Soft-assert column/group labels: Revenue Change (or total revenue host), Revenue from Experience Influences, Revenue from Marketing Influences, KPI Change.
+   - Soft-assert influence row labels: Performance, Stability, Total (Experience); Traffic (and/or Sessions), Average Order Value, Intent, Total (Marketing).
+   - Soft-assert KPI Change labels: Sessions, Average Order Value, Conversion Rate (bps) / Conversion Rate, Revenue per Session / Revenue Per Session (dual-regex soft).
+   - Soft numeric/currency/bps format on visible cells — never hard-code probe samples (e.g. 633,752).
+   - Soft green/red or signed/parentheses negative presentation when data-bearing.
+   - Soft per-device card presence for toggled-on devices (All Devices / Desktop / iOS / Android samples on GDC); Mobile soft when enabled.
+   - Soft hosts: #rev-attr-values-{device}-performance|stability|experience_total|sessions|AoV|intent|marketing_total|session_change|AoV_change|conversion_rate_change|revenue_per_session_change|revenue.
+
+7. KPI Change rules (PDF)
+   Cover:
+   - Soft document/assert that KPI Change reflects measured WoW deltas (Sessions, AOV, Conversion Rate in bps, Revenue Per Session).
+   - Soft: Page Name filter (when applied in a cancel-only or restored path) must **not** be treated as required to change KPI Change column — Help: page name excluded from KPI Change inputs. Prefer annotation + soft before/after on KPI hosts when a safe non-Save filter experiment is possible; otherwise assert label presence + note PDF rule in workbook Notes.
+   - Soft Conversion Rate units = basis points (label or value pattern).
+
+8. Section 2 — Revenue Attribution by Platform (graphs)
+   Purpose: influence bars + whiskers by device/platform.
+   Cover:
+   - Verify platform graph hosts for visible devices (#rev-attr-values-bar-graph-all_devices / -desktop / -ios / -android soft; mobile when shown).
+   - Soft legend/series for Performance / Stability / Traffic / AOV / Intent (subset OK).
+   - Soft hover/tooltip when series exist (exact values not hard-coded).
+   - Soft bar direction semantics (positive vs negative) only as soft visual annotation — do not pixel-assert.
+   - After device toggle: soft re-assert visible hosts match toggled-on set.
+
+9. Section 3 — Revenue Attribution by Page (graphs + table)
+   Purpose: page-level influence contribution; identify pages impacting revenue more than others.
+   Cover:
+   - Soft page graph region (#*-revenue-attribution-by-page-graph and/or #rev-attr-values-bar-graph-{device}-pages).
+   - Soft ≥1 page mini-bar when data-bearing OR controlled empty; **never hard-code** page name list.
+   - Soft table host for active device (#rev-attr-values-table-{device} or #*-revenue-attribution-table).
+   - Soft headers: Page Name, Onload / Before (s) / After (s) / Diff (%) / Diff (s), Performance, Stability, Traffic, Average Order Value, Intent, Totals / Experience / Marketing group headers.
+   - Soft ≥1 data row when traffic exists or controlled empty; soft sort/search/export on table when controls exist — clear search before suite end.
+   - Soft: scaling not applied at page level (Help) — if scaling artifact UI appears only on summary/platform, annotate; page table should still render independently.
+   - Switch Desktop/Mobile/iOS/Android table tabs; soft matching table visibility.
+
+10. Report selection & Date of Performance Change
+    Cover:
+    - Soft list existing reports in #report-list; capture active.
+    - Soft select alternate existing report; assert cards/graphs/week range refresh soft; restore original.
+    - Soft Filters field **Date of Performance Change** visible when Filters open — open/cancel only (no Save & Run).
+    - Soft assert report option text may include Date of Performance Change — format-tolerant.
+    - Do **not** wait 5–20 minutes for a brand-new report in CI; skip/annotate if only empty and no prior reports exist.
+
+11. Time / week range chrome
+    Host: #report-time-period (+ Filters timezone / date-of-performance-change badges when populated).
+    Cover:
+    - Soft-assert week-range label present after report load.
+    - Soft Filters Timezone sample (e.g. Asia/Kolkata) — restore/cancel; do not hard-code offset.
+    - After report switch: week range still present or controlled loading complete.
+
+12. Filters drawer
+    Hosts: #toggle-filters / #mobile-controls-filters-btn; #cancel-filters; #apply-filters (Save & Run Report); Run Ad-Hoc Report soft.
+    Soft filter inventory (presence soft; not all required simultaneously):
+      Data Originated From / Date of Performance Change / Timezone /
+      Traffic Source / Medium / Campaign / A/B Testing Segment / Visitor Type /
+      Datacenter Location / ISP / Traffic Segment / Content Groups / Page Groups /
+      Dynamic Top Pages / Page Name (IN/CONTAINS soft) / Country / Region /
+      Performance Metric / Discard Sessions Over /
+      SDK Version / App Version / Network Protocol / Net Speed (native soft) /
+      Converting/Include/Exclude page soft
+    My Filters / Shared Filters — no Save Filter / Save as New / Save Current.
+    Clear Cache / Clear Genius Cache — **do not click**.
+    Cover:
+    - Open Filters; soft assert Date of Performance Change / Timezone / Performance Metric / Dynamic Top Pages when present.
+    - Soft Cancel / Escape closes without running report.
+    - Soft My/Shared tabs.
+    - Soft-assert Save & Run Report + Run Ad-Hoc Report **visible** — do not execute permanent run on shared account.
+    - Close Filters before leaving suite home.
+
+13. Graphs, tables, exports, a11y (cross-widget)
+    - Soft Highcharts signatures for platform + page graphs independently of exact counts.
+    - Soft do not claim refresh by SVG/host counts alone — use card text / report label / week range / table headers.
+    - Soft Escape recovers menus/modals/comparison/filters.
+    - Soft focus Filters toggle; Help chrome soft.
+    - Soft Export per visible table when offered.
+
+14. Sibling discrimination (soft)
+    - Soft once Brand Attribution (menu/route brand-attribution): soft title Brand Attribution → restore **Revenue Attribution** + GDC.
+    - Soft once Revenue Calculator (or #revenue-calculator-btn-container): soft title Revenue Calculator → Back/restore Revenue Attribution.
+    - Soft once Revenue Opportunity → restore Revenue Attribution.
+    - Soft Shared/Favorites sample optional; no save.
+    - Always re-assert GDC Test Site 2 after site-like switches.
+
+15. Combination, recovery, non-functional
+    - Capture → soft report switch → soft card/graph inventory → restore report.
+    - Soft device toggle off/on → restore.
+    - Soft Desktop ↔ iOS (or Android) table-section tab → restore.
+    - Soft Filters open/Cancel.
+    - Soft comparison cancel; soft rules cancel.
+    - Refresh keeps Revenue Attribution identity.
+    - Performance: widgets settle within project soft deadlines (existing reports instant; do not block on new-run SLA).
+    - Viewport: desktop + ~1100px OK.
+
+16. Out-of-scope mutations (always)
+    - Do not Save Filter / Save as New / Save Current / permanent shared filters.
+    - Do not Clear Cache.
+    - Do not Save & Run Report / permanently create Ad-Hoc reports on shared accounts (unless explicitly disposable + deleted — default **do not**).
+    - Do not permanently Save Revenue Impact rules or sticky comparisons.
+    - Do not create permanent segments / campaigns.
+    - Do not leave sticky table search hiding all rows.
+    - Do not expand into full Brand Attribution / Revenue Calculator / Revenue Opportunity suites — soft sibling only.
+    - Do not hard-code page catalogs, report names, KPI totals, or exact week-range strings from the probe.
+
+17. Live reverse-engineering facts to preserve (GDC Test Site 2, Aug 2026 probe)
+    - Route business-analytics/revenue-attribution; title Revenue Attribution; BI Improve Conversion breadcrumb
+    - Report list + week-of range; Date of Performance Change in filters/report names
+    - Device toggles All Devices / Desktop / Mobile / iOS / Android
+    - Section 1 cards: Experience (Performance/Stability/Total) + Marketing (Traffic/AOV/Intent/Total) + KPI Change (Sessions/AOV/Conversion Rate bps/Revenue per Session)
+    - Platform bar graphs #rev-attr-values-bar-graph-*
+    - Page graphs + tables with Onload difference columns; device table-section tabs
+    - Filters: Dynamic Top Pages, Performance Metric Onload, Discard Sessions Over, Data Origin
+    - Save & Run Report / Run Ad-Hoc Report presence (cancel-only)
+    - Add Comparison; Revenue Impact rules soft; Export soft
+    - Probe JSON keys: nav, snap, filtersOpen, saveAndRunSoft, deviceSoft, reportSoft, graphTableToggles, brandAttributionSoft, savedAt
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a Playwright automation suite under
+tests/regression_tests/US2/business-insights/improve-conversion/revenue-attribution
+covering thorough regression for:
+  - navigation & identity (exact Revenue Attribution; soft Brand Attribution / Calculator dual then restore)
+  - report list selection among existing reports + week-range chrome + restore
+  - device visibility toggles (All Devices / Desktop / Mobile / iOS / Android) + restore
+  - Section 1 summary cards + Experience / Marketing / KPI Change labels & format-tolerant values
+  - Section 2 platform influence graphs (hosts/legend/hover soft)
+  - Section 3 page graphs + tables (headers/rows/export soft) + Desktop/Mobile/iOS/Android table tabs
+  - Filters drawer (Date of Performance Change, Dynamic Top Pages, Performance Metric, etc.) Cancel-only; soft assert Save & Run / Run Ad-Hoc presence
+  - My/Shared filter tabs (no Save Filter)
+  - Add Comparison cancel-only; Revenue Impact rules cancel-only; Export soft
+  - combination, recovery, empty/soft data paths, GDC re-anchor
+  - explicit non-confusion with Brand Attribution, Revenue Calculator, Revenue Opportunity, Monitoring RUM
+  - Help rules soft: page name vs KPI Change; All Devices tablet caveat; scaling not on page-level; bps conversion
+
+Follow existing project framework and POM conventions. Prefer live probe hosts/titles as SoT.
+
+After generation:
+1. Execute only the newly created Revenue Attribution regression suite and fix automation hard failures.
+2. Generate fresh isolated Allure results + HTML report for this suite.
+3. Generate manual test-case workbook (Summary / Regression TCs / Notes).
+4. Include executed result summary and soft annotations for: empty/sparse page graphs, device toggle grayed states, report-list samples, week-range, KPI bps, table-tab switches, Save & Run not executed, Brand Attribution discrimination, GDC re-anchor.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable control titles/headers and id prefixes (#rev-attr-values-*, #rev-attr-values-bar-graph-*, #rev-attr-values-table-*, #report-list, #report-time-period, #total-attribution-card-container, #*-table-section-tab, #*-revenue-attribution-by-page-graph, etc.); do not depend on dynamic Highcharts instance IDs alone.
+6. Do not hard-code KPI/influence totals, page-name sets, report names, fixed week-range/timezone strings, or exact chart counts.
+7. Capture and restore Revenue Attribution home, GDC Test Site 2, active report, device-toggle set, and table-section tab when restorable without Save & Run.
+8. Use a serial suite only when shared page state is intentional; optional/data-dependent failures must not abort unrelated tests (soft deadlines + recovery).
+9. Use bounded soft deadlines and explicit action timeouts.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page actions running into later serial tests; cancel/reload/reset before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save Filter, Clear Cache, Save & Run Report (default), permanently Save rules/comparisons, or leave sticky searches.
+13. Keep primary scope on Revenue Attribution; restore after soft sibling/Brand visits.
+14. Close all menus, overlays, drawers, modals, Export menus opened by tests.
+15. Do not claim widgets refreshed by merely counting SVG hosts.
+16. Treat currency/%/bps/seconds units as format-tolerant.
+17. Never accept Brand Attribution, Revenue Calculator, or partial “Attribution” without Revenue Attribution title/route as suite home.
+18. If any requirement is ambiguous or missing, flag it before generating automation.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- **PDF reattached and folded in** (13-page Help Center PDF). No companion product .txt was attached — do not block on a missing txt package.
+- Live device set includes **iOS / Android** beyond PDF Desktop/Mobile/All Devices — cover live set; retain PDF tablet caveat (All Devices ≠ Desktop+Mobile).
+- Marketing influence PDF table label is **Traffic**; intro wording also says **Sessions**; KPI Change column uses **Sessions** — cover all three naming soft patterns.
+- Default/active report on GDC is account-dependent Ad-Hoc list — capture/restore; never hard-require a named report from PDF examples.
+- Mobile toggle may use legacy class `rev-attr-web-legacy-mobile-only` — soft visibility.
+- Save & Run / first-run **5–20 min** SLA (PDF) is out of CI budget — soft-assert button presence only unless a pre-approved disposable ad-hoc flow exists.
+- Scaling artifacts near-zero (PDF) are intermittent — soft annotate when seen; do not hard-require artifact UI; page-level never scaled.
+- Page Name filter vs KPI Change exclusion is an explicit PDF rule — prefer soft validation without permanent Save & Run.
+- PDF chart/table example images have no extractable headers — use live table headers (Onload / Diff / influence columns) as SoT for Section 3.
+- Formal color contrast of green/red cells/bars (PDF direction semantics) — soft; not sole pass criteria.
+- Coach/Get started overlays may appear.
+- Relationship to Revenue Calculator Attribution button is navigation-only; do not require Calculator layout parity.
+- PDF Related articles (Revenue Calculator / Revenue Analysis / etc.) are soft discrimination only — not suite home.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to:
+- docs/prompts/AI Prompt (For Automation Regression-Revenue Calculator).txt
+- docs/prompts/AI Prompt (For Automation Regression-Bottom of the Sales Funnel Analysis).txt
+- docs/prompts/AI Prompt (For Automation Regression-Customer Journey Analysis).txt
+- docs/prompts/AI Prompt (For Automation Regression-Core Web Vitals).txt
+- tests/regression_tests/US2/business-insights/improve-conversion/revenue-calculator/
+- tests/regression_tests/US2/business-insights/improve-conversion/revenue-opportunity/
+- pages/RevenueCalculatorPage.ts / pages/RevenueOpportunityPage.ts / pages/MarketingOverviewPage.ts
+
+Follow their patterns for POM/locator separation, authenticated GDC site selection, filter open/cancel, Highcharts + legend soft toggles, table sort/export soft, serial recovery after soft sibling switches, isolated Allure + Excel workbooks, and npm naming that does not collide with Brand Attribution or Revenue Calculator.

@@ -1,0 +1,2282 @@
+{
+  "nav": {
+    "id": "biz.revenue-attribution",
+    "module": "biz",
+    "menuLabel": "Revenue Attribution",
+    "route": "business-analytics/revenue-attribution",
+    "titleIncludes": {}
+  },
+  "snap": {
+    "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=business-analytics/revenue-attribution&sid=305836",
+    "title": "Revenue Attribution",
+    "pageTitle": "Business Insights / Improve Conversion / Revenue Attribution",
+    "highcharts": 240,
+    "headings": [
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Executive",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "Revenue Attributed to Performance",
+      "Desktop Mobile iOS Android",
+      "Privacy Policy",
+      "What we do with the information we gather",
+      "Web Visitor Information Collected",
+      "Use of General Customer Data",
+      "Use of Performance Measurements",
+      "Use of Web Visitor Information Collected Via Online Forms and Surveys",
+      "Customer Subscribers to Our Service Portal",
+      "Links to Other Websites"
+    ],
+    "badges": {
+      "time-period-view": {
+        "text": "",
+        "visible": false
+      },
+      "device-view": {
+        "text": "",
+        "visible": false
+      },
+      "browser-view": {
+        "text": "",
+        "visible": false
+      },
+      "operating-system-view": {
+        "text": "",
+        "visible": false
+      },
+      "visitor-type-view": {
+        "text": "",
+        "visible": false
+      },
+      "bot-traffic-view": {
+        "text": "",
+        "visible": false
+      },
+      "data-type-view": {
+        "text": "",
+        "visible": false
+      },
+      "campaign-view": {
+        "text": "",
+        "visible": false
+      },
+      "country-view": {
+        "text": "",
+        "visible": false
+      },
+      "traffic-segment-view": {
+        "text": "",
+        "visible": false
+      },
+      "page-name-view": {
+        "text": "",
+        "visible": false
+      },
+      "page-group-view": {
+        "text": "",
+        "visible": false
+      },
+      "statistical-method-view": {
+        "text": "",
+        "visible": false
+      }
+    },
+    "tabs": [
+      {
+        "id": "desktop-table-section-tab",
+        "text": "Desktop",
+        "cls": "active",
+        "active": true
+      },
+      {
+        "id": "",
+        "text": "Desktop",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "mobile-table-section-tab",
+        "text": "Mobile",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "",
+        "text": "Mobile",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "ios-table-section-tab",
+        "text": "iOS",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "",
+        "text": "iOS",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "android-table-section-tab",
+        "text": "Android",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "",
+        "text": "Android",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "",
+        "text": "Save",
+        "cls": "btn btn-notify update-current-filter-list",
+        "active": false
+      },
+      {
+        "id": "my-filters-tab",
+        "text": "My Filters",
+        "cls": "active",
+        "active": true
+      },
+      {
+        "id": "",
+        "text": "My Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "shared-filters-tab",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      }
+    ],
+    "buttons": [
+      "6",
+      "View Full Menu",
+      "Revenue Attribution",
+      "Add Comparison",
+      "All Devices",
+      "Desktop",
+      "Mobile",
+      "iOS",
+      "Android",
+      "+ New Rule",
+      "View Active Rule",
+      "Export",
+      "CSV",
+      "TSV",
+      "JSON",
+      "Array",
+      "Clear Cache",
+      "Cancel",
+      "Save & Run Report",
+      "Run Ad-Hoc Report",
+      "Save",
+      "Save as New Filter",
+      "Save Current Filter",
+      "Clear",
+      "Learn More",
+      "Dismiss",
+      "Create new saved filter",
+      "Close",
+      "Reset",
+      "Remove Tooltip",
+      "×",
+      "SUBMIT FEEDBACK",
+      "Apply"
+    ],
+    "labels": [
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "Progress:",
+      "Revenue Attributed to Performance",
+      "Desktop",
+      "Mobile",
+      "iOS",
+      "Android",
+      "Onload",
+      "Onload Difference",
+      "Revenue from Experience Influences",
+      "Revenue from Marketing Influences",
+      "Page Name",
+      "Before (s)",
+      "After (s)",
+      "Diff (%)",
+      "Diff (s)",
+      "Performance ( )",
+      "Stability ( )",
+      "Total ( )",
+      "Traffic ( )",
+      "Average Order Value ( )",
+      "Intent ( )",
+      "Data Originated From",
+      "Date of Performance Change",
+      "Timezone",
+      "Traffic Source / Referrer Clear",
+      "Traffic Medium Clear",
+      "Campaign Clear",
+      "A/B Testing Segment Clear",
+      "Visitor Type (new vs. returning) Clear",
+      "Datacenter Location Clear",
+      "Internet Service Provider / Organization Clear",
+      "Traffic Segment Clear",
+      "Content Groups / Page Groups Clear",
+      "Dynamic Top Pages",
+      "IN",
+      "CONTAINS",
+      "Country Clear",
+      "Region Clear",
+      "Performance Metric",
+      "SDK Version Clear",
+      "App Version Clear",
+      "Network Protocol Clear",
+      "Net Speed Clear",
+      "Discard Sessions Over",
+      "Privacy Policy",
+      "What we do with the information we gather",
+      "Web Visitor Information Collected",
+      "Use of General Customer Data",
+      "Use of Performance Measurements",
+      "Use of Web Visitor Information Collected Via Online Forms and Surveys",
+      "Customer Subscribers to Our Service Portal",
+      "Links to Other Websites",
+      "How To Contact Us Regarding This Privacy Policy and Other Concerns",
+      "My Filters",
+      "Shared Filters",
+      "Clear Genius Cache",
+      "Site:",
+      "Time Range:",
+      "Settings & Administration",
+      "Account",
+      "Department",
+      "Site",
+      "Tag & Content Governance",
+      "Alert",
+      "Report",
+      "User",
+      "Scorecard",
+      "Other",
+      "Log",
+      "BTT Internal",
+      "What do you want to do today?",
+      "Don't show me again",
+      "Modify Tooltip",
+      "Term",
+      "Placement"
+    ],
+    "select2": [
+      {
+        "id": "select2-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": true
+      },
+      {
+        "id": "select2-data-origin-container",
+        "text": "RUM Browser & Native Webview",
+        "visible": false
+      },
+      {
+        "id": "select2-timezone-container",
+        "text": "Asia/Kolkata/Mumbai (+05:30)",
+        "visible": false
+      },
+      {
+        "id": "select2-dynamic-top-pages-container",
+        "text": "Top 30 Pages",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-discard-sessions-over-container",
+        "text": "80th",
+        "visible": false
+      }
+    ],
+    "charts": [
+      {
+        "i": 0,
+        "id": "rev-attr-values-bar-graph-all_devices",
+        "parentId": "",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 338,
+        "h": 200
+      },
+      {
+        "i": 1,
+        "id": "highcharts-2t8xkib-0",
+        "parentId": "rev-attr-values-bar-graph-all_devices",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 307,
+        "h": 200
+      },
+      {
+        "i": 2,
+        "id": "rev-attr-values-bar-graph-desktop",
+        "parentId": "",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 338,
+        "h": 200
+      },
+      {
+        "i": 3,
+        "id": "highcharts-2t8xkib-14",
+        "parentId": "rev-attr-values-bar-graph-desktop",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 307,
+        "h": 200
+      },
+      {
+        "i": 4,
+        "id": "rev-attr-values-bar-graph-ios",
+        "parentId": "",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 338,
+        "h": 200
+      },
+      {
+        "i": 5,
+        "id": "highcharts-2t8xkib-28",
+        "parentId": "rev-attr-values-bar-graph-ios",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 307,
+        "h": 200
+      },
+      {
+        "i": 6,
+        "id": "rev-attr-values-bar-graph-android",
+        "parentId": "",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 338,
+        "h": 200
+      },
+      {
+        "i": 7,
+        "id": "highcharts-2t8xkib-42",
+        "parentId": "rev-attr-values-bar-graph-android",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 307,
+        "h": 200
+      },
+      {
+        "i": 8,
+        "id": "rev-attr-values-bar-graph-all_devices-Customer_Service_Login_Page",
+        "parentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 308,
+        "h": 200
+      },
+      {
+        "i": 9,
+        "id": "highcharts-2t8xkib-98",
+        "parentId": "rev-attr-values-bar-graph-all_devices-Customer_Service_Login_Page",
+        "grandParentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "title": "",
+        "legend": [],
+        "w": 307,
+        "h": 200
+      },
+      {
+        "i": 10,
+        "id": "rev-attr-values-bar-graph-all_devices-Customer_Service_Page",
+        "parentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 308,
+        "h": 200
+      },
+      {
+        "i": 11,
+        "id": "highcharts-2t8xkib-154",
+        "parentId": "rev-attr-values-bar-graph-all_devices-Customer_Service_Page",
+        "grandParentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "title": "",
+        "legend": [],
+        "w": 307,
+        "h": 200
+      },
+      {
+        "i": 12,
+        "id": "rev-attr-values-bar-graph-all_devices-Outdoor_Rewards_Dashboard",
+        "parentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 308,
+        "h": 200
+      },
+      {
+        "i": 13,
+        "id": "highcharts-2t8xkib-210",
+        "parentId": "rev-attr-values-bar-graph-all_devices-Outdoor_Rewards_Dashboard",
+        "grandParentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "title": "",
+        "legend": [],
+        "w": 307,
+        "h": 200
+      },
+      {
+        "i": 14,
+        "id": "rev-attr-values-bar-graph-all_devices-Link_Outdoor_Rewards_Page",
+        "parentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 308,
+        "h": 200
+      },
+      {
+        "i": 15,
+        "id": "highcharts-2t8xkib-266",
+        "parentId": "rev-attr-values-bar-graph-all_devices-Link_Outdoor_Rewards_Page",
+        "grandParentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "title": "",
+        "legend": [],
+        "w": 307,
+        "h": 200
+      },
+      {
+        "i": 16,
+        "id": "rev-attr-values-bar-graph-all_devices-Search_No_Results",
+        "parentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 308,
+        "h": 200
+      },
+      {
+        "i": 17,
+        "id": "highcharts-2t8xkib-322",
+        "parentId": "rev-attr-values-bar-graph-all_devices-Search_No_Results",
+        "grandParentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "title": "",
+        "legend": [],
+        "w": 307,
+        "h": 200
+      },
+      {
+        "i": 18,
+        "id": "rev-attr-values-bar-graph-all_devices-SavedCards-vt",
+        "parentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 308,
+        "h": 200
+      },
+      {
+        "i": 19,
+        "id": "highcharts-2t8xkib-378",
+        "parentId": "rev-attr-values-bar-graph-all_devices-SavedCards-vt",
+        "grandParentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "title": "",
+        "legend": [],
+        "w": 307,
+        "h": 200
+      },
+      {
+        "i": 20,
+        "id": "rev-attr-values-bar-graph-all_devices-SavedCards",
+        "parentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 308,
+        "h": 200
+      },
+      {
+        "i": 21,
+        "id": "highcharts-2t8xkib-434",
+        "parentId": "rev-attr-values-bar-graph-all_devices-SavedCards",
+        "grandParentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "title": "",
+        "legend": [],
+        "w": 307,
+        "h": 200
+      },
+      {
+        "i": 22,
+        "id": "rev-attr-values-bar-graph-all_devices-undefined",
+        "parentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 308,
+        "h": 200
+      },
+      {
+        "i": 23,
+        "id": "highcharts-2t8xkib-490",
+        "parentId": "rev-attr-values-bar-graph-all_devices-undefined",
+        "grandParentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "title": "",
+        "legend": [],
+        "w": 307,
+        "h": 200
+      },
+      {
+        "i": 24,
+        "id": "rev-attr-values-bar-graph-all_devices-Content-vt",
+        "parentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 308,
+        "h": 200
+      },
+      {
+        "i": 25,
+        "id": "highcharts-2t8xkib-546",
+        "parentId": "rev-attr-values-bar-graph-all_devices-Content-vt",
+        "grandParentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "title": "",
+        "legend": [],
+        "w": 307,
+        "h": 200
+      },
+      {
+        "i": 26,
+        "id": "rev-attr-values-bar-graph-all_devices-IDP",
+        "parentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 308,
+        "h": 200
+      },
+      {
+        "i": 27,
+        "id": "highcharts-2t8xkib-602",
+        "parentId": "rev-attr-values-bar-graph-all_devices-IDP",
+        "grandParentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "title": "",
+        "legend": [],
+        "w": 307,
+        "h": 200
+      },
+      {
+        "i": 28,
+        "id": "rev-attr-values-bar-graph-all_devices-ReactNext_App_Page",
+        "parentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "grandParentId": "",
+        "title": "",
+        "legend": [],
+        "w": 308,
+        "h": 200
+      },
+      {
+        "i": 29,
+        "id": "highcharts-2t8xkib-658",
+        "parentId": "rev-attr-values-bar-graph-all_devices-ReactNext_App_Page",
+        "grandParentId": "rev-attr-values-bar-graph-all_devices-pages",
+        "title": "",
+        "legend": [],
+        "w": 307,
+        "h": 200
+      }
+    ],
+    "tables": [
+      {
+        "id": "rev-attr-values-table-native",
+        "className": "table table-striped tablesorter tablesorter-default tablesortereb879214b4ce6 hasFilters",
+        "headers": [
+          "Onload",
+          "Onload Difference",
+          "Revenue from Experience Influences",
+          "Revenue from Marketing Influences",
+          "Page Name",
+          "Before (s)",
+          "After (s)",
+          "Diff (%)",
+          "Diff (s)",
+          "Performance ( )",
+          "Stability ( )",
+          "Total ( )",
+          "Traffic ( )",
+          "Average Order Value ( )",
+          "Intent ( )",
+          "Total ( )"
+        ],
+        "rows": 0,
+        "visible": false
+      },
+      {
+        "id": "rev-attr-values-table-all_devices",
+        "className": "table table-striped tablesorter tablesorter-default tablesorter2c520f84d00928 hasFilters",
+        "headers": [
+          "Onload",
+          "Onload Difference",
+          "Revenue from Experience Influences",
+          "Revenue from Marketing Influences",
+          "Page Name",
+          "Before (s)",
+          "After (s)",
+          "Diff (%)",
+          "Diff (s)",
+          "Performance ( )",
+          "Stability ( )",
+          "Total ( )",
+          "Traffic ( )",
+          "Average Order Value ( )",
+          "Intent ( )",
+          "Total ( )"
+        ],
+        "rows": 29,
+        "visible": true
+      },
+      {
+        "id": "rev-attr-values-table-desktop",
+        "className": "table table-striped tablesorter tablesorter-default tablesorter49f8ab827a69c hasFilters",
+        "headers": [
+          "Onload",
+          "Onload Difference",
+          "Revenue from Experience Influences",
+          "Revenue from Marketing Influences",
+          "Page Name",
+          "Before (s)",
+          "After (s)",
+          "Diff (%)",
+          "Diff (s)",
+          "Performance ( )",
+          "Stability ( )",
+          "Total ( )",
+          "Traffic ( )",
+          "Average Order Value ( )",
+          "Intent ( )",
+          "Total ( )"
+        ],
+        "rows": 29,
+        "visible": true
+      },
+      {
+        "id": "rev-attr-values-table-mobile",
+        "className": "table table-striped tablesorter tablesorter-default tablesorterba1f5dde5b586 hasFilters",
+        "headers": [
+          "Onload",
+          "Onload Difference",
+          "Revenue from Experience Influences",
+          "Revenue from Marketing Influences",
+          "Page Name",
+          "Before (s)",
+          "After (s)",
+          "Diff (%)",
+          "Diff (s)",
+          "Performance ( )",
+          "Stability ( )",
+          "Total ( )",
+          "Traffic ( )",
+          "Average Order Value ( )",
+          "Intent ( )",
+          "Total ( )"
+        ],
+        "rows": 0,
+        "visible": false
+      },
+      {
+        "id": "rev-attr-values-table-ios",
+        "className": "table table-striped",
+        "headers": [
+          "Onload",
+          "Onload Difference",
+          "Revenue from Experience Influences",
+          "Revenue from Marketing Influences",
+          "Page Name",
+          "Before (s)",
+          "After (s)",
+          "Diff (%)",
+          "Diff (s)",
+          "Performance ( )",
+          "Stability ( )",
+          "Total ( )",
+          "Traffic ( )",
+          "Average Order Value ( )",
+          "Intent ( )",
+          "Total ( )"
+        ],
+        "rows": 29,
+        "visible": true
+      },
+      {
+        "id": "rev-attr-values-table-android",
+        "className": "table table-striped",
+        "headers": [
+          "Onload",
+          "Onload Difference",
+          "Revenue from Experience Influences",
+          "Revenue from Marketing Influences",
+          "Page Name",
+          "Before (s)",
+          "After (s)",
+          "Diff (%)",
+          "Diff (s)",
+          "Performance ( )",
+          "Stability ( )",
+          "Total ( )",
+          "Traffic ( )",
+          "Average Order Value ( )",
+          "Intent ( )",
+          "Total ( )"
+        ],
+        "rows": 29,
+        "visible": true
+      }
+    ],
+    "inputs": [
+      {
+        "id": "user-id",
+        "name": "",
+        "type": "hidden",
+        "value": "355897",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "",
+        "name": "r",
+        "type": "hidden",
+        "value": "business-analytics/revenue-attribution",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "site-id",
+        "name": "sid",
+        "type": "select",
+        "value": "305836",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "user-menu-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search",
+        "visible": false
+      },
+      {
+        "id": "toggleMarkersType",
+        "name": "toggleMarkersType",
+        "type": "hidden",
+        "value": "no-markers",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "rev-attr-values-dataType",
+        "name": "",
+        "type": "select",
+        "value": "browser",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "report-list",
+        "name": "",
+        "type": "select",
+        "value": "1786335002",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "table-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": false
+      },
+      {
+        "id": "table-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": true
+      },
+      {
+        "id": "table-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": true
+      },
+      {
+        "id": "table-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": false
+      },
+      {
+        "id": "data-origin",
+        "name": "data-origin",
+        "type": "select",
+        "value": "combined-rum",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "date-of-performance-change",
+        "name": "date-of-performance-change",
+        "type": "text",
+        "value": "2026-08-02",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "timezone",
+        "name": "timezone",
+        "type": "select",
+        "value": "Asia/Kolkata",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "campaign-source",
+        "name": "campaign-source[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "campaign-medium",
+        "name": "campaign-medium[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "campaign-name",
+        "name": "campaign-name[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "a-b-testing-segment",
+        "name": "a-b-testing-segment[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "visitor-type",
+        "name": "visitor-type[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "datacenter",
+        "name": "datacenter[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "isp",
+        "name": "isp[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "traffic-segment",
+        "name": "traffic-segment[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "page-group",
+        "name": "page-group[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "dynamic-top-pages",
+        "name": "dynamic-top-pages",
+        "type": "select",
+        "value": "true",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "page-name-mode-in",
+        "name": "",
+        "type": "radio",
+        "value": "multi-select",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "page-name-mode-contains",
+        "name": "",
+        "type": "radio",
+        "value": "search",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "page-name",
+        "name": "page-name[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "country",
+        "name": "country[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "region",
+        "name": "region[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "performance-metric",
+        "name": "performance-metric",
+        "type": "select",
+        "value": "onload",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "sdktagVersion",
+        "name": "sdktagVersion[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "appVersion",
+        "name": "appVersion[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "netstate",
+        "name": "netstate[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "net-speed",
+        "name": "net-speed[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "discard-sessions-over",
+        "name": "discard-sessions-over",
+        "type": "select",
+        "value": "80",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "genius-cache-site",
+        "name": "genius-cache-site",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "clear-genius-cache-time",
+        "name": "time-period",
+        "type": "text",
+        "value": "",
+        "placeholder": "Select a time range to delete or leave blank to delete all",
+        "visible": false
+      },
+      {
+        "id": "settings-search",
+        "name": "",
+        "type": "input",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": false
+      },
+      {
+        "id": "do-not-show-launchpad-checkbox",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "term",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "term",
+        "visible": false
+      },
+      {
+        "id": "placement",
+        "name": "",
+        "type": "select",
+        "value": "top",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "definition",
+        "name": "",
+        "type": "textarea",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "assistant-prompt",
+        "name": "",
+        "type": "textarea",
+        "value": "",
+        "placeholder": "Ask Assistant",
+        "visible": false
+      },
+      {
+        "id": "feedbackText",
+        "name": "feedback_text",
+        "type": "textarea",
+        "value": "",
+        "placeholder": "Tell us more",
+        "visible": false
+      },
+      {
+        "id": "wantsFeedback",
+        "name": "wants_response",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "fileUpload",
+        "name": "file_upload[]",
+        "type": "file",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "",
+        "name": "daterangepicker_start",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "",
+        "name": "daterangepicker_end",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      }
+    ],
+    "relevantIds": [
+      "toggle-navigation",
+      "select2-site-id-container",
+      "page-title",
+      "exclamation-view-alerts",
+      "toggle-user",
+      "toggle-settings",
+      "toggle-help-articles",
+      "toggle-help-video",
+      "toggle-theme",
+      "toggle-tv-mode",
+      "toggle-filters",
+      "toggle-feedback",
+      "toggle-assistant-chat",
+      "view-alerts-1",
+      "view-alerts-2",
+      "alert-box-close-1",
+      "alert-box-close-2",
+      "mobile-controls-filters-btn",
+      "toggle-filters-li",
+      "toggle-fullscreen-li",
+      "toggle-settings-li",
+      "toggle-user-li",
+      "toggle-menu-state-btn",
+      "page-wrapper",
+      "page-controls",
+      "revenue-calculator-btn-container",
+      "revenue-attribution",
+      "toggle-markers-container",
+      "toggle-dropdown-con",
+      "toggleMarkersType",
+      "toggle-dropdown-title-wrapper",
+      "toggle-dropdown-title",
+      "toggle-dropdown-icon",
+      "toggle-dropdown",
+      "toggle-dropdown-items",
+      "opportunity-attribution-container",
+      "report-manager-div",
+      "report-manager-toggle",
+      "rev-attr-values-vis_toggle_wrapper",
+      "rev-attr-values-dataType",
+      "rev-attr-values-vis_toggle-all_devices",
+      "rev-attr-values-vis_toggle-desktop",
+      "rev-attr-values-vis_toggle-mobile",
+      "rev-attr-values-vis_toggle-ios",
+      "rev-attr-values-vis_toggle-android",
+      "report-list",
+      "report-time-period",
+      "revenue-impact-controls-container",
+      "revenue-impact-rules-config-button",
+      "view-active-rule-btn",
+      "data-type-view",
+      "data-origin-view",
+      "revenue-impact-rule-effective-date-view",
+      "time-period-view",
+      "date-of-performance-change-view",
+      "domain-baseline-view",
+      "device-view",
+      "browser-view",
+      "operating-system-view",
+      "visitor-type-view",
+      "bot-traffic-view",
+      "focal-page-view",
+      "focal-page-real-view",
+      "page-name-view",
+      "url-search-view",
+      "hierarchy-min-percent-view",
+      "customer-journey-paths-view",
+      "page-group-view",
+      "traffic-segment-view",
+      "isp-view",
+      "datacenter-view",
+      "a-b-testing-segment-view",
+      "campaign-view",
+      "campaign-name-view",
+      "campaign-medium-view",
+      "campaign-source-view",
+      "country-view",
+      "region-view",
+      "bucket-size-view",
+      "granularity-view",
+      "performance-metric-view",
+      "discard-sessions-over-view",
+      "statistical-method-view",
+      "net-speed-view",
+      "monitor-name-view",
+      "show-remainder-view",
+      "js-error-type-inclusion-exclusion-view",
+      "wcd-data-inclusion-view",
+      "cv-converting-page-view",
+      "cv-include-page-view",
+      "cv-exclude-page-view",
+      "sdktagVersion-view",
+      "netstate-view",
+      "osVersion-view",
+      "appVersion-view",
+      "deviceModel-view",
+      "page-controls-toggle",
+      "page-contents",
+      "total-attribution-card-container",
+      "all-devices-card",
+      "all-device-card-time-period",
+      "all-performance-cost-contribution",
+      "desktop-performance-cost-contribution",
+      "mobile-performance-cost-contribution",
+      "total-attribution-graph-container",
+      "all-total-performance-cost-contribution-bar-graph",
+      "desktop-table-section-tab",
+      "mobile-table-section-tab",
+      "ios-table-section-tab",
+      "android-table-section-tab",
+      "desktop-revenue-attribution-by-page-graph",
+      "desktop-revenue-attribution-table",
+      "mobile-revenue-attribution-by-page-graph",
+      "mobile-revenue-attribution-table",
+      "ios-section",
+      "ios-revenue-attribution-by-page-graph",
+      "ios-revenue-attribution-table",
+      "android-revenue-attribution-by-page-graph",
+      "android-revenue-attribution-table",
+      "rev-attr-values-native",
+      "rev-attr-values-native-revenue",
+      "rev-attr-values-native-performance",
+      "rev-attr-values-native-stability",
+      "rev-attr-values-native-experience_total",
+      "rev-attr-values-native-sessions",
+      "rev-attr-values-native-AoV",
+      "rev-attr-values-native-intent",
+      "rev-attr-values-native-marketing_total",
+      "rev-attr-values-native-session_change",
+      "rev-attr-values-native-AoV_change",
+      "rev-attr-values-native-conversion_rate_change",
+      "rev-attr-values-native-revenue_per_session_change",
+      "rev-attr-values-all_devices",
+      "rev-attr-values-all_devices-revenue",
+      "rev-attr-values-all_devices-performance",
+      "rev-attr-values-all_devices-stability",
+      "rev-attr-values-all_devices-experience_total",
+      "rev-attr-values-all_devices-sessions",
+      "rev-attr-values-all_devices-AoV",
+      "rev-attr-values-all_devices-intent",
+      "rev-attr-values-all_devices-marketing_total",
+      "rev-attr-values-all_devices-session_change",
+      "rev-attr-values-all_devices-AoV_change",
+      "rev-attr-values-all_devices-conversion_rate_change",
+      "rev-attr-values-all_devices-revenue_per_session_change",
+      "rev-attr-values-desktop",
+      "rev-attr-values-desktop-revenue",
+      "rev-attr-values-desktop-performance",
+      "rev-attr-values-desktop-stability",
+      "rev-attr-values-desktop-experience_total",
+      "rev-attr-values-desktop-sessions",
+      "rev-attr-values-desktop-AoV",
+      "rev-attr-values-desktop-intent",
+      "rev-attr-values-desktop-marketing_total",
+      "rev-attr-values-desktop-session_change",
+      "rev-attr-values-desktop-AoV_change",
+      "rev-attr-values-desktop-conversion_rate_change",
+      "rev-attr-values-desktop-revenue_per_session_change",
+      "rev-attr-values-ios",
+      "rev-attr-values-ios-revenue",
+      "rev-attr-values-ios-performance",
+      "rev-attr-values-ios-stability",
+      "rev-attr-values-ios-experience_total",
+      "rev-attr-values-ios-experience",
+      "rev-attr-values-ios-sessions",
+      "rev-attr-values-ios-AoV",
+      "rev-attr-values-ios-intent",
+      "rev-attr-values-ios-marketing_total",
+      "rev-attr-values-ios-session_change",
+      "rev-attr-values-ios-AoV_change",
+      "rev-attr-values-ios-conversion_rate_change",
+      "rev-attr-values-ios-revenue_per_session_change",
+      "rev-attr-values-android",
+      "rev-attr-values-android-revenue",
+      "rev-attr-values-android-performance",
+      "rev-attr-values-android-stability",
+      "rev-attr-values-android-experience_total",
+      "rev-attr-values-android-experience",
+      "rev-attr-values-android-sessions",
+      "rev-attr-values-android-AoV"
+    ],
+    "bodySample": "GDC Test Site 2 Demo eCommerce Global GDC Test Site 2 Business Insights / Improve Conversion / Revenue Attribution Get started 6 ADMINISTRATOR Web Browser Native Android Native iOS All Devices Desktop iOS Android [2038-01-19] (Ad-Hoc) oct 12 - Date of Performance Change: 2025-10-12 [2026-08-13] (Ad-Hoc) Test Dynamic off 2? - Date of Performance Change: 2026-08-02 [2026-08-13] (Ad-Hoc) Test MM 1 Camp - Date of Performance Change: 2026-08-02 [2026-08-13] (Ad-Hoc) Test MM 1 Camp - Date of Performance Change: 2026-08-02 [2026-08-13] (Ad-Hoc) Test MM Top 5 Camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) test 7 diff camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) test 7 with 1 camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) test 7 no camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) test 6 with camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) test 6 with camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) test 6 with camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) test 6 with camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) Test 4 - Date of Performance Change: 2026-08-01 [2026-08-12] (Ad-Hoc) Test 4 - Date of Performance Change: 2026-08-01 [2026-08-11] (Ad-Hoc) test 3 with camp - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 3 with camp - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 3 with camp - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 3 with camp - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 3 with camp - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 3 with camp - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 3 sb no camp - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test sb diff campaign - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test sb - yes campaign - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test sb no campaign - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 2 with campaign - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 2 with campaign - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 2 with campaign - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) Test - no campaign - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) campaigns - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) campaigns - Date of Performance Change: 2026-08-02 [2026-08-10] test 2 - Date of Performance Change: 2026-08-02 [2026-08-04] (Ad-Hoc) MM Test No Campaigns - Date of Performance Change: 2026-07-26 [2026-08-04] (Ad-Hoc) MM Test 1 Camp - Coolers - Date of Performance Change: 2026-07-26 [2026-08-04] (Ad-Hoc) MM Test 1 Camp - Coolers - Date of Performance Change: 2026-07-26 [2026-08-04] (Ad-Hoc) MM Test 1 Random Campaign - Date of Performance Change: 2026-07-26 [2026-08-04] (Ad-Hoc) MM Test Top 5 Campaigns - Date of Performance Change: 2026-07-26 [2026-08-04] (Ad-Hoc) MM Test 1 Random Campaign - Date of Performance Change: 2026-07-19 [2026-08-04] (Ad-Hoc) MM Test 1 Random Campaign - Date of Performance Change: 2026-07-19 [2026-08-03] test 2 - Date of Performance Change: 2026-07-26 [2026-07-30] (Ad-Hoc) MM Test 1 Random Campaign - Date of Performance Change: 2026-07-19 [2026-07-30] test 2 - Date of Performance Change: 2026-07-19 [2026-07-30] (Ad-Hoc) MM Test 1 Random Campaign - Date of Performance Change: 2026-07-19 [2026-07-30] (Ad-Hoc) MM Test No Campaigns - Date of Performance Change: 2026-07-19 [2026-07-30] (Ad-Hoc) MM Test Top 5 Campaigns - Date of Performance Change: 2026-07-19 [2026-07-29] (Ad-Hoc) Test AP - Date of Performance Change: 2026-07-19 [2026-07-29] test 2 - Date of Performance Change: 2026-07-19 [2026-07-28] test 2 - Date of Performance Change: 2026-07-19 [2026-07-27] (Ad-Hoc) Test 3 - Date of Performance Change: 2026-07-18 [2026-07-27] (Ad-Hoc) Test 3 - Date of Performance Change: 2026-07-19 [2026-07-27] (Ad-Hoc) pc w/out campaign - Date of Performance Change: 2026-06-28 [2026-07-27] test 2 - Date of Performance Change: 2026-07-19 [2026-07-27] (Ad-Hoc) test 2 - Date of Performance Change: 2026-07-19 [2026-07-27] test 2 - Date of Performance Change: 2026-07-19 [2026-07-27] (Ad-Hoc) test - Date of Performance Change: 2026-07-19 [2026-07-27] GDC Test Site 2 Report - Date of Performance Change: 2026-07-19 [2026-07-23] GDC Test Site 2 Report - Date of Performance Change: 2026-06-28 [2026-07-23] GDC Test Site 2 Report - Date of Performance Change: 2026-06-28 [2026-07-21] (Ad-Hoc) GDC Test Site 2 Report - Date of Performance Change: 2026-07-12 [2026-07-20] GDC Test Site 2 Report - Date of Performance Change: 2026-07-12 [2026-07-15] (Ad-Hoc) GDC Test Site 2 Report - Date of Performance Change: 2026-06-28 [2026-07-15] GDC Test Site 2 Report - Date of Performance Change: 2026-06-28 [2026-07-14] GDC Test Si",
+    "influenceHits": [
+      "All Devices",
+      "Desktop",
+      "Performance"
+    ]
+  },
+  "screenshot": "D:\\Project_Work\\BlueTriangle_Automation\\docs\\prompts\\revenue-attribution-live.png",
+  "savedAt": "2026-08-14T09:08:20.840Z",
+  "filtersOpen": {
+    "labels": [
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "Progress:",
+      "Revenue Attributed to Performance",
+      "Desktop",
+      "Mobile",
+      "iOS",
+      "Android",
+      "Onload",
+      "Onload Difference",
+      "Revenue from Experience Influences",
+      "Revenue from Marketing Influences",
+      "Page Name",
+      "Before (s)",
+      "After (s)",
+      "Diff (%)",
+      "Diff (s)",
+      "Performance ( )",
+      "Stability ( )",
+      "Total ( )",
+      "Traffic ( )",
+      "Average Order Value ( )",
+      "Intent ( )",
+      "Data Originated From",
+      "Date of Performance Change",
+      "Timezone",
+      "Traffic Source / Referrer Clear",
+      "Traffic Medium Clear",
+      "Campaign Clear",
+      "A/B Testing Segment Clear",
+      "Visitor Type (new vs. returning) Clear",
+      "Datacenter Location Clear",
+      "Internet Service Provider / Organization Clear",
+      "Traffic Segment Clear",
+      "Content Groups / Page Groups Clear",
+      "Dynamic Top Pages",
+      "IN",
+      "CONTAINS",
+      "Country Clear",
+      "Region Clear",
+      "Performance Metric",
+      "SDK Version Clear",
+      "App Version Clear",
+      "Network Protocol Clear",
+      "Net Speed Clear",
+      "Discard Sessions Over",
+      "Privacy Policy",
+      "What we do with the information we gather",
+      "Web Visitor Information Collected",
+      "Use of General Customer Data",
+      "Use of Performance Measurements",
+      "Use of Web Visitor Information Collected Via Online Forms and Surveys",
+      "Customer Subscribers to Our Service Portal",
+      "Links to Other Websites",
+      "How To Contact Us Regarding This Privacy Policy and Other Concerns",
+      "My Filters",
+      "Shared Filters",
+      "Clear Genius Cache",
+      "Site:",
+      "Time Range:",
+      "Settings & Administration",
+      "Account",
+      "Department",
+      "Site",
+      "Tag & Content Governance",
+      "Alert",
+      "Report",
+      "User",
+      "Scorecard",
+      "Other",
+      "Log",
+      "BTT Internal",
+      "What do you want to do today?",
+      "Don't show me again",
+      "Modify Tooltip",
+      "Term",
+      "Placement"
+    ],
+    "select2": [
+      {
+        "id": "select2-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": true
+      },
+      {
+        "id": "select2-data-origin-container",
+        "text": "RUM Browser & Native Webview",
+        "visible": true
+      },
+      {
+        "id": "select2-timezone-container",
+        "text": "Asia/Kolkata/Mumbai (+05:30)",
+        "visible": true
+      },
+      {
+        "id": "select2-dynamic-top-pages-container",
+        "text": "Top 30 Pages",
+        "visible": true
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": true
+      },
+      {
+        "id": "select2-discard-sessions-over-container",
+        "text": "80th",
+        "visible": true
+      }
+    ],
+    "badges": {
+      "time-period-view": {
+        "text": "",
+        "visible": false
+      },
+      "device-view": {
+        "text": "",
+        "visible": false
+      },
+      "browser-view": {
+        "text": "",
+        "visible": false
+      },
+      "operating-system-view": {
+        "text": "",
+        "visible": false
+      },
+      "visitor-type-view": {
+        "text": "",
+        "visible": false
+      },
+      "bot-traffic-view": {
+        "text": "",
+        "visible": false
+      },
+      "data-type-view": {
+        "text": "",
+        "visible": false
+      },
+      "campaign-view": {
+        "text": "",
+        "visible": false
+      },
+      "country-view": {
+        "text": "",
+        "visible": false
+      },
+      "traffic-segment-view": {
+        "text": "",
+        "visible": false
+      },
+      "page-name-view": {
+        "text": "",
+        "visible": false
+      },
+      "page-group-view": {
+        "text": "",
+        "visible": false
+      },
+      "statistical-method-view": {
+        "text": "",
+        "visible": false
+      }
+    },
+    "inputs": [
+      {
+        "id": "user-id",
+        "name": "",
+        "type": "hidden",
+        "value": "355897",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "",
+        "name": "r",
+        "type": "hidden",
+        "value": "business-analytics/revenue-attribution",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "site-id",
+        "name": "sid",
+        "type": "select",
+        "value": "305836",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "user-menu-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search",
+        "visible": false
+      },
+      {
+        "id": "toggleMarkersType",
+        "name": "toggleMarkersType",
+        "type": "hidden",
+        "value": "no-markers",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "rev-attr-values-dataType",
+        "name": "",
+        "type": "select",
+        "value": "browser",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "report-list",
+        "name": "",
+        "type": "select",
+        "value": "1786335002",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "table-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": false
+      },
+      {
+        "id": "table-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": true
+      },
+      {
+        "id": "table-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": true
+      },
+      {
+        "id": "table-search",
+        "name": "",
+        "type": "search",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": false
+      },
+      {
+        "id": "data-origin",
+        "name": "data-origin",
+        "type": "select",
+        "value": "combined-rum",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "date-of-performance-change",
+        "name": "date-of-performance-change",
+        "type": "text",
+        "value": "2026-08-02",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "timezone",
+        "name": "timezone",
+        "type": "select",
+        "value": "Asia/Kolkata",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "campaign-source",
+        "name": "campaign-source[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "campaign-medium",
+        "name": "campaign-medium[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "campaign-name",
+        "name": "campaign-name[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "a-b-testing-segment",
+        "name": "a-b-testing-segment[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "visitor-type",
+        "name": "visitor-type[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "datacenter",
+        "name": "datacenter[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "isp",
+        "name": "isp[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "traffic-segment",
+        "name": "traffic-segment[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "page-group",
+        "name": "page-group[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "dynamic-top-pages",
+        "name": "dynamic-top-pages",
+        "type": "select",
+        "value": "true",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "page-name-mode-in",
+        "name": "",
+        "type": "radio",
+        "value": "multi-select",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "page-name-mode-contains",
+        "name": "",
+        "type": "radio",
+        "value": "search",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "page-name",
+        "name": "page-name[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "country",
+        "name": "country[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "region",
+        "name": "region[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "performance-metric",
+        "name": "performance-metric",
+        "type": "select",
+        "value": "onload",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "sdktagVersion",
+        "name": "sdktagVersion[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "appVersion",
+        "name": "appVersion[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "netstate",
+        "name": "netstate[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "net-speed",
+        "name": "net-speed[]",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "discard-sessions-over",
+        "name": "discard-sessions-over",
+        "type": "select",
+        "value": "80",
+        "placeholder": "",
+        "visible": true
+      },
+      {
+        "id": "genius-cache-site",
+        "name": "genius-cache-site",
+        "type": "select",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "clear-genius-cache-time",
+        "name": "time-period",
+        "type": "text",
+        "value": "",
+        "placeholder": "Select a time range to delete or leave blank to delete all",
+        "visible": false
+      },
+      {
+        "id": "settings-search",
+        "name": "",
+        "type": "input",
+        "value": "",
+        "placeholder": "Search...",
+        "visible": false
+      },
+      {
+        "id": "do-not-show-launchpad-checkbox",
+        "name": "",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "term",
+        "name": "",
+        "type": "text",
+        "value": "",
+        "placeholder": "term",
+        "visible": false
+      },
+      {
+        "id": "placement",
+        "name": "",
+        "type": "select",
+        "value": "top",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "definition",
+        "name": "",
+        "type": "textarea",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "assistant-prompt",
+        "name": "",
+        "type": "textarea",
+        "value": "",
+        "placeholder": "Ask Assistant",
+        "visible": false
+      },
+      {
+        "id": "feedbackText",
+        "name": "feedback_text",
+        "type": "textarea",
+        "value": "",
+        "placeholder": "Tell us more",
+        "visible": false
+      },
+      {
+        "id": "wantsFeedback",
+        "name": "wants_response",
+        "type": "checkbox",
+        "value": "on",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "fileUpload",
+        "name": "file_upload[]",
+        "type": "file",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "",
+        "name": "daterangepicker_start",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      },
+      {
+        "id": "",
+        "name": "daterangepicker_end",
+        "type": "text",
+        "value": "",
+        "placeholder": "",
+        "visible": false
+      }
+    ],
+    "buttons": [
+      "6",
+      "View Full Menu",
+      "Revenue Attribution",
+      "Add Comparison",
+      "All Devices",
+      "Desktop",
+      "Mobile",
+      "iOS",
+      "Android",
+      "+ New Rule",
+      "View Active Rule",
+      "Export",
+      "CSV",
+      "TSV",
+      "JSON",
+      "Array",
+      "Clear Cache",
+      "Cancel",
+      "Save & Run Report",
+      "Run Ad-Hoc Report",
+      "Save",
+      "Save as New Filter",
+      "Save Current Filter",
+      "Clear",
+      "Learn More",
+      "Dismiss",
+      "Create new saved filter",
+      "Close",
+      "Reset",
+      "Remove Tooltip",
+      "×",
+      "SUBMIT FEEDBACK",
+      "Apply"
+    ],
+    "bodySample": "GDC Test Site 2 Demo eCommerce Global GDC Test Site 2 Business Insights / Improve Conversion / Revenue Attribution Get started 6 ADMINISTRATOR Web Browser Native Android Native iOS All Devices Desktop iOS Android [2038-01-19] (Ad-Hoc) oct 12 - Date of Performance Change: 2025-10-12 [2026-08-13] (Ad-Hoc) Test Dynamic off 2? - Date of Performance Change: 2026-08-02 [2026-08-13] (Ad-Hoc) Test MM 1 Camp - Date of Performance Change: 2026-08-02 [2026-08-13] (Ad-Hoc) Test MM 1 Camp - Date of Performance Change: 2026-08-02 [2026-08-13] (Ad-Hoc) Test MM Top 5 Camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) test 7 diff camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) test 7 with 1 camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) test 7 no camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) test 6 with camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) test 6 with camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) test 6 with camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) test 6 with camp - Date of Performance Change: 2026-08-02 [2026-08-12] (Ad-Hoc) Test 4 - Date of Performance Change: 2026-08-01 [2026-08-12] (Ad-Hoc) Test 4 - Date of Performance Change: 2026-08-01 [2026-08-11] (Ad-Hoc) test 3 with camp - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 3 with camp - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 3 with camp - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 3 with camp - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 3 with camp - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 3 with camp - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 3 sb no camp - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test sb diff campaign - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test sb - yes campaign - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test sb no campaign - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 2 with campaign - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 2 with campaign - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) test 2 with campaign - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) Test - no campaign - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) campaigns - Date of Performance Change: 2026-08-02 [2026-08-11] (Ad-Hoc) campaigns - Date of Performance Change: 2026-08-02 [2026-08-10] test 2 - Date of Performance Change: 2026-08-02 [2026-08-04] (Ad-Hoc) MM Test No Campaigns - Date of Performance Change: 2026-07-26 [2026-08-04] (Ad-Hoc) MM Test 1 Camp - Coolers - Date of Performance Change: 2026-07-26 [2026-08-04] (Ad-Hoc) MM Test 1 Camp - Coolers - Date of Performance Change: 2026-07-26 [2026-08-04] (Ad-Hoc) MM Test 1 Random Campaign - Date of Performance Change: 2026-07-26 [2026-08-04] (Ad-Hoc) MM Test Top 5 Campaigns - Date of Performance Change: 2026-07-26 [2026-08-04] (Ad-Hoc) MM Test 1 Random Campaign - Date of Performance Change: 2026-07-19 [2026-08-04] (Ad-Hoc) MM Test 1 Random Campaign - Date of Performance Change: 2026-07-19 [2026-08-03] test 2 - Date of Performance Change: 2026-07-26 [2026-07-30] (Ad-Hoc) MM Test 1 Random Campaign - Date of Performance Change: 2026-07-19 [2026-07-30] test 2 - Date of Performance Change: 2026-07-19 [2026-07-30] (A",
+    "influenceHits": [
+      "All Devices",
+      "Desktop",
+      "Performance"
+    ]
+  },
+  "saveAndRunSoft": {
+    "count": 1,
+    "clicked": false
+  },
+  "select2Samples": [
+    {
+      "id": "select2-site-id-container",
+      "error": "ReferenceError: CSS is not defined"
+    }
+  ],
+  "deviceSoft": {
+    "sampled": [
+      {
+        "text": "All Devices",
+        "clsBefore": "btn btn-primary",
+        "clsAfter": "btn btn-primary grayed"
+      },
+      {
+        "text": "Desktop",
+        "clsBefore": "btn btn-primary",
+        "clsAfter": "btn btn-primary grayed"
+      },
+      {
+        "text": "Mobile",
+        "clsBefore": "btn btn-primary rev-attr-web-legacy-mobile-only",
+        "clsAfter": "btn btn-primary rev-attr-web-legacy-mobile-only"
+      },
+      {
+        "text": "Desktop",
+        "clsBefore": "",
+        "clsAfter": ""
+      }
+    ],
+    "count": 5,
+    "after": {
+      "highcharts": 240,
+      "influenceHits": [
+        "All Devices",
+        "Desktop",
+        "Performance"
+      ],
+      "buttons": [
+        "All Devices",
+        "Desktop",
+        "Mobile"
+      ]
+    }
+  },
+  "reportSoft": {
+    "note": "No obvious report Select2 container by common ids; see select2Samples"
+  },
+  "graphTableToggles": [
+    {
+      "id": "toggle-filters",
+      "text": "",
+      "cls": "ctrl r-p pull-right bt-menu-toggle prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Executive KPI Report",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "CrUX Report",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Competitive Index Table",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Competitive Index Table",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Executive KPI Report",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "CrUX Report",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Automated Reports",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Create Automated Report",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "",
+      "text": "Reports Log",
+      "cls": ""
+    },
+    {
+      "id": "",
+      "text": "Page Performance Comparison",
+      "cls": "tooltip-always prevent-edit"
+    },
+    {
+      "id": "report-manager-toggle",
+      "text": "",
+      "cls": "r-p btn btn-default"
+    },
+    {
+      "id": "rev-attr-values-vis_toggle-all_devices",
+      "text": "All Devices",
+      "cls": "btn btn-primary"
+    },
+    {
+      "id": "rev-attr-values-vis_toggle-desktop",
+      "text": "Desktop",
+      "cls": "btn btn-primary"
+    },
+    {
+      "id": "rev-attr-values-vis_toggle-mobile",
+      "text": "Mobile",
+      "cls": "btn btn-primary rev-attr-web-legacy-mobile-only"
+    },
+    {
+      "id": "page-controls-toggle",
+      "text": "",
+      "cls": "btn btn-default"
+    },
+    {
+      "id": "",
+      "text": "Desktop",
+      "cls": ""
+    },
+    {
+      "id": "",
+      "text": "Mobile",
+      "cls": ""
+    },
+    {
+      "id": "",
+      "text": "Export",
+      "cls": "btn btn-default dropdown-toggle pull-right"
+    },
+    {
+      "id": "",
+      "text": "Export",
+      "cls": "btn btn-default dropdown-toggle pull-right"
+    },
+    {
+      "id": "",
+      "text": "Export",
+      "cls": "btn btn-default dropdown-toggle pull-right"
+    },
+    {
+      "id": "",
+      "text": "Export",
+      "cls": "btn btn-default dropdown-toggle pull-right"
+    },
+    {
+      "id": "filter-config",
+      "text": "",
+      "cls": "btn btn-default pull-left"
+    },
+    {
+      "id": "cancel-filters",
+      "text": "Cancel",
+      "cls": "btn btn-default pull-left"
+    },
+    {
+      "id": "apply-filters",
+      "text": "Save & Run Report",
+      "cls": "btn btn-success pull-right rev-opp-run-report rev-attr-run-report"
+    },
+    {
+      "id": "apply-filters",
+      "text": "Run Ad-Hoc Report",
+      "cls": "btn btn-success pull-right rev-attr-run-report"
+    },
+    {
+      "id": "",
+      "text": "Save as New Filter",
+      "cls": "btn-list save-as-new-filter-list"
+    },
+    {
+      "id": "",
+      "text": "Save Current Filter",
+      "cls": "btn-list update-current-filter-list"
+    },
+    {
+      "id": "expand-all-filter-sections",
+      "text": "Expand All",
+      "cls": "expand-collapse-btn"
+    },
+    {
+      "id": "collapse-all-filter-sections",
+      "text": "Collapse All",
+      "cls": "expand-collapse-btn"
+    },
+    {
+      "id": "save-as-new-filter-list",
+      "text": "Create new saved filter",
+      "cls": "save-as-new-filter-list btn btn-success pull-right"
+    },
+    {
+      "id": "",
+      "text": "My Filters",
+      "cls": ""
+    },
+    {
+      "id": "",
+      "text": "Shared Filters",
+      "cls": ""
+    },
+    {
+      "id": "save-filter-lists",
+      "text": "Save",
+      "cls": "btn btn-success pull-right"
+    },
+    {
+      "id": "close-filter-lists",
+      "text": "Close",
+      "cls": "btn btn-default pull-right"
+    },
+    {
+      "id": "reset-filter-lists",
+      "text": "Reset",
+      "cls": "btn btn-notify pull-right"
+    },
+    {
+      "id": "",
+      "text": "Page Naming",
+      "cls": ""
+    },
+    {
+      "id": "",
+      "text": "SPA Page Naming",
+      "cls": ""
+    },
+    {
+      "id": "",
+      "text": "Mutation Observer Page Naming",
+      "cls": ""
+    },
+    {
+      "id": "",
+      "text": "Reports",
+      "cls": ""
+    },
+    {
+      "id": "",
+      "text": "Create Report",
+      "cls": ""
+    },
+    {
+      "id": "",
+      "text": "Domain Filters",
+      "cls": ""
+    },
+    {
+      "id": "",
+      "text": "Add User Level Page Setting",
+      "cls": ""
+    },
+    {
+      "id": "",
+      "text": "Reports Log",
+      "cls": ""
+    },
+    {
+      "id": "",
+      "text": "Post-Process Data Filters",
+      "cls": ""
+    }
+  ],
+  "brandAttributionSoft": {
+    "menuHits": 6
+  }
+}

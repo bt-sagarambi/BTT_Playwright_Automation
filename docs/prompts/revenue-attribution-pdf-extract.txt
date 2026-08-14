@@ -1,0 +1,117 @@
+Blue Triangle Help Center > Guides > Business Analytics
+The Revenue Attribution Page
+Cat Rugari · Updated (~3 months ago at PDF print)
+Source PDF (reattached Aug 14, 2026):
+  attachments/…/The_Revenue_Attribution_Page___Blue_Triangle_Help_Center_2.pdf
+  copied to: docs/prompts/The_Revenue_Attribution_Page___Blue_Triangle_Help_Center.pdf
+Article: https://help.bluetriangle.com/hc/en-us/articles/360033773973-The-Revenue-Attribution-Page
+PDF length: 13 pages (print stamp 8/14/26). Raw text: docs/prompts/revenue-attribution-pdf-extract-raw.txt
+No companion product .txt package was attached with this PDF.
+
+PDF Table of Contents
+- Overview
+- Introduction to Revenue Attribution Influences
+  - Experience Influences (+ Example)
+  - Marketing Influences (+ Example)
+- The Revenue Attribution Report
+  - Section 1: Revenue Attribution
+  - KPI Change → Sessions / Average Order Value / Conversion Rate / Revenue Per Session
+  - Section 2: Revenue Attribution by Platform
+  - Section 3: Revenue Attribution by Page
+- Navigating the Report
+  - Left Navigation Menu
+  - Filtering
+  - Running a New Report
+  - Report Selection
+  - Device Selection
+  - Scaling
+
+Overview (pp.1–2)
+- Algorithm based on Sessions to identify/quantify key influences driving weekly revenue changes.
+- Experience Influences = Performance + Stability.
+- Marketing Influences = Sessions, Average Order Value, and Intent.
+- Combined → overall Revenue Influence.
+- Best practice: pick a meaningful comparison date (e.g. rollout of a performance improvement) and compare week before vs after.
+- Default cadence: report runs once every week on Monday (PDF typo: “once everyone week”).
+- PLEASE NOTE: All devices includes tablet, but tablet is NOT its own category. Selecting both
+  “Desktop” and “Mobile” will NOT show All Devices data (excludes Tablet).
+
+Five influences (pp.2–4)
+Experience
+| Influence   | Definition (PDF) |
+| Performance | Willingness to stay engaged / complete journey; impacts conversion & revenue. Faster onload often helps but not always (Friction Five blog soft). |
+| Stability   | Page reliability / content stability revenue tendency (missing content, slow images, inconsistent key features). |
+Experience example: slight onload improvement → more sessions in higher conversion-curve area; flattened curve also desirable (consistency). Optimize for non-ideal experiences (prioritize key elements, earlier interaction, progressive content, communicate delays).
+
+Marketing
+| Influence           | Definition (PDF) |
+| Traffic             | WoW session volume change (campaigns/seasonality). PDF intro says “Sessions”; influence table label is Traffic. |
+| Average Order Value | Impact of AOV change (pricing/packaging/promotions). |
+| Intent              | Tendency to complete journey/convert with other influences held constant. |
+Marketing example: good campaign + wrong product → Sessions up, Intent negative (audience/offering mismatch).
+
+Section 1: Revenue Attribution (pp.5–6)
+- Top section: calculated revenue attributed from each influence (succinct view of sections 2 & 3).
+- Device Selection controls which device visuals are visible.
+
+KPI Change (pp.5–6) — uses ALL filters EXCEPT SELECTED PAGE NAME
+- Actual measured revenue / KPI differences week over week:
+  - Sessions — WoW session delta (+ increase / − decrease)
+  - Average Order Value — WoW AOV delta
+  - Conversion Rate — WoW delta in **basis points** (1 bps = 1/100th of a percentage)
+  - Revenue Per Session — WoW average revenue per session delta
+
+Section 2: Revenue Attribution by Platform (p.7)
+- Influence data by platform/device.
+- Each bar = individual influence; whisker = revenue attributed to Influence Group.
+- Legend below chart; hover bar/whisker for exact value.
+- Bar right/green = positive vs prior period; left/red = negative.
+
+Section 3: Revenue Attribution by Page (pp.7–8)
+- Page-by-page influence data in bar chart + table (table underneath page-level charts).
+- Same bar/whisker/legend/hover/direction semantics as Platform.
+- Explicit: **Scaling is not applied to data at the page level.**
+- PDF includes Chart example + Table example images (no machine-readable headers beyond prose).
+
+Navigating (pp.8–11)
+Left Navigation
+- Business Insights → Improve Conversion → Revenue Attribution
+- Soft: menu search bar (PDF typo “at the to of the menu”)
+
+Filtering
+- Filter icon top-right.
+- Updating filters + press **“Save & Run Report”** triggers a new report run.
+- Optional custom report name, else default name = site title + date of performance change being measured.
+- All filters impact entire report **except page name** — page name does **not** impact the KPI Changes column.
+
+Running a New Report
+- Default auto-run at start of each fiscal week (PDF typo “By default, he Revenue Attribution…”).
+- First processing of a new report: **5 to 20 minutes**; subsequent views via report selection dropdown load instantly.
+
+Report Selection
+- Dropdown top-left lists previously run reports.
+- Selecting a report loads that report + associated filters.
+
+Device Selection (PDF set)
+- Desktop / Mobile / All Devices buttons (top left).
+- Outlined in blue = visible; grayed out = hidden; remaining visuals fill width.
+- Repeats PLEASE NOTE tablet caveat.
+
+Scaling (pp.11–12)
+- KPI change / measured differences = actual revenue differences.
+- Influences scaled to match measured difference when prediction direction matches actual.
+- If predict positive but actual negative (or vice versa), scaling not applied; UI shows an **artifact** that scaling was not applied (often when numbers near 0 / variance).
+- PLEASE NOTE again: Scaling does not get applied to page level data.
+
+Related articles listed in PDF footer (soft discrimination only)
+- The Revenue Calculator Page
+- The Revenue Analysis Page
+- (plus unrelated CWV / Network Health / CrUX / Native / Site Overview / RUM PD)
+
+Live product deltas vs this PDF (prefer live hosts — Aug 2026 GDC probe)
+- Device toggles also include **iOS** and **Android** (+ table section tabs) beyond PDF Desktop/Mobile/All Devices.
+- Marketing card label often **Traffic**; KPI Change uses **Sessions**.
+- KPI Conversion Rate live label soft: **Conversion Rate (bps)**.
+- Report picker is rich `#report-list` with many **(Ad-Hoc)** named reports + Date of Performance Change; week range `#report-time-period`.
+- Page tables include Onload / Before (s) / After (s) / Diff (%) / Diff (s) plus influence money columns.
+- Extra chrome not in PDF: Add Comparison, Revenue Impact rules, Export CSV/TSV/JSON/Array, Run Ad-Hoc Report, Web Browser / Native data-type, calculator shortcut `#revenue-attribution`.
