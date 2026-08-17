@@ -1,0 +1,55 @@
+Synthetic Regression - US2 — live reverse-engineering notes (Aug 2026)
+================================================================================
+Companion package .txt was not present in Cursor attachments when this extract
+was authored. SoT = live portal probe + screenshot.
+
+Probe script: scripts/probe-synthetic-regression-us2-dashboard.ts
+Probe JSON:   docs/prompts/synthetic-regression-us2-dashboard-live-probe.json
+Screenshot:   docs/prompts/synthetic-regression-us2-dashboard-live.png
+
+Identity
+- Menu: Dashboards (left nav)
+- Route: site/dashboard
+- Browser / #page-title: Dashboards
+- Switcher: #select2-switch-dashboard-container = **Synthetic Regression - US2**
+- Optgroup: **Custom** (NOT Preconfigured)
+- Option value sample (account-dependent): 998773 — never hard-code
+- Site: GDC Test Site 2 (quick-site preferred; #select2-site-id-container often hidden on this shell)
+
+Sibling Custom US2 regression dashboards (soft discrimination only):
+- Alerts Regression - US2
+- Business Regression - US2
+- Marketing Regression - US2
+- Tag Governance - US2
+- RUM Regression - US2
+Preconfigured siblings to reject as home: Synthetic Site Health, Synthetic Performance Detail, Site Overview, VitalPulse, …
+
+Chrome (probe)
+- Time Lookback sample: **Last 24 hours** (#time-lookback)
+- Auto Refresh sample: **Auto Refresh (10m)**; options Off + 2/5/10/15/30/60 Minutes
+- Carousel (off) + intervals soft
+- #refresh-dashboard, Filters (#toggle-filters), + Widget / + Dashboard, Share, Dashboard Manager
+- #last-updated-dashboard sample: Last Updated …
+- My Filters / Shared Filters tabs
+
+Prescribed lookback regression (required in AI Prompt §15 — mirror SO/SSH/VP/SPD suites)
+- Apply: **Last 6 hours**, **Last 24 hours**, **Last 7 days**, **Last 30 days**
+- After each: lookback label matches; widgets ready / signature soft-refresh; dashboard reflects selected window
+- Soft graph hover on Performance - US2 (preferred) / Site Availability / Network|API charts — tooltip/x-axis datetime **interval/span differs** across the four lookbacks (do not hard-code clocks)
+- Restore original lookback after sequence (helper pattern: softPrescribedLookbacksRefresh / assertLookbackAppliedRefreshed)
+
+Widgets observed (titles — prefer title text over dynamic grid-stack / chartID suffixes)
+1. Performance Summary - US2 — metric cards (PAGE HITS, PAGE ONLOAD, TEST OVERRIDE, FCP, LCP, TBT, CLS, SPEED INDEX, DOM DURATION, TT DOM CONT LOADED / INTERACTIVE, JS ERRORS, FIRST BYTE, DNS, TCP, SSL, REDIRECT, BASE PAGE, FIRST PAINT, TOTAL ELEMENTS/DOMAINS, PAGE SIZE uncomp/comp, IMAGE SIZE). Host prefixes: hits-card-chartID_*, page-onload-card-chartID_*, … chartID_* / cardThings-chartID_*
+2. Performance - US2 — subtitle Performance Details; Pages: All Matching Pages; multi-series (Onload, 1stByte, DNS, TCPCon, DOM Duration, SSL, Redirect, Base Page, DOM Interactive/Content Loaded, First Paint, Page Size, Elements, Domains, JS Errors, CWV metrics, Page Views). Host: perfGraph-chartID_* / chartID_*
+3. Network Health Check - US2 — Traceroutes / Latency / Packet Loss / Jitter / Hops / Failures / Packet Size …
+4. API Checks - US2 — All Monitors; DNS TCP App Connect Pre Transfer Start Transfer Redirect Total Base Page Page Views
+5. Site Availability - US2 — Site Availability Over Time; 200's–500's, Timeout, Missing/Error/Script/Content Error, Total Errors
+6. Perf. Comparison - US2 — Onload; All Matching Pages
+7. Error Tracking and Performance - US2 — Monitor Name; Displayed Metric menu; Avg / Last Measured; soft “No Monitors Currently In Error State”
+8. Session Scatter Plot Analysis - US2 — Displayed Metric menu; page-scatter_* / session-scatter_*; legend Onload (Screenshot Only / + FilmStrip / Onload); may show *Dashboard Auto Refresh Is Now Paused* after drill
+9. 1st vs 3rd Party Fxn Timing - Synthetic - US2 — Slowest Functions graph + table headers Function|File|Domain|Service|Total Load Time Before 120 Seconds (ms); toggles 1st/3rd/All; Before: Onload / TEST OVERRIDE / paint metrics soft
+10. Perf. by Geography - US2 — Displayed Metric: Onload / LCP / CLS / TBT / TCP / First Byte / DNS / …
+
+Scatter drill detail tabs (when open): Waterfall (#wcd-tab), Film Strip (#film-strip-tab), Har File (#agentDetails), Test Event Log (#test-event-log-tab)
+
+Do not hard-code: chartID_/grid-stack suffixes, exact KPI values, monitor names (Blue Triangle HomePage, QA_Test_*), timezone IST offsets, “6/75 dashboards used”, exact Last Updated clock.
