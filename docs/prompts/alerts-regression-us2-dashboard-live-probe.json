@@ -1,0 +1,1503 @@
+{
+  "target": "Alerts Regression - US2",
+  "afterDashboardsNav": {
+    "title": "Dashboards",
+    "pageTitle": "Dashboards",
+    "switchText": {
+      "id": "select2-switch-dashboard-container",
+      "text": "Site Overview",
+      "visible": true
+    },
+    "syntheticHits": [
+      {
+        "text": "Synthetic Site Health",
+        "value": "984794",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "Synthetic Performance Detail",
+        "value": "984830",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "Synthetic Regression - US2",
+        "value": "998773",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Alerts Regression - US2",
+        "value": "998785",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Business Regression - US2",
+        "value": "998797",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Marketing Regression - US2",
+        "value": "998798",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Tag Governance - US2",
+        "value": "998810",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "RUM Regression - US2",
+        "value": "998822",
+        "selected": false,
+        "group": "Custom"
+      }
+    ],
+    "optionGroupLabels": [
+      "Preconfigured",
+      "Shared",
+      "Custom"
+    ]
+  },
+  "savedAt": "2026-08-18T05:52:44.501Z",
+  "selectResult": {
+    "selected": true,
+    "matchedText": "Alerts Regression - US2",
+    "group": "select2",
+    "note": "clicked select2 option \"Alerts Regression - US2\""
+  },
+  "screenshot": "D:\\Project_Work\\BlueTriangle_Automation\\docs\\prompts\\alerts-regression-us2-dashboard-live.png",
+  "snap": {
+    "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=site/dashboard",
+    "title": "Dashboards",
+    "pageTitle": "Dashboards",
+    "highcharts": 0,
+    "filterChrome": {
+      "toggleFilters": true,
+      "applyFilters": false,
+      "cancelFilters": true,
+      "timeLookback": true,
+      "switchDashboard": true,
+      "autoRefresh": true,
+      "refreshDashboard": true,
+      "lastUpdated": "Last Updated 12:59",
+      "myFilters": true,
+      "sharedFilters": true
+    },
+    "select2": [
+      {
+        "id": "select2-switch-dashboard-container",
+        "text": "Alerts Regression - US2",
+        "visible": true
+      },
+      {
+        "id": "select2-quick-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": false
+      },
+      {
+        "id": "select2-switch-user-container",
+        "text": "My Dashboards",
+        "visible": false
+      },
+      {
+        "id": "select2-widget-type-container",
+        "text": "Performance",
+        "visible": false
+      },
+      {
+        "id": "select2-timezone-container",
+        "text": "Asia/Kolkata/Mumbai (+05:30)",
+        "visible": false
+      },
+      {
+        "id": "select2-data-science-saved-graph-selector-container",
+        "text": "No Filter Applied",
+        "visible": false
+      },
+      {
+        "id": "select2-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": false
+      },
+      {
+        "id": "select2-revenue-offset-days-container",
+        "text": "0",
+        "visible": false
+      },
+      {
+        "id": "select2-revenue-offset-hours-container",
+        "text": "0",
+        "visible": false
+      },
+      {
+        "id": "select2-data-type-container",
+        "text": "Real User",
+        "visible": false
+      },
+      {
+        "id": "select2-report-data-type-container",
+        "text": "Real User Browser Data",
+        "visible": false
+      },
+      {
+        "id": "select2-data-origin-container",
+        "text": "RUM Browser & Native Webview",
+        "visible": false
+      },
+      {
+        "id": "select2-graph-type-container",
+        "text": "Line Graph",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-rum-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-native-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-synth-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-add-comparison-line-lookback-time-selector-container",
+        "text": "Yesterday",
+        "visible": false
+      },
+      {
+        "id": "select2-displayed-metric-rum-group-by-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-trim-histogram-left-side-container",
+        "text": ".1",
+        "visible": false
+      },
+      {
+        "id": "select2-trim-histogram-container",
+        "text": "30",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-rum-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-rum-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-native-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-native-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-synth-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-synth-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-order-by-container",
+        "text": "Selected X-Axis (Lowest to Highest)",
+        "visible": false
+      },
+      {
+        "id": "select2-scatter-display-type-container",
+        "text": "Error",
+        "visible": false
+      },
+      {
+        "id": "select2-top-paths-data-trend-container",
+        "text": "Arithmetic Mean",
+        "visible": false
+      },
+      {
+        "id": "select2-scatter-group-by-container",
+        "text": "Script Name / Traffic Segment",
+        "visible": false
+      },
+      {
+        "id": "select2-year-format-container",
+        "text": "Calendar Year",
+        "visible": false
+      },
+      {
+        "id": "select2-comparison-type-container",
+        "text": "Day To Day",
+        "visible": false
+      },
+      {
+        "id": "select2-rollingEnd-container",
+        "text": "Custom Selector",
+        "visible": false
+      },
+      {
+        "id": "select2-custom-comparing-to-type-container",
+        "text": "Weeks",
+        "visible": false
+      }
+    ],
+    "buttons": [
+      "Toggle menu visibility",
+      "Toggle user menu visibility",
+      "Toggle settings menu visibility",
+      "Help Center",
+      "Blue Triangle Help Video",
+      "Change theme",
+      "Share this page",
+      "Toggle filters menu visibility",
+      "Toggle feedback form visibility",
+      "6",
+      "View Full Menu",
+      "GDC Test Site 2 Demo eCommerce Global",
+      "Last 2 days",
+      "Custom Date Selection",
+      "Last 7 days",
+      "Last 14 days",
+      "Last 30 days",
+      "Last 90 days",
+      "Today so far",
+      "This week so far",
+      "This month so far",
+      "Last 15 minutes",
+      "Last 30 minutes",
+      "Last 1 hour",
+      "Last 3 hours",
+      "Last 6 hours",
+      "Last 12 hours",
+      "Last 24 hours",
+      "Auto Refresh (10m)",
+      "Off",
+      "2 Minutes",
+      "5 Minutes",
+      "10 Minutes",
+      "15 Minutes",
+      "30 Minutes",
+      "60 Minutes",
+      "Carousel (off)",
+      "3m Interval",
+      "5m Interval",
+      "10m Interval",
+      "15m Interval",
+      "30m Interval",
+      "+ Widget",
+      "+ Dashboard",
+      "Edit filters for this widget",
+      "Delete this widget from the current dashboard",
+      "View All Issues",
+      "Export",
+      "CSV",
+      "TSV",
+      "JSON",
+      "Array",
+      "Actions",
+      "Add New Dashboard",
+      "Clone",
+      "Share",
+      "Unshare",
+      "Save",
+      "Close",
+      "Hide Shared"
+    ],
+    "labels": [
+      "Time Lookback",
+      "Dashboard Refresh",
+      "Auto Refresh",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "Severity",
+      "Status",
+      "Date Detected",
+      "Issue",
+      "Module",
+      "DASHBOARD MANAGER",
+      "6/75 dashboards used",
+      "Clone Dashboard",
+      "Select users to clone the dashboard(s):",
+      "Add a Widget",
+      "Widget Type",
+      "Time Period",
+      "Timezone",
+      "Saved Data Science Graphs",
+      "Site",
+      "Use Time Lookback Offset?",
+      "Widget Title *",
+      "Data Type",
+      "Data Originated From",
+      "Graph Type",
+      "Performance Metric",
+      "Group Lines By",
+      "Add Comparison Line?",
+      "Compare Today To",
+      "Displayed Metric",
+      "X Axis",
+      "Trim Left Side",
+      "Trim Right Side",
+      "X-Axis Value",
+      "Y-Axis Value",
+      "Order By",
+      "Display Screenshot For Latest",
+      "Statistical Method",
+      "Group By",
+      "Year Format",
+      "Type Of Comparison",
+      "Comparing",
+      "To",
+      "Years To Compare *",
+      "Comparing Today To",
+      "Past",
+      "Bucket Size",
+      "Path Name * Clear",
+      "Date of Performance Change",
+      "Path Overview Metrics",
+      "Include:",
+      "Threshold Percent Change",
+      "Onload",
+      "DOM Duration",
+      "Time to DOM Interactive",
+      "Time to DOM Content Loaded",
+      "Page Views / Session",
+      "Page Views",
+      "Orders",
+      "Revenue",
+      "Traffic Source / Referrer Clear",
+      "Traffic Medium Clear",
+      "Campaign Clear",
+      "A/B Testing Segment Filter Selector",
+      "A/B Testing Segment Clear",
+      "A/B Testing Segment",
+      "Visitor Type (new vs. returning) Clear",
+      "Datacenter Location Clear",
+      "Internet Service Provider / Organization Clear",
+      "Traffic Segment Clear",
+      "Content Groups / Page Groups Clear",
+      "SLA Filter Groups",
+      "Monitor Name Clear",
+      "Page Name",
+      "IN",
+      "CONTAINS",
+      "Common Devices:"
+    ],
+    "headings": [
+      "Time Lookback",
+      "Dashboard Refresh",
+      "Auto Refresh",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Executive",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "DASHBOARD MANAGER",
+      "6/75 dashboards used",
+      "Clone Dashboard",
+      "Add a Widget",
+      "Path Overview Metrics",
+      "Include:",
+      "Threshold Percent Change",
+      "Privacy Policy",
+      "What we do with the information we gather",
+      "Web Visitor Information Collected",
+      "Use of General Customer Data",
+      "Use of Performance Measurements",
+      "Use of Web Visitor Information Collected Via Online Forms and Surveys",
+      "Customer Subscribers to Our Service Portal",
+      "Links to Other Websites",
+      "How To Contact Us Regarding This Privacy Policy and Other Concerns",
+      "Clear Genius Cache"
+    ],
+    "tabs": [
+      {
+        "id": "my-filters-tab",
+        "text": "My Filters",
+        "cls": "active",
+        "active": true
+      },
+      {
+        "id": "",
+        "text": "My Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "shared-filters-tab",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      }
+    ],
+    "widgets": [
+      {
+        "id": "355897-1787031720305",
+        "title": "DEO Anomalies - US2 View All Issues 0 Critical 0 Significant 1 to 10 (62) 5 / page 10 / page 25 / page 50 / page 100 / page 250 / page 500 / page All Export Severity Status Date De",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": false,
+        "hasTable": true,
+        "tableHeaders": [
+          "Severity",
+          "Status",
+          "Date Detected",
+          "Issue",
+          "Module",
+          "Severity",
+          "Status",
+          "Date Detected",
+          "Issue",
+          "Module"
+        ],
+        "childIds": [
+          "chartID_355897-1787031720305",
+          "homepage-issue-tracker-wrapper-chartID_355897-1787031720305",
+          "homepage-issue-tracker-chartID_355897-1787031720305_pager_info",
+          "table-search",
+          "homepage-issue-tracker-chartID_355897-1787031720305-table-viewport",
+          "homepage-issue-tracker-chartID_355897-1787031720305",
+          "homepage-issue-tracker-chartID_355897-1787031720305_pager_info",
+          "homepage-issue-tracker-chartID_355897-1787031720305-sticky"
+        ],
+        "bodySample": "DEO Anomalies - US2 View All Issues 0 Critical 0 Significant 1 to 10 (62) 5 / page 10 / page 25 / page 50 / page 100 / page 250 / page 500 / page All Export Severity Status Date Detected Issue Module Minor Active Aug 18 10:23 AM Real User Anomaly Detected in Page Volume Hourly Trend Desktop on the page Unnamed_Page Real User Monitoring Minor Active Aug 18 07:23 AM Real User Anomaly Detected in Sessions Hourly Trend Desktop on the page Unnamed_Page Real User Monitoring Critical Clear Aug 18 09:23 AM Real User Anomaly Detected in Time to Interactive Hourly Trend Desktop on the page Unnamed_Page Real User Monitoring Significant Clear Aug 18 09:23 AM Synthetic Anomaly Detected in Onload Hourly Trend on the page Kay UAT Test Synthetic Monitoring Significant Clear Aug 18 08:23 AM Real User Anomaly Detected in Time to Interactive Hourly Trend Desktop on the page Sitelet Landing Real User Monitoring Significant Clear Aug 18 05:23 AM Real User Anomaly Detected in Time to Interactive Hourly Tren"
+      },
+      {
+        "id": "355897-1787031731493",
+        "title": "Blue Triangle Announcements Dec 18, 2025 12:33 AM Release Notes - Portal v9.11.0 Bug Fixes Fixed an issue where the TTI portal term wasn’t applying correctly Fixed an issue where t",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": false,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "chartID_355897-1787031731493"
+        ],
+        "bodySample": "Blue Triangle Announcements Dec 18, 2025 12:33 AM Release Notes - Portal v9.11.0 Bug Fixes Fixed an issue where the TTI portal term wasn’t applying correctly Fixed an issue where the native filters weren’t working as expected on the Revenue Calculator page Fixed an issue on the Errors Explorer page where sites with a high volume of errors could cause the page to not render properly. To resolve this, we added a minimum count filter. Fixed an issue where adding certain Native App metrics on the custom widget in the dashboard would cause the widget to fail to load Fixed an issue where the monetary unit wasn’t being decoded properly on the custom widget in the dashboard Fixed an issue on the Native App Performance Details page where selecting a page name bar graph wouldn’t load the data properly Fixed an issue on the Native App preconfigured dashboards where clicking on the globe to link to another page wasn’t including the proper OS Fixed an issue on the Synthetic Performance Details page"
+      },
+      {
+        "id": "355897-1787031760072",
+        "title": "Active Alerts - US2 Name Type Measured Level Critical Threshold Warning Threshold Eval Window Alerting Since Transaction Page Status blank threshold File Type Performance 502018 ms",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": false,
+        "hasTable": true,
+        "tableHeaders": [],
+        "childIds": [
+          "chartID_355897-1787031760072",
+          "activeAlertsDiv_355897-1787031760072",
+          "activeAlertsTable_355897-1787031760072"
+        ],
+        "bodySample": "Active Alerts - US2 Name Type Measured Level Critical Threshold Warning Threshold Eval Window Alerting Since Transaction Page Status blank threshold File Type Performance 502018 ms 250000 ms 0 ms 5Min Aug 18 2026 09:15 n/a n/a Critical test Performance 11469 ms 500 ms 0 ms 5Min Dec 11 2025 20:41 n/a n/a Critical test alert create Performance 3569 ms 1000 ms 0 ms 5Min Feb 3 2026 03:16 n/a n/a Critical Test pp07292026 Revenue 317 10000000 0 5Min July 30 2026 00:20 n/a n/a Critical"
+      }
+    ],
+    "charts": [],
+    "tables": [
+      {
+        "id": "homepage-issue-tracker-chartID_355897-1787031720305",
+        "className": "homepage-issue-tracker-table table table-striped tablesorter tablesorter-default tablesorter96658f7eb4f7a8 hasFilters hasStickyHeaders",
+        "headers": [
+          "Severity",
+          "Status",
+          "Date Detected",
+          "Issue",
+          "Module"
+        ],
+        "rows": 124,
+        "visible": true
+      },
+      {
+        "id": "homepage-issue-tracker-chartID_355897-1787031720305-sticky",
+        "className": "homepage-issue-tracker-table table table-striped tablesorter tablesorter-default tablesorter96658f7eb4f7a8 hasFilters containsStickyHeaders ",
+        "headers": [
+          "Severity",
+          "Status",
+          "Date Detected",
+          "Issue",
+          "Module"
+        ],
+        "rows": 0,
+        "visible": true
+      },
+      {
+        "id": "activeAlertsTable_355897-1787031760072",
+        "className": "tablesorter table table-bordered table-striped tablesorter-blue tablesorterf02ae281c1e038 hasResizable",
+        "headers": [],
+        "rows": 4,
+        "visible": true
+      },
+      {
+        "id": "dashboard-settings-table",
+        "className": "table table-borderless table-plain modal-table",
+        "headers": [],
+        "rows": 19,
+        "visible": false
+      }
+    ],
+    "interestingIds": [
+      "global-action-notification",
+      "page-title",
+      "exclamation-view-alerts",
+      "exclamation-alert-number-text",
+      "toggle-help-video",
+      "help-video-menu",
+      "share-page-btn",
+      "toggle-filters",
+      "view-alerts-1",
+      "view-alerts-2",
+      "alert-number-text",
+      "alerts-totals-by-type",
+      "alert-box-close-1",
+      "alert-box-close-2",
+      "mobile-controls-filters-btn",
+      "refresh-dashboard-li",
+      "toggle-filters-li",
+      "share-page-li",
+      "help-video-li",
+      "page-wrapper",
+      "page-controls-og",
+      "dashboard-page-controls",
+      "switch-dashboard",
+      "select2-switch-dashboard-container",
+      "time-lookback",
+      "auto-refresh-btn-group",
+      "refresh-dashboard",
+      "auto-refresh",
+      "auto-refresh-frequency",
+      "last-updated-dashboard",
+      "dashboard-manager",
+      "create-dashboard-page-controls",
+      "dashboard-manager-share",
+      "dashboard-manager-share-btn",
+      "dashboard-settings-toggle",
+      "revenue-offset-message",
+      "page-contents",
+      "chartID_355897-1787031720305",
+      "homepage-issue-tracker-wrapper-chartID_355897-1787031720305",
+      "homepage-issue-tracker-chartID_355897-1787031720305_pager_info",
+      "table-search",
+      "homepage-issue-tracker-chartID_355897-1787031720305-table-viewport",
+      "homepage-issue-tracker-chartID_355897-1787031720305",
+      "homepage-issue-tracker-chartID_355897-1787031720305_pager_info",
+      "homepage-issue-tracker-chartID_355897-1787031720305-sticky",
+      "chartID_355897-1787031731493",
+      "chartID_355897-1787031760072",
+      "activeAlertsDiv_355897-1787031760072",
+      "activeAlertsTable_355897-1787031760072",
+      "edit-mode-notification",
+      "dashboard-settings-modal",
+      "switch-user",
+      "select2-switch-user-container",
+      "search-dashboard-manager",
+      "dashboards-used",
+      "dashboards-allowed",
+      "dashboard-manager-headers",
+      "createDashboardForm",
+      "dashboard-settings-table-wrapper",
+      "dashboard-settings-table",
+      "create-dashboard",
+      "toggle-markers-container",
+      "toggleMarkersType",
+      "marker-caret",
+      "clone-multiple-dashboards",
+      "share-dashboard",
+      "unshare-dashboard",
+      "save-dashboard-settings",
+      "toggle-shared-dashboards",
+      "clone-dashboard-modal",
+      "users-for-cloning-dashboard",
+      "save-dashboard-clones",
+      "widget-wizard-modal",
+      "widget-wizard-modal-dialog",
+      "widget-wizard-modal-body",
+      "widget-results",
+      "widget-types",
+      "widget-type-preview",
+      "filters-section",
+      "widget-wizard-modal-previous",
+      "widget-wizard-modal-next",
+      "widget-wizard-modal-create",
+      "widget-wizard-modal-save",
+      "filters-menu",
+      "filters-form",
+      "filter-config",
+      "cancel-filters",
+      "save-widget",
+      "view-filter-lists",
+      "filters-form-scroll-region",
+      "expand-all-filter-sections",
+      "collapse-all-filter-sections",
+      "widget-type-row",
+      "widget-type",
+      "select2-widget-type-container",
+      "time-period-row",
+      "time-period-wrapper",
+      "time-period-icon",
+      "time-period",
+      "timezone-row",
+      "timezone",
+      "select2-timezone-container",
+      "data-science-saved-graph-selector-row",
+      "data-science-saved-graph-selector",
+      "select2-data-science-saved-graph-selector-container",
+      "revenue-offset-row",
+      "revenue-offset-toggle",
+      "revenue-offset-days",
+      "select2-revenue-offset-days-container",
+      "revenue-offset-hours",
+      "select2-revenue-offset-hours-container",
+      "widget-title-row",
+      "widget-title",
+      "widget-id",
+      "graph-type-row",
+      "graph-type",
+      "select2-graph-type-container",
+      "performance-metric-row",
+      "performance-metric",
+      "select2-performance-metric-container",
+      "performance-metric-rum-row",
+      "performance-metric",
+      "select2-performance-metric-container",
+      "performance-metric-synth-row",
+      "performance-metric",
+      "select2-performance-metric-container",
+      "performance-metric-mini-row",
+      "performance-metric",
+      "select2-performance-metric-container",
+      "add-comparison-line-lookback-time-row",
+      "add-comparison-line-lookback-time-selector",
+      "select2-add-comparison-line-lookback-time-selector-container",
+      "add-comparison-line-time-period-column",
+      "add-comparison-line-time-period",
+      "displayed-metric-histogram-row",
+      "displayed-metric-histogram",
+      "displayed-metric-rum-row",
+      "displayed-metric-rum",
+      "displayed-metric-rum-group-by-row",
+      "displayed-metric-rum-group-by",
+      "select2-displayed-metric-rum-group-by-container",
+      "displayed-metric-native-row",
+      "displayed-metric-native",
+      "displayed-metric-native-group-by-row",
+      "displayed-metric-native-group-by",
+      "displayed-metric-synth-row",
+      "displayed-metric-synth",
+      "performance-metric-histogram-row",
+      "performance-metric",
+      "select2-performance-metric-container",
+      "performance-metric-histogram-native-row",
+      "performance-metric",
+      "select2-performance-metric-container",
+      "scatter-display-type-row",
+      "scatter-display-type",
+      "select2-scatter-display-type-container",
+      "scatter-group-by-row",
+      "scatter-group-by",
+      "select2-scatter-group-by-container",
+      "time-period-wrapper",
+      "time-period-icon",
+      "time-period-wrapper",
+      "time-period-icon",
+      "date-of-performance-change-row",
+      "time-period-icon",
+      "date-of-performance-change",
+      "PathTable_OnloadColumnEnabled",
+      "percentTriggerOnloadEnabled",
+      "percentChangeTriggerOnload",
+      "PathTable_DomComColumnEnabled",
+      "PathTable_TTDomIntColumnEnabled",
+      "PathTable_TTDomContColumnEnabled",
+      "PathTable_PagesPerSessionColumnEnabled",
+      "percentTriggerPagesPerSessionEnabled",
+      "percentChangeTriggerPagesPerSession",
+      "PathTable_PageViewsColumnEnabled",
+      "percentTriggerPageViewsEnabled",
+      "percentChangeTriggerPageViews",
+      "PathTable_OrdersColumnEnabled",
+      "PathTable_RevenueColumnEnabled"
+    ],
+    "syntheticHits": [
+      {
+        "text": "Synthetic Site Health",
+        "value": "984794",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "Synthetic Performance Detail",
+        "value": "984830",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "Synthetic Regression - US2",
+        "value": "998773",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Alerts Regression - US2",
+        "value": "998785",
+        "selected": true,
+        "group": "Custom"
+      },
+      {
+        "text": "Business Regression - US2",
+        "value": "998797",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Marketing Regression - US2",
+        "value": "998798",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Tag Governance - US2",
+        "value": "998810",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "RUM Regression - US2",
+        "value": "998822",
+        "selected": false,
+        "group": "Custom"
+      }
+    ],
+    "optionGroups": [
+      {
+        "label": "Preconfigured",
+        "count": 9,
+        "sample": [
+          {
+            "value": "984782",
+            "text": "Site Overview",
+            "selected": false
+          },
+          {
+            "value": "985034",
+            "text": "VitalPulse",
+            "selected": false
+          },
+          {
+            "value": "984794",
+            "text": "Synthetic Site Health",
+            "selected": false
+          },
+          {
+            "value": "984806",
+            "text": "Traffic Source and Medium",
+            "selected": false
+          },
+          {
+            "value": "984818",
+            "text": "RUM Performance Detail",
+            "selected": false
+          },
+          {
+            "value": "984830",
+            "text": "Synthetic Performance Detail",
+            "selected": false
+          },
+          {
+            "value": "984986",
+            "text": "Native App Performance Detail",
+            "selected": false
+          },
+          {
+            "value": "984998",
+            "text": "Native App Detailed Metrics - Android",
+            "selected": false
+          },
+          {
+            "value": "985010",
+            "text": "Native App Detailed Metrics - iOS",
+            "selected": false
+          }
+        ],
+        "hasTarget": false
+      },
+      {
+        "label": "Shared",
+        "count": 4,
+        "sample": [
+          {
+            "value": "843798",
+            "text": "test custom dash",
+            "selected": false
+          },
+          {
+            "value": "852569",
+            "text": "UA B2C - Traffic Breakdown Errors",
+            "selected": false
+          },
+          {
+            "value": "852571",
+            "text": "UA B2C - Business Metrics with Performance",
+            "selected": false
+          },
+          {
+            "value": "852574",
+            "text": "UA B2C - Desktop Performance for Top Journey Pages",
+            "selected": false
+          }
+        ],
+        "hasTarget": false
+      },
+      {
+        "label": "Custom",
+        "count": 6,
+        "sample": [
+          {
+            "value": "998773",
+            "text": "Synthetic Regression - US2",
+            "selected": false
+          },
+          {
+            "value": "998785",
+            "text": "Alerts Regression - US2",
+            "selected": true
+          },
+          {
+            "value": "998797",
+            "text": "Business Regression - US2",
+            "selected": false
+          },
+          {
+            "value": "998798",
+            "text": "Marketing Regression - US2",
+            "selected": false
+          },
+          {
+            "value": "998810",
+            "text": "Tag Governance - US2",
+            "selected": false
+          },
+          {
+            "value": "998822",
+            "text": "RUM Regression - US2",
+            "selected": false
+          }
+        ],
+        "hasTarget": true
+      }
+    ],
+    "bodySample": "Dashboards Get started 6 ADMINISTRATOR Site Overview VitalPulse Synthetic Site Health Traffic Source and Medium RUM Performance Detail Synthetic Performance Detail Native App Performance Detail Native App Detailed Metrics - Android Native App Detailed Metrics - iOS test custom dash UA B2C - Traffic Breakdown Errors UA B2C - Business Metrics with Performance UA B2C - Desktop Performance for Top Journey Pages Synthetic Regression - US2 Alerts Regression - US2 Business Regression - US2 Marketing Regression - US2 Tag Governance - US2 RUM Regression - US2 Alerts Regression - US2 GDC Test Site 2 Demo eCommerce Global Last 2 days Auto Refresh (10m) Carousel (off) + Widget + Dashboard DEO Anomalies - US2 View All Issues 0 Critical 0 Significant 1 to 10 (62) 5 / page 10 / page 25 / page 50 / page 100 / page 250 / page 500 / page All Export Severity Status Date Detected Issue Module Minor Active Aug 18 10:23 AM Real User Anomaly Detected in Page Volume Hourly Trend Desktop on the page Unnamed_Page Real User Monitoring Minor Active Aug 18 07:23 AM Real User Anomaly Detected in Sessions Hourly Trend Desktop on the page Unnamed_Page Real User Monitoring Critical Clear Aug 18 09:23 AM Real User Anomaly Detected in Time to Interactive Hourly Trend Desktop on the page Unnamed_Page Real User Monitoring Significant Clear Aug 18 09:23 AM Synthetic Anomaly Detected in Onload Hourly Trend on the page Kay UAT Test Synthetic Monitoring Significant Clear Aug 18 08:23 AM Real User Anomaly Detected in Time to Interactive Hourly Trend Desktop on the page Sitelet Landing Real User Monitoring Significant Clear Aug 18 05:23 AM Real User Anomaly Detected in Time to Interactive Hourly Trend Desktop on the page Sitelet Landing-vt Real User Monitoring Minor Clear Aug 18 04:23 AM Real User Anomaly Detected in Base Page Hourly Trend Desktop on the page Checkout: Order Confirmation Real User Monitoring Minor Clear Aug 18 03:23 AM Real User Anomaly Detected in Base Page Hourly Trend Desktop on the page Checkout Shopping Cart Real User Monitoring Minor Clear Aug 18 02:23 AM Real User Anomaly Detected in Redirect Hourly Trend Desktop on the page My Account Real User Monitoring Minor Clear Aug 18 01:23 AM Real User Anomaly Detected in Base Page Hourly Trend Desktop on the page Checkout Real User Monitoring 1 to 10 (62) 5 / page 10 / page 25 / page 50 / page 100 / page 250 / page 500 / page All Blue Triangle Announcements Dec 18, 2025 12:33 AM Release Notes - Portal v9.11.0 Bug Fixes Fixed an issue where the TTI portal term wasn’t applying correctly Fixed an issue where the native filters weren’t working as expected on the Revenue Calculator page Fixed an issue on the Errors Explorer page where sites with a high volume of errors could cause the page to not render properly. To resolve this, we added a minimum count filter. Fixed an issue where adding certain Native App metrics on the custom widget in the dashboard would cause the widget to fail to load Fixed an issue where the monetary unit wasn’t being decoded properly on the custom widget in the dashboard Fixed an issue on the Native App Performance Details page where selecting a page name bar graph wouldn’t load the data properly Fixed an issue on the Native App preconfigured dashboards where clicking on the globe to link to another page wasn’t including the proper OS Fixed an issue on the Synthetic Performance Details page where low volume sites could cause the previous/next buttons on the scatterplot and the function that runs when clicking on the performance details line graph to break Added a Minimum (X) Load time filter on the Revenue Calculator and Revenue Opportunity pages to help tune the graphs Fixed an issue where the Revenue Opportunity roll up numbers wouldn’t match the table data in certain instances Fixed an issue where non-latin characters could break the device model filter Fixed an issue where Aternity partners were unable to load the RUM Performance Overview Fixed an issue where the carousel would break when using custom dates in the dashboard Fixed an issue for consultant site access requests Nov 24, 2025 10:21 PM Release Notes - API v7.10.2 API Bug Fixes Fixed an issue with the KPI widget not working properly when using custom comparison Update to the api to add a count column to stop hitting the 50,000 error limit Updated the Revenue endpoint to use .01 for native app pages Moved the excluded 20 addition for Native Errors data to the API and are now using the Agg Tables for Native App "
+  },
+  "filtersOpen": {
+    "labels": [
+      "Time Lookback",
+      "Dashboard Refresh",
+      "Auto Refresh",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "Severity",
+      "Status",
+      "Date Detected",
+      "Issue",
+      "Module",
+      "DASHBOARD MANAGER",
+      "6/75 dashboards used",
+      "Clone Dashboard",
+      "Select users to clone the dashboard(s):",
+      "Add a Widget",
+      "Widget Type",
+      "Time Period",
+      "Timezone",
+      "Saved Data Science Graphs",
+      "Site",
+      "Use Time Lookback Offset?",
+      "Widget Title *",
+      "Data Type",
+      "Data Originated From",
+      "Graph Type",
+      "Performance Metric",
+      "Group Lines By",
+      "Add Comparison Line?",
+      "Compare Today To",
+      "Displayed Metric",
+      "X Axis",
+      "Trim Left Side",
+      "Trim Right Side",
+      "X-Axis Value",
+      "Y-Axis Value",
+      "Order By",
+      "Display Screenshot For Latest",
+      "Statistical Method",
+      "Group By",
+      "Year Format",
+      "Type Of Comparison",
+      "Comparing",
+      "To",
+      "Years To Compare *",
+      "Comparing Today To",
+      "Past",
+      "Bucket Size",
+      "Path Name * Clear",
+      "Date of Performance Change",
+      "Path Overview Metrics",
+      "Include:",
+      "Threshold Percent Change",
+      "Onload",
+      "DOM Duration",
+      "Time to DOM Interactive",
+      "Time to DOM Content Loaded",
+      "Page Views / Session",
+      "Page Views",
+      "Orders",
+      "Revenue",
+      "Traffic Source / Referrer Clear",
+      "Traffic Medium Clear",
+      "Campaign Clear",
+      "A/B Testing Segment Filter Selector",
+      "A/B Testing Segment Clear",
+      "A/B Testing Segment",
+      "Visitor Type (new vs. returning) Clear",
+      "Datacenter Location Clear",
+      "Internet Service Provider / Organization Clear",
+      "Traffic Segment Clear",
+      "Content Groups / Page Groups Clear",
+      "SLA Filter Groups",
+      "Monitor Name Clear",
+      "Page Name",
+      "IN",
+      "CONTAINS",
+      "Common Devices:"
+    ],
+    "select2": [
+      {
+        "id": "select2-switch-dashboard-container",
+        "text": "Alerts Regression - US2",
+        "visible": true
+      },
+      {
+        "id": "select2-quick-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": false
+      },
+      {
+        "id": "select2-switch-user-container",
+        "text": "My Dashboards",
+        "visible": false
+      },
+      {
+        "id": "select2-widget-type-container",
+        "text": "Performance",
+        "visible": false
+      },
+      {
+        "id": "select2-timezone-container",
+        "text": "Asia/Kolkata/Mumbai (+05:30)",
+        "visible": false
+      },
+      {
+        "id": "select2-data-science-saved-graph-selector-container",
+        "text": "No Filter Applied",
+        "visible": false
+      },
+      {
+        "id": "select2-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": false
+      },
+      {
+        "id": "select2-revenue-offset-days-container",
+        "text": "0",
+        "visible": false
+      },
+      {
+        "id": "select2-revenue-offset-hours-container",
+        "text": "0",
+        "visible": false
+      },
+      {
+        "id": "select2-data-type-container",
+        "text": "Real User",
+        "visible": false
+      },
+      {
+        "id": "select2-report-data-type-container",
+        "text": "Real User Browser Data",
+        "visible": false
+      },
+      {
+        "id": "select2-data-origin-container",
+        "text": "RUM Browser & Native Webview",
+        "visible": false
+      },
+      {
+        "id": "select2-graph-type-container",
+        "text": "Line Graph",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-rum-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-native-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-synth-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-add-comparison-line-lookback-time-selector-container",
+        "text": "Yesterday",
+        "visible": false
+      },
+      {
+        "id": "select2-displayed-metric-rum-group-by-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-trim-histogram-left-side-container",
+        "text": ".1",
+        "visible": false
+      },
+      {
+        "id": "select2-trim-histogram-container",
+        "text": "30",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-rum-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-rum-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-native-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-native-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-synth-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-synth-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-order-by-container",
+        "text": "Selected X-Axis (Lowest to Highest)",
+        "visible": false
+      },
+      {
+        "id": "select2-scatter-display-type-container",
+        "text": "Error",
+        "visible": false
+      },
+      {
+        "id": "select2-top-paths-data-trend-container",
+        "text": "Arithmetic Mean",
+        "visible": false
+      },
+      {
+        "id": "select2-scatter-group-by-container",
+        "text": "Script Name / Traffic Segment",
+        "visible": false
+      },
+      {
+        "id": "select2-year-format-container",
+        "text": "Calendar Year",
+        "visible": false
+      },
+      {
+        "id": "select2-comparison-type-container",
+        "text": "Day To Day",
+        "visible": false
+      },
+      {
+        "id": "select2-rollingEnd-container",
+        "text": "Custom Selector",
+        "visible": false
+      },
+      {
+        "id": "select2-custom-comparing-to-type-container",
+        "text": "Weeks",
+        "visible": false
+      },
+      {
+        "id": "select2-calendar-bucket-size-container",
+        "text": "Auto",
+        "visible": false
+      },
+      {
+        "id": "select2-day-bucket-size-container",
+        "text": "Auto",
+        "visible": false
+      },
+      {
+        "id": "select2-a-b-segment-filter-selector-container",
+        "text": "Multi-Select",
+        "visible": false
+      },
+      {
+        "id": "select2-sla-group-container",
+        "text": "No Filter Applied",
+        "visible": false
+      },
+      {
+        "id": "select2-statistical-method-container",
+        "text": "Arithmetic Mean",
+        "visible": false
+      },
+      {
+        "id": "select2-percentile-container",
+        "text": "99th",
+        "visible": false
+      },
+      {
+        "id": "select2-domain-container",
+        "text": "cabelas.com",
+        "visible": false
+      },
+      {
+        "id": "select2-trim-container",
+        "text": "120",
+        "visible": false
+      },
+      {
+        "id": "select2-discard-sessions-over-container",
+        "text": "80th",
+        "visible": false
+      }
+    ],
+    "buttons": [
+      "Toggle menu visibility",
+      "Toggle user menu visibility",
+      "Toggle settings menu visibility",
+      "Help Center",
+      "Blue Triangle Help Video",
+      "Change theme",
+      "Share this page",
+      "Toggle filters menu visibility",
+      "Toggle feedback form visibility",
+      "6",
+      "View Full Menu",
+      "GDC Test Site 2 Demo eCommerce Global",
+      "Last 2 days",
+      "Custom Date Selection",
+      "Last 7 days",
+      "Last 14 days",
+      "Last 30 days",
+      "Last 90 days",
+      "Today so far",
+      "This week so far",
+      "This month so far",
+      "Last 15 minutes",
+      "Last 30 minutes",
+      "Last 1 hour",
+      "Last 3 hours",
+      "Last 6 hours",
+      "Last 12 hours",
+      "Last 24 hours",
+      "Auto Refresh (10m)",
+      "Off",
+      "2 Minutes",
+      "5 Minutes",
+      "10 Minutes",
+      "15 Minutes",
+      "30 Minutes",
+      "60 Minutes",
+      "Carousel (off)",
+      "3m Interval",
+      "5m Interval",
+      "10m Interval"
+    ],
+    "tabs": [
+      {
+        "id": "my-filters-tab",
+        "text": "My Filters",
+        "cls": "active",
+        "active": true
+      },
+      {
+        "id": "",
+        "text": "My Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "shared-filters-tab",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      }
+    ],
+    "bodySample": "Dashboards Get started 6 ADMINISTRATOR Site Overview VitalPulse Synthetic Site Health Traffic Source and Medium RUM Performance Detail Synthetic Performance Detail Native App Performance Detail Native App Detailed Metrics - Android Native App Detailed Metrics - iOS test custom dash UA B2C - Traffic Breakdown Errors UA B2C - Business Metrics with Performance UA B2C - Desktop Performance for Top Journey Pages Synthetic Regression - US2 Alerts Regression - US2 Business Regression - US2 Marketing Regression - US2 Tag Governance - US2 RUM Regression - US2 Alerts Regression - US2 GDC Test Site 2 Demo eCommerce Global Last 2 days Auto Refresh (10m) Carousel (off) + Widget + Dashboard DEO Anomalies - US2 View All Issues 0 Critical 0 Significant 1 to 10 (62) 5 / page 10 / page 25 / page 50 / page 100 / page 250 / page 500 / page All Export Severity Status Date Detected Issue Module Minor Active Aug 18 10:23 AM Real User Anomaly Detected in Page Volume Hourly Trend Desktop on the page Unnamed_Page Real User Monitoring Minor Active Aug 18 07:23 AM Real User Anomaly Detected in Sessions Hourly Trend Desktop on the page Unnamed_Page Real User Monitoring Critical Clear Aug 18 09:23 AM Real User Anomaly Detected in Time to Interactive Hourly Trend Desktop on the page Unnamed_Page Real User Monitoring Significant Clear Aug 18 09:23 AM Synthetic Anomaly Detected in Onload Hourly Trend on the page Kay UAT Test Synthetic Monitoring Significant Clear Aug 18 08:23 AM Real User Anomaly Detected in Time to Interactive Hourly Trend Desktop on the page Sitelet Landing Real User Monitoring Significant Clear Aug 18 05:23 AM Real User Anomaly Detected in Time to Interactive Hourly Trend Desktop on the page Sitelet Landing-vt Real User Monitoring Minor Clear Aug 18 04:23 AM Real User Anomaly Detected in Base Page Hourly Trend Desktop on the page Checkout: Order Confirmation Real User Monitoring Minor Clear Aug 18 03:23 AM Real User Anomaly Detected in Base Page Hourly Trend Desktop on the page Checkout Shopping Cart Real User Monitoring Minor Clear Aug 18 02:23 AM Real User Anomaly Detected in Redirect Hourly Trend Desktop on the page My Account Real User Monitoring Minor Clear Aug 18 01:23 AM Real User Anomaly Detected in Base Page Hourly Trend Desktop on the page Checkout Real User Monitoring 1 to 10 (62) 5 / page 10 / page 25 / page 50 / page 100 / page 250 / page 500 / page All Blue Triangle Announcements Dec 18, 2025 12:33 AM Release Notes - Portal v9.11.0 Bug Fixes Fixed an issue where the TTI portal term wasn’t applying correctly Fixed an issue where the native filters weren’t working as expected on the Revenue Calculator page Fixed an issue on the Errors Explorer page where sites with a high volume of errors could cause the page to not render properly. To resolve this, we added a minimum count filter. Fixed an issue where adding certain Native App metrics on the custom widget in the dashboard would cause the widget to fail to load Fixed an issue where the monetary un"
+  },
+  "lookbackOptions": [
+    "Last 2 days",
+    "Custom Date Selection",
+    "Last 7 days",
+    "Last 14 days",
+    "Last 30 days",
+    "Last 90 days",
+    "Today so far",
+    "This week so far",
+    "This month so far",
+    "Last 15 minutes",
+    "Last 30 minutes",
+    "Last 1 hour",
+    "Last 3 hours",
+    "Last 6 hours",
+    "Last 12 hours",
+    "Last 24 hours"
+  ],
+  "autoRefreshOptions": [
+    "Off",
+    "2 Minutes",
+    "5 Minutes",
+    "10 Minutes",
+    "15 Minutes",
+    "30 Minutes",
+    "60 Minutes",
+    "Last 15 minutes",
+    "Last 30 minutes",
+    "Auto Refresh (10m)",
+    "Carousel (off)"
+  ],
+  "dashboardManagerSoft": {
+    "opened": true,
+    "headings": [
+      "Time Lookback",
+      "Dashboard Refresh",
+      "Auto Refresh",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Executive",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting"
+    ],
+    "buttons": [
+      "Toggle menu visibility",
+      "Toggle user menu visibility",
+      "Toggle settings menu visibility",
+      "Help Center",
+      "Blue Triangle Help Video",
+      "Change theme",
+      "Share this page",
+      "Toggle filters menu visibility",
+      "Toggle feedback form visibility",
+      "6",
+      "View Full Menu",
+      "GDC Test Site 2 Demo eCommerce Global",
+      "Last 2 days",
+      "Custom Date Selection",
+      "Last 7 days",
+      "Last 14 days",
+      "Last 30 days",
+      "Last 90 days",
+      "Today so far",
+      "This week so far",
+      "This month so far",
+      "Last 15 minutes",
+      "Last 30 minutes",
+      "Last 1 hour",
+      "Last 3 hours",
+      "Last 6 hours",
+      "Last 12 hours",
+      "Last 24 hours",
+      "Auto Refresh (10m)",
+      "Off"
+    ]
+  }
+}

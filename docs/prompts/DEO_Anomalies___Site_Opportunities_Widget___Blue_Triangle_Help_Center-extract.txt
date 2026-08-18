@@ -1,0 +1,103 @@
+===== PAGE 1/6 =====
+Blue Triangle Help Center > Documentation > Dashboard
+DEO Anomalies & Site Opportunities Widget
+ Cat Rugari
+2 years ago · Updated
+Follow
+Table of Contents
+Widget Overview
+Organizing DEO Page
+Sign in
+☰| | | |
+Search
+🔍
+Articles in this section
+▾
+👤
+8/18/26, 11:14 AM
+DEO Anomalies & Site Opportunities Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/4403620428179-DEO-Anomalies-Site-Opportunities-Widget
+1/6
+
+
+===== PAGE 2/6 =====
+Widget Overview
+The DEO Anomalies and Site Opportunity Widget is viewable on the DEO homepage.
+This widget is made up of machine learning that is constantly monitoring your site for issues, known
+as our anomaly detection.
+When it detects an issue, it will automatically move that issue to the top of the widget and prioritize
+it by Severity (Critical, Significant, Normal, or Minor) and create a card in the issue tracker.
+If you want further information on the issue, you can click on the down carrot, and an expanded view
+will show what the issue description was.  
+8/18/26, 11:14 AM
+DEO Anomalies & Site Opportunities Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/4403620428179-DEO-Anomalies-Site-Opportunities-Widget
+2/6
+
+
+===== PAGE 3/6 =====
+If you click Actions -> View Details, it will link you to the location in the portal with data for the given
+issue. For example, if a slowdown was detected for a particular domain, this would take you to the
+Domain Details page. 
+If you perceive the issue as not important or perhaps it's already fixed, you can archive or dismiss
+the issue within the Actions menu. 
+ 
+ 
+Organizing DEO Page
+There are only two stationary widgets on the DEO page: Blue Triangle Scores and the DEO Anomalies
+and Site Opportunities widgets. You can move any other widget by dragging them around to
+customize your view. You can also hide any other widget by clicking the X button in the top right. 
+8/18/26, 11:14 AM
+DEO Anomalies & Site Opportunities Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/4403620428179-DEO-Anomalies-Site-Opportunities-Widget
+3/6
+
+
+===== PAGE 4/6 =====
+Lastly, you can reset the dashboard to the BT default view by clicking the Reset Widgets button in
+the top right. 
+ 
+ 
+8/18/26, 11:14 AM
+DEO Anomalies & Site Opportunities Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/4403620428179-DEO-Anomalies-Site-Opportunities-Widget
+4/6
+
+
+===== PAGE 5/6 =====
+Was this article helpful?
+✓
+Yes
+ 
+✕
+No
+0 out of 0 found this helpful
+Have more questions? Submit a request
+Return to top ⬆
+Recently viewed articles
+Blue Triangle Announcements Widget
+Active Alerts Widget
+Performance by Geography Widget
+Performance Widget
+The Synthetic Real Browser Performance Detail Page
+Related articles
+Revenue Opportunity Widget
+How Data is Calculated Throughout the Portal When Using Percentile
+Network Health Checks Overview
+Bottom of the Sales Funnel Widget
+The Core Web Vitals Report
+Comments
+0 comments
+Please sign in to leave a comment.
+8/18/26, 11:14 AM
+DEO Anomalies & Site Opportunities Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/4403620428179-DEO-Anomalies-Site-Opportunities-Widget
+5/6
+
+
+===== PAGE 6/6 =====
+Blue Triangle Help Center
+8/18/26, 11:14 AM
+DEO Anomalies & Site Opportunities Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/4403620428179-DEO-Anomalies-Site-Opportunities-Widget
+6/6

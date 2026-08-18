@@ -1,0 +1,80 @@
+Alerts Regression - US2 — live reverse-engineering + Help PDF notes (Aug 2026)
+================================================================================
+Attached Help PDFs (Aug 18, 2026) — widget docs, not a unique “Alerts Regression - US2” article:
+  • Active Alerts Widget – https://help.bluetriangle.com/hc/en-us/articles/360037342833-Active-Alerts-Widget
+    copy: docs/prompts/Active_Alerts_Widget___Blue_Triangle_Help_Center.pdf
+    extract: docs/prompts/Active_Alerts_Widget___Blue_Triangle_Help_Center-extract.txt
+  • Blue Triangle Announcements Widget – https://help.bluetriangle.com/hc/en-us/articles/26683156940819-Blue-Triangle-Announcements-Widget
+    copy: docs/prompts/Blue_Triangle_Announcements_Widget___Blue_Triangle_Help_Center.pdf
+    extract: docs/prompts/Blue_Triangle_Announcements_Widget___Blue_Triangle_Help_Center-extract.txt
+  • DEO Anomalies & Site Opportunities Widget – https://help.bluetriangle.com/hc/en-us/articles/4403620428179-DEO-Anomalies-Site-Opportunities-Widget
+    copy: docs/prompts/DEO_Anomalies___Site_Opportunities_Widget___Blue_Triangle_Help_Center.pdf
+    extract: docs/prompts/DEO_Anomalies___Site_Opportunities_Widget___Blue_Triangle_Help_Center-extract.txt
+No companion product .txt package was in Cursor attachments — SoT = live probe titles/hosts; PDFs = widget field/behavior language.
+
+Probe script: scripts/probe-alerts-regression-us2-dashboard.ts
+Probe JSON:   docs/prompts/alerts-regression-us2-dashboard-live-probe.json
+Screenshot:   docs/prompts/alerts-regression-us2-dashboard-live.png
+
+Identity
+- Menu: Dashboards (left nav)
+- Route: site/dashboard
+- Browser / #page-title: Dashboards
+- Switcher: #select2-switch-dashboard-container = **Alerts Regression - US2**
+- Optgroup: **Custom** (NOT Preconfigured)
+- Option value sample (account-dependent) — never hard-code
+- Site: GDC Test Site 2 (quick-site preferred; #select2-site-id-container often hidden)
+
+Sibling Custom US2 regression dashboards (soft discrimination only):
+- Synthetic Regression - US2
+- Business Regression - US2
+- Marketing Regression - US2
+- Tag Governance - US2
+- RUM Regression - US2
+Preconfigured siblings to reject as home: Site Overview, VitalPulse, Synthetic Site Health, …
+Left-nav **Alerting** / DEO homepage — out of primary scope except soft drill from View All Issues / Actions → View Details then restore.
+
+Chrome (probe)
+- Time Lookback sample: **Last 2 days** (#time-lookback)
+- Auto Refresh sample: **Auto Refresh (10m)**; options Off + 2/5/10/15/30/60 Minutes
+- Carousel (off) + intervals soft
+- #refresh-dashboard, Filters (#toggle-filters), + Widget / + Dashboard, Share, Dashboard Manager
+- #last-updated-dashboard sample: Last Updated …
+- My Filters / Shared Filters tabs
+- highcharts count = **0** on this board (tables + announcement feed — not time-series graphs)
+
+Widgets observed (titles — prefer title text over dynamic grid-stack / chartID suffixes)
+1. **DEO Anomalies - US2** — issue tracker table
+   - Chrome: **View All Issues**; summary **0 Critical** / **0 Significant** (counts are data-dependent — never hard-code); search (#table-search); pager **1 to 10 (62)** sample; page sizes 5/10/25/50/100/250/500/All; **Export** CSV/TSV/JSON/Array
+   - Headers: **Severity | Status | Date Detected | Issue | Module**
+   - Severity samples: Minor / Critical / Significant (PDF also: Normal)
+   - Status samples: Active / Clear
+   - Issue samples: “Real User Anomaly Detected in …”, “Synthetic Anomaly Detected in Onload …”
+   - Module samples: Real User Monitoring / Synthetic Monitoring
+   - Host prefixes: homepage-issue-tracker-wrapper-chartID_*, homepage-issue-tracker-chartID_*, table-search
+   - PDF extra (DEO homepage): Actions → View Details (drill), Archive/Dismiss — **do not Archive/Dismiss/Reset Widgets** on shared account; soft Actions open/close only
+   - Widget pencil/X — **do not Save/Delete widget**
+
+2. **Blue Triangle Announcements**
+   - Feed of dated posts (release notes / features / outages). Sample titles: Release Notes - Portal v9.11.0 / API v7.10.2 / Portal v9.10.3 — never hard-code dates or body
+   - PDF: Widget Type Alerts/Notifications; config = title only
+   - Host: chartID_* (no table)
+
+3. **Active Alerts - US2**
+   - Table of alerts currently Warning or Critical (PDF: Clear-state alerts disappear)
+   - Live column labels: **Name | Type | Measured Level | Critical Threshold | Warning Threshold | Eval Window | Alerting Since | Transaction | Page | Status**
+   - PDF names: Alert Name, Alert Type, Current Measured Level, … Status (Warning or Critical)
+   - Hosts: activeAlertsDiv_*, activeAlertsTable_*
+   - Row style may be red/warning; Status sample Critical
+   - Sample names (illustrative only — never require): blank threshold, test, test alert create, Test pp07292026
+   - Type samples: File Type Performance / Performance / Revenue
+   - Eval Window sample: 5Min; Transaction/Page often n/a
+   - Do not hard-code measured ms/revenue values
+
+Prescribed lookback regression
+- Apply: **Last 6 hours**, **Last 24 hours**, **Last 7 days**, **Last 30 days**
+- After each: lookback label matches; widgets ready / table signature soft-refresh
+- **No Highcharts on this board** — skip graph-hover interval assert; instead soft-compare table signatures (DEO pager text, Date Detected span, Active Alerts row set / Alerting Since) across lookbacks
+- Restore original lookback (sample Last 2 days)
+
+Do not hard-code: chartID_/grid-stack suffixes, exact KPI/alert values, alert names, timezone IST offsets, “6/75 dashboards used”, exact Last Updated clock, announcement dates/bodies, DEO issue counts (62).
