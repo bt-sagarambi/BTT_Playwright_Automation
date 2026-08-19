@@ -1,0 +1,117 @@
+===== PAGE 1/5 =====
+Blue Triangle Help Center > Documentation > Dashboard
+Conversions by Response Time Widget
+ Cat Rugari
+2 years ago · Updated
+Follow
+Table of Contents
+Overview
+Details
+Find Widget
+Widget Configuration
+Overview
+The Conversions by Response Time Widget gives you real-time insight into the behavior of your
+customers as they navigate your site and receive a variety of page speed experiences via the
+Conversion Rate Curve. This graph shows conversion rate as it relates to traffic volume and page
+response time on your site and abides by the time period selector on the dashboard.
+Sign in
+☰| | | |
+Search
+🔍
+Articles in this section
+▾
+👤
+8/19/26, 10:47 AM
+Conversions by Response Time Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360037340893-Conversions-by-Response-Time-Widget
+1/5
+
+
+===== PAGE 2/5 =====
+Details
+The curve typically indicates that conversion rate increases as page speed decreases and vice
+versa.
+The shaded region is a histogram of sessions where each 0.1 second cohort represents the number
+of visitors who received the page at x seconds. 
+In addition to conversion rate and visitors (sessions), this graph also shows average order value,
+page views/session, and percentage of total sessions. These additional details are not displayed by
+default, but you can enable them by clicking the legend icons. Toggle the legend items to hide or
+show them in the graph.
+Find Widget
+Once you enter the Add a Widget menu, you will see a variety of filter options on top. One way to find
+the Conversions by Response Time Widget is to use the filter options listed below.
+Filter Title
+Filter Option
+Widget Type
+Trends
+Data Type
+Real User
+Insight Type
+Business
+Another way to find the Conversions by Response Time Widget is to use the search bar at the top
+right of the menu.
+8/19/26, 10:47 AM
+Conversions by Response Time Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360037340893-Conversions-by-Response-Time-Widget
+2/5
+
+
+===== PAGE 3/5 =====
+Widget Configuration
+When configuring this widget, there are a few things to be aware of outside of the standard filter set -
+Granularity: This is the degree of detail shown in the graph. This setting controls the detail of the x
+axis, for example, whether the data point goes from 1 to 2 seconds, 1 to 1.5 seconds or 1 to 1.1
+seconds.
+Discard Sessions Over: This gives you the ability to filter data outside of the 90th percentile, for
+example. This is very helpful for tuning the report to give you the best representation of your user
+behavior while filtering out the noise and outliers.
+Performance Metric: You can customize which metric is used on the x-axis. Available metrics are:
+Onload
+Time to DOM Interactive
+Time to DOM Content Loaded
+Time to Interactive
+8/19/26, 10:47 AM
+Conversions by Response Time Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360037340893-Conversions-by-Response-Time-Widget
+3/5
+
+
+===== PAGE 4/5 =====
+Was this article helpful?
+✓
+Yes
+ 
+✕
+No
+0 out of 0 found this helpful
+Have more questions? Submit a request
+Return to top ⬆
+Recently viewed articles
+DEO Anomalies & Site Opportunities Widget
+Blue Triangle Announcements Widget
+Active Alerts Widget
+Performance by Geography Widget
+Performance Widget
+8/19/26, 10:47 AM
+Conversions by Response Time Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360037340893-Conversions-by-Response-Time-Widget
+4/5
+
+
+===== PAGE 5/5 =====
+Related articles
+Blue Triangle User Permission Matrix
+API Checks Performance Widget
+Conversions Over Time Widget
+Why do my Virtual Turns (SPA Pages, Custom Timers, and Mutation Observer Calls) have no
+Performance Detail metrics?
+When creating a CSP, what domains do I need to whitelist for the Blue Triangle Service?
+Comments
+0 comments
+Please sign in to leave a comment.
+Blue Triangle Help Center
+8/19/26, 10:47 AM
+Conversions by Response Time Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360037340893-Conversions-by-Response-Time-Widget
+5/5
+

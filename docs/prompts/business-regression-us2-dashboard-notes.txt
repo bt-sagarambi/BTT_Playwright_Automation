@@ -1,0 +1,97 @@
+Business Regression - US2 — live reverse-engineering + Help PDF notes (Aug 2026)
+================================================================================
+Attached Help PDFs (Aug 19, 2026) — widget docs, not a unique “Business Regression - US2” article:
+  • Conversions by Response Time Widget – https://help.bluetriangle.com/hc/en-us/articles/360037340893-Conversions-by-Response-Time-Widget
+    copy: docs/prompts/Conversions_by_Response_Time_Widget___Blue_Triangle_Help_Center.pdf
+    extract: docs/prompts/Conversions_by_Response_Time_Widget___Blue_Triangle_Help_Center-extract.txt
+  • Conversions Over Time Widget – https://help.bluetriangle.com/hc/en-us/articles/360037341093-Conversions-Over-Time-Widget
+    copy: docs/prompts/Conversions_Over_Time_Widget___Blue_Triangle_Help_Center.pdf
+    extract: docs/prompts/Conversions_Over_Time_Widget___Blue_Triangle_Help_Center-extract.txt
+  • Revenue Over Time Widget – https://help.bluetriangle.com/hc/en-us/articles/360036856394-Revenue-Over-Time-Widget
+    copy: docs/prompts/Revenue_Over_Time_Widget___Blue_Triangle_Help_Center.pdf
+    extract: docs/prompts/Revenue_Over_Time_Widget___Blue_Triangle_Help_Center-extract.txt
+  • Revenue Opportunity Widget – https://help.bluetriangle.com/hc/en-us/articles/4403556256403-Revenue-Opportunity-Widget
+    copy: docs/prompts/Revenue_Opportunity_Widget___Blue_Triangle_Help_Center.pdf
+    extract: docs/prompts/Revenue_Opportunity_Widget___Blue_Triangle_Help_Center-extract.txt
+No companion product .txt package was in Cursor attachments — SoT = live probe titles/hosts; PDFs = widget field/behavior language.
+
+Probe script: scripts/probe-business-regression-us2-dashboard.ts
+Probe JSON:   docs/prompts/business-regression-us2-dashboard-live-probe.json
+Screenshot:   docs/prompts/business-regression-us2-dashboard-live.png
+
+Identity
+- Menu: Dashboards (left nav)
+- Route: site/dashboard
+- Browser / #page-title: Dashboards
+- Switcher: #select2-switch-dashboard-container = **Business Regression - US2**
+- Optgroup: **Custom** (NOT Preconfigured)
+- Option value sample (account-dependent) — never hard-code
+- Site: GDC Test Site 2 (quick-site preferred; #select2-site-id-container often hidden)
+
+Sibling Custom US2 regression dashboards (soft discrimination only):
+- Synthetic Regression - US2
+- Alerts Regression - US2
+- Marketing Regression - US2
+- Tag Governance - US2
+- RUM Regression - US2
+Preconfigured siblings to reject as home: Site Overview (also has Revenue Over Time), VitalPulse, Synthetic Site Health, …
+Left-nav **Business Insights → Improve Conversion** (Revenue Calculator / Revenue Opportunity / Revenue Attribution) — out of primary scope except incidental chrome; never Save reports.
+
+Chrome (probe Aug 19, 2026)
+- Time Lookback sample: **Last 24 hours** (#time-lookback)
+- Auto Refresh sample: **Auto Refresh (10m)**; options Off + 2/5/10/15/30/60 Minutes
+- Carousel (off) + intervals soft
+- #refresh-dashboard, Filters (#toggle-filters), + Widget / + Dashboard, Share, Dashboard Manager
+- #last-updated-dashboard sample: Last Updated … — never hard-code clock
+- My Filters / Shared Filters tabs
+- highcharts count = **8** (4 widgets; duplicate Highcharts host + inner container)
+
+Widgets observed (titles — prefer title text over dynamic grid-stack / chartID suffixes)
+1. **Conversions by Response Time - US2** (PDF: Conversion Rate Curve)
+   - Axes: Sessions | Conversion Rate | Onload (Seconds)
+   - Chart title: **Conversion Rate, Average Revenue and Page Views / Converted Session**
+   - Legend (live): Sessions | Avg Order Value | Conversion Rate | Page Views / Session | Percent of Total Sessions | Bounce Rate | pager 1/2
+   - PDF: shaded histogram of 0.1s session cohorts; extra series off by default until legend click; Granularity / Discard Sessions Over / Performance Metric (Onload, Time to DOM Interactive, Time to DOM Content Loaded, Time to Interactive) are **widget config** — open-cancel only, never Save
+   - Host: chartID_*
+   - X-axis is **load-time seconds**, not datetime — lookback hover-interval check must NOT use this graph
+
+2. **Conversions over Time - US2** (PDF title: Conversions Over Time; live lowercase “over”)
+   - Chart title: **Conversion Rate and Average Revenue / Converted Session Over Time**
+   - Legend: Conversion Rate | Avg Order Value | Onload
+   - Soft: All Matching Pages / All Transactions; time-range + GDC subtitle
+   - PDF: Widget Type Trends, Insight Type Business, Data Type Real User; **cannot use page name filter**
+   - Host: chartID_*
+   - **Preferred** graph for prescribed-lookback hover datetime interval
+
+3. **Revenue Over Time - US2**
+   - Chart title: **Revenue Over Time**; Traffic Segments: All Traffic Segments
+   - Axis/legend live: Page Views and Sessions | Orders | Revenue | Sessions Activity | Brand Value | Brand Orders
+   - PDF series: revenue, page views, orders, session activity; hover tooltip; standard filters **minus page name**
+   - PDF Find-Widget sentence wrongly says “Timing Information Widget” — ignore; live title is Revenue Over Time
+   - Host: chartID_*
+   - Event marker sample (Firefox v154) — never hard-code
+   - Also preferred for lookback hover interval (time-series)
+
+4. **Revenue Opportunity - US2**
+   - Device **tabs** (not browser tabs): **ALL | DESKTOP | IOS | ANDROID**
+   - Chart title: **Revenue Opportunity by Page**; subtitle **All Devices over 7 days**
+   - Hosts: all-total-btn-*, desktop-btn-*, ios-btn-*, android-btn-*, all-total-graph-*, desktop-graph-*, ios-graph-*, android-graph-*, chartID_*
+   - PDF: latest Revenue Opportunity **report** as bar graph; Widget Type Summaries; auto-updates from most recent RO report
+   - PDF Find-Widget copy-paste error says “Performance Widget” — ignore
+   - Soft click DESKTOP/IOS/ANDROID then restore ALL; never hard-code page bars (PDP, Checkout, …) or $ MM totals
+   - Lookback may **not** change this widget (report-driven 7-day window) — annotate if unchanged
+
+PDF vs live (prefer live)
+- Conversions **over** Time vs PDF **Over** Time — dual-regex
+- CRC chart “Average Revenue” vs PDF “average order value” — dual-regex; legend uses Avg Order Value
+- ROT Brand Value / Brand Orders extra vs PDF four series
+- RO device tabs + “by Page” / “over 7 days” not in short PDF
+- Do not click widget pencil/X / Delete this widget / Save widget config
+
+Prescribed lookback regression
+- Apply: **Last 6 hours**, **Last 24 hours**, **Last 7 days**, **Last 30 days**
+- After each: lookback label matches; widgets ready / Highcharts signature soft-refresh
+- Graph-hover interval: Conversions over Time and/or Revenue Over Time (datetime x-axis). CRC is seconds-axis. RO may be lookback-insensitive.
+- Restore original lookback (sample Last 24 hours)
+
+Do not hard-code: chartID_/grid-stack/highcharts-* suffixes, KPI dollars/K/MM/%, page names (PDP, …), Firefox marker text, timezone IST offsets, “6/75 dashboards used”, exact Last Updated clock, RO 7-day copy if it changes.

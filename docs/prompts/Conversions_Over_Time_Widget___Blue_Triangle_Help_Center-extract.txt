@@ -1,0 +1,90 @@
+===== PAGE 1/4 =====
+Blue Triangle Help Center > Documentation > Dashboard
+Conversions Over Time Widget
+ Cat Rugari
+2 years ago · Updated
+Follow
+Table of Contents
+Overview
+Find Widget
+Widget Configuration
+Sign in
+☰| | | |
+Search
+🔍
+Articles in this section
+▾
+👤
+8/19/26, 10:47 AM
+Conversions Over Time Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360037341093-Conversions-Over-Time-Widget
+1/4
+
+
+===== PAGE 2/4 =====
+Overview
+The Conversions Over Time Widget shows you the real time conversion rate, average order value
+and performance for any and all traffic segments visiting your site. This widget gives you insight into
+how average order value and conversion rate are affected due to performance.
+Click the legend items to hide or show the lines in the graph.
+Find Widget
+Once you enter the Add a Widget menu, you will see a variety of filter options on top. One way to find
+the Conversions Over Time Widget is to use the filter options listed below.
+Filter Title
+Filter Option
+Widget Type
+Trends
+Data Type
+Real User
+Insight Type
+Business
+Another way to find the Conversions Over Time Widget is to use the search bar at the top right of the
+menu.
+Widget Configuration
+To configure this widget, fill out all required sections and apply any filtering you need.
+Note: You cannot use the page name filter option in the Conversions Over Time widget.
+8/19/26, 10:47 AM
+Conversions Over Time Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360037341093-Conversions-Over-Time-Widget
+2/4
+
+
+===== PAGE 3/4 =====
+ 
+Was this article helpful?
+✓
+Yes
+ 
+✕
+No
+0 out of 0 found this helpful
+Have more questions? Submit a request
+Return to top ⬆
+Recently viewed articles
+Conversions by Response Time Widget
+DEO Anomalies & Site Opportunities Widget
+Blue Triangle Announcements Widget
+8/19/26, 10:47 AM
+Conversions Over Time Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360037341093-Conversions-Over-Time-Widget
+3/4
+
+
+===== PAGE 4/4 =====
+Active Alerts Widget
+Performance by Geography Widget
+Related articles
+The Executive CrUX Report
+Release Notes - July 17, 2020
+Revenue Opportunity Widget
+Network Health Checks Overview
+Mobile Native App Terms General Information and Glossary- iOS
+Comments
+0 comments
+Please sign in to leave a comment.
+Blue Triangle Help Center
+8/19/26, 10:47 AM
+Conversions Over Time Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360037341093-Conversions-Over-Time-Widget
+4/4
+

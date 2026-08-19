@@ -1,0 +1,89 @@
+===== PAGE 1/4 =====
+Blue Triangle Help Center > Documentation > Dashboard
+Revenue Opportunity Widget
+ Cat Rugari
+2 years ago · Updated
+Follow
+Table of Contents
+Overview
+Find Widget
+Widget Configuration
+Overview
+The Revenue Opportunity Widget allows to to see your latest Revenue Opportunity Report as a bar
+graph in a dashboard. Data is pulled from the most recent Revenue Opportunity Report and
+automatically updated
+Sign in
+☰| | | |
+Search
+🔍
+Articles in this section
+▾
+👤
+8/19/26, 10:47 AM
+Revenue Opportunity Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/4403556256403-Revenue-Opportunity-Widget
+1/4
+
+
+===== PAGE 2/4 =====
+Find Widget
+Once you enter the Add a Widget menu, you will see a variety of filter options on top. One way to find
+the Performance Widget is to use the filter options listed below.
+Filter Title
+Filter Option
+Widget Type
+Summaries
+Data Type
+Real User
+Insight Type
+Business
+ 
+Another way to find the Performance Widget is to use the search bar at the top right of the menu.
+ 
+8/19/26, 10:47 AM
+Revenue Opportunity Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/4403556256403-Revenue-Opportunity-Widget
+2/4
+
+
+===== PAGE 3/4 =====
+Widget Configuration
+To configure this widget, fill out all required sections and apply any filtering you need.
+ 
+Was this article helpful?
+✓
+Yes
+ 
+✕
+No
+0 out of 0 found this helpful
+Have more questions? Submit a request
+Return to top ⬆
+Recently viewed articles
+Conversions Over Time Widget
+Conversions by Response Time Widget
+DEO Anomalies & Site Opportunities Widget
+8/19/26, 10:47 AM
+Revenue Opportunity Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/4403556256403-Revenue-Opportunity-Widget
+3/4
+
+
+===== PAGE 4/4 =====
+Blue Triangle Announcements Widget
+Active Alerts Widget
+Related articles
+1st vs 3rd Party Function Timing Widget
+Blue Triangle User Permission Matrix
+The Core Web Vitals Report
+The Executive CrUX Report
+Revenue Opportunity: Out of Stock
+Comments
+0 comments
+Please sign in to leave a comment.
+Blue Triangle Help Center
+8/19/26, 10:47 AM
+Revenue Opportunity Widget – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/4403556256403-Revenue-Opportunity-Widget
+4/4
+

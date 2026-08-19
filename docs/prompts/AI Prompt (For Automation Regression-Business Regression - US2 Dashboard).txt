@@ -1,0 +1,355 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the **custom** dashboard **“Business Regression - US2”**. Reverse-engineer the live application using **GDC Test Site 2** and refer to:
+  • Live portal reverse-engineering probe (Aug 2026): docs/prompts/business-regression-us2-dashboard-live-probe.json
+  • Probe script: scripts/probe-business-regression-us2-dashboard.ts
+  • Live notes extract: docs/prompts/business-regression-us2-dashboard-notes.txt
+  • Live screenshot: docs/prompts/business-regression-us2-dashboard-live.png
+  • Help Center widget PDFs (attached Aug 2026 — field language; live titles/hosts override when they differ):
+      docs/prompts/Conversions_by_Response_Time_Widget___Blue_Triangle_Help_Center.pdf
+        (article: https://help.bluetriangle.com/hc/en-us/articles/360037340893-Conversions-by-Response-Time-Widget)
+      docs/prompts/Conversions_Over_Time_Widget___Blue_Triangle_Help_Center.pdf
+        (article: https://help.bluetriangle.com/hc/en-us/articles/360037341093-Conversions-Over-Time-Widget)
+      docs/prompts/Revenue_Over_Time_Widget___Blue_Triangle_Help_Center.pdf
+        (article: https://help.bluetriangle.com/hc/en-us/articles/360036856394-Revenue-Over-Time-Widget)
+      docs/prompts/Revenue_Opportunity_Widget___Blue_Triangle_Help_Center.pdf
+        (article: https://help.bluetriangle.com/hc/en-us/articles/4403556256403-Revenue-Opportunity-Widget)
+      extracts: docs/prompts/*-extract.txt for those four PDFs
+  • Shared dashboard shell patterns from:
+      docs/prompts/AI Prompt (For Automation Regression-Alerts Regression - US2 Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Synthetic Regression - US2 Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Site Overview Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Vital Pulse Dashboard).txt
+      helpers/preconfiguredDashboardChrome.ts
+      pages/AlertsRegressionUs2DashboardPage.ts / pages/SyntheticRegressionUs2DashboardPage.ts / pages/SiteOverviewDashboardPage.ts / pages/MarketingOverviewPage.ts
+  • Navigation (user + live): Login → Left menu **Dashboards** → dashboard switcher → exact **Business Regression - US2**
+  • **No companion product .txt package** was in chat attachments — PDFs + live probe are the doc layer. If a package txt is re-attached later, fold it without overriding live SoT.
+
+NOTE ON DOCUMENTATION VS LIVE PRODUCT
+This board is a **Custom** (account) dashboard assembled for Business / conversion / revenue regression coverage — not a Help Center “Preconfigured” product page. There is no Help PDF uniquely titled “Business Regression - US2”. The four PDFs document the **widgets** placed on this board. Prefer live widget **titles**, chart **titles**, legend **names**, axis **labels**, device **tab** labels, Select2 values, and stable id **prefixes** (chartID_*, all-total-btn-*, desktop-btn-*, ios-btn-*, android-btn-*, all-total-graph-*, desktop-graph-*, ios-graph-*, android-graph-*). Dynamic grid-stack item ids and highcharts-* instance suffixes change per load — never hard-code them.
+
+PDF vs live (prefer live):
+  • Live widget title **Conversions over Time - US2** vs PDF **Conversions Over Time** — dual-regex `/Conversions\s+over\s+Time/i`.
+  • CRC live chart title uses **Average Revenue**; live legend uses **Avg Order Value** (PDF: average order value) — dual-regex.
+  • Revenue Over Time live legend adds **Brand Value / Brand Orders / Sessions Activity** beyond PDF’s revenue / page views / orders / session activity.
+  • Revenue Over Time PDF Find-Widget sentence wrongly says “Timing Information Widget” — ignore; live title is Revenue Over Time.
+  • Revenue Opportunity PDF Find-Widget sentence wrongly says “Performance Widget” — ignore; live title is Revenue Opportunity - US2.
+  • Revenue Opportunity PDF is title-only config + “latest RO report as a bar graph”. Live adds **ALL / DESKTOP / IOS / ANDROID** device tabs, chart **Revenue Opportunity by Page**, subtitle **All Devices over 7 days**.
+  • Widget pencil / X / Edit filters / Delete this widget — **never Save or Delete**. Soft open-cancel only if accidentally opened.
+
+CRITICAL DISTINCTION (do not confuse screens)
+  • **Business Regression - US2 (THIS suite)** = Dashboards → #switch-dashboard / #select2-switch-dashboard-container exact option **Business Regression - US2** under optgroup **Custom** on route **site/dashboard**.
+  • Other Custom US2 regression boards (**Synthetic / Alerts / Marketing / Tag Governance / RUM Regression - US2**) — soft sibling only; never accept as suite home.
+  • Preconfigured **Site Overview** also hosts a **Revenue Over Time** widget — soft-switch sample only; always restore **Business Regression - US2**. Do not treat Site Overview as this suite.
+  • Left-nav **Business Insights → Improve Conversion** pages (**Revenue Calculator**, **Revenue Opportunity**, **Revenue Attribution**, Brand Calculator) — **out of primary scope** except incidental chrome; never Save/Submit reports or calibration.
+  • How to Create Custom Dashboards / widget editor Save — out of scope.
+
+⚠️ PROBE / SELECTION PITFALLS
+1) Exact Select2 match: use `^\s*Business Regression\s*-\s*US2\s*$`. Reject “Alerts Regression - US2”, “Synthetic Regression - US2”, other “*- US2” Custom boards, Preconfigured names, and **UA B2C - Business Metrics with Performance** (Shared).
+2) Optgroup is **Custom**, not Preconfigured — do not require Preconfigured listing.
+3) After dashboard switch, site must remain **GDC Test Site 2**; re-assert after switch.
+4) Widget titles may be followed by chart body in samples — assert via title regex / hosts, not full body dump.
+5) This board **has Highcharts** (probe highcharts=8). Lookback hover-interval coverage uses **time-series** widgets (Conversions over Time / Revenue Over Time). CRC x-axis is **Onload (Seconds)** — not a datetime hover check.
+6) Widget pencil / X / Edit filters / Delete this widget — **never Save or Delete**. Soft open-cancel only if accidentally opened.
+
+Live observations (GDC Test Site 2 — probe + screenshot, Aug 2026)
+- URL: …/index.php?r=site/dashboard
+- Browser title / #page-title: Dashboards
+- Switcher text: Business Regression - US2 (Custom)
+- Site: GDC Test Site 2
+- Time Lookback sample: Last 24 hours
+- Auto Refresh sample: Auto Refresh (10m); menu Off / 2 / 5 / 10 / 15 / 30 / 60 Minutes
+- Carousel (off) soft
+- Widgets (title SoT):
+    • **Conversions by Response Time - US2** — CRC; Sessions / Conversion Rate / Onload (Seconds); legend Sessions | Avg Order Value | Conversion Rate | Page Views / Session | Percent of Total Sessions | Bounce Rate
+    • **Conversions over Time - US2** — Conversion Rate / Avg Order Value / Onload; All Matching Pages / All Transactions
+    • **Revenue Over Time - US2** — Page Views and Sessions / Orders / Revenue / Sessions Activity / Brand Value / Brand Orders; Traffic Segments: All Traffic Segments
+    • **Revenue Opportunity - US2** — ALL | DESKTOP | IOS | ANDROID; Revenue Opportunity by Page; All Devices over 7 days
+- Tabs: My Filters / Shared Filters (filter drawer). RO **ALL/DESKTOP/IOS/ANDROID** are widget device tabs, not dashboard nav tabs.
+- Filters / Dashboard Manager soft (6/75 dashboards used sample — do not hard-code)
+- chartID_* / all-total-graph-* / highcharts-* suffixes dynamic — use title + prefix hosts
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - Business Regression - US2 is a **custom business/conversion/revenue regression board** consolidating the Conversion Rate Curve, conversions vs performance over time, revenue/orders/sessions over time, and the latest Revenue Opportunity-by-page bar chart — for end-to-end Business Insights regression coverage on US2/GDC.
+   - Use live UI data only. Do not call APIs or query a database.
+   - Do not hard-code chartID_/grid-stack/highcharts-* suffixes, exact KPI dollars/K/MM/%, session/order counts, page names (PDP, Checkout, Unnamed_Page, …), event-marker text (Firefox v154), timezone IST strings, dashboard clone counters, or exact Last Updated clocks.
+   - Capture at suite start: active dashboard label (must be Business Regression - US2), active quick/site label, Time Lookback, Auto Refresh, presence of core widgets by title, filter drawer closed, Carousel state, RO device tab (expect ALL).
+   - Assert titles, legend/axis labels, formats ($, K/MM, %, s/seconds, counts), graph shells, controlled empty states, before/after soft signatures rather than exact backend series.
+   - If a lookback/filter combo yields empty graphs, assert controlled empty, annotate, restore data-bearing lookback and continue.
+
+2. Navigation and implementation paths
+   User + live primary path:
+   Login → Left menu **Dashboards** → #select2-switch-dashboard-container → exact **Business Regression - US2** (Custom)
+   Route: **site/dashboard**
+   Smoke catalog reference: **biz.dashboards** (menuLabel Dashboards, route site/dashboard, hrefIncludes site/dashboard, hrefExcludes marketing=yes)
+   Browser title: **Dashboards**
+   #page-title: **Dashboards**
+
+   Soft alternate: Dashboard Manager list → Eye/open Business Regression - US2 if listed; close without Save/Delete. Soft Favorites if present.
+
+   Target automation folder:
+   tests/regression_tests/US2/dashboards/custom/business-regression-us2/
+   Suggested spec name:
+   business.regression.us2.dashboard.regression.spec.ts
+   Suggested POM / locators:
+   pages/BusinessRegressionUs2DashboardPage.ts
+   locators/BusinessRegressionUs2DashboardLocators.ts
+   Reuse:
+   - helpers/preconfiguredDashboardChrome.ts (exact dashboard select, lookback, auto refresh, filters soft, manager soft, ensure profile site, restore home)
+   - pages/AlertsRegressionUs2DashboardPage.ts / SyntheticRegressionUs2DashboardPage.ts / SiteOverviewDashboardPage.ts / MarketingOverviewPage.ts (shell + recover; **evaluate-based scroll**, not hanging scrollIntoViewIfNeeded)
+   Suggested manual workbook:
+   docs/Business_Regression_US2_Dashboard_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:business-regression-us2
+   Suggested test case ID prefix:
+   REG-BR-US2-###
+   Probe:
+   scripts/probe-business-regression-us2-dashboard.ts → docs/prompts/business-regression-us2-dashboard-live-probe.json
+
+3. Page load, authentication and default context
+   - Authenticated navigation without login redirect, blank shell, or perpetual loader.
+   - Browser title / #page-title match /Dashboards/i.
+   - URL contains site/dashboard (slash / %2F safe).
+   - Selected site is GDC Test Site 2 (#select2-quick-site-id-container when visible; global site select may be hidden — prefer quick-site recovery).
+   - Dismiss Get started / Don’t show me again / jconfirm before interacting.
+   - Verify #select2-switch-dashboard-container matches /^\s*Business Regression\s*-\s*US2\s*$/i. If not, select exact option under Custom and wait for widgets to settle.
+   - Verify core inventory settles within bounded UI deadline (by **title text** / stable prefixes):
+       • Conversions by Response Time - US2 (chartID_* / Onload (Seconds) / Conversion Rate Curve language)
+       • Conversions over Time - US2 (Conversion Rate and Average Revenue / Converted Session Over Time)
+       • Revenue Over Time - US2 (Traffic Segments language)
+       • Revenue Opportunity - US2 (ALL/DESKTOP/IOS/ANDROID + Revenue Opportunity by Page)
+   - Soft-assert #last-updated-dashboard when present.
+   - Soft-assert time-range + site + timezone sample shape on widgets — do not hard-code timestamps.
+   - Back/Forward/refresh return to healthy site/dashboard; re-select Business Regression - US2 + GDC if lost.
+   - Capture uncaught page errors; distinguish blocking vs Highcharts/third-party noise.
+
+4. Dashboard chrome (tabs = My/Shared Filters + RO device tabs; no scatter detail tabs)
+   Live chrome:
+   - #switch-dashboard / #select2-switch-dashboard-container
+   - Quick site / site lock soft
+   - #time-lookback (sample Last 24 hours)
+   - #refresh-dashboard
+   - #auto-refresh / frequency menu (Off + 2–60 Minutes)
+   - Carousel soft off
+   - Filters #toggle-filters / #mobile-controls-filters-btn; Cancel; Apply soft when present
+   - + Widget / + Dashboard — soft open/close; **do not Save**
+   - Dashboard Manager / wrench — soft open/close; no delete/share sticky
+   - My Filters / Shared Filters — read-only; **do not Save Filter**
+   Cover:
+   - Exact dashboard selected/selectable; soft-list Custom names include Business Regression - US2; distinguish Alerts/Synthetic Regression - US2 and Preconfigured Site Overview.
+   - Soft Auto Refresh options; restore.
+   - Soft Time Lookback change + restore (see §12 for full prescribed 6h/24h/7d/30d + hover interval checks).
+   - Click refresh; soft healthy widgets.
+   - Soft Filters open/Cancel/Escape.
+   - Soft Manager / Add Widget cancel (Widget Type **Trends** or **Summaries** + Insight Type **Business** is PDF find-widget language — sample only inside wizard; **Cancel**, never Add).
+   - **Tabs:** My/Shared Filters. RO ALL/DESKTOP/IOS/ANDROID are widget device tabs. CRC legend “1/2” is a legend pager, not a nav tab.
+
+5. Widget — Conversions by Response Time - US2
+   Purpose (PDF): real-time Conversion Rate Curve — conversion rate vs traffic volume vs page response time for the dashboard time period.
+   Cover:
+   - Verify title **Conversions by Response Time - US2** (or Conversions by Response Time + US2 soft).
+   - Soft chart title **Conversion Rate, Average Revenue and Page Views / Converted Session** (Average Revenue / Avg Order Value dual-regex).
+   - Soft axes: **Onload (Seconds)** (x) | **Conversion Rate** | **Sessions**.
+   - Soft legend subset: Sessions | Avg Order Value | Conversion Rate | Page Views / Session | Percent of Total Sessions | Bounce Rate (PDF: extra series off by default until legend click; live may show them — subset OK).
+   - Soft legend toggle one series then restore; legend pager 1/2 if present — do not leave series hidden.
+   - Soft hover/tooltip on a plotted point when series exist — capture seconds-bucket language, not datetime interval (CRC is **not** the prescribed lookback hover widget).
+   - Soft histogram / shaded sessions cohort language when visible (PDF: 0.1 second cohorts) — format-tolerant; do not hard-code 0–60s or 7.5K sessions.
+   - Host: chartID_*.
+   - Pencil / Edit filters: Granularity / Discard Sessions Over / Performance Metric (Onload, Time to DOM Interactive, Time to DOM Content Loaded, Time to Interactive) — **open-cancel only; never Save**.
+
+6. Widget — Conversions over Time - US2
+   Purpose (PDF): real-time conversion rate, average order value, and performance for traffic segments; how AOV and conversion rate are affected by performance.
+   Cover:
+   - Verify title **Conversions over Time - US2** (PDF Over Time dual-regex).
+   - Soft chart title **Conversion Rate and Average Revenue / Converted Session Over Time**.
+   - Soft **All Matching Pages** / **All Transactions**.
+   - Soft legend: Conversion Rate | Avg Order Value | Onload (subset OK; Onload is the performance series).
+   - Soft legend toggle one series then restore.
+   - Soft hover/tooltip on a time-axis point when series exist.
+   - Soft event/global marker (sample Firefox v154) — annotate presence; **never hard-code** marker text.
+   - Host: chartID_*.
+   - PDF: **cannot use the page name filter** on this widget — do not require Page Name in widget config; dashboard Filters Cancel-only.
+   - Pencil/X — do not Save/Delete.
+
+7. Widget — Revenue Over Time - US2
+   Purpose (PDF): real-time revenue, page views, orders, and session activity; hover tooltip; legend hide/show.
+   Cover:
+   - Verify title **Revenue Over Time - US2**.
+   - Soft chart title **Revenue Over Time**; soft **Traffic Segments: All Traffic Segments** (or runtime segment language).
+   - Soft axis/legend subset: Revenue | Orders | Page Views and Sessions | Sessions Activity | Brand Value | Brand Orders (PDF four-series + live Brand extras — subset OK).
+   - Soft legend toggle one series then restore.
+   - Soft hover/tooltip (PDF: tool-tip reading of numbers at that time).
+   - Soft event marker same as Conversions over Time — do not hard-code.
+   - Host: chartID_*.
+   - PDF: standard filters **minus page name** — do not require Page Name.
+   - Pencil/X — do not Save/Delete.
+
+8. Widget — Revenue Opportunity - US2
+   Purpose (PDF): latest Revenue Opportunity Report as a bar graph on a dashboard; data auto-updates from the most recent RO report.
+   Cover:
+   - Verify title **Revenue Opportunity - US2**.
+   - Soft device tabs **ALL | DESKTOP | IOS | ANDROID** (hosts all-total-btn-* / desktop-btn-* / ios-btn-* / android-btn-*). Default **ALL**.
+   - Soft click **DESKTOP** then restore **ALL**; optionally sample IOS or ANDROID if the graph remains healthy — never leave a non-ALL tab sticky.
+   - Soft chart title **Revenue Opportunity by Page**; subtitle **All Devices over 7 days** (or runtime “over N days” — do not hard-code 7 if product changes).
+   - Soft bar chart shell; y-axis **Revenue**; x-axis page/category labels when present — **never hard-code** PDP / Checkout / Unnamed_Page / $1.0 MM.
+   - Soft hover a bar when present.
+   - Hosts: all-total-graph-* / desktop-graph-* / ios-graph-* / android-graph-* / chartID_*.
+   - Soft empty annotate if a device tab has no bars.
+   - Do **not** navigate into left-nav Revenue Opportunity page as home; if a bar/title drills there, restore Business Regression - US2 + GDC without Save.
+   - Pencil/X — do not Save/Delete.
+
+9. Fields / labels inventory (assert as set, not pixel layout)
+   Dashboard: Dashboards, Business Regression - US2, Time Lookback, Dashboard Refresh, Auto Refresh, Carousel, + Widget, + Dashboard.
+   CRC: Conversions by Response Time - US2; Sessions; Conversion Rate; Onload (Seconds); Avg Order Value; Page Views / Session; Percent of Total Sessions; Bounce Rate.
+   Conversions over Time: Conversion Rate; Avg Order Value; Onload; All Matching Pages / All Transactions.
+   Revenue Over Time: Page Views and Sessions; Orders; Revenue; Sessions Activity; Brand Value; Brand Orders; Traffic Segments.
+   Revenue Opportunity: ALL; DESKTOP; IOS; ANDROID; Revenue Opportunity by Page; Revenue.
+   Filters drawer (when open): Time Period, Timezone, Site, Data Type / Data Originated From — Cancel only. Do not require Page Name (PDF: COT/ROT cannot use page name).
+   Wizard residue (if +Widget open): Widget Type Trends or Summaries; Insight Type Business — Cancel.
+
+10. Graphs
+    Live probe: **eight** Highcharts containers (four widgets × outer/inner). Assert **sized shells + titles/legends**, not SVG counts alone.
+    Cover:
+    - CRC combination line/area + histogram language; hover on seconds axis.
+    - Conversions over Time multi-line; hover datetime.
+    - Revenue Over Time multi-line; hover datetime.
+    - Revenue Opportunity vertical bars; hover category.
+    - Legend hide/show restore on CRC, COT, ROT.
+    - If a future build drops a series, subset-match; do not hard-fail for Brand Value absence.
+
+11. Filters drawer
+    Hosts: #toggle-filters; Apply soft; #cancel-filters; #my-filters-tab / #shared-filters-tab.
+    Cover: open Filters; soft core labels; My/Shared tabs; Cancel/Escape. **No Save Filter / Clear Cache / Clear Genius Cache**.
+    Soft Apply only if it will not persist a shared account filter; prefer Cancel.
+    After close: still Business Regression - US2 + four widgets.
+    PDF notes that COT/ROT cannot use page name — if Page Name appears in the **dashboard** filter drawer, leave it untouched.
+
+12. Sibling discrimination (soft)
+    - Soft once Alerts Regression - US2 → restore Business Regression - US2 + GDC.
+    - Soft once Site Overview (Preconfigured; also has Revenue Over Time) → restore home.
+    - Soft once Synthetic Regression - US2 or RUM Regression - US2 → restore Business Regression - US2.
+    - Soft Shared/Favorites sample optional; no save. Do not accept **UA B2C - Business Metrics with Performance** as home.
+    - Always re-assert GDC Test Site 2 after switches.
+    - Soft left-nav Revenue Opportunity / Revenue Calculator only if already in a drill; restore Dashboards home.
+
+13. Time Lookback / Auto Refresh / Filters (prescribed)
+    Lookback host: #time-lookback — presets soft (Custom Date; Last 2/7/14/30/90 days; Today/This week/This month so far; Last 15/30 minutes; Last 1/3/6/12/24 hours).
+    Cover:
+    - Open Time Lookback; soft verify multi-option menu (runtime list).
+    - **Required prescribed lookback apply set (hard to cover; soft on sparse data):** apply each of
+        1) **Last 6 hours**
+        2) **Last 24 hours**
+        3) **Last 7 days**
+        4) **Last 30 days**
+      After **each** selection:
+        • Assert `#time-lookback` label matches the applied preset (format-tolerant).
+        • Soft-assert core widgets ready (or controlled empty + annotate) — same spirit as `softPrescribedLookbacksRefresh` / `assertLookbackAppliedRefreshed`.
+        • Soft-assert dashboard data **reflects** the selected window: time-range subtitle on COT/ROT/CRC, and/or Highcharts signature change. **Revenue Opportunity** may stay on its report window (e.g. “over 7 days”) — annotate if unchanged; do not hard-fail the suite for RO lookback-insensitivity.
+        • **Graph hover / tooltip time-interval check (required soft):** on ≥1 time-series widget when series exist — prefer **Conversions over Time - US2**, else **Revenue Over Time - US2**. Mouse-hover a plotted point and capture Highcharts tooltip / x-axis datetime text. Soft-compare across the four lookbacks that the **visible time interval / span / bucket scale differs**. Exact clock strings must not be hard-coded. **Do not** use CRC (Onload seconds) or RO bars as the datetime-interval widget. If a lookback has no hoverable points, annotate controlled empty and continue.
+      After the full set: **restore** original Time Lookback from suite-start capture (fallback Last 24 hours / Last 6 hours soft).
+    - Soft Custom Date open/cancel.
+    - Soft Auto Refresh Off + one interval; restore captured preference (often 10m).
+    - Filters Cancel-only as §11.
+
+14. Combination, recovery, non-functional
+    - Capture → prescribed lookbacks (6h → 24h → 7d → 30d) with CRC + COT + ROT inventory **and** soft graph-hover tooltip interval samples per lookback → restore lookback.
+    - Soft CRC legend toggle restore; soft RO DESKTOP then ALL restore.
+    - Soft Filters Cancel; soft Manager cancel; soft + Widget cancel.
+    - Refresh keeps Business Regression - US2 identity.
+    - Viewport desktop + ~1100px OK; scroll Revenue Opportunity reachable (evaluate scrollIntoView — **do not hang on scrollIntoViewIfNeeded**).
+    - Performance: widgets settle within project soft deadlines.
+    - Soft a11y: filter toggle; chart titles/legends readable.
+
+15. Out-of-scope mutations (always)
+    - Do not Save Filter / Save as New / Save Current / permanent shared filters.
+    - Do not Clear Cache / Clear Genius Cache.
+    - Do not permanently Save widget edits (Granularity / Discard Sessions Over / Performance Metric) / Add Widget / Clone / Delete / Unshare dashboard / click widget X.
+    - Do not leave legend series hidden or RO stuck on DESKTOP/IOS/ANDROID.
+    - Do not expand into full Revenue Calculator / Revenue Opportunity / Revenue Attribution / Brand Calculator suites — soft drill only.
+    - Do not hard-code page catalogs, KPI totals, event markers, or exact time-range strings from the probe.
+
+16. Live reverse-engineering facts to preserve (GDC, Aug 2026 probe)
+    - Custom optgroup; exact title Business Regression - US2; site/dashboard route
+    - Four widgets: Conversions by Response Time - US2, Conversions over Time - US2, Revenue Over Time - US2, Revenue Opportunity - US2
+    - Highcharts present (8 containers); CRC seconds-axis + two time-series + RO bars
+    - Lookback Last 24 hours sample; Auto Refresh (10m) sample
+    - Probe JSON keys: target, selectResult, snap, filtersOpen, lookbackOptions, autoRefreshOptions, savedAt
+    - PDF articles: CRC 360037340893; COT 360037341093; ROT 360036856394; RO 4403556256403
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a Playwright automation suite under
+tests/regression_tests/US2/dashboards/custom/business-regression-us2
+covering thorough regression for:
+  - navigation & exact Custom dashboard identity (reject Alerts/Synthetic Regression - US2, other *-US2 Custom boards, Shared “Business Metrics”, and Preconfigured Site Overview as home)
+  - chrome: lookback, auto refresh, refresh, carousel soft, filters Cancel-only, My/Shared tabs, manager/+Widget cancel-only
+  - Conversions by Response Time - US2 (CRC axes/legend/histogram language; legend toggle; no widget Save)
+  - Conversions over Time - US2 (legend Conversion Rate / AOV / Onload; hover)
+  - Revenue Over Time - US2 (PDF + live Brand series; hover; Traffic Segments)
+  - Revenue Opportunity - US2 (ALL/DESKTOP/IOS/ANDROID tabs restore ALL; by-Page bars; report-window annotate)
+  - Time Lookback prescribed set **Last 6 hours / Last 24 hours / Last 7 days / Last 30 days** with per-lookback widget refresh + soft graph-hover tooltip **time-interval** differentiation on COT/ROT (not CRC/RO); restore lookback
+  - combination/recovery; GDC re-anchor
+  - explicit non-confusion with other Custom US2 boards, Site Overview Revenue Over Time, left-nav Improve Conversion pages
+
+Follow existing project framework and POM conventions. Prefer live probe titles/hosts as SoT; use PDFs for CRC histogram/legend, COT/ROT page-name restriction, and RO report-source language.
+
+After generation:
+1. Execute only the newly created Business Regression - US2 suite and fix automation hard failures.
+2. Generate fresh isolated Allure results + HTML report for this suite.
+3. Generate manual test-case workbook (Summary / Regression TCs / Notes).
+4. Include executed result summary and soft annotations for: empty graphs, RO device-tab empty, RO lookback-insensitive 7-day report window, prescribed lookbacks (6h/24h/7d/30d) + COT/ROT hover tooltip interval samples, CRC seconds-axis (not datetime), Custom vs Preconfigured/Site Overview discrimination, GDC re-anchor.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable widget **titles** and id **prefixes** (chartID_*, all-total-btn-*, desktop-btn-*, ios-btn-*, android-btn-*, all-total-graph-*, desktop-graph-*, ios-graph-*, android-graph-*); do not depend on dynamic Highcharts instance IDs or grid-stack suffixes alone.
+6. Do not hard-code KPI dollars, page names, event markers, fixed time-range/timezone strings, or exact chart counts.
+7. Capture and restore Business Regression - US2 home, GDC Test Site 2, Time Lookback, Auto Refresh, RO ALL tab when restorable without Save.
+8. Use a serial suite only when shared page state is intentional; optional/data-dependent failures must not abort unrelated tests (soft deadlines + recovery).
+9. Use bounded soft deadlines and explicit action timeouts.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page actions running into later serial tests; cancel/reload/reset before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save Filter, Clear Cache, permanently Save widgets/dashboard clones, or leave sticky legend/device-tab state.
+13. Keep primary scope on Business Regression - US2; restore after soft sibling visits.
+14. Close all menus, overlays, drawers, modals, Export menus opened by tests.
+15. Do not claim widgets refreshed by merely counting SVG hosts.
+16. Treat currency/%/count/time units as format-tolerant.
+17. Never accept Alerts/Synthetic Regression - US2, another Custom *-US2 board, Site Overview, or left-nav Revenue Opportunity as suite home.
+18. If any requirement is ambiguous or missing, flag it before generating automation.
+19. Prefer evaluate-based scroll; do not hang on scrollIntoViewIfNeeded.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- **Companion .txt package was not in Cursor attachments** — PDFs + live probe are SoT. Re-fold txt if supplied later.
+- Dashboard is **Custom**, not Preconfigured — account must retain Business Regression - US2; if missing on another env, flag before suite run.
+- Widget order/grid may reflow — prefer title presence over coordinates (live 2×2: CRC | COT / ROT | RO).
+- **Conversions over Time** vs PDF **Over Time** — dual-regex.
+- CRC **Average Revenue** chart title vs **Avg Order Value** legend — dual-regex.
+- Revenue Opportunity **7-day report window** may ignore dashboard Time Lookback — annotate; do not hard-fail.
+- RO device tabs IOS/ANDROID may be empty on GDC — soft empty annotate; restore ALL.
+- Event markers (Firefox v154 sample) are data-dependent — never require a named marker.
+- Formal SLA for widget reload — use project soft deadlines.
+- Coach/Get started overlays may appear.
+- Left-nav Improve Conversion vs this dashboard is purpose-related; do not require Revenue Calculator / Opportunity path as home.
+- REG-BR-US2 prefix is **Business Regression**, not Brand Calculator.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to:
+- docs/prompts/AI Prompt (For Automation Regression-Alerts Regression - US2 Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Synthetic Regression - US2 Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Site Overview Dashboard).txt
+- tests/regression_tests/US2/dashboards/custom/alerts-regression-us2/
+- tests/regression_tests/US2/dashboards/custom/synthetic-regression-us2/
+- helpers/preconfiguredDashboardChrome.ts
+- pages/AlertsRegressionUs2DashboardPage.ts / pages/SyntheticRegressionUs2DashboardPage.ts / pages/SiteOverviewDashboardPage.ts / pages/MarketingOverviewPage.ts
+
+Follow their patterns for POM/locator separation, authenticated GDC site selection, exact dashboard Select2 matching, filter open/cancel, Highcharts + legend soft toggles, serial recovery after soft sibling switches, isolated Allure + Excel workbooks, prescribed lookbacks, and npm naming that does not collide with alerts-regression-us2, synthetic-regression-us2, or left-nav revenue-opportunity / revenue-calculator suites.
