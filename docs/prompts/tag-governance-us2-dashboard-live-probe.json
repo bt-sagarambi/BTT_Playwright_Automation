@@ -1,0 +1,2065 @@
+{
+  "target": "Tag Governance - US2",
+  "afterDashboardsNav": {
+    "title": "Dashboards",
+    "pageTitle": "Dashboards",
+    "switchText": {
+      "id": "select2-switch-dashboard-container",
+      "text": "Site Overview",
+      "visible": true
+    },
+    "syntheticHits": [
+      {
+        "text": "Synthetic Site Health",
+        "value": "984794",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "RUM Performance Detail",
+        "value": "984818",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "Synthetic Performance Detail",
+        "value": "984830",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "UA B2C - Business Metrics with Performance",
+        "value": "852571",
+        "selected": false,
+        "group": "Shared"
+      },
+      {
+        "text": "Synthetic Regression - US2",
+        "value": "998773",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Alerts Regression - US2",
+        "value": "998785",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Business Regression - US2",
+        "value": "998797",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Marketing Regression - US2",
+        "value": "998798",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Tag Governance - US2",
+        "value": "998810",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "RUM Regression - US2",
+        "value": "998822",
+        "selected": false,
+        "group": "Custom"
+      }
+    ],
+    "optionGroupLabels": [
+      "Preconfigured",
+      "Shared",
+      "Custom"
+    ]
+  },
+  "savedAt": "2026-08-21T06:48:21.741Z",
+  "selectResult": {
+    "selected": true,
+    "matchedText": "Tag Governance - US2",
+    "group": "select2",
+    "note": "clicked select2 option \"Tag Governance - US2\""
+  },
+  "screenshot": "D:\\Project_Work\\BlueTriangle_Automation\\docs\\prompts\\tag-governance-us2-dashboard-live.png",
+  "snap": {
+    "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=site/dashboard",
+    "title": "Dashboards",
+    "pageTitle": "Dashboards",
+    "highcharts": 32,
+    "filterChrome": {
+      "toggleFilters": true,
+      "applyFilters": false,
+      "cancelFilters": true,
+      "timeLookback": true,
+      "switchDashboard": true,
+      "autoRefresh": true,
+      "refreshDashboard": true,
+      "lastUpdated": "Last Updated 12:59",
+      "myFilters": true,
+      "sharedFilters": true
+    },
+    "select2": [
+      {
+        "id": "select2-switch-dashboard-container",
+        "text": "Tag Governance - US2",
+        "visible": true
+      },
+      {
+        "id": "select2-quick-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": false
+      },
+      {
+        "id": "select2-slowest-metric-355897-1786731551037-container",
+        "text": "120 Seconds",
+        "visible": true
+      },
+      {
+        "id": "select2-slowest-metric-355897-1786731551039-container",
+        "text": "120 Seconds",
+        "visible": true
+      },
+      {
+        "id": "select2-switch-user-container",
+        "text": "My Dashboards",
+        "visible": false
+      },
+      {
+        "id": "select2-widget-type-container",
+        "text": "Performance",
+        "visible": false
+      },
+      {
+        "id": "select2-timezone-container",
+        "text": "Asia/Kolkata/Mumbai (+05:30)",
+        "visible": false
+      },
+      {
+        "id": "select2-data-science-saved-graph-selector-container",
+        "text": "No Filter Applied",
+        "visible": false
+      },
+      {
+        "id": "select2-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": false
+      },
+      {
+        "id": "select2-revenue-offset-days-container",
+        "text": "0",
+        "visible": false
+      },
+      {
+        "id": "select2-revenue-offset-hours-container",
+        "text": "0",
+        "visible": false
+      },
+      {
+        "id": "select2-data-type-container",
+        "text": "Real User",
+        "visible": false
+      },
+      {
+        "id": "select2-report-data-type-container",
+        "text": "Real User Browser Data",
+        "visible": false
+      },
+      {
+        "id": "select2-data-origin-container",
+        "text": "RUM Browser & Native Webview",
+        "visible": false
+      },
+      {
+        "id": "select2-graph-type-container",
+        "text": "Line Graph",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-rum-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-native-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-synth-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-add-comparison-line-lookback-time-selector-container",
+        "text": "Yesterday",
+        "visible": false
+      },
+      {
+        "id": "select2-displayed-metric-rum-group-by-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-trim-histogram-left-side-container",
+        "text": ".1",
+        "visible": false
+      },
+      {
+        "id": "select2-trim-histogram-container",
+        "text": "30",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-rum-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-rum-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-native-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-native-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-synth-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-synth-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-order-by-container",
+        "text": "Selected X-Axis (Lowest to Highest)",
+        "visible": false
+      },
+      {
+        "id": "select2-scatter-display-type-container",
+        "text": "Error",
+        "visible": false
+      },
+      {
+        "id": "select2-top-paths-data-trend-container",
+        "text": "Arithmetic Mean",
+        "visible": false
+      },
+      {
+        "id": "select2-scatter-group-by-container",
+        "text": "Script Name / Traffic Segment",
+        "visible": false
+      },
+      {
+        "id": "select2-year-format-container",
+        "text": "Calendar Year",
+        "visible": false
+      },
+      {
+        "id": "select2-comparison-type-container",
+        "text": "Day To Day",
+        "visible": false
+      }
+    ],
+    "buttons": [
+      "Toggle menu visibility",
+      "Toggle user menu visibility",
+      "Toggle settings menu visibility",
+      "Help Center",
+      "Blue Triangle Help Video",
+      "Change theme",
+      "Share this page",
+      "Toggle filters menu visibility",
+      "Toggle feedback form visibility",
+      "6",
+      "View Full Menu",
+      "GDC Test Site 2 Demo eCommerce Global",
+      "Last 24 hours",
+      "Custom Date Selection",
+      "Last 2 days",
+      "Last 7 days",
+      "Last 14 days",
+      "Last 30 days",
+      "Last 90 days",
+      "Today so far",
+      "This week so far",
+      "This month so far",
+      "Last 15 minutes",
+      "Last 30 minutes",
+      "Last 1 hour",
+      "Last 3 hours",
+      "Last 6 hours",
+      "Last 12 hours",
+      "Auto Refresh (10m)",
+      "Off",
+      "2 Minutes",
+      "5 Minutes",
+      "10 Minutes",
+      "15 Minutes",
+      "30 Minutes",
+      "60 Minutes",
+      "Carousel (off)",
+      "3m Interval",
+      "5m Interval",
+      "10m Interval",
+      "15m Interval",
+      "30m Interval",
+      "+ Widget",
+      "+ Dashboard",
+      "Edit filters for this widget",
+      "Delete this widget from the current dashboard",
+      "SERVICES",
+      "DOMAINS",
+      "FILES",
+      "1st Party",
+      "3rd Party",
+      "All",
+      "View Graph",
+      "View Table",
+      "Export",
+      "CSV",
+      "TSV",
+      "JSON",
+      "Array",
+      "Add New Dashboard"
+    ],
+    "labels": [
+      "Time Lookback",
+      "Dashboard Refresh",
+      "Auto Refresh",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "Service",
+      "Total Load Time Before 120 Seconds",
+      "Domain",
+      "File",
+      "DASHBOARD MANAGER",
+      "6/75 dashboards used",
+      "Clone Dashboard",
+      "Select users to clone the dashboard(s):",
+      "Add a Widget",
+      "Widget Type",
+      "Time Period",
+      "Timezone",
+      "Saved Data Science Graphs",
+      "Site",
+      "Use Time Lookback Offset?",
+      "Widget Title *",
+      "Data Type",
+      "Data Originated From",
+      "Graph Type",
+      "Performance Metric",
+      "Group Lines By",
+      "Add Comparison Line?",
+      "Compare Today To",
+      "Displayed Metric",
+      "X Axis",
+      "Trim Left Side",
+      "Trim Right Side",
+      "X-Axis Value",
+      "Y-Axis Value",
+      "Order By",
+      "Display Screenshot For Latest",
+      "Statistical Method",
+      "Group By",
+      "Year Format",
+      "Type Of Comparison",
+      "Comparing",
+      "To",
+      "Years To Compare *",
+      "Comparing Today To",
+      "Past",
+      "Bucket Size",
+      "Path Name * Clear",
+      "Date of Performance Change",
+      "Path Overview Metrics",
+      "Include:",
+      "Threshold Percent Change",
+      "Onload",
+      "DOM Duration",
+      "Time to DOM Interactive",
+      "Time to DOM Content Loaded",
+      "Page Views / Session",
+      "Page Views",
+      "Orders",
+      "Revenue",
+      "Traffic Source / Referrer Clear",
+      "Traffic Medium Clear",
+      "Campaign Clear",
+      "A/B Testing Segment Filter Selector",
+      "A/B Testing Segment Clear",
+      "A/B Testing Segment",
+      "Visitor Type (new vs. returning) Clear",
+      "Datacenter Location Clear",
+      "Internet Service Provider / Organization Clear",
+      "Traffic Segment Clear",
+      "Content Groups / Page Groups Clear",
+      "SLA Filter Groups",
+      "Monitor Name Clear",
+      "Page Name",
+      "IN",
+      "CONTAINS",
+      "Common Devices:",
+      "Common Operating Systems:"
+    ],
+    "headings": [
+      "Time Lookback",
+      "Dashboard Refresh",
+      "Auto Refresh",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Executive",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "DASHBOARD MANAGER",
+      "6/75 dashboards used",
+      "Clone Dashboard",
+      "Add a Widget",
+      "Path Overview Metrics",
+      "Include:",
+      "Threshold Percent Change",
+      "Privacy Policy",
+      "What we do with the information we gather",
+      "Web Visitor Information Collected",
+      "Use of General Customer Data",
+      "Use of Performance Measurements",
+      "Use of Web Visitor Information Collected Via Online Forms and Surveys",
+      "Customer Subscribers to Our Service Portal",
+      "Links to Other Websites",
+      "How To Contact Us Regarding This Privacy Policy and Other Concerns",
+      "Clear Genius Cache"
+    ],
+    "tabs": [
+      {
+        "id": "my-filters-tab",
+        "text": "My Filters",
+        "cls": "active",
+        "active": true
+      },
+      {
+        "id": "",
+        "text": "My Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "shared-filters-tab",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      }
+    ],
+    "widgets": [
+      {
+        "id": "355897-1786731551036",
+        "title": "1st vs 3rd Party Composition - US2 2026-08-20 12:18 to 2026-08-21 12:18, IST (+05:30) Domain Activity 4.7%​ 1st Party ​ 65.41 s 95.3%​ 3rd Party ​ 1324.11 s File Size 33.3%​ 1st Pa",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": true,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "chartID_355897-1786731551036",
+          "tg-pie-time",
+          "first-vs-third-duration-355897-1786731551036",
+          "highcharts-tt4883c-6509",
+          "highcharts-drop-shadow-13",
+          "highcharts-tt4883c-6510-",
+          "first-vs-third-size-355897-1786731551036",
+          "highcharts-tt4883c-6512",
+          "highcharts-drop-shadow-14",
+          "highcharts-tt4883c-6513-",
+          "first-vs-third-count-355897-1786731551036",
+          "highcharts-tt4883c-6515",
+          "highcharts-drop-shadow-15",
+          "highcharts-tt4883c-6516-"
+        ],
+        "bodySample": "1st vs 3rd Party Composition - US2 2026-08-20 12:18 to 2026-08-21 12:18, IST (+05:30) Domain Activity 4.7%​ 1st Party ​ 65.41 s 95.3%​ 3rd Party ​ 1324.11 s File Size 33.3%​ 1st Party ​ 11,515 KB 66.7%​ 3rd Party ​ 23,062 KB Element Count /​Page 19.0%​ 1st Party ​ 22 / Page 81.0%​ 3rd Party ​ 95 / Page"
+      },
+      {
+        "id": "355897-1786731551037",
+        "title": "1st vs 3rd Party Activity - Synthetic - US2 SERVICES DOMAINS FILES 1st Party 3rd Party All Slowest Services Before: Onload TEST OVERRIDE First Meaningful Paint First Contentful Pai",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": true,
+        "hasTable": true,
+        "tableHeaders": [
+          "Service",
+          "Total Load Time Before 120 Seconds",
+          "Domain",
+          "Total Load Time Before 120 Seconds",
+          "File",
+          "Total Load Time Before 120 Seconds"
+        ],
+        "childIds": [
+          "chartID_355897-1786731551037",
+          "services-btn-355897-1786731551037",
+          "domains-btn-355897-1786731551037",
+          "files-btn-355897-1786731551037",
+          "first-party-btn-355897-1786731551037",
+          "third-party-btn-355897-1786731551037",
+          "all-btn-355897-1786731551037",
+          "metric-name-355897-1786731551037",
+          "slowest-metric-355897-1786731551037",
+          "select2-slowest-metric-355897-1786731551037-container",
+          "first-vs-third-graph-btn-355897-1786731551037",
+          "first-vs-third-table-btn-355897-1786731551037",
+          "first-party-row-355897-1786731551037",
+          "slowest-services-graph-355897-1786731551037",
+          "highcharts-tt4883c-6524",
+          "highcharts-drop-shadow-16",
+          "highcharts-tt4883c-6525-",
+          "highcharts-tt4883c-6526-",
+          "highcharts-drop-shadow-16--1--1",
+          "slowest-domains-graph-355897-1786731551037",
+          "highcharts-tt4883c-6527",
+          "highcharts-drop-shadow-17",
+          "highcharts-tt4883c-6528-",
+          "highcharts-tt4883c-6529-",
+          "highcharts-drop-shadow-17--1--1",
+          "slowest-files-graph-355897-1786731551037",
+          "highcharts-tt4883c-6530",
+          "highcharts-drop-shadow-18",
+          "highcharts-tt4883c-6531-",
+          "highcharts-tt4883c-6532-"
+        ],
+        "bodySample": "1st vs 3rd Party Activity - Synthetic - US2 SERVICES DOMAINS FILES 1st Party 3rd Party All Slowest Services Before: Onload TEST OVERRIDE First Meaningful Paint First Contentful Paint Time to DOM Content Loaded Time To DOM Interactive 120 Seconds 120 Seconds Duration (sec) Slowest Services By Activity 2026-08-20 12:18 to 2026-08-21 12:18, IST (+05:30) 813.432s​813.432s 68.478s​68.478s 6.085s​6.085s 2.549s​2.549s 1.114s​1.114s 0.83s​0.83s 0.811s​0.811s 0.699s​0.699s 0.647s​0.647s 0.612s​0.612s 0.602s​0.602s 0.575s​0.575s 0.511s​0.511s 0.449s​0.449s 0.407s​0.407s 0.406s​0.406s 0.394s​0.394s 0.389s​0.389s 0.387s​0.387s 0.387s​0.387s 0.387s​0.387s 0.379s​0.379s 0.349s​0.349s 0.337s​0.337s 0.33s​0.33s 0.326s​0.326s 0.324s​0.324s 0.318s​0.318s 0.3s​0.3s 0.285s​0.285s 0.253s​0.253s 0.25s​0.25s 0.232s​0.232s 0.225s​0.225s 0.224s​0.224s 0.22s​0.22s 0.219s​0.219s 0.212s​0.212s 0.206s​0.206s 0.19s​0.19s 0.187s​0.187s 0.186s​0.186s 0.186s​0.186s 0.185s​0.185s 0.181s​0.181s 0.171s​0.171s 0.168s​0.16"
+      },
+      {
+        "id": "355897-1786731551038",
+        "title": "1st vs 3rd Party Composition - RUM - US2 Domain Activity 13.1%​ 1st Party ​ 40.15 s 86.9%​ 3rd Party ​ 266.31 s Element Count / Page 39.9%​ 1st Party ​ 1,387 / Page 60.1%​ 3rd Part",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": true,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "chartID_355897-1786731551038",
+          "tg-pie-time",
+          "first-vs-third-duration-355897-1786731551038",
+          "highcharts-tt4883c-6833",
+          "highcharts-drop-shadow-19",
+          "highcharts-tt4883c-6834-",
+          "first-vs-third-size-355897-1786731551038",
+          "highcharts-tt4883c-6836",
+          "highcharts-drop-shadow-20",
+          "highcharts-tt4883c-6837-",
+          "first-vs-third-count-355897-1786731551038",
+          "highcharts-tt4883c-6839",
+          "highcharts-drop-shadow-21",
+          "highcharts-tt4883c-6840-"
+        ],
+        "bodySample": "1st vs 3rd Party Composition - RUM - US2 Domain Activity 13.1%​ 1st Party ​ 40.15 s 86.9%​ 3rd Party ​ 266.31 s Element Count / Page 39.9%​ 1st Party ​ 1,387 / Page 60.1%​ 3rd Party ​ 2,093 / Page"
+      },
+      {
+        "id": "355897-1786731551039",
+        "title": "1st vs 3rd Party Activity - RUM - US2 SERVICES DOMAINS FILES 1st Party 3rd Party All Slowest Services Before: Onload TEST OVERRIDE First Meaningful Paint First Contentful Paint Tim",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": true,
+        "hasTable": true,
+        "tableHeaders": [
+          "Service",
+          "Total Load Time Before 120 Seconds",
+          "Domain",
+          "Total Load Time Before 120 Seconds",
+          "File",
+          "Total Load Time Before 120 Seconds"
+        ],
+        "childIds": [
+          "chartID_355897-1786731551039",
+          "services-btn-355897-1786731551039",
+          "domains-btn-355897-1786731551039",
+          "files-btn-355897-1786731551039",
+          "first-party-btn-355897-1786731551039",
+          "third-party-btn-355897-1786731551039",
+          "all-btn-355897-1786731551039",
+          "metric-name-355897-1786731551039",
+          "slowest-metric-355897-1786731551039",
+          "select2-slowest-metric-355897-1786731551039-container",
+          "first-vs-third-graph-btn-355897-1786731551039",
+          "first-vs-third-table-btn-355897-1786731551039",
+          "first-party-row-355897-1786731551039",
+          "slowest-services-graph-355897-1786731551039",
+          "highcharts-tt4883c-6848",
+          "highcharts-drop-shadow-22",
+          "highcharts-tt4883c-6849-",
+          "highcharts-tt4883c-6850-",
+          "highcharts-drop-shadow-22--1--1",
+          "slowest-domains-graph-355897-1786731551039",
+          "highcharts-tt4883c-6851",
+          "highcharts-drop-shadow-23",
+          "highcharts-tt4883c-6852-",
+          "highcharts-tt4883c-6853-",
+          "highcharts-drop-shadow-23--1--1",
+          "slowest-files-graph-355897-1786731551039",
+          "highcharts-tt4883c-6854",
+          "highcharts-drop-shadow-24",
+          "highcharts-tt4883c-6855-",
+          "highcharts-tt4883c-6856-"
+        ],
+        "bodySample": "1st vs 3rd Party Activity - RUM - US2 SERVICES DOMAINS FILES 1st Party 3rd Party All Slowest Services Before: Onload TEST OVERRIDE First Meaningful Paint First Contentful Paint Time to DOM Content Loaded Time To DOM Interactive 120 Seconds 120 Seconds Duration (sec) Slowest Services By Activity 2026-08-20 12:18 to 2026-08-21 12:18, IST (+05:30) 131.239s​131.239s 105.524s​105.524s 95.534s​95.534s 81.391s​81.391s 63.451s​63.451s 62.782s​62.782s 31.585s​31.585s 18.143s​18.143s 15.94s​15.94s 15.556s​15.556s 15.305s​15.305s 12.901s​12.901s 9.217s​9.217s 8.716s​8.716s 7.499s​7.499s 6.25s​6.25s 3.964s​3.964s 3.768s​3.768s 3.714s​3.714s 3.713s​3.713s 3.368s​3.368s 3.173s​3.173s 3.164s​3.164s 2.243s​2.243s 2.11s​2.11s 1.841s​1.841s 1.698s​1.698s 1.677s​1.677s 1.676s​1.676s 1.607s​1.607s 1.46s​1.46s 1.458s​1.458s 1.346s​1.346s 1.204s​1.204s 1.202s​1.202s 1.165s​1.165s 1.165s​1.165s 1.158s​1.158s 1.144s​1.144s 1.01s​1.01s 0.999s​0.999s 0.98s​0.98s 0.924s​0.924s 0.875s​0.875s 0.873s​0.873s 0.873s​"
+      },
+      {
+        "id": "355897-1786731551040",
+        "title": "Environment - US2 DOMAINS RUM 59 -18 (-23%) PAGES RUM 7 -8 (-53.3%) FILES RUM 1,017 -5,472 (-84.3%) DOMAINS SYNTH 45 -146 (-76.4%) PAGES SYNTH 14 -30 (-68.2%) FILES SYNTH 244 -1,85",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": true,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "chartID_355897-1786731551040",
+          "rum-row-355897-1786731551040",
+          "domains-rum-355897-1786731551040",
+          "sparkline_domains_rum-355897-1786731551040",
+          "highcharts-tt4883c-5888",
+          "highcharts-drop-shadow-4",
+          "highcharts-tt4883c-5889-",
+          "highcharts-tt4883c-5956-",
+          "page-rum-355897-1786731551040",
+          "sparkline_pages_rum-355897-1786731551040",
+          "highcharts-tt4883c-5957",
+          "highcharts-drop-shadow-5",
+          "highcharts-tt4883c-5958-",
+          "highcharts-tt4883c-6025-",
+          "files-rum-355897-1786731551040",
+          "sparkline_files_rum-355897-1786731551040",
+          "highcharts-tt4883c-6026",
+          "highcharts-drop-shadow-6",
+          "highcharts-tt4883c-6027-",
+          "highcharts-tt4883c-6094-",
+          "synth-row-355897-1786731551040",
+          "domains-synth-355897-1786731551040",
+          "sparkline_domains_synth-355897-1786731551040",
+          "highcharts-tt4883c-6095",
+          "highcharts-drop-shadow-7",
+          "highcharts-tt4883c-6096-",
+          "highcharts-tt4883c-6163-",
+          "page-synth-355897-1786731551040",
+          "sparkline_pages_synth-355897-1786731551040",
+          "highcharts-tt4883c-6164"
+        ],
+        "bodySample": "Environment - US2 DOMAINS RUM 59 -18 (-23%) PAGES RUM 7 -8 (-53.3%) FILES RUM 1,017 -5,472 (-84.3%) DOMAINS SYNTH 45 -146 (-76.4%) PAGES SYNTH 14 -30 (-68.2%) FILES SYNTH 244 -1,852 (-88.4%) VENDORS WITH PROFILES 0 -563 (-100%) SERVICES WITH PROFILES 0 -637 (-100%) CONFIGURED SLA'S 0 -15 (-100%)"
+      }
+    ],
+    "charts": [
+      {
+        "i": 0,
+        "id": "first-vs-third-duration-355897-1786731551036",
+        "hostId": "first-vs-third-duration-355897-1786731551036",
+        "parentId": "",
+        "w": 226,
+        "h": 307,
+        "title": "",
+        "legend": [
+          "4.7%​ 1st Party ​ 65.41 s",
+          "4.7%​ 1st Party ​ 65.41 s",
+          "95.3%​ 3rd Party ​ 1324.11 s",
+          "95.3%​ 3rd Party ​ 1324.11 s"
+        ]
+      },
+      {
+        "i": 1,
+        "id": "highcharts-tt4883c-6509",
+        "hostId": "highcharts-tt4883c-6509",
+        "parentId": "first-vs-third-duration-355897-1786731551036",
+        "w": 210,
+        "h": 307,
+        "title": "",
+        "legend": [
+          "4.7%​ 1st Party ​ 65.41 s",
+          "4.7%​ 1st Party ​ 65.41 s",
+          "95.3%​ 3rd Party ​ 1324.11 s",
+          "95.3%​ 3rd Party ​ 1324.11 s"
+        ]
+      },
+      {
+        "i": 2,
+        "id": "first-vs-third-size-355897-1786731551036",
+        "hostId": "first-vs-third-size-355897-1786731551036",
+        "parentId": "",
+        "w": 226,
+        "h": 307,
+        "title": "",
+        "legend": [
+          "33.3%​ 1st Party ​ 11,515 KB",
+          "33.3%​ 1st Party ​ 11,515 KB",
+          "66.7%​ 3rd Party ​ 23,062 KB",
+          "66.7%​ 3rd Party ​ 23,062 KB"
+        ]
+      },
+      {
+        "i": 3,
+        "id": "highcharts-tt4883c-6512",
+        "hostId": "highcharts-tt4883c-6512",
+        "parentId": "first-vs-third-size-355897-1786731551036",
+        "w": 210,
+        "h": 307,
+        "title": "",
+        "legend": [
+          "33.3%​ 1st Party ​ 11,515 KB",
+          "33.3%​ 1st Party ​ 11,515 KB",
+          "66.7%​ 3rd Party ​ 23,062 KB",
+          "66.7%​ 3rd Party ​ 23,062 KB"
+        ]
+      },
+      {
+        "i": 4,
+        "id": "first-vs-third-count-355897-1786731551036",
+        "hostId": "first-vs-third-count-355897-1786731551036",
+        "parentId": "",
+        "w": 226,
+        "h": 307,
+        "title": "",
+        "legend": [
+          "19.0%​ 1st Party ​ 22 / Page",
+          "19.0%​ 1st Party ​ 22 / Page",
+          "81.0%​ 3rd Party ​ 95 / Page",
+          "81.0%​ 3rd Party ​ 95 / Page"
+        ]
+      },
+      {
+        "i": 5,
+        "id": "highcharts-tt4883c-6515",
+        "hostId": "highcharts-tt4883c-6515",
+        "parentId": "first-vs-third-count-355897-1786731551036",
+        "w": 210,
+        "h": 307,
+        "title": "",
+        "legend": [
+          "19.0%​ 1st Party ​ 22 / Page",
+          "19.0%​ 1st Party ​ 22 / Page",
+          "81.0%​ 3rd Party ​ 95 / Page",
+          "81.0%​ 3rd Party ​ 95 / Page"
+        ]
+      },
+      {
+        "i": 6,
+        "id": "slowest-services-graph-355897-1786731551037",
+        "hostId": "slowest-services-graph-355897-1786731551037",
+        "parentId": "first-party-row-355897-1786731551037",
+        "w": 678,
+        "h": 3200,
+        "title": "Slowest Services By Activity",
+        "legend": []
+      },
+      {
+        "i": 7,
+        "id": "highcharts-tt4883c-6524",
+        "hostId": "highcharts-tt4883c-6524",
+        "parentId": "slowest-services-graph-355897-1786731551037",
+        "w": 678,
+        "h": 3200,
+        "title": "Slowest Services By Activity",
+        "legend": []
+      },
+      {
+        "i": 12,
+        "id": "first-vs-third-duration-355897-1786731551038",
+        "hostId": "first-vs-third-duration-355897-1786731551038",
+        "parentId": "",
+        "w": 339,
+        "h": 307,
+        "title": "",
+        "legend": [
+          "13.1%​ 1st Party ​ 40.15 s",
+          "13.1%​ 1st Party ​ 40.15 s",
+          "86.9%​ 3rd Party ​ 266.31 s",
+          "86.9%​ 3rd Party ​ 266.31 s"
+        ]
+      },
+      {
+        "i": 13,
+        "id": "highcharts-tt4883c-6833",
+        "hostId": "highcharts-tt4883c-6833",
+        "parentId": "first-vs-third-duration-355897-1786731551038",
+        "w": 323,
+        "h": 307,
+        "title": "",
+        "legend": [
+          "13.1%​ 1st Party ​ 40.15 s",
+          "13.1%​ 1st Party ​ 40.15 s",
+          "86.9%​ 3rd Party ​ 266.31 s",
+          "86.9%​ 3rd Party ​ 266.31 s"
+        ]
+      },
+      {
+        "i": 16,
+        "id": "first-vs-third-count-355897-1786731551038",
+        "hostId": "first-vs-third-count-355897-1786731551038",
+        "parentId": "",
+        "w": 339,
+        "h": 307,
+        "title": "",
+        "legend": [
+          "39.9%​ 1st Party ​ 1,387 / Page",
+          "39.9%​ 1st Party ​ 1,387 / Page",
+          "60.1%​ 3rd Party ​ 2,093 / Page",
+          "60.1%​ 3rd Party ​ 2,093 / Page"
+        ]
+      },
+      {
+        "i": 17,
+        "id": "highcharts-tt4883c-6839",
+        "hostId": "highcharts-tt4883c-6839",
+        "parentId": "first-vs-third-count-355897-1786731551038",
+        "w": 323,
+        "h": 307,
+        "title": "",
+        "legend": [
+          "39.9%​ 1st Party ​ 1,387 / Page",
+          "39.9%​ 1st Party ​ 1,387 / Page",
+          "60.1%​ 3rd Party ​ 2,093 / Page",
+          "60.1%​ 3rd Party ​ 2,093 / Page"
+        ]
+      },
+      {
+        "i": 18,
+        "id": "slowest-services-graph-355897-1786731551039",
+        "hostId": "slowest-services-graph-355897-1786731551039",
+        "parentId": "first-party-row-355897-1786731551039",
+        "w": 678,
+        "h": 2510,
+        "title": "Slowest Services By Activity",
+        "legend": []
+      },
+      {
+        "i": 19,
+        "id": "highcharts-tt4883c-6848",
+        "hostId": "highcharts-tt4883c-6848",
+        "parentId": "slowest-services-graph-355897-1786731551039",
+        "w": 678,
+        "h": 2510,
+        "title": "Slowest Services By Activity",
+        "legend": []
+      },
+      {
+        "i": 24,
+        "id": "sparkline_domains_rum-355897-1786731551040",
+        "hostId": "sparkline_domains_rum-355897-1786731551040",
+        "parentId": "domains-rum-355897-1786731551040",
+        "w": 96,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 25,
+        "id": "highcharts-tt4883c-5888",
+        "hostId": "highcharts-tt4883c-5888",
+        "parentId": "sparkline_domains_rum-355897-1786731551040",
+        "w": 96,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 26,
+        "id": "sparkline_pages_rum-355897-1786731551040",
+        "hostId": "sparkline_pages_rum-355897-1786731551040",
+        "parentId": "page-rum-355897-1786731551040",
+        "w": 101,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 27,
+        "id": "highcharts-tt4883c-5957",
+        "hostId": "highcharts-tt4883c-5957",
+        "parentId": "sparkline_pages_rum-355897-1786731551040",
+        "w": 100,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 28,
+        "id": "sparkline_files_rum-355897-1786731551040",
+        "hostId": "sparkline_files_rum-355897-1786731551040",
+        "parentId": "files-rum-355897-1786731551040",
+        "w": 48,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 29,
+        "id": "highcharts-tt4883c-6026",
+        "hostId": "highcharts-tt4883c-6026",
+        "parentId": "sparkline_files_rum-355897-1786731551040",
+        "w": 47,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 30,
+        "id": "sparkline_domains_synth-355897-1786731551040",
+        "hostId": "sparkline_domains_synth-355897-1786731551040",
+        "parentId": "domains-synth-355897-1786731551040",
+        "w": 77,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 31,
+        "id": "highcharts-tt4883c-6095",
+        "hostId": "highcharts-tt4883c-6095",
+        "parentId": "sparkline_domains_synth-355897-1786731551040",
+        "w": 76,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 32,
+        "id": "sparkline_pages_synth-355897-1786731551040",
+        "hostId": "sparkline_pages_synth-355897-1786731551040",
+        "parentId": "page-synth-355897-1786731551040",
+        "w": 85,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 33,
+        "id": "highcharts-tt4883c-6164",
+        "hostId": "highcharts-tt4883c-6164",
+        "parentId": "sparkline_pages_synth-355897-1786731551040",
+        "w": 84,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 34,
+        "id": "sparkline_files_synth-355897-1786731551040",
+        "hostId": "sparkline_files_synth-355897-1786731551040",
+        "parentId": "files-synth-355897-1786731551040",
+        "w": 58,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 35,
+        "id": "highcharts-tt4883c-6233",
+        "hostId": "highcharts-tt4883c-6233",
+        "parentId": "sparkline_files_synth-355897-1786731551040",
+        "w": 58,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 36,
+        "id": "sparkline_vendors-355897-1786731551040",
+        "hostId": "sparkline_vendors-355897-1786731551040",
+        "parentId": "vendors-355897-1786731551040",
+        "w": 88,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 37,
+        "id": "highcharts-tt4883c-6302",
+        "hostId": "highcharts-tt4883c-6302",
+        "parentId": "sparkline_vendors-355897-1786731551040",
+        "w": 88,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 38,
+        "id": "sparkline_services-355897-1786731551040",
+        "hostId": "sparkline_services-355897-1786731551040",
+        "parentId": "services-355897-1786731551040",
+        "w": 88,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 39,
+        "id": "highcharts-tt4883c-6371",
+        "hostId": "highcharts-tt4883c-6371",
+        "parentId": "sparkline_services-355897-1786731551040",
+        "w": 88,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 40,
+        "id": "sparkline_sla-355897-1786731551040",
+        "hostId": "sparkline_sla-355897-1786731551040",
+        "parentId": "slas-355897-1786731551040",
+        "w": 96,
+        "h": 40,
+        "title": "",
+        "legend": []
+      },
+      {
+        "i": 41,
+        "id": "highcharts-tt4883c-6440",
+        "hostId": "highcharts-tt4883c-6440",
+        "parentId": "sparkline_sla-355897-1786731551040",
+        "w": 96,
+        "h": 40,
+        "title": "",
+        "legend": []
+      }
+    ],
+    "tables": [
+      {
+        "id": "table-for-slowest-services-table-355897-1786731551037",
+        "className": "table table-striped exportable tablesorter tablesorter-default tablesorter2cb236162070a hasFilters",
+        "headers": [
+          "Service",
+          "Total Load Time Before 120 Seconds"
+        ],
+        "rows": 100,
+        "visible": false
+      },
+      {
+        "id": "table-for-slowest-domains-table-355897-1786731551037",
+        "className": "table table-striped exportable tablesorter tablesorter-default tablesorter19d204f4f717e8 hasFilters",
+        "headers": [
+          "Domain",
+          "Total Load Time Before 120 Seconds"
+        ],
+        "rows": 100,
+        "visible": false
+      },
+      {
+        "id": "table-for-slowest-files-table-355897-1786731551037",
+        "className": "table table-striped exportable tablesorter tablesorter-default tablesorter993cba1538e618 hasFilters",
+        "headers": [
+          "File",
+          "Total Load Time Before 120 Seconds"
+        ],
+        "rows": 100,
+        "visible": false
+      },
+      {
+        "id": "table-for-slowest-services-table-355897-1786731551039",
+        "className": "table table-striped exportable tablesorter tablesorter-default tablesorterdfe2f2e63de1b hasFilters",
+        "headers": [
+          "Service",
+          "Total Load Time Before 120 Seconds"
+        ],
+        "rows": 77,
+        "visible": false
+      },
+      {
+        "id": "table-for-slowest-domains-table-355897-1786731551039",
+        "className": "table table-striped exportable tablesorter tablesorter-default tablesorterf41c97c96b5d58 hasFilters",
+        "headers": [
+          "Domain",
+          "Total Load Time Before 120 Seconds"
+        ],
+        "rows": 100,
+        "visible": false
+      },
+      {
+        "id": "table-for-slowest-files-table-355897-1786731551039",
+        "className": "table table-striped exportable tablesorter tablesorter-default tablesorter320a76810d2198 hasFilters",
+        "headers": [
+          "File",
+          "Total Load Time Before 120 Seconds"
+        ],
+        "rows": 100,
+        "visible": false
+      },
+      {
+        "id": "dashboard-settings-table",
+        "className": "table table-borderless table-plain modal-table",
+        "headers": [],
+        "rows": 19,
+        "visible": false
+      }
+    ],
+    "interestingIds": [
+      "global-action-notification",
+      "page-title",
+      "exclamation-view-alerts",
+      "exclamation-alert-number-text",
+      "toggle-help-video",
+      "help-video-menu",
+      "share-page-btn",
+      "toggle-filters",
+      "view-alerts-1",
+      "view-alerts-2",
+      "alert-number-text",
+      "alerts-totals-by-type",
+      "alert-box-close-1",
+      "alert-box-close-2",
+      "mobile-controls-filters-btn",
+      "refresh-dashboard-li",
+      "toggle-filters-li",
+      "share-page-li",
+      "help-video-li",
+      "page-wrapper",
+      "page-controls-og",
+      "dashboard-page-controls",
+      "switch-dashboard",
+      "select2-switch-dashboard-container",
+      "time-lookback",
+      "auto-refresh-btn-group",
+      "refresh-dashboard",
+      "auto-refresh",
+      "auto-refresh-frequency",
+      "last-updated-dashboard",
+      "dashboard-manager",
+      "create-dashboard-page-controls",
+      "dashboard-manager-share",
+      "dashboard-manager-share-btn",
+      "dashboard-settings-toggle",
+      "revenue-offset-message",
+      "page-contents",
+      "chartID_355897-1786731551036",
+      "tg-pie-time",
+      "first-vs-third-duration-355897-1786731551036",
+      "highcharts-tt4883c-6509",
+      "highcharts-drop-shadow-13",
+      "highcharts-tt4883c-6510-",
+      "first-vs-third-size-355897-1786731551036",
+      "highcharts-tt4883c-6512",
+      "highcharts-drop-shadow-14",
+      "highcharts-tt4883c-6513-",
+      "first-vs-third-count-355897-1786731551036",
+      "highcharts-tt4883c-6515",
+      "highcharts-drop-shadow-15",
+      "highcharts-tt4883c-6516-",
+      "chartID_355897-1786731551037",
+      "domains-btn-355897-1786731551037",
+      "first-party-btn-355897-1786731551037",
+      "third-party-btn-355897-1786731551037",
+      "metric-name-355897-1786731551037",
+      "slowest-metric-355897-1786731551037",
+      "select2-slowest-metric-355897-1786731551037-container",
+      "first-vs-third-graph-btn-355897-1786731551037",
+      "first-vs-third-table-btn-355897-1786731551037",
+      "first-party-row-355897-1786731551037",
+      "slowest-services-graph-355897-1786731551037",
+      "highcharts-tt4883c-6524",
+      "highcharts-drop-shadow-16",
+      "highcharts-tt4883c-6525-",
+      "highcharts-tt4883c-6526-",
+      "highcharts-drop-shadow-16--1--1",
+      "slowest-domains-graph-355897-1786731551037",
+      "highcharts-tt4883c-6527",
+      "highcharts-drop-shadow-17",
+      "highcharts-tt4883c-6528-",
+      "highcharts-tt4883c-6529-",
+      "highcharts-drop-shadow-17--1--1",
+      "slowest-files-graph-355897-1786731551037",
+      "highcharts-tt4883c-6530",
+      "highcharts-drop-shadow-18",
+      "highcharts-tt4883c-6531-",
+      "highcharts-tt4883c-6532-",
+      "highcharts-drop-shadow-18--1--1",
+      "slowest-services-table-355897-1786731551037",
+      "table-search",
+      "table-for-slowest-services-table-355897-1786731551037-table-viewport",
+      "table-for-slowest-services-table-355897-1786731551037",
+      "slowest-domains-table-355897-1786731551037",
+      "table-search",
+      "table-for-slowest-domains-table-355897-1786731551037-table-viewport",
+      "table-for-slowest-domains-table-355897-1786731551037",
+      "slowest-files-table-355897-1786731551037",
+      "table-search",
+      "table-for-slowest-files-table-355897-1786731551037-table-viewport",
+      "table-for-slowest-files-table-355897-1786731551037",
+      "chartID_355897-1786731551038",
+      "tg-pie-time",
+      "first-vs-third-duration-355897-1786731551038",
+      "highcharts-tt4883c-6833",
+      "highcharts-drop-shadow-19",
+      "highcharts-tt4883c-6834-",
+      "first-vs-third-size-355897-1786731551038",
+      "highcharts-tt4883c-6836",
+      "highcharts-drop-shadow-20",
+      "highcharts-tt4883c-6837-",
+      "first-vs-third-count-355897-1786731551038",
+      "highcharts-tt4883c-6839",
+      "highcharts-drop-shadow-21",
+      "highcharts-tt4883c-6840-",
+      "chartID_355897-1786731551039",
+      "domains-btn-355897-1786731551039",
+      "first-party-btn-355897-1786731551039",
+      "third-party-btn-355897-1786731551039",
+      "metric-name-355897-1786731551039",
+      "slowest-metric-355897-1786731551039",
+      "select2-slowest-metric-355897-1786731551039-container",
+      "first-vs-third-graph-btn-355897-1786731551039",
+      "first-vs-third-table-btn-355897-1786731551039",
+      "first-party-row-355897-1786731551039",
+      "slowest-services-graph-355897-1786731551039",
+      "highcharts-tt4883c-6848",
+      "highcharts-drop-shadow-22",
+      "highcharts-tt4883c-6849-",
+      "highcharts-tt4883c-6850-",
+      "highcharts-drop-shadow-22--1--1",
+      "slowest-domains-graph-355897-1786731551039",
+      "highcharts-tt4883c-6851",
+      "highcharts-drop-shadow-23",
+      "highcharts-tt4883c-6852-",
+      "highcharts-tt4883c-6853-",
+      "highcharts-drop-shadow-23--1--1",
+      "slowest-files-graph-355897-1786731551039",
+      "highcharts-tt4883c-6854",
+      "highcharts-drop-shadow-24",
+      "highcharts-tt4883c-6855-",
+      "highcharts-tt4883c-6856-",
+      "highcharts-drop-shadow-24--1--1",
+      "slowest-services-table-355897-1786731551039",
+      "table-search",
+      "table-for-slowest-services-table-355897-1786731551039-table-viewport",
+      "table-for-slowest-services-table-355897-1786731551039",
+      "slowest-domains-table-355897-1786731551039",
+      "table-search",
+      "table-for-slowest-domains-table-355897-1786731551039-table-viewport",
+      "table-for-slowest-domains-table-355897-1786731551039",
+      "slowest-files-table-355897-1786731551039",
+      "table-search",
+      "table-for-slowest-files-table-355897-1786731551039-table-viewport",
+      "table-for-slowest-files-table-355897-1786731551039",
+      "chartID_355897-1786731551040",
+      "domains-rum-355897-1786731551040",
+      "sparkline_domains_rum-355897-1786731551040",
+      "highcharts-tt4883c-5888",
+      "highcharts-drop-shadow-4",
+      "highcharts-tt4883c-5889-",
+      "highcharts-tt4883c-5956-",
+      "page-rum-355897-1786731551040",
+      "sparkline_pages_rum-355897-1786731551040",
+      "highcharts-tt4883c-5957",
+      "highcharts-drop-shadow-5",
+      "highcharts-tt4883c-5958-",
+      "highcharts-tt4883c-6025-",
+      "highcharts-tt4883c-6026",
+      "highcharts-drop-shadow-6",
+      "highcharts-tt4883c-6027-",
+      "highcharts-tt4883c-6094-",
+      "domains-synth-355897-1786731551040",
+      "sparkline_domains_synth-355897-1786731551040",
+      "highcharts-tt4883c-6095",
+      "highcharts-drop-shadow-7",
+      "highcharts-tt4883c-6096-",
+      "highcharts-tt4883c-6163-",
+      "page-synth-355897-1786731551040",
+      "sparkline_pages_synth-355897-1786731551040",
+      "highcharts-tt4883c-6164",
+      "highcharts-drop-shadow-8",
+      "highcharts-tt4883c-6165-",
+      "highcharts-tt4883c-6232-",
+      "highcharts-tt4883c-6233",
+      "highcharts-drop-shadow-9",
+      "highcharts-tt4883c-6234-",
+      "highcharts-tt4883c-6301-",
+      "vendors-355897-1786731551040",
+      "sparkline_vendors-355897-1786731551040"
+    ],
+    "syntheticHits": [
+      {
+        "text": "Synthetic Site Health",
+        "value": "984794",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "RUM Performance Detail",
+        "value": "984818",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "Synthetic Performance Detail",
+        "value": "984830",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "UA B2C - Business Metrics with Performance",
+        "value": "852571",
+        "selected": false,
+        "group": "Shared"
+      },
+      {
+        "text": "Synthetic Regression - US2",
+        "value": "998773",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Alerts Regression - US2",
+        "value": "998785",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Business Regression - US2",
+        "value": "998797",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Marketing Regression - US2",
+        "value": "998798",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Tag Governance - US2",
+        "value": "998810",
+        "selected": true,
+        "group": "Custom"
+      },
+      {
+        "text": "RUM Regression - US2",
+        "value": "998822",
+        "selected": false,
+        "group": "Custom"
+      }
+    ],
+    "optionGroups": [
+      {
+        "label": "Preconfigured",
+        "count": 9,
+        "sample": [
+          {
+            "value": "984782",
+            "text": "Site Overview",
+            "selected": false
+          },
+          {
+            "value": "985034",
+            "text": "VitalPulse",
+            "selected": false
+          },
+          {
+            "value": "984794",
+            "text": "Synthetic Site Health",
+            "selected": false
+          },
+          {
+            "value": "984806",
+            "text": "Traffic Source and Medium",
+            "selected": false
+          },
+          {
+            "value": "984818",
+            "text": "RUM Performance Detail",
+            "selected": false
+          },
+          {
+            "value": "984830",
+            "text": "Synthetic Performance Detail",
+            "selected": false
+          },
+          {
+            "value": "984986",
+            "text": "Native App Performance Detail",
+            "selected": false
+          },
+          {
+            "value": "984998",
+            "text": "Native App Detailed Metrics - Android",
+            "selected": false
+          },
+          {
+            "value": "985010",
+            "text": "Native App Detailed Metrics - iOS",
+            "selected": false
+          }
+        ],
+        "hasTarget": false
+      },
+      {
+        "label": "Shared",
+        "count": 4,
+        "sample": [
+          {
+            "value": "843798",
+            "text": "test custom dash",
+            "selected": false
+          },
+          {
+            "value": "852569",
+            "text": "UA B2C - Traffic Breakdown Errors",
+            "selected": false
+          },
+          {
+            "value": "852571",
+            "text": "UA B2C - Business Metrics with Performance",
+            "selected": false
+          },
+          {
+            "value": "852574",
+            "text": "UA B2C - Desktop Performance for Top Journey Pages",
+            "selected": false
+          }
+        ],
+        "hasTarget": false
+      },
+      {
+        "label": "Custom",
+        "count": 6,
+        "sample": [
+          {
+            "value": "998773",
+            "text": "Synthetic Regression - US2",
+            "selected": false
+          },
+          {
+            "value": "998785",
+            "text": "Alerts Regression - US2",
+            "selected": false
+          },
+          {
+            "value": "998797",
+            "text": "Business Regression - US2",
+            "selected": false
+          },
+          {
+            "value": "998798",
+            "text": "Marketing Regression - US2",
+            "selected": false
+          },
+          {
+            "value": "998810",
+            "text": "Tag Governance - US2",
+            "selected": true
+          },
+          {
+            "value": "998822",
+            "text": "RUM Regression - US2",
+            "selected": false
+          }
+        ],
+        "hasTarget": true
+      }
+    ],
+    "bodySample": "Dashboards Get started 6 ADMINISTRATOR Site Overview VitalPulse Synthetic Site Health Traffic Source and Medium RUM Performance Detail Synthetic Performance Detail Native App Performance Detail Native App Detailed Metrics - Android Native App Detailed Metrics - iOS test custom dash UA B2C - Traffic Breakdown Errors UA B2C - Business Metrics with Performance UA B2C - Desktop Performance for Top Journey Pages Synthetic Regression - US2 Alerts Regression - US2 Business Regression - US2 Marketing Regression - US2 Tag Governance - US2 RUM Regression - US2 Tag Governance - US2 GDC Test Site 2 Demo eCommerce Global Last 24 hours Auto Refresh (10m) Carousel (off) + Widget + Dashboard 1st vs 3rd Party Composition - US2 2026-08-20 12:18 to 2026-08-21 12:18, IST (+05:30) Domain Activity 4.7%​ 1st Party ​ 65.41 s 95.3%​ 3rd Party ​ 1324.11 s File Size 33.3%​ 1st Party ​ 11,515 KB 66.7%​ 3rd Party ​ 23,062 KB Element Count /​Page 19.0%​ 1st Party ​ 22 / Page 81.0%​ 3rd Party ​ 95 / Page 1st vs 3rd Party Activity - Synthetic - US2 SERVICES DOMAINS FILES 1st Party 3rd Party All Slowest Services Before: Onload TEST OVERRIDE First Meaningful Paint First Contentful Paint Time to DOM Content Loaded Time To DOM Interactive 120 Seconds 120 Seconds Duration (sec) Slowest Services By Activity 2026-08-20 12:18 to 2026-08-21 12:18, IST (+05:30) 813.432s​813.432s 68.478s​68.478s 6.085s​6.085s 2.549s​2.549s 1.114s​1.114s 0.83s​0.83s 0.811s​0.811s 0.699s​0.699s 0.647s​0.647s 0.612s​0.612s 0.602s​0.602s 0.575s​0.575s 0.511s​0.511s 0.449s​0.449s 0.407s​0.407s 0.406s​0.406s 0.394s​0.394s 0.389s​0.389s 0.387s​0.387s 0.387s​0.387s 0.387s​0.387s 0.379s​0.379s 0.349s​0.349s 0.337s​0.337s 0.33s​0.33s 0.326s​0.326s 0.324s​0.324s 0.318s​0.318s 0.3s​0.3s 0.285s​0.285s 0.253s​0.253s 0.25s​0.25s 0.232s​0.232s 0.225s​0.225s 0.224s​0.224s 0.22s​0.22s 0.219s​0.219s 0.212s​0.212s 0.206s​0.206s 0.19s​0.19s 0.187s​0.187s 0.186s​0.186s 0.186s​0.186s 0.185s​0.185s 0.181s​0.181s 0.171s​0.171s 0.168s​0.168s 0.164s​0.164s 0.158s​0.158s 0.142s​0.142s 0.138s​0.138s 0.133s​0.133s 0.12s​0.12s 0.119s​0.119s 0.116s​0.116s 0.115s​0.115s 0.114s​0.114s 0.108s​0.108s 0.104s​0.104s 0.102s​0.102s 0.097s​0.097s 0.096s​0.096s 0.093s​0.093s 0.092s​0.092s 0.089s​0.089s 0.084s​0.084s 0.084s​0.084s 0.082s​0.082s 0.082s​0.082s 0.081s​0.081s 0.08s​0.08s 0.078s​0.078s 0.077s​0.077s 0.074s​0.074s 0.074s​0.074s 0.071s​0.071s 0.068s​0.068s 0.066s​0.066s 0.066s​0.066s 0.062s​0.062s 0.062s​0.062s 0.062s​0.062s 0.056s​0.056s 0.053s​0.053s 0.052s​0.052s 0.05s​0.05s 0.05s​0.05s 0.048s​0.048s 0.046s​0.046s 0.045s​0.045s 0.042s​0.042s 0.04s​0.04s 0.04s​0.04s 0.037s​0.037s 0.035s​0.035s 0.035s​0.035s 0.033s​0.033s 0.032s​0.032s 0.032s​0.032s 0.031s​0.031s 0 100 200 300 400 500 600 700 800 900 Lowes Unknown Skyword RhythmOne True Fit Warmly Kampyle Firework Akamai mPulse Branch HockeyStack ZineOne Yahoo Tracker Adobe Analytics (Everesttech) LinkedIn Tracker jsDelivr Clinch Apple SecuredVisit PubMatic Cabelas Google North America Tru Optik Bass Pro Blue Triangle (Website) Semasio User Targeting PayPal iHM Identity Inc ID5 Technology Adobe Audience Manager Akamai Potential Malware/Adware Microsoft Clarity Taboola LinkedIn Criteo Ping Identity Adobe DTM Loader online-metrix TikTok DoubleClick Advertising LoopMe Hubspot Qualtrics Site Intercept Nextdoor (Website) Google Cloud Facebook Conversion Tracking Google LiveIntent Amazon Web Services Namecheap Fullstory Launch Darkly Coveo Google APIs Yext Flashtalking Quantum Metric IP-API Connexity AppNexus Media.net Microsoft EU Bing Event Tracking SnapChat Cloudflare Yahoo Analytics Braintree Adswizz TowerData AppsFlyer Five9 Dotomi Rapleaf Dax Google Tag Manager RevLifter Pinterest ClickCease TrustArc Conversant Impact Radius Lightning Bolt Syndigo BidSwitch Eco Rebates Bombora Sentry smartadserver Salsify OneTrust Nielsen eXelate TradeDesk Seedtag Narrative I/O comScore LinkShare Sharethrough InMobi Merkle Advertising 1st vs 3rd Party Composition - RUM - US2 Domain Activity 13.1%​ 1st Party ​ 40.15 s 86.9%​ 3rd Party ​ 266.31 s Element Count / Page 39.9%​ 1st Party ​ 1,387 / Page 60.1%​ 3rd Party ​ 2,093 / Page 1st vs 3rd Party Activity - RUM - US2 SERVICES DOMAINS FILES 1st Party 3rd Party All Slowest Services Before: Onload TEST OVERRIDE First Meaningful Paint First Contentful Paint Time to DOM Content Loaded Time To DOM Interactive 120 Seconds 120 Seconds Duration (sec) Slowest Services By Activity 2026-08-20 12:18 to 2026-08-21 12:18, IST (+05:30) 131.2"
+  },
+  "filtersOpen": {
+    "labels": [
+      "Time Lookback",
+      "Dashboard Refresh",
+      "Auto Refresh",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "Service",
+      "Total Load Time Before 120 Seconds",
+      "Domain",
+      "File",
+      "DASHBOARD MANAGER",
+      "6/75 dashboards used",
+      "Clone Dashboard",
+      "Select users to clone the dashboard(s):",
+      "Add a Widget",
+      "Widget Type",
+      "Time Period",
+      "Timezone",
+      "Saved Data Science Graphs",
+      "Site",
+      "Use Time Lookback Offset?",
+      "Widget Title *",
+      "Data Type",
+      "Data Originated From",
+      "Graph Type",
+      "Performance Metric",
+      "Group Lines By",
+      "Add Comparison Line?",
+      "Compare Today To",
+      "Displayed Metric",
+      "X Axis",
+      "Trim Left Side",
+      "Trim Right Side",
+      "X-Axis Value",
+      "Y-Axis Value",
+      "Order By",
+      "Display Screenshot For Latest",
+      "Statistical Method",
+      "Group By",
+      "Year Format",
+      "Type Of Comparison",
+      "Comparing",
+      "To",
+      "Years To Compare *",
+      "Comparing Today To",
+      "Past",
+      "Bucket Size",
+      "Path Name * Clear",
+      "Date of Performance Change",
+      "Path Overview Metrics",
+      "Include:",
+      "Threshold Percent Change",
+      "Onload",
+      "DOM Duration",
+      "Time to DOM Interactive",
+      "Time to DOM Content Loaded",
+      "Page Views / Session",
+      "Page Views",
+      "Orders",
+      "Revenue",
+      "Traffic Source / Referrer Clear",
+      "Traffic Medium Clear",
+      "Campaign Clear",
+      "A/B Testing Segment Filter Selector",
+      "A/B Testing Segment Clear",
+      "A/B Testing Segment",
+      "Visitor Type (new vs. returning) Clear",
+      "Datacenter Location Clear",
+      "Internet Service Provider / Organization Clear",
+      "Traffic Segment Clear",
+      "Content Groups / Page Groups Clear",
+      "SLA Filter Groups",
+      "Monitor Name Clear",
+      "Page Name",
+      "IN",
+      "CONTAINS",
+      "Common Devices:",
+      "Common Operating Systems:"
+    ],
+    "select2": [
+      {
+        "id": "select2-switch-dashboard-container",
+        "text": "Tag Governance - US2",
+        "visible": true
+      },
+      {
+        "id": "select2-quick-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": false
+      },
+      {
+        "id": "select2-slowest-metric-355897-1786731551037-container",
+        "text": "120 Seconds",
+        "visible": true
+      },
+      {
+        "id": "select2-slowest-metric-355897-1786731551039-container",
+        "text": "120 Seconds",
+        "visible": true
+      },
+      {
+        "id": "select2-switch-user-container",
+        "text": "My Dashboards",
+        "visible": false
+      },
+      {
+        "id": "select2-widget-type-container",
+        "text": "Performance",
+        "visible": false
+      },
+      {
+        "id": "select2-timezone-container",
+        "text": "Asia/Kolkata/Mumbai (+05:30)",
+        "visible": false
+      },
+      {
+        "id": "select2-data-science-saved-graph-selector-container",
+        "text": "No Filter Applied",
+        "visible": false
+      },
+      {
+        "id": "select2-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": false
+      },
+      {
+        "id": "select2-revenue-offset-days-container",
+        "text": "0",
+        "visible": false
+      },
+      {
+        "id": "select2-revenue-offset-hours-container",
+        "text": "0",
+        "visible": false
+      },
+      {
+        "id": "select2-data-type-container",
+        "text": "Real User",
+        "visible": false
+      },
+      {
+        "id": "select2-report-data-type-container",
+        "text": "Real User Browser Data",
+        "visible": false
+      },
+      {
+        "id": "select2-data-origin-container",
+        "text": "RUM Browser & Native Webview",
+        "visible": false
+      },
+      {
+        "id": "select2-graph-type-container",
+        "text": "Line Graph",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-rum-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-native-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-synth-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-add-comparison-line-lookback-time-selector-container",
+        "text": "Yesterday",
+        "visible": false
+      },
+      {
+        "id": "select2-displayed-metric-rum-group-by-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-trim-histogram-left-side-container",
+        "text": ".1",
+        "visible": false
+      },
+      {
+        "id": "select2-trim-histogram-container",
+        "text": "30",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-rum-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-rum-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-native-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-native-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-synth-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-synth-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-order-by-container",
+        "text": "Selected X-Axis (Lowest to Highest)",
+        "visible": false
+      },
+      {
+        "id": "select2-scatter-display-type-container",
+        "text": "Error",
+        "visible": false
+      },
+      {
+        "id": "select2-top-paths-data-trend-container",
+        "text": "Arithmetic Mean",
+        "visible": false
+      },
+      {
+        "id": "select2-scatter-group-by-container",
+        "text": "Script Name / Traffic Segment",
+        "visible": false
+      },
+      {
+        "id": "select2-year-format-container",
+        "text": "Calendar Year",
+        "visible": false
+      },
+      {
+        "id": "select2-comparison-type-container",
+        "text": "Day To Day",
+        "visible": false
+      },
+      {
+        "id": "select2-rollingEnd-container",
+        "text": "Custom Selector",
+        "visible": false
+      },
+      {
+        "id": "select2-custom-comparing-to-type-container",
+        "text": "Weeks",
+        "visible": false
+      },
+      {
+        "id": "select2-calendar-bucket-size-container",
+        "text": "Auto",
+        "visible": false
+      },
+      {
+        "id": "select2-day-bucket-size-container",
+        "text": "Auto",
+        "visible": false
+      },
+      {
+        "id": "select2-a-b-segment-filter-selector-container",
+        "text": "Multi-Select",
+        "visible": false
+      },
+      {
+        "id": "select2-sla-group-container",
+        "text": "No Filter Applied",
+        "visible": false
+      },
+      {
+        "id": "select2-statistical-method-container",
+        "text": "Arithmetic Mean",
+        "visible": false
+      },
+      {
+        "id": "select2-percentile-container",
+        "text": "99th",
+        "visible": false
+      },
+      {
+        "id": "select2-domain-container",
+        "text": "cabelas.com",
+        "visible": false
+      },
+      {
+        "id": "select2-trim-container",
+        "text": "120",
+        "visible": false
+      }
+    ],
+    "buttons": [
+      "Toggle menu visibility",
+      "Toggle user menu visibility",
+      "Toggle settings menu visibility",
+      "Help Center",
+      "Blue Triangle Help Video",
+      "Change theme",
+      "Share this page",
+      "Toggle filters menu visibility",
+      "Toggle feedback form visibility",
+      "6",
+      "View Full Menu",
+      "GDC Test Site 2 Demo eCommerce Global",
+      "Last 24 hours",
+      "Custom Date Selection",
+      "Last 2 days",
+      "Last 7 days",
+      "Last 14 days",
+      "Last 30 days",
+      "Last 90 days",
+      "Today so far",
+      "This week so far",
+      "This month so far",
+      "Last 15 minutes",
+      "Last 30 minutes",
+      "Last 1 hour",
+      "Last 3 hours",
+      "Last 6 hours",
+      "Last 12 hours",
+      "Auto Refresh (10m)",
+      "Off",
+      "2 Minutes",
+      "5 Minutes",
+      "10 Minutes",
+      "15 Minutes",
+      "30 Minutes",
+      "60 Minutes",
+      "Carousel (off)",
+      "3m Interval",
+      "5m Interval",
+      "10m Interval"
+    ],
+    "tabs": [
+      {
+        "id": "my-filters-tab",
+        "text": "My Filters",
+        "cls": "active",
+        "active": true
+      },
+      {
+        "id": "",
+        "text": "My Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "shared-filters-tab",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      }
+    ],
+    "bodySample": "Dashboards Get started 6 ADMINISTRATOR Site Overview VitalPulse Synthetic Site Health Traffic Source and Medium RUM Performance Detail Synthetic Performance Detail Native App Performance Detail Native App Detailed Metrics - Android Native App Detailed Metrics - iOS test custom dash UA B2C - Traffic Breakdown Errors UA B2C - Business Metrics with Performance UA B2C - Desktop Performance for Top Journey Pages Synthetic Regression - US2 Alerts Regression - US2 Business Regression - US2 Marketing Regression - US2 Tag Governance - US2 RUM Regression - US2 Tag Governance - US2 GDC Test Site 2 Demo eCommerce Global Last 24 hours Auto Refresh (10m) Carousel (off) + Widget + Dashboard 1st vs 3rd Party Composition - US2 2026-08-20 12:18 to 2026-08-21 12:18, IST (+05:30) Domain Activity 4.7%​ 1st Party ​ 65.41 s 95.3%​ 3rd Party ​ 1324.11 s File Size 33.3%​ 1st Party ​ 11,515 KB 66.7%​ 3rd Party ​ 23,062 KB Element Count /​Page 19.0%​ 1st Party ​ 22 / Page 81.0%​ 3rd Party ​ 95 / Page 1st vs 3rd Party Activity - Synthetic - US2 SERVICES DOMAINS FILES 1st Party 3rd Party All Slowest Services Before: Onload TEST OVERRIDE First Meaningful Paint First Contentful Paint Time to DOM Content Loaded Time To DOM Interactive 120 Seconds 120 Seconds Duration (sec) Slowest Services By Activity 2026-08-20 12:18 to 2026-08-21 12:18, IST (+05:30) 813.432s​813.432s 68.478s​68.478s 6.085s​6.085s 2.549s​2.549s 1.114s​1.114s 0.83s​0.83s 0.811s​0.811s 0.699s​0.699s 0.647s​0.647s 0.612s​0.612s 0.602s​0.602s 0.575s​0.575s 0.511s​0.511s 0.449s​0.449s 0.407s​0.407s 0.406s​0.406s 0.394s​0.394s 0.389s​0.389s 0.387s​0.387s 0.387s​0.387s 0.387s​0.387s 0.379s​0.379s 0.349s​0.349s 0.337s​0.337s 0.33s​0.33s 0.326s​0.326s 0.324s​0.324s 0.318s​0.318s 0.3s​0.3s 0.285s​0.285s 0.253s​0.253s 0.25s​0.25s 0.232s​0.232s 0.225s​0.225s 0.224s​0.224s 0.22s​0.22s 0.219s​0.219s 0.212s​0.212s 0.206s​0.206s 0.19s​0.19s 0.187s​0.187s 0.186s​0.186s 0.186s​0.186s 0.185s​0.185s 0.181s​0.181s 0.171s​0.171s 0.168s​0.168s 0.164s​0.164s 0.158s​0.158s 0.142s​0.142s 0.138s​0.138s 0.133s​0.133s 0.12s​0.12s 0.119s​0.119s 0.116s​0.116s 0.115s​0.115s 0.114s​0.114s 0.108s​0.108s 0.104s​0.104s 0.102s​0.102s 0.097s​0.097s 0.096s​0.096s 0.093s​0.093s 0.092s​0.092s 0.089s​0.089s 0.084s​0.084s 0.084s​0.084s 0.082s​0.082s 0.082s​0.082s 0.081s​0.081s 0.08s​0.08s 0.078s​0.078s 0.077s​0.077s 0.074s​0.074s 0.074s​0.074s 0.071s​0.071s 0.068s​0.068s 0.066s​0.066s 0.066s​0.066s 0.062s​0.062s 0.062s​0.062s 0.062s​0.062s 0.056s​0.056s 0.053s​0.053s 0.052s​0.052s 0.05s​0.05s 0.05s​0.05s 0.048s​0.048s 0.046s​0.046s 0.045s​0.045s 0.042s​0.042s 0.04s​0.04s 0.04s​0.04s 0.037s​0.037s 0.035s​0.035s 0.035s​0.035s 0.033s​0.033s 0.032s​0.032s 0.032s​0.032s 0.031s​0.031s 0 100 200 300 400 500 600 700 800 900 Lowes Unknown Skyword RhythmOne True Fit Warmly Kampyle Firework Akamai mPulse Branch HockeyStack ZineOne Yahoo Tracker Adobe Analytics (Everesttech) LinkedIn Tracker jsDelivr Clinch Apple SecuredVisit PubMatic Cabelas Google North America "
+  },
+  "lookbackOptions": [
+    "Last 24 hours",
+    "Custom Date Selection",
+    "Last 2 days",
+    "Last 7 days",
+    "Last 14 days",
+    "Last 30 days",
+    "Last 90 days",
+    "Today so far",
+    "This week so far",
+    "This month so far",
+    "Last 15 minutes",
+    "Last 30 minutes",
+    "Last 1 hour",
+    "Last 3 hours",
+    "Last 6 hours",
+    "Last 12 hours"
+  ],
+  "autoRefreshOptions": [
+    "Off",
+    "2 Minutes",
+    "5 Minutes",
+    "10 Minutes",
+    "15 Minutes",
+    "30 Minutes",
+    "60 Minutes",
+    "Last 15 minutes",
+    "Last 30 minutes",
+    "Auto Refresh (10m)",
+    "Carousel (off)"
+  ],
+  "dashboardManagerSoft": {
+    "opened": true,
+    "headings": [
+      "Time Lookback",
+      "Dashboard Refresh",
+      "Auto Refresh",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Executive",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting"
+    ],
+    "buttons": [
+      "Toggle menu visibility",
+      "Toggle user menu visibility",
+      "Toggle settings menu visibility",
+      "Help Center",
+      "Blue Triangle Help Video",
+      "Change theme",
+      "Share this page",
+      "Toggle filters menu visibility",
+      "Toggle feedback form visibility",
+      "6",
+      "View Full Menu",
+      "GDC Test Site 2 Demo eCommerce Global",
+      "Last 24 hours",
+      "Custom Date Selection",
+      "Last 2 days",
+      "Last 7 days",
+      "Last 14 days",
+      "Last 30 days",
+      "Last 90 days",
+      "Today so far",
+      "This week so far",
+      "This month so far",
+      "Last 15 minutes",
+      "Last 30 minutes",
+      "Last 1 hour",
+      "Last 3 hours",
+      "Last 6 hours",
+      "Last 12 hours",
+      "Auto Refresh (10m)",
+      "Off"
+    ]
+  }
+}

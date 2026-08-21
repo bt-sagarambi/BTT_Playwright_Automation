@@ -1,0 +1,346 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the **custom** dashboard **“Marketing Regression - US2”**. Reverse-engineer the live application using **GDC Test Site 2** and refer to:
+  • Live portal reverse-engineering probe (Aug 20, 2026): docs/prompts/marketing-regression-us2-dashboard-live-probe.json
+  • Probe script: scripts/probe-marketing-regression-us2-dashboard.ts
+  • Live notes extract: docs/prompts/marketing-regression-us2-dashboard-notes.txt
+  • Live screenshot: docs/prompts/marketing-regression-us2-dashboard-live.png
+  • Help Center / widget docs (attached Aug 20, 2026 — mixed dump; field language; live titles/hosts override when they differ):
+      docs/prompts/The_Marketing_Overview_Page___Blue_Triangle_Help_Center.pdf
+        (article: https://help.bluetriangle.com/hc/en-us/articles/360033774453-The-Marketing-Overview-Page)
+      docs/prompts/Traffic_Source_and_Medium_Dashboard___Blue_Triangle_Help_Center.pdf
+        (article: https://help.bluetriangle.com/hc/en-us/articles/360021303034-Traffic-Source-and-Medium-Dashboard)
+      docs/prompts/The_Competitive_Index__See_How_Your_Site_Stacks_Up_Against_The_Competition___Blue_Triangle_Help_Center.pdf
+        (article: https://help.bluetriangle.com/hc/en-us/articles/4414489610643-The-Competitive-Index-See-How-Your-Site-Stacks-Up-Against-The-Competition)
+      docs/prompts/The_Customer_Journey_Analysis_Page___Blue_Triangle_Help_Center.pdf
+        (article: https://help.bluetriangle.com/hc/en-us/articles/360021493633-The-Customer-Journey-Analysis-Page)
+      docs/prompts/Bottom_of_the_Sales_Funnel_Widget___Blue_Triangle_Help_Center-extract.txt
+        (article: https://help.bluetriangle.com/hc/en-us/articles/360037345713-Bottom-of-the-Sales-Funnel-Widget)
+      docs/prompts/Revenue_Opportunity_Widget___Blue_Triangle_Help_Center.pdf
+        (article: https://help.bluetriangle.com/hc/en-us/articles/4403556256403-Revenue-Opportunity-Widget)
+      Campaign Information catalog language:
+        https://help.bluetriangle.com/hc/en-us/articles/27022168923923-Custom-Dashboard-Widgets
+      extracts: docs/prompts/*-extract.txt for the PDFs above
+  • Shared dashboard shell patterns from:
+      docs/prompts/AI Prompt (For Automation Regression-Business Regression - US2 Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Alerts Regression - US2 Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Synthetic Regression - US2 Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Bottom of the Sales Funnel Analysis).txt
+      helpers/preconfiguredDashboardChrome.ts
+      pages/BusinessRegressionUs2DashboardPage.ts / pages/AlertsRegressionUs2DashboardPage.ts / pages/BottomOfTheSalesFunnelAnalysisPage.ts / pages/MarketingOverviewPage.ts
+  • Navigation (user + live): Login → Left menu **Dashboards** → dashboard switcher → exact **Marketing Regression - US2**
+  • **No companion product .txt package** uniquely titled “Marketing Regression - US2” was in chat attachments — PDFs + live probe are the doc layer. If a package txt is re-attached later, fold it without overriding live SoT.
+
+NOTE ON DOCUMENTATION VS LIVE PRODUCT
+This board is a **Custom** (account) dashboard assembled for Marketing / campaign / funnel / revenue-opportunity regression coverage — not a Help Center “Preconfigured” product page and **not** the left-nav Marketing Overview page. There is no Help PDF uniquely titled “Marketing Regression - US2”. Prefer live widget **titles**, campaign **selector** text, funnel **View By** labels, step/conversion language, RO device **tab** labels, Select2 values, and stable id **prefixes** (chartID_*, campaignDiv_*, campaign-button_*, campaign-name_*, bottom-sales-funnel-*, sales-funnel-page-views-sessions-selector-*, salesFunnelToolTip_*, all-total-btn-*, desktop-btn-*, ios-btn_*, android-btn_*, all-total-graph_*, desktop-graph_*, ios-graph_*, android-graph_*). Dynamic grid-stack item ids and highcharts-* instance suffixes change per load — never hard-code them.
+
+PDF / catalog vs live (prefer live):
+  • Live widget title **Campaign Information - US2** with campaign sample **(No Campaign Assigned)** — Marketing Overview PDF documents a different **Marketing Insights** page (Sitewide Totals / Campaigns / Traffic Source-Medium / Device graphs). Use Overview PDF only for campaign KPI language (Page Views, Sessions, Bounce, Revenue, etc.), not as navigation SoT.
+  • Live **Bottom of Sales Funnel - US2** vs PDF **Bottom of the Sales Funnel Widget** — dual-regex `/Bottom\s+of\s+(the\s+)?Sales\s+Funnel/i`. PDF Find-Widget: Widget Type Summaries, Insight Type **Marketing**, Data Type Real User; requires a pre-created Funnel Path.
+  • Live funnel shows **View By: Page Views | Sessions**, step cards + **Bottom Funnel Conversion** / **Total Funnel Conversion**, and multi-step Highcharts — assert presence/format, never hard-code step names or %.
+  • **Revenue Opportunity - US2** same live patterns as Business Regression board: ALL/DESKTOP/IOS/ANDROID; **Revenue Opportunity by Page**; “over N days” report window. PDF Find-Widget sentence wrongly says “Performance Widget” — ignore.
+  • Traffic Source and Medium / Competitive Index / Customer Journey Analysis PDFs are **sibling or left-nav** docs — soft discrimination only; never treat those pages as this suite home.
+  • Widget pencil / X / Edit filters / Delete this widget — **never Save or Delete**. Soft open-cancel only if accidentally opened.
+
+CRITICAL DISTINCTION (do not confuse screens)
+  • **Marketing Regression - US2 (THIS suite)** = Dashboards → #switch-dashboard / #select2-switch-dashboard-container exact option **Marketing Regression - US2** under optgroup **Custom** on route **site/dashboard**.
+  • Other Custom US2 regression boards (**Synthetic / Alerts / Business / Tag Governance / RUM Regression - US2**) — soft sibling only; never accept as suite home.
+  • Preconfigured **Traffic Source and Medium** / **Site Overview** — soft-switch sample only; always restore **Marketing Regression - US2**.
+  • Left-nav **Marketing Insights → Marketing Overview** / **Customer Journey Analysis** — **out of primary scope**; never treat as home.
+  • Left-nav **Business Insights → Improve Traffic → Bottom of the Sales Funnel Analysis** / Funnel Configuration — soft incidental only; restore Dashboards home; never Save funnel path.
+  • Left-nav **Improve Conversion → Revenue Opportunity / Revenue Calculator / Revenue Attribution** — out of primary scope except incidental chrome; never Save/Submit reports.
+  • How to Create Custom Dashboards / widget editor Save — out of scope.
+
+⚠️ PROBE / SELECTION PITFALLS
+1) Exact Select2 match: use `^\s*Marketing Regression\s*-\s*US2\s*$`. Reject “Business Regression - US2”, “Alerts Regression - US2”, “Synthetic Regression - US2”, other “*- US2” Custom boards, Preconfigured **Traffic Source and Medium**, and Shared custom names.
+2) Optgroup is **Custom**, not Preconfigured — do not require Preconfigured listing.
+3) After dashboard switch, site must remain **GDC Test Site 2**; re-assert after switch.
+4) Widget titles may be followed by chart/KPI body in samples — assert via title regex / hosts, not full body dump.
+5) This board **has Highcharts** (probe highcharts≈12). Lookback hover-interval coverage uses **time-series** funnel charts (Bottom of Sales Funnel - US2 Page Views/Sessions). Campaign Information is KPI tiles (not datetime hover). RO bars use report window — not the datetime lookback hover widget.
+6) Widget pencil / X / Edit filters / Delete this widget — **never Save or Delete**. Soft open-cancel only if accidentally opened.
+7) Campaign picker may default to **(No Campaign Assigned)** — soft sample only; do not require a named paid campaign; restore prior selection.
+
+Live observations (GDC Test Site 2 — probe + screenshot, Aug 20, 2026)
+- URL: …/index.php?r=site/dashboard
+- Browser title / #page-title: Dashboards
+- Switcher text: Marketing Regression - US2 (Custom)
+- Site: GDC Test Site 2
+- Time Lookback sample: Last 24 hours
+- Auto Refresh sample: Auto Refresh (10m); menu Off / 2 / 5 / 10 / 15 / 30 / 60 Minutes
+- Carousel (off) soft
+- Widgets (title SoT):
+    • **Campaign Information - US2** — campaign **(No Campaign Assigned)**; KPI tiles Page Views | Page Views / Session | Sessions | Bounces | Exits | Onload | Orders | Conversion Rate | Revenue
+    • **Bottom of Sales Funnel - US2** — Bottom of the funnel; View By Page Views | Sessions; step conversions; Bottom Funnel Conversion; Total Funnel Conversion
+    • **Revenue Opportunity - US2** — ALL | DESKTOP | IOS | ANDROID; Revenue Opportunity by Page; All Devices over 7 days
+- Tabs: My Filters / Shared Filters (filter drawer). RO **ALL/DESKTOP/IOS/ANDROID** are widget device tabs. Funnel **View By** is a metric toggle, not a nav tab.
+- Filters / Dashboard Manager soft (6/75 dashboards used sample — do not hard-code)
+- chartID_* / campaign* / bottom-sales-funnel-* / all-total-graph-* / highcharts-* suffixes dynamic — use title + prefix hosts
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - Marketing Regression - US2 is a **custom marketing/campaign/funnel/RO regression board** consolidating Campaign Information KPIs for a selected campaign, the Bottom of Sales Funnel conversion graph, and the latest Revenue Opportunity-by-page bar chart — for end-to-end Marketing Insights–adjacent regression coverage on US2/GDC **via Dashboards**, not via Marketing Overview left-nav.
+   - Use live UI data only. Do not call APIs or query a database.
+   - Do not hard-code chartID_/grid-stack/highcharts-* suffixes, exact KPI dollars/K/MM/%, session/bounce/exit/order counts, campaign names, funnel step names (Home, Product, Cart, …), conversion percentages, page names (PDP, Checkout, Unnamed_Page, …), timezone IST strings, dashboard clone counters, or exact Last Updated clocks.
+   - Capture at suite start: active dashboard label (must be Marketing Regression - US2), active quick/site label, Time Lookback, Auto Refresh, presence of core widgets by title, selected campaign label, funnel View By mode, filter drawer closed, Carousel state, RO device tab (expect ALL).
+   - Assert titles, KPI/funnel/RO labels, formats ($, K/MM, %, s/seconds, counts), graph shells, controlled empty states, before/after soft signatures rather than exact backend series.
+   - If a lookback/filter combo yields empty graphs, assert controlled empty, annotate, restore data-bearing lookback and continue.
+
+2. Navigation and implementation paths
+   User + live primary path:
+   Login → Left menu **Dashboards** → #select2-switch-dashboard-container → exact **Marketing Regression - US2** (Custom)
+   Route: **site/dashboard**
+   Smoke catalog reference: **biz.dashboards** (menuLabel Dashboards, route site/dashboard, hrefIncludes site/dashboard, hrefExcludes marketing=yes)
+   Browser title: **Dashboards**
+   #page-title: **Dashboards**
+
+   Soft alternate: Dashboard Manager list → Eye/open Marketing Regression - US2 if listed; close without Save/Delete. Soft Favorites if present.
+
+   Target automation folder:
+   tests/regression_tests/US2/dashboards/custom/marketing-regression-us2/
+   Suggested spec name:
+   marketing.regression.us2.dashboard.regression.spec.ts
+   Suggested POM / locators:
+   pages/MarketingRegressionUs2DashboardPage.ts
+   locators/MarketingRegressionUs2DashboardLocators.ts
+   Reuse:
+   - helpers/preconfiguredDashboardChrome.ts (exact dashboard select, lookback, auto refresh, filters soft, manager soft, ensure profile site, restore home)
+   - pages/BusinessRegressionUs2DashboardPage.ts / AlertsRegressionUs2DashboardPage.ts / BottomOfTheSalesFunnelAnalysisPage.ts / MarketingOverviewPage.ts (shell + recover; RO device tabs; funnel language; **evaluate-based scroll**, not hanging scrollIntoViewIfNeeded)
+   Suggested manual workbook:
+   docs/Marketing_Regression_US2_Dashboard_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:marketing-regression-us2
+   Suggested test case ID prefix:
+   REG-MR-US2-###
+   Probe:
+   scripts/probe-marketing-regression-us2-dashboard.ts → docs/prompts/marketing-regression-us2-dashboard-live-probe.json
+
+3. Page load, authentication and default context
+   - Authenticated navigation without login redirect, blank shell, or perpetual loader.
+   - Browser title / #page-title match /Dashboards/i.
+   - URL contains site/dashboard (slash / %2F safe).
+   - Selected site is GDC Test Site 2 (#select2-quick-site-id-container when visible; global site select may be hidden — prefer quick-site recovery).
+   - Dismiss Get started / Don’t show me again / jconfirm before interacting.
+   - Verify #select2-switch-dashboard-container matches /^\s*Marketing Regression\s*-\s*US2\s*$/i. If not, select exact option under Custom and wait for widgets to settle.
+   - Verify core inventory settles within bounded UI deadline (by **title text** / stable prefixes):
+       • Campaign Information - US2 (campaignDiv_* / campaign-name_* / KPI tile language)
+       • Bottom of Sales Funnel - US2 (bottom-sales-funnel-* / View By / Bottom Funnel Conversion)
+       • Revenue Opportunity - US2 (ALL/DESKTOP/IOS/ANDROID + Revenue Opportunity by Page)
+   - Soft-assert #last-updated-dashboard when present.
+   - Soft-assert time-range + site + timezone sample shape on funnel/RO widgets — do not hard-code timestamps.
+   - Back/Forward/refresh return to healthy site/dashboard; re-select Marketing Regression - US2 + GDC if lost.
+   - Capture uncaught page errors; distinguish blocking vs Highcharts/third-party noise.
+
+4. Dashboard chrome (tabs = My/Shared Filters + RO device tabs + funnel View By)
+   Live chrome:
+   - #switch-dashboard / #select2-switch-dashboard-container
+   - Quick site / site lock soft
+   - #time-lookback (sample Last 24 hours)
+   - #refresh-dashboard
+   - #auto-refresh / frequency menu (Off + 2–60 Minutes)
+   - Carousel soft off
+   - Filters #toggle-filters / #mobile-controls-filters-btn; Cancel; Apply soft when present
+   - + Widget / + Dashboard — soft open/close; **do not Save**
+   - Dashboard Manager / wrench — soft open/close; no delete/share sticky
+   - My Filters / Shared Filters — read-only; **do not Save Filter**
+   Cover:
+   - Exact dashboard selected/selectable; soft-list Custom names include Marketing Regression - US2; distinguish Business/Alerts/Synthetic Regression - US2 and Preconfigured Traffic Source and Medium / Site Overview.
+   - Soft Auto Refresh options; restore.
+   - Soft Time Lookback change + restore (see §12 for full prescribed 6h/24h/7d/30d + hover interval checks).
+   - Click refresh; soft healthy widgets.
+   - Soft Filters open/Cancel/Escape.
+   - Soft Manager / Add Widget cancel (Widget Type **Summaries** + Insight Type **Marketing** or **Business** is find-widget language — sample only inside wizard; **Cancel**, never Add).
+   - **Tabs:** My/Shared Filters. RO ALL/DESKTOP/IOS/ANDROID are widget device tabs. Funnel View By Page Views/Sessions is a metric toggle. Campaign picker is not a dashboard nav tab.
+
+5. Widget — Campaign Information - US2
+   Purpose (Custom Dashboard Widgets catalog): high-level glance at how the **selected campaign** is performing over the **Dashboard Time Period** (Summaries / Marketing / RUM Browser Only).
+   Cover:
+   - Verify title **Campaign Information - US2** (or Campaign Information + US2 soft).
+   - Soft campaign label via campaign-name_* / campaign-button_* (live sample **(No Campaign Assigned)** / All Traffic language if present — dual-regex; do not require a named paid campaign).
+   - Soft KPI tile inventory (subset OK): Page Views | Page Views / Session | Sessions | Bounces | Exits | Onload | Orders | Conversion Rate | Revenue.
+   - Soft formats: counts with commas; % for Bounce/Exit/Conversion; seconds for Onload; $ / K / MM for Revenue — format-tolerant; never hard-code probe totals.
+   - Soft open campaign picker if available; sample another campaign **only if listed**; restore original; **never Save** widget filters.
+   - Host: chartID_* + campaignDiv_* / campaign-button_* / campaign-name_*.
+   - Pencil / Edit filters — **open-cancel only; never Save**.
+   - Do not treat Marketing Overview left-nav as this widget’s home.
+
+6. Widget — Bottom of Sales Funnel - US2
+   Purpose (PDF): step-by-step “conversion” rates as customers proceed through the checkout / late-funnel path — same graph as Bottom of the Sales Funnel Analysis page; based on Dashboard Time Period shown on the widget.
+   Cover:
+   - Verify title **Bottom of Sales Funnel - US2** (PDF “the Sales Funnel” dual-regex).
+   - Soft header **Bottom of the funnel**; soft time-period + GDC + timezone subtitle — do not hard-code clocks.
+   - Soft **View By:** **Page Views** and **Sessions** (sales-funnel-page-views-sessions-selector-*). Toggle once each direction; restore suite-start mode.
+   - Soft funnel step cards/bars with conversion language between steps; soft **Bottom Funnel Conversion** and **Total Funnel Conversion** when present — never hard-code step names or %.
+   - Soft Highcharts shells for page-views and sessions chart hosts (bottom-sales-funnel-chart-page-views-* / bottom-sales-funnel-chart-sessions-*).
+   - Soft hover/tooltip (salesFunnelToolTip-* / Highcharts tooltip) when series/steps exist — preferred widget for prescribed lookback **datetime** hover-interval checks.
+   - Host: chartID_* + bottom-sales-funnel-* prefixes.
+   - PDF: Funnel Path must already exist — do **not** open Funnel Configuration to create/edit paths; if Analysis page link opens, restore Marketing Regression - US2 + GDC without Save.
+   - Pencil/X — do not Save/Delete.
+
+7. Widget — Revenue Opportunity - US2
+   Purpose (PDF): latest Revenue Opportunity Report as a bar graph on a dashboard; data auto-updates from the most recent RO report.
+   Cover:
+   - Verify title **Revenue Opportunity - US2**.
+   - Soft device tabs **ALL | DESKTOP | IOS | ANDROID** (hosts all-total-btn-* / desktop-btn-* / ios-btn-* / android-btn-*). Default **ALL**.
+   - Soft click **DESKTOP** then restore **ALL**; optionally sample IOS or ANDROID if the graph remains healthy — never leave a non-ALL tab sticky.
+   - Soft chart title **Revenue Opportunity by Page**; subtitle **All Devices over 7 days** (or runtime “over N days” — do not hard-code 7 if product changes).
+   - Soft bar chart shell; y-axis **Revenue**; x-axis page/category labels when present — **never hard-code** PDP / Checkout / Unnamed_Page / $1.0 MM.
+   - Soft hover a bar when present.
+   - Hosts: all-total-graph-* / desktop-graph-* / ios-graph-* / android-graph-* / chartID_*.
+   - Soft empty annotate if a device tab has no bars.
+   - Do **not** navigate into left-nav Revenue Opportunity page as home; if a bar/title drills there, restore Marketing Regression - US2 + GDC without Save.
+   - Pencil/X — do not Save/Delete.
+
+8. Fields / labels inventory (assert as set, not pixel layout)
+   Dashboard: Dashboards, Marketing Regression - US2, Time Lookback, Dashboard Refresh, Auto Refresh, Carousel, + Widget, + Dashboard.
+   Campaign Information: Campaign Information - US2; (No Campaign Assigned) / campaign name; Page Views; Page Views / Session; Sessions; Bounces; Exits; Onload; Orders; Conversion Rate; Revenue.
+   Bottom of Sales Funnel: Bottom of Sales Funnel - US2; Bottom of the funnel; View By; Page Views; Sessions; Bottom Funnel Conversion; Total Funnel Conversion.
+   Revenue Opportunity: ALL; DESKTOP; IOS; ANDROID; Revenue Opportunity by Page; Revenue.
+   Filters drawer (when open): Time Period, Timezone, Site, Data Type / Data Originated From, Traffic Source / Referrer soft — Cancel only.
+   Wizard residue (if +Widget open): Widget Type Summaries; Insight Type Marketing or Business — Cancel.
+
+9. Graphs
+    Live probe: **twelve** Highcharts containers (funnel multi-step + RO multi-device). Assert **sized shells + titles/legends/KPI presence**, not SVG counts alone.
+    Cover:
+    - Campaign Information KPI tiles / chart shell (not datetime hover primary).
+    - Bottom of Sales Funnel multi-step + View By Page Views/Sessions charts; hover datetime/tooltip soft.
+    - Revenue Opportunity vertical bars; hover category.
+    - Funnel View By toggle restore; RO device-tab restore ALL.
+    - If a future build drops a step or KPI tile, subset-match; do not hard-fail for optional tiles.
+
+10. Filters drawer
+    Hosts: #toggle-filters; Apply soft; #cancel-filters; #my-filters-tab / #shared-filters-tab.
+    Cover: open Filters; soft core labels; My/Shared tabs; Cancel/Escape. **No Save Filter / Clear Cache / Clear Genius Cache**.
+    Soft Apply only if it will not persist a shared account filter; prefer Cancel.
+    After close: still Marketing Regression - US2 + three widgets.
+    Soft Traffic Source / Referrer / Campaign-related filter labels if present — leave untouched (Cancel).
+
+11. Sibling discrimination (soft)
+    - Soft once Business Regression - US2 → restore Marketing Regression - US2 + GDC.
+    - Soft once Traffic Source and Medium (Preconfigured) → restore home.
+    - Soft once Alerts Regression - US2 or Synthetic Regression - US2 → restore Marketing Regression - US2.
+    - Soft Shared/Favorites sample optional; no save.
+    - Always re-assert GDC Test Site 2 after switches.
+    - Soft left-nav Marketing Overview / Bottom of the Sales Funnel Analysis / Revenue Opportunity only if already in a drill; restore Dashboards home.
+
+12. Time Lookback / Auto Refresh / Filters (prescribed)
+    Lookback host: #time-lookback — presets soft (Custom Date; Last 2/7/14/30/90 days; Today/This week/This month so far; Last 15/30 minutes; Last 1/3/6/12/24 hours).
+    Cover:
+    - Open Time Lookback; soft verify multi-option menu (runtime list).
+    - **Required prescribed lookback apply set (hard to cover; soft on sparse data):** apply each of
+        1) **Last 6 hours**
+        2) **Last 24 hours**
+        3) **Last 7 days**
+        4) **Last 30 days**
+      After **each** selection:
+        • Assert `#time-lookback` label matches the applied preset (format-tolerant).
+        • Soft-assert core widgets ready (or controlled empty + annotate) — same spirit as `softPrescribedLookbacksRefresh` / `assertLookbackAppliedRefreshed`.
+        • Soft-assert dashboard data **reflects** the selected window: time-range subtitle on Bottom of Sales Funnel / Campaign Information, and/or Highcharts signature change. **Revenue Opportunity** may stay on its report window (e.g. “over 7 days”) — annotate if unchanged; do not hard-fail the suite for RO lookback-insensitivity.
+        • **Graph hover / tooltip time-interval check (required soft):** on ≥1 time-series widget when series exist — prefer **Bottom of Sales Funnel - US2** (Page Views or Sessions chart). Mouse-hover a plotted point/step and capture Highcharts / salesFunnelToolTip text. Soft-compare across the four lookbacks that the **visible time interval / span / bucket scale differs**. Exact clock strings must not be hard-coded. **Do not** use Campaign Information KPI tiles or RO bars as the datetime-interval widget. If a lookback has no hoverable points, annotate controlled empty and continue.
+      After the full set: **restore** original Time Lookback from suite-start capture (fallback Last 24 hours / Last 6 hours soft).
+    - Soft Custom Date open/cancel.
+    - Soft Auto Refresh Off + one interval; restore captured preference (often 10m).
+    - Filters Cancel-only as §10.
+
+13. Combination, recovery, non-functional
+    - Capture → prescribed lookbacks (6h → 24h → 7d → 30d) with Campaign + Funnel + RO inventory **and** soft funnel graph-hover tooltip interval samples per lookback → restore lookback.
+    - Soft funnel View By toggle restore; soft RO DESKTOP then ALL restore; soft campaign picker restore.
+    - Soft Filters Cancel; soft Manager cancel; soft + Widget cancel.
+    - Refresh keeps Marketing Regression - US2 identity.
+    - Viewport desktop + ~1100px OK; scroll Revenue Opportunity reachable (evaluate scrollIntoView — **do not hang on scrollIntoViewIfNeeded**).
+    - Performance: widgets settle within project soft deadlines.
+    - Soft a11y: filter toggle; chart titles / KPI labels readable.
+
+14. Out-of-scope mutations (always)
+    - Do not Save Filter / Save as New / Save Current / permanent shared filters.
+    - Do not Clear Cache / Clear Genius Cache.
+    - Do not permanently Save widget edits / Add Widget / Clone / Delete / Unshare dashboard / click widget X.
+    - Do not leave funnel View By sticky wrong mode, campaign picker sticky wrong campaign, or RO stuck on DESKTOP/IOS/ANDROID.
+    - Do not expand into full Marketing Overview / Customer Journey / Bottom of Sales Funnel Analysis / Revenue Calculator / Revenue Opportunity / Competitive Index suites — soft drill only.
+    - Do not hard-code campaign catalogs, funnel step catalogs, KPI totals, or exact time-range strings from the probe.
+
+15. Live reverse-engineering facts to preserve (GDC, Aug 20, 2026 probe)
+    - Custom optgroup; exact title Marketing Regression - US2; site/dashboard route
+    - Three widgets: Campaign Information - US2, Bottom of Sales Funnel - US2, Revenue Opportunity - US2
+    - Highcharts present (~12 containers); Campaign KPI + Funnel multi-step + RO bars
+    - Lookback Last 24 hours sample; Auto Refresh (10m) sample
+    - Campaign sample (No Campaign Assigned); Funnel View By Page Views/Sessions; RO ALL + by-Page over 7 days
+    - Probe JSON keys: target, selectResult, snap, filtersOpen, lookbackOptions, autoRefreshOptions, savedAt
+    - PDF / catalog articles: Marketing Overview 360033774453; Traffic Source Medium 360021303034; Bottom Funnel Widget 360037345713; RO Widget 4403556256403; Custom Dashboard Widgets 27022168923923 (Campaign Information)
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a Playwright automation suite under
+tests/regression_tests/US2/dashboards/custom/marketing-regression-us2
+covering thorough regression for:
+  - navigation & exact Custom dashboard identity (reject Business/Alerts/Synthetic Regression - US2, other *-US2 Custom boards, Preconfigured Traffic Source and Medium / Site Overview, and left-nav Marketing Overview as home)
+  - chrome: lookback, auto refresh, refresh, carousel soft, filters Cancel-only, My/Shared tabs, manager/+Widget cancel-only
+  - Campaign Information - US2 (campaign label + KPI tiles; soft picker restore; no widget Save)
+  - Bottom of Sales Funnel - US2 (View By Page Views/Sessions restore; step/conversion language; hover; no Funnel Configuration Save)
+  - Revenue Opportunity - US2 (ALL/DESKTOP/IOS/ANDROID tabs restore ALL; by-Page bars; report-window annotate)
+  - Time Lookback prescribed set **Last 6 hours / Last 24 hours / Last 7 days / Last 30 days** with per-lookback widget refresh + soft graph-hover tooltip **time-interval** differentiation on Bottom of Sales Funnel (not Campaign KPI / RO); restore lookback
+  - combination/recovery; GDC re-anchor
+  - explicit non-confusion with other Custom US2 boards, Traffic Source and Medium, Marketing Overview, Bottom of Sales Funnel Analysis, left-nav Improve Conversion pages
+
+Follow existing project framework and POM conventions. Prefer live probe titles/hosts as SoT; use PDFs for funnel path prerequisite language, RO report-source language, and Marketing Overview campaign KPI vocabulary only.
+
+After generation:
+1. Execute only the newly created Marketing Regression - US2 suite and fix automation hard failures.
+2. Generate fresh isolated Allure results + HTML report for this suite.
+3. Generate manual test-case workbook (Summary / Regression TCs / Notes).
+4. Include executed result summary and soft annotations for: empty graphs, RO device-tab empty, RO lookback-insensitive 7-day report window, prescribed lookbacks (6h/24h/7d/30d) + funnel hover tooltip interval samples, Campaign (No Campaign Assigned) default, Custom vs Preconfigured/Marketing Overview discrimination, GDC re-anchor.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable widget **titles** and id **prefixes** (chartID_*, campaignDiv_*, campaign-button_*, campaign-name_*, bottom-sales-funnel-*, sales-funnel-page-views-sessions-selector_*, all-total-btn_*, desktop-btn_*, ios-btn_*, android-btn_*, all-total-graph_*, desktop-graph_*, ios-graph_*, android-graph_*); do not depend on dynamic Highcharts instance IDs or grid-stack suffixes alone.
+6. Do not hard-code KPI dollars, campaign names, funnel step names, page names, fixed time-range/timezone strings, or exact chart counts.
+7. Capture and restore Marketing Regression - US2 home, GDC Test Site 2, Time Lookback, Auto Refresh, campaign selection, funnel View By mode, RO ALL tab when restorable without Save.
+8. Use a serial suite only when shared page state is intentional; optional/data-dependent failures must not abort unrelated tests (soft deadlines + recovery).
+9. Use bounded soft deadlines and explicit action timeouts.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page actions running into later serial tests; cancel/reload/reset before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save Filter, Clear Cache, permanently Save widgets/dashboard clones, or leave sticky campaign/View By/device-tab state.
+13. Keep primary scope on Marketing Regression - US2; restore after soft sibling visits.
+14. Close all menus, overlays, drawers, modals, Export menus opened by tests.
+15. Do not claim widgets refreshed by merely counting SVG hosts.
+16. Treat currency/%/count/time units as format-tolerant.
+17. Never accept Business/Alerts/Synthetic Regression - US2, another Custom *-US2 board, Traffic Source and Medium, Marketing Overview, Bottom of Sales Funnel Analysis, or left-nav Revenue Opportunity as suite home.
+18. If any requirement is ambiguous or missing, flag it before generating automation.
+19. Prefer evaluate-based scroll; do not hang on scrollIntoViewIfNeeded.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- **Companion .txt package uniquely titled Marketing Regression - US2 was not in Cursor attachments** — PDFs + live probe are SoT. Re-fold txt if supplied later.
+- Dashboard is **Custom**, not Preconfigured — account must retain Marketing Regression - US2; if missing on another env, flag before suite run.
+- Widget order/grid may reflow — prefer title presence over coordinates (live stack: Campaign Information → Bottom of Sales Funnel → Revenue Opportunity).
+- **Bottom of Sales Funnel** vs PDF **Bottom of the Sales Funnel** — dual-regex.
+- Campaign default **(No Campaign Assigned)** may be env-specific; named campaigns are data-dependent — never require a specific campaign name.
+- Funnel step inventory (Home / Product / Cart / …) depends on configured Funnel Path — subset-match; never hard-code path.
+- Revenue Opportunity **7-day report window** may ignore dashboard Time Lookback — annotate; do not hard-fail.
+- RO device tabs IOS/ANDROID may be empty on GDC — soft empty annotate; restore ALL.
+- Attached Competitive Index / Customer Journey / Native App / RUM Waterfall / etc. PDFs are **not** widgets on this board — do not invent coverage for them.
+- Formal SLA for widget reload — use project soft deadlines.
+- Coach/Get started overlays may appear.
+- Left-nav Marketing Overview / Funnel Analysis vs this dashboard is purpose-related; do not require those routes as home.
+- REG-MR-US2 prefix is **Marketing Regression** (Dashboards Custom), not Marketing Overview left-nav suite.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to:
+- docs/prompts/AI Prompt (For Automation Regression-Business Regression - US2 Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Alerts Regression - US2 Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Synthetic Regression - US2 Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Bottom of the Sales Funnel Analysis).txt
+- tests/regression_tests/US2/dashboards/custom/business-regression-us2/
+- tests/regression_tests/US2/dashboards/custom/alerts-regression-us2/
+- helpers/preconfiguredDashboardChrome.ts
+- pages/BusinessRegressionUs2DashboardPage.ts / pages/BottomOfTheSalesFunnelAnalysisPage.ts / pages/MarketingOverviewPage.ts
+
+Follow their patterns for POM/locator separation, authenticated GDC site selection, exact dashboard Select2 matching, filter open/cancel, Highcharts + funnel View By / RO device-tab soft toggles, serial recovery after soft sibling switches, isolated Allure + Excel workbooks, prescribed lookbacks, and npm naming that does not collide with business-regression-us2, alerts-regression-us2, marketing-overview, or bottom-of-the-sales-funnel-analysis suites.

@@ -1,0 +1,110 @@
+Tag Governance - US2 — live reverse-engineering + Help PDF notes (Aug 21, 2026)
+================================================================================
+Attached Help PDFs (Aug 21, 2026 chat attachments — widget docs for this Custom board):
+  • Environment Widget – https://help.bluetriangle.com/hc/en-us/articles/360037344913-Environment-Widget
+    copy: docs/prompts/Environment_Widget___Blue_Triangle_Help_Center.pdf
+    extract: docs/prompts/Environment_Widget___Blue_Triangle_Help_Center-extract.txt
+  • 1st vs 3rd Party Composition Widget – https://help.bluetriangle.com/hc/en-us/articles/360037344773-1st-vs-3rd-Party-Composition-Widget
+    copy: docs/prompts/1st_vs_3rd_Party_Composition_Widget___Blue_Triangle_Help_Center.pdf
+    extract: docs/prompts/1st_vs_3rd_Party_Composition_Widget___Blue_Triangle_Help_Center-extract.txt
+  • 1st vs 3rd Party Activity – https://help.bluetriangle.com/hc/en-us/articles/360036861294-1st-vs-3rd-Party-Activity
+    copy: docs/prompts/1st_vs_3rd_Party_Activity___Blue_Triangle_Help_Center.pdf
+    extract: docs/prompts/1st_vs_3rd_Party_Activity___Blue_Triangle_Help_Center-extract.txt
+
+No companion product .txt uniquely titled “Tag Governance - US2” was in attachments — SoT = live probe titles/hosts; PDFs = widget field/behavior language.
+
+Probe script: scripts/probe-tag-governance-us2-dashboard.ts
+Probe JSON:   docs/prompts/tag-governance-us2-dashboard-live-probe.json
+Screenshot:   docs/prompts/tag-governance-us2-dashboard-live.png
+
+Identity
+- Menu: Dashboards (left nav)
+- Route: site/dashboard
+- Browser / #page-title: Dashboards
+- Switcher: #select2-switch-dashboard-container = **Tag Governance - US2**
+- Optgroup: **Custom** (NOT Preconfigured)
+- Option value sample (account-dependent, e.g. 998810) — never hard-code
+- Site: GDC Test Site 2 (quick-site preferred; #select2-site-id-container often hidden)
+
+Sibling Custom US2 regression dashboards (soft discrimination only):
+- Synthetic Regression - US2
+- Alerts Regression - US2
+- Business Regression - US2
+- Marketing Regression - US2
+- RUM Regression - US2
+Preconfigured siblings to reject as home: Site Overview, VitalPulse, Synthetic Site Health, Traffic Source and Medium, …
+Left-nav **Manage → CSP & Tag Governance** (and Optimize/Audit/Protect) — purpose-related; **out of primary scope** as suite home; soft incidental only; never Save CSP/tag configs.
+
+Chrome (probe Aug 21, 2026)
+- Time Lookback sample: **Last 24 hours** (#time-lookback)
+- Lookback menu sample: Custom Date Selection | Last 2/7/14/30/90 days | Today/This week/This month so far | Last 15/30 minutes | Last 1/3/6/12/24 hours
+- Auto Refresh sample: **Auto Refresh (10m)**; options Off + 2/5/10/15/30/60 Minutes
+- Carousel (off) + intervals soft
+- #refresh-dashboard, Filters (#toggle-filters), + Widget / + Dashboard, Share, Dashboard Manager
+- #last-updated-dashboard sample: Last Updated … — never hard-code clock
+- My Filters / Shared Filters tabs
+- highcharts count = **32** (Composition donuts + Activity bars + Environment sparklines — do not hard-require exact count)
+
+Widgets observed (titles — prefer title text over dynamic grid-stack / chartID suffixes)
+1. **1st vs 3rd Party Composition - US2**
+   - Metrics (PDF + live): **Domain Activity** | **File Size** | **Element Count / Page** (live may show Element Count /Page)
+   - Each metric: % + **1st Party** / **3rd Party** values (seconds / KB / per Page) — never hard-code % or totals
+   - Hosts: chartID_*, first-vs-third-duration-*, first-vs-third-size-*, first-vs-third-count-*
+   - PDF: Widget Type Comparisons; Data Type Real User OR Synthetic; Insight Type Governance/Compliance
+   - PDF Find-Widget wrongly says “Network Health Checks Performance Widget” — ignore
+   - Note: 1st Party = First Party Domains list in site settings; else 3rd Party
+
+2. **1st vs 3rd Party Activity - Synthetic - US2**
+   - Tabs: **SERVICES | DOMAINS | FILES**
+   - Party filters: **1st Party | 3rd Party | All**
+   - **Slowest Services Before:** Select2 (sample **120 Seconds**; options Onload, TEST OVERRIDE, First Meaningful Paint, First Contentful Paint, Time to DOM Content Loaded, Time To DOM Interactive, 120 Seconds, …)
+   - Chart title sample: **Slowest Services By Activity**; Duration (sec); time-range subtitle
+   - View Graph / View Table; Export soft (CSV/TSV/JSON/Array) — open-cancel only; never leave Export sticky
+   - Hosts: domains-btn-*, first-party-btn-*, third-party-btn-*, slowest-metric-*, select2-slowest-metric-*-container, first-vs-third-graph-btn-*, first-vs-third-table-btn-*, slowest-services-graph-*, slowest-domains-graph-*, slowest-files-graph-*, slowest-*-table-*
+   - Preferred widget for prescribed lookback **bar/hover** interval checks (Synthetic Activity)
+
+3. **1st vs 3rd Party Composition - RUM - US2**
+   - Same Composition metric language as #1 but RUM-labeled title
+   - Live sample showed Domain Activity + Element Count / Page (File Size may still exist — subset OK)
+   - Hosts: first-vs-third-duration-*, first-vs-third-size-*, first-vs-third-count-*, chartID_*
+
+4. **1st vs 3rd Party Activity - RUM - US2**
+   - Same Activity chrome as Synthetic Activity (SERVICES/DOMAINS/FILES; 1st/3rd/All; Slowest … Before; Graph/Table)
+   - Hosts same prefix pattern with distinct widget suffix
+   - Also preferred for lookback hover (RUM Activity)
+
+5. **Environment - US2**
+   - PDF: holistic Tag Governance view; look-back = Dashboard Time Period; sparkline + start number + delta/% change
+   - Live KPI tiles: **DOMAINS RUM** | **PAGES RUM** | **FILES RUM** | **DOMAINS SYNTH** | **PAGES SYNTH** | **FILES SYNTH**
+   - Soft PDF extras if present: Vendors with Profiles | Services with Profiles | Configured SLA's (sparkline_vendors-* observed)
+   - Hosts: chartID_*, sparkline_domains_rum-*, sparkline_pages_rum-*, sparkline_files_rum-*, sparkline_domains_synth-*, sparkline_pages_synth-*, sparkline_files_synth-*, domains-rum-*, page-rum-*, domains-synth-*, page-synth-*
+   - PDF Find-Widget: Widget Type Trends; Data Type Real User or Synthetic; Insight Type Governance/Compliance
+   - PDF Files Synth sentence wrongly says “real user data” — prefer live **FILES SYNTH** label
+   - Not the primary datetime lookback hover widget (sparklines)
+
+Tabs / toggles
+- Dashboard filter drawer: **My Filters** / **Shared Filters**
+- Activity widget tabs: SERVICES / DOMAINS / FILES (not browser nav tabs)
+- Activity party toggles: 1st Party / 3rd Party / All
+- Activity Graph vs Table view buttons
+- Slowest-metric Select2 is a milestone filter, not a dashboard nav tab
+
+Stable id prefixes (never hard-code full suffixes)
+- chartID_*
+- first-vs-third-duration-* / first-vs-third-size-* / first-vs-third-count-*
+- domains-btn-* / first-party-btn-* / third-party-btn-*
+- slowest-metric-* / select2-slowest-metric-*-container
+- first-vs-third-graph-btn-* / first-vs-third-table-btn-*
+- slowest-services-graph-* / slowest-domains-graph-* / slowest-files-graph-*
+- slowest-services-table-* / slowest-domains-table-* / slowest-files-table-*
+- sparkline_domains_rum-* / sparkline_pages_rum-* / sparkline_files_rum-* / sparkline_*_synth-* / sparkline_vendors-*
+- highcharts-* instance ids + grid-stack item ids are **dynamic**
+
+Suggested automation artifacts
+- tests/regression_tests/US2/dashboards/custom/tag-governance-us2/
+- tag.governance.us2.dashboard.regression.spec.ts
+- pages/TagGovernanceUs2DashboardPage.ts
+- locators/TagGovernanceUs2DashboardLocators.ts
+- docs/Tag_Governance_US2_Dashboard_Regression.xlsx
+- npm: test:regression:us2:tag-governance-us2
+- IDs: REG-TG-US2-###

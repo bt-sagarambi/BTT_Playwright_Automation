@@ -1,0 +1,53 @@
+Blue Triangle Help Center > Documentation > Dashboard
+1st vs 3rd Party Activity
+ Mark Heideman
+5 years ago·  Updated
+Follow
+Preview:
+Sign in
+☰ | | | |
+Search🔍
+Articles in this section ▾
+8/21/26, 12:09 PM 1st vs 3rd Party Activity – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360036861294-1st-vs-3rd-Party-Activity 1/4
+Details:
+The 1st and 3rd Party Activity widget allows you to see the amount of time each Service, Domain
+and File spent loading on your site, and you can get this information broken out by 1st or 3rd Party
+content. This widget is available for both Real User and Synthetic Data.
+Note: 1st Party content is defined by the "First Party Domains" list in the site settings. All else is
+marked as 3rd Party.
+By default, you'll see a bar graph depicting the load time for All Services, containing the
+Slowest Services loading Before 120 seconds. You can change each of these options. Click the tabs
+at the top to switch between the Service, Domain or File view. Likewise, click the 1st Party, 3rd Party
+or All options to filter the information in the graph below.
+The Slowest Services Before selector allows you to filter the results below by the content starting to
+load before a performance milestone: Onload, Time to Interactive, First Meaningful Paint, First
+Contentful Paint, Time to DOM Content Loaded, Time to DOM Interactive or 120 seconds.
+8/21/26, 12:09 PM 1st vs 3rd Party Activity – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360036861294-1st-vs-3rd-Party-Activity 2/4
+All of this information is made up of data within the Dashboard Time Period.
+Was this article helpful?
+✓ Yes  ✕ No
+0 out of 0 found this helpful
+Have more questions? Submit a request
+Return to top⬆
+Recently viewed articles
+1st vs 3rd Party Composition Widget
+Revenue Opportunity Widget
+Bottom of the Sales Funnel Widget
+Campaign Information Widget
+Conversions by Response Time Widget
+Related articles
+Network Health Checks Overview
+BI Dashboard: Core Web Vital URL Volume
+1st vs 3rd Party Composition Widget
+Native App ANR & Out of Memory Warnings Widget
+Executive Reports: KPIs and Competitive CRUX
+Comments
+8/21/26, 12:09 PM 1st vs 3rd Party Activity – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360036861294-1st-vs-3rd-Party-Activity 3/4
+0 comments
+Please sign in to leave a comment.
+Blue Triangle Help Center
+8/21/26, 12:09 PM 1st vs 3rd Party Activity – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360036861294-1st-vs-3rd-Party-Activity 4/4
