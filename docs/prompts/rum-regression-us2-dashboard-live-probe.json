@@ -1,0 +1,2672 @@
+{
+  "target": "RUM Regression - US2",
+  "afterDashboardsNav": {
+    "title": "Dashboards",
+    "pageTitle": "Dashboards",
+    "switchText": {
+      "id": "select2-switch-dashboard-container",
+      "text": "Site Overview",
+      "visible": true
+    },
+    "syntheticHits": [
+      {
+        "text": "Synthetic Site Health",
+        "value": "984794",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "RUM Performance Detail",
+        "value": "984818",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "Synthetic Performance Detail",
+        "value": "984830",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "UA B2C - Business Metrics with Performance",
+        "value": "852571",
+        "selected": false,
+        "group": "Shared"
+      },
+      {
+        "text": "Synthetic Regression - US2",
+        "value": "998773",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Alerts Regression - US2",
+        "value": "998785",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Business Regression - US2",
+        "value": "998797",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Marketing Regression - US2",
+        "value": "998798",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Tag Governance - US2",
+        "value": "998810",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "RUM Regression - US2",
+        "value": "998822",
+        "selected": false,
+        "group": "Custom"
+      }
+    ],
+    "optionGroupLabels": [
+      "Preconfigured",
+      "Shared",
+      "Custom"
+    ]
+  },
+  "savedAt": "2026-08-24T06:04:18.646Z",
+  "selectResult": {
+    "selected": true,
+    "matchedText": "RUM Regression - US2",
+    "group": "select2",
+    "note": "clicked select2 option \"RUM Regression - US2\""
+  },
+  "screenshot": "D:\\Project_Work\\BlueTriangle_Automation\\docs\\prompts\\rum-regression-us2-dashboard-live.png",
+  "snap": {
+    "url": "https://portal.bluetriangle.com/btportal/web/index.php?r=site/dashboard",
+    "title": "Dashboards",
+    "pageTitle": "Dashboards",
+    "highcharts": 32,
+    "filterChrome": {
+      "toggleFilters": true,
+      "applyFilters": false,
+      "cancelFilters": true,
+      "timeLookback": true,
+      "switchDashboard": true,
+      "autoRefresh": true,
+      "refreshDashboard": true,
+      "lastUpdated": "Last Updated 12:59",
+      "myFilters": true,
+      "sharedFilters": true
+    },
+    "select2": [
+      {
+        "id": "select2-switch-dashboard-container",
+        "text": "RUM Regression - US2",
+        "visible": true
+      },
+      {
+        "id": "select2-quick-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": false
+      },
+      {
+        "id": "select2-switch-user-container",
+        "text": "My Dashboards",
+        "visible": false
+      },
+      {
+        "id": "select2-widget-type-container",
+        "text": "Performance",
+        "visible": false
+      },
+      {
+        "id": "select2-timezone-container",
+        "text": "Asia/Kolkata/Mumbai (+05:30)",
+        "visible": false
+      },
+      {
+        "id": "select2-data-science-saved-graph-selector-container",
+        "text": "No Filter Applied",
+        "visible": false
+      },
+      {
+        "id": "select2-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": false
+      },
+      {
+        "id": "select2-revenue-offset-days-container",
+        "text": "0",
+        "visible": false
+      },
+      {
+        "id": "select2-revenue-offset-hours-container",
+        "text": "0",
+        "visible": false
+      },
+      {
+        "id": "select2-data-type-container",
+        "text": "Real User",
+        "visible": false
+      },
+      {
+        "id": "select2-report-data-type-container",
+        "text": "Real User Browser Data",
+        "visible": false
+      },
+      {
+        "id": "select2-data-origin-container",
+        "text": "RUM Browser & Native Webview",
+        "visible": false
+      },
+      {
+        "id": "select2-graph-type-container",
+        "text": "Line Graph",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-rum-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-native-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-synth-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-add-comparison-line-lookback-time-selector-container",
+        "text": "Yesterday",
+        "visible": false
+      },
+      {
+        "id": "select2-displayed-metric-rum-group-by-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-trim-histogram-left-side-container",
+        "text": ".1",
+        "visible": false
+      },
+      {
+        "id": "select2-trim-histogram-container",
+        "text": "30",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-rum-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-rum-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-native-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-native-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-synth-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-synth-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-order-by-container",
+        "text": "Selected X-Axis (Lowest to Highest)",
+        "visible": false
+      },
+      {
+        "id": "select2-scatter-display-type-container",
+        "text": "Error",
+        "visible": false
+      },
+      {
+        "id": "select2-top-paths-data-trend-container",
+        "text": "Arithmetic Mean",
+        "visible": false
+      },
+      {
+        "id": "select2-scatter-group-by-container",
+        "text": "Script Name / Traffic Segment",
+        "visible": false
+      },
+      {
+        "id": "select2-year-format-container",
+        "text": "Calendar Year",
+        "visible": false
+      },
+      {
+        "id": "select2-comparison-type-container",
+        "text": "Day To Day",
+        "visible": false
+      },
+      {
+        "id": "select2-rollingEnd-container",
+        "text": "Custom Selector",
+        "visible": false
+      },
+      {
+        "id": "select2-custom-comparing-to-type-container",
+        "text": "Weeks",
+        "visible": false
+      }
+    ],
+    "buttons": [
+      "Toggle menu visibility",
+      "Toggle user menu visibility",
+      "Toggle settings menu visibility",
+      "Help Center",
+      "Blue Triangle Help Video",
+      "Change theme",
+      "Share this page",
+      "Toggle filters menu visibility",
+      "Toggle feedback form visibility",
+      "6",
+      "View Full Menu",
+      "GDC Test Site 2 Demo eCommerce Global",
+      "Last 24 hours",
+      "Custom Date Selection",
+      "Last 2 days",
+      "Last 7 days",
+      "Last 14 days",
+      "Last 30 days",
+      "Last 90 days",
+      "Today so far",
+      "This week so far",
+      "This month so far",
+      "Last 15 minutes",
+      "Last 30 minutes",
+      "Last 1 hour",
+      "Last 3 hours",
+      "Last 6 hours",
+      "Last 12 hours",
+      "Auto Refresh (10m)",
+      "Off",
+      "2 Minutes",
+      "5 Minutes",
+      "10 Minutes",
+      "15 Minutes",
+      "30 Minutes",
+      "60 Minutes",
+      "Carousel (off)",
+      "3m Interval",
+      "5m Interval",
+      "10m Interval",
+      "15m Interval",
+      "30m Interval",
+      "+ Widget",
+      "+ Dashboard",
+      "Edit filters for this widget",
+      "Delete this widget from the current dashboard",
+      "Deselect All Metrics",
+      "Reset",
+      "Apply",
+      "High Level",
+      "Detail Level",
+      "Add New Dashboard",
+      "Clone",
+      "Share",
+      "Unshare",
+      "Save",
+      "Close",
+      "Hide Shared",
+      "Cancel",
+      "Clone Dashboard"
+    ],
+    "labels": [
+      "Time Lookback",
+      "Dashboard Refresh",
+      "Auto Refresh",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "Type of Comparison",
+      "Comparing",
+      "To",
+      "Years to Compare",
+      "Comparing Today To",
+      "Custom Compare",
+      "Bucket Size",
+      "2026-08-23 11:34 to 2026-08-24 11:34 - GDC Test Site 2",
+      "PDP",
+      "Page Views",
+      "Completed Sessions",
+      "Average Session Length",
+      "Conversion Rate",
+      "Revenue Per Visitor",
+      "Network Time",
+      "Back-End Time",
+      "Front-End Time",
+      "Device",
+      "Revenue",
+      "Orders",
+      "Onload",
+      "JS Errors (Sampled)",
+      "Brand Value",
+      "Brand Orders",
+      "Averages",
+      "Totals",
+      "Path Name",
+      "DOM Duration",
+      "Time To DOM Interactive",
+      "Time To DOM Content Loaded",
+      "Pages Per Session",
+      "Test US2 Path",
+      "Device Type",
+      "OnloadComparison Since(Hourly Averages)",
+      "OnloadTrend Since2026/8/3(Daily Averages)",
+      "Last Week Averages(compared to previous week)",
+      "Yesterday Averages(compared to previous day)",
+      "Desktop",
+      "iPhone",
+      "iPad",
+      "Android",
+      "Windows",
+      "Mac",
+      "Linux",
+      "Mobile iPhone",
+      "Mobile Android",
+      "Tablet iPad",
+      "Tablet Android",
+      "Step",
+      "Sessions",
+      "Navigate to Homepage",
+      "Navigate to Category Page",
+      "Navigate to Product Page",
+      "DASHBOARD MANAGER",
+      "6/75 dashboards used",
+      "Clone Dashboard",
+      "Select users to clone the dashboard(s):",
+      "Add a Widget",
+      "Widget Type",
+      "Time Period",
+      "Timezone",
+      "Saved Data Science Graphs",
+      "Site",
+      "Use Time Lookback Offset?",
+      "Widget Title *",
+      "Data Type",
+      "Data Originated From",
+      "Graph Type",
+      "Performance Metric",
+      "Group Lines By",
+      "Add Comparison Line?",
+      "Compare Today To"
+    ],
+    "headings": [
+      "Time Lookback",
+      "Dashboard Refresh",
+      "Auto Refresh",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Executive",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "VISITS",
+      "PAGE VIEWS",
+      "ONLOAD",
+      "TIME TO DOM INTERACTIVE",
+      "AVG ORDER VALUE",
+      "REVENUE",
+      "ORDERS",
+      "CONVERSION RATE",
+      "2026-08-23 11:34 to 2026-08-24 11:34 - GDC Test Site 2",
+      "PDP",
+      "PAGE HITS",
+      "SESSIONS",
+      "PAGE ONLOAD",
+      "TEST OVERRIDE",
+      "FIRST CONTENTFUL PAINT",
+      "LARGEST CONTENTFUL PAINT",
+      "TOTAL BLOCKING TIME"
+    ],
+    "tabs": [
+      {
+        "id": "my-filters-tab",
+        "text": "My Filters",
+        "cls": "active",
+        "active": true
+      },
+      {
+        "id": "",
+        "text": "My Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "shared-filters-tab",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      }
+    ],
+    "widgets": [
+      {
+        "id": "355897-1786731551041",
+        "title": "",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": true,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "show-hide-chartID_355897-1786731551041",
+          "chartID_355897-1786731551041",
+          "perf-graph-div-chartID_355897-1786731551041",
+          "edit-show-hide-chartID_355897-1786731551041",
+          "chartID_355897-1786731551041-all-checked",
+          "chartID_355897-1786731551041-cwv",
+          "chartID_355897-1786731551041-hits",
+          "chartID_355897-1786731551041-onload",
+          "chartID_355897-1786731551041-tti",
+          "chartID_355897-1786731551041-fcp",
+          "chartID_355897-1786731551041-lcp",
+          "chartID_355897-1786731551041-tbt",
+          "chartID_355897-1786731551041-cls",
+          "chartID_355897-1786731551041-fid",
+          "chartID_355897-1786731551041-dom",
+          "chartID_355897-1786731551041-ttDomInt",
+          "chartID_355897-1786731551041-ttDomCont",
+          "chartID_355897-1786731551041-jsErrors",
+          "chartID_355897-1786731551041-firstByte",
+          "chartID_355897-1786731551041-dns",
+          "chartID_355897-1786731551041-tcp",
+          "chartID_355897-1786731551041-ssl",
+          "chartID_355897-1786731551041-redirect",
+          "chartID_355897-1786731551041-basePage",
+          "time-period-chartID_355897-1786731551041",
+          "selected-pages-chartID_355897-1786731551041",
+          "perfGraph-chartID_355897-1786731551041",
+          "highcharts-n6kl3tk-480",
+          "highcharts-n6kl3tk-481-",
+          "highcharts-drop-shadow-2"
+        ],
+        "bodySample": "RUM Performance - US2 Count Page Views 2026-08-23 11:30 to 2026-08-24 11:30, IST (+05:30)​GDC Test Site 2 Performance Details Pages: All Matching Pages Onload 1stByte DNS TCPCon DOM Duration SSL Redirect Base Page Time to DOM Interactive Time to DOM Content Loaded JS Errors (Sampled) TEST OVERRIDE First Contentful Paint Largest Contentful Paint Total Blocking Time Cumulative Layout Shift INP Page Views 1/4 0s 2.4s 4.8s 0 20k 40k 0 4.0K 8.0K 12:00 18:00 24 Aug 06:00"
+      },
+      {
+        "id": "355897-1786731551042",
+        "title": "RUM Native App Performance - US2 Performance Timing /​Onload Group / Page Views Errors and Crashes CPU Usage Memory Usage 2026-08-23 11:30 to 2026-08-24 11:30,​IST (+05:30)​GDC Tes",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": true,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "chartID_355897-1786731551042",
+          "perf-graph-div-chartID_355897-1786731551042",
+          "edit-show-hide-chartID_355897-1786731551042",
+          "chartID_355897-1786731551042-all-checked",
+          "chartID_355897-1786731551042-cwv",
+          "chartID_355897-1786731551042-hits",
+          "chartID_355897-1786731551042-onload",
+          "chartID_355897-1786731551042-jsErrors",
+          "chartID_355897-1786731551042-cpuAvg",
+          "chartID_355897-1786731551042-memoryAvg",
+          "chartID_355897-1786731551042-lcp",
+          "chartID_355897-1786731551042-fid",
+          "chartID_355897-1786731551042-cls",
+          "chartID_355897-1786731551042-firstByte",
+          "chartID_355897-1786731551042-tcp",
+          "chartID_355897-1786731551042-dns",
+          "chartID_355897-1786731551042-dom",
+          "chartID_355897-1786731551042-ssl",
+          "chartID_355897-1786731551042-redirect",
+          "chartID_355897-1786731551042-basePage",
+          "chartID_355897-1786731551042-ttDomInt",
+          "chartID_355897-1786731551042-ttDomCont",
+          "chartID_355897-1786731551042-tti",
+          "chartID_355897-1786731551042-fcp",
+          "chartID_355897-1786731551042-tbt",
+          "perfGraph-page-timings-graph-chartID_355897-1786731551042",
+          "highcharts-n6kl3tk-4008",
+          "highcharts-n6kl3tk-4009-",
+          "highcharts-drop-shadow-4",
+          "highcharts-n6kl3tk-4010-"
+        ],
+        "bodySample": "RUM Native App Performance - US2 Performance Timing /​Onload Group / Page Views Errors and Crashes CPU Usage Memory Usage 2026-08-23 11:30 to 2026-08-24 11:30,​IST (+05:30)​GDC Test Site 2 Groups / Pages: All Matching Groups / Pages Group / Page Views Performance Timing / Onload Errors and Crashes CPU Usage Memory Usage Largest Contentful Paint INP Cumulative Layout Shift First Byte TCP DNS DOM Duration SSL Redirect Base Page Time To DOM Interactive Time To DOM Content Loaded TEST OVERRIDE First Contentful Paint Total Blocking Time 1/6 0s 2.5s 5s 7.5s 0 6.0 K 2.0 K 4.0 K 0 1.00 K 2.00 K 3.00 K 0% 12% 24% 36% 0 15 MB 30 MB 45 MB 24 Aug 16:00 08:00"
+      },
+      {
+        "id": "355897-1786731551043",
+        "title": "RUM Performance Comparison - US2 Onload 2026-08-23 11:30 to 2026-08-24 11:30, IST (+05:30)​GDC Test Site 2 Onload All Matching Pages 0s 2s 4s 6s 12:00 16:00 20:00 24 Aug 04:00 08:0",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": true,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "chartID_355897-1786731551043",
+          "highcharts-n6kl3tk-5672",
+          "highcharts-drop-shadow-8",
+          "highcharts-n6kl3tk-5673-",
+          "highcharts-n6kl3tk-5963-"
+        ],
+        "bodySample": "RUM Performance Comparison - US2 Onload 2026-08-23 11:30 to 2026-08-24 11:30, IST (+05:30)​GDC Test Site 2 Onload All Matching Pages 0s 2s 4s 6s 12:00 16:00 20:00 24 Aug 04:00 08:00"
+      },
+      {
+        "id": "355897-1786731551044",
+        "title": "Bounce Rate - US2 Sessions Bounce Rate Page Views /​Session Onload (Seconds) from​2026-08-23 11:33 to 2026-08-24 11:33, IST (+05:30)​GDC Test Site 2 Bounce Rate and Page Views / Se",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": true,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "chartID_355897-1786731551044",
+          "highcharts-n6kl3tk-5556",
+          "highcharts-drop-shadow-7",
+          "highcharts-n6kl3tk-5557-",
+          "highcharts-n6kl3tk-5558-",
+          "highcharts-n6kl3tk-5559-",
+          "highcharts-n6kl3tk-5560-"
+        ],
+        "bodySample": "Bounce Rate - US2 Sessions Bounce Rate Page Views /​Session Onload (Seconds) from​2026-08-23 11:33 to 2026-08-24 11:33, IST (+05:30)​GDC Test Site 2 Bounce Rate and Page Views / Session by Onload Pages: PDP Sessions Bounce Rate Page Views / Session 0 4,000 8,000 0% 30% 60% 0 1.2 2.4 2 3 4"
+      },
+      {
+        "id": "355897-1786731551045",
+        "title": "KPI Date Comparison - US2 Type of Comparison Day to Day Year to Year Custom Comparing Today To Same Day Last Month Same Day Last Year Custom Custom Compare Previous X Days Same Day",
+        "visible": true,
+        "w": 1424,
+        "h": 588,
+        "hasChart": true,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "chartID_355897-1786731551045",
+          "kpi-minimize-left-side",
+          "left-side-355897-1786731551045",
+          "quick-selectors-form-355897-1786731551045",
+          "type-of-comparison-355897-1786731551045",
+          "comparing-custom-days-row-355897-1786731551045",
+          "time-period-wrapper",
+          "time-period-icon",
+          "comparing-custom-days-from-355897-1786731551045",
+          "time-period-wrapper",
+          "time-period-icon",
+          "comparing-custom-days-to-355897-1786731551045",
+          "years-to-compare-row-355897-1786731551045",
+          "years-to-compare-355897-1786731551045",
+          "comparing-to-row-355897-1786731551045",
+          "comparing-to-355897-1786731551045",
+          "custom-comparing-to-row-355897-1786731551045",
+          "custom-comparing-to-type-355897-1786731551045",
+          "custom-comparing-to-number-355897-1786731551045",
+          "compareTimeFrame-355897-1786731551045",
+          "comparisonLookbackPeriod-355897-1786731551045",
+          "dayComparison-355897-1786731551045",
+          "quickRollingStart-355897-1786731551045",
+          "quickRollingEnd-355897-1786731551045",
+          "bucket-size-yearly-row-355897-1786731551045",
+          "bucket-size-yearly-355897-1786731551045",
+          "bucket-size-daily-row-355897-1786731551045",
+          "bucket-size-daily-355897-1786731551045",
+          "quick-reset-355897-1786731551045",
+          "quick-apply-355897-1786731551045"
+        ],
+        "bodySample": "KPI Date Comparison - US2 Type of Comparison Day to Day Year to Year Custom Comparing Today To Same Day Last Month Same Day Last Year Custom Custom Compare Previous X Days Same Day Of Week For Last X Weeks Bucket Size Auto 1 Minutes 5 Minutes 10 Minutes 15 Minutes 30 Minutes Apply Selected Filters (Read Only) Device: OS : Browsers: GDC Test Site 2 Last Updated At: 11:34am * Shaded area denotes ongoing data processing VISITS Today 06:00 0 10K 20K 30K PAGE VIEWS Today 06:00 0 50K 100K ONLOAD Today 06:00 0 sec 2.5 sec 5 sec TIME TO DOM INTERACTIVE Today 06:00 0 sec 1 sec 2 sec AVG ORDER VALUE Today 06:00 0 200 400 REVENUE Today 06:00 $0 $50K $100K ORDERS Today 06:00 0 250 500 CONVERSION RATE Today 04:00 08:00 0 2 4"
+      },
+      {
+        "id": "355897-1786731551046",
+        "title": "Performance by Browser - US2 Onload(seconds) ​Pages: PDP​GDC Test Site 2 Performance By Browser 2026-08-23 11:33 to 2026-08-24 11:33, IST (+05:30) 2.9s​2.9s 3.57s​3.57s 3.72s​3.72s",
+        "visible": true,
+        "w": 712,
+        "h": 786,
+        "hasChart": true,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "chartID_355897-1786731551046",
+          "highcharts-n6kl3tk-3955",
+          "highcharts-drop-shadow-3",
+          "highcharts-n6kl3tk-3956-",
+          "highcharts-n6kl3tk-3957-",
+          "highcharts-drop-shadow-3--1--1"
+        ],
+        "bodySample": "Performance by Browser - US2 Onload(seconds) ​Pages: PDP​GDC Test Site 2 Performance By Browser 2026-08-23 11:33 to 2026-08-24 11:33, IST (+05:30) 2.9s​2.9s 3.57s​3.57s 3.72s​3.72s 2.37s​2.37s 2.75s​2.75s 2.73s​2.73s 3.1s​3.1s 4s​4s 3.47s​3.47s 3.04s​3.04s 5.16s​5.16s 4.55s​4.55s 2.78s​2.78s 6.93s​6.93s 2.57s​2.57s 3.43s​3.43s 3.42s​3.42s 6.8s​6.8s 3.28s​3.28s 3.38s​3.38s 4.43s​4.43s 3.09s​3.09s 6.09s​6.09s 4.95s​4.95s 7.86s​7.86s 2.78s​2.78s 4.28s​4.28s 3.06s​3.06s 2.73s​2.73s 4.39s​4.39s 2.54s​2.54s 2.69s​2.69s 4.6s​4.6s 5.12s​5.12s 3.98s​3.98s 4.79s​4.79s 2.56s​2.56s 4.47s​4.47s 2.96s​2.96s 3.14s​3.14s 2.67s​2.67s 2.07s​2.07s 6.06s​6.06s 4.08s​4.08s 10.36s​10.36s 9.84s​9.84s 11.18s​11.18s 3.27s​3.27s 5.78s​5.78s 4.34s​4.34s Onload TCP First Byte DNS DOM Duration SSL Redirect Mobile Safari-26-iOS 18 Chrome-151-Windows 19 Chrome Mobile iOS-151-iOS 26 Mobile Safari-18-iOS 18 Chrome Mobile-151-Android 17 Chrome Mobile-151-Android 15 Facebook-575-iOS 26 Safari-18-Mac OS X 10 Chrome-151-W"
+      },
+      {
+        "id": "355897-1786731551047",
+        "title": "Performance by Country - US2 Onload(seconds) ​Pages: PDP​GDC Test Site 2 Performance By Country 2026-08-23 11:34 to 2026-08-24 11:34, IST (+05:30) 3.46s​3.46s 2.98s​2.98s 5.37s​5.3",
+        "visible": true,
+        "w": 712,
+        "h": 786,
+        "hasChart": true,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "chartID_355897-1786731551047",
+          "highcharts-n6kl3tk-5462",
+          "highcharts-drop-shadow-5",
+          "highcharts-n6kl3tk-5463-",
+          "highcharts-n6kl3tk-5464-",
+          "highcharts-drop-shadow-5--1--1"
+        ],
+        "bodySample": "Performance by Country - US2 Onload(seconds) ​Pages: PDP​GDC Test Site 2 Performance By Country 2026-08-23 11:34 to 2026-08-24 11:34, IST (+05:30) 3.46s​3.46s 2.98s​2.98s 5.37s​5.37s 4.82s​4.82s 11.42s​11.42s 3.13s​3.13s 3.1s​3.1s 11.1s​11.1s 10.27s​10.27s 11.23s​11.23s 2.21s​2.21s 15.28s​15.28s 3.06s​3.06s 2.78s​2.78s 10.25s​10.25s 3.83s​3.83s 8.11s​8.11s 9.48s​9.48s 15.2s​15.2s 7.61s​7.61s 13.96s​13.96s 1.74s​1.74s 16.03s​16.03s 3.24s​3.24s 12.25s​12.25s 5.65s​5.65s 4.48s​4.48s 43.59s​43.59s 9.6s​9.6s 11.38s​11.38s 15.92s​15.92s 8.29s​8.29s 16.83s​16.83s 6s​6s 7.25s​7.25s 3.61s​3.61s 13.86s​13.86s 9.25s​9.25s Onload TCP First Byte DNS DOM Duration SSL Redirect US CA MX DE IN PE MD BR JP CZ NL GB ES IL AU PR DO CO GR GE IT BL BE GU CH IE NO PT SA PL MY SG AR JM GY VG KR BD 0 5 10 15 20 25 30 35 40 45 50"
+      },
+      {
+        "id": "355897-1786731551048",
+        "title": "Performance by Region - US2 Onload(seconds) ​Pages: PDP​GDC Test Site 2 Performance By Region 2026-08-23 11:34 to 2026-08-24 11:34, IST (+05:30) 3.13s​3.13s 3.51s​3.51s 3.42s​3.42s",
+        "visible": true,
+        "w": 712,
+        "h": 786,
+        "hasChart": true,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "chartID_355897-1786731551048",
+          "highcharts-n6kl3tk-5503",
+          "highcharts-drop-shadow-6",
+          "highcharts-n6kl3tk-5504-",
+          "highcharts-n6kl3tk-5505-",
+          "highcharts-drop-shadow-6--1--1"
+        ],
+        "bodySample": "Performance by Region - US2 Onload(seconds) ​Pages: PDP​GDC Test Site 2 Performance By Region 2026-08-23 11:34 to 2026-08-24 11:34, IST (+05:30) 3.13s​3.13s 3.51s​3.51s 3.42s​3.42s 3.42s​3.42s 3.49s​3.49s 3.45s​3.45s 3.63s​3.63s 3.44s​3.44s 3.21s​3.21s 3.57s​3.57s 3.53s​3.53s 3.44s​3.44s 3.59s​3.59s 3.45s​3.45s 3.45s​3.45s 3.16s​3.16s 3.53s​3.53s 3.74s​3.74s 3.74s​3.74s 3.25s​3.25s 3.21s​3.21s 3.68s​3.68s 3.68s​3.68s 3.32s​3.32s 3.97s​3.97s 3.61s​3.61s 3.3s​3.3s 3.41s​3.41s 3.64s​3.64s 3.48s​3.48s 3.94s​3.94s 3.7s​3.7s 3.9s​3.9s 3.05s​3.05s 3.35s​3.35s 3.27s​3.27s 3.69s​3.69s 3.54s​3.54s 3.53s​3.53s 3.21s​3.21s 3.14s​3.14s 3.34s​3.34s 3.61s​3.61s 3.59s​3.59s 3.27s​3.27s 3.2s​3.2s 3s​3s 4.09s​4.09s 3.35s​3.35s 3.89s​3.89s Onload TCP First Byte DNS DOM Duration SSL Redirect TX PA MI WI OH MN NY WA CO IL VA IN MA NE OR UT NC CA GA KY ME MO FL ID TN AZ CT NJ KS OK MD AL LA SC WV IA DE MT NM SD AK NH NV VT AR WY ND MS RI HI 0 0.5 1 1.5 2 2.5 3 3.5 4 4.5"
+      },
+      {
+        "id": "355897-1786731551049",
+        "title": "2026-08-23 11:34 to 2026-08-24 11:34 - GDC Test Site 2",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": false,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "show-hide-chartID_355897-1786731551049",
+          "chartID_355897-1786731551049",
+          "cardThings-chartID_355897-1786731551049",
+          "edit-show-hide-chartID_355897-1786731551049",
+          "chartID_355897-1786731551049-all-checked",
+          "chartID_355897-1786731551049-cwv",
+          "chartID_355897-1786731551049-hits",
+          "chartID_355897-1786731551049-sessions",
+          "chartID_355897-1786731551049-onload",
+          "chartID_355897-1786731551049-tti",
+          "chartID_355897-1786731551049-fcp",
+          "chartID_355897-1786731551049-lcp",
+          "chartID_355897-1786731551049-tbt",
+          "chartID_355897-1786731551049-cls",
+          "chartID_355897-1786731551049-fid",
+          "chartID_355897-1786731551049-dom",
+          "chartID_355897-1786731551049-ttDomInt",
+          "chartID_355897-1786731551049-ttDomCont",
+          "chartID_355897-1786731551049-jsErrors",
+          "chartID_355897-1786731551049-firstByte",
+          "chartID_355897-1786731551049-dns",
+          "chartID_355897-1786731551049-tcp",
+          "chartID_355897-1786731551049-ssl",
+          "chartID_355897-1786731551049-redirect",
+          "chartID_355897-1786731551049-basePage",
+          "time-period-chartID_355897-1786731551049",
+          "selected-pages-chartID_355897-1786731551049",
+          "div-hits-card-chartID_355897-1786731551049",
+          "hits-card-chartID_355897-1786731551049",
+          "div-sessions-card-chartID_355897-1786731551049"
+        ],
+        "bodySample": "Performance Summary - US2 2026-08-23 11:34 to 2026-08-24 11:34 - GDC Test Site 2 PDP PAGE HITS 406,307 SESSIONS 206.07 K PAGE ONLOAD 3.46 s TEST OVERRIDE 15.54 S FIRST CONTENTFUL PAINT 2.08 S LARGEST CONTENTFUL PAINT 4.38 S TOTAL BLOCKING TIME 979 MS CUMULATIVE LAYOUT SHIFT 0.240 INP 224 MS DOM DURATION 2.20 s TIME TO DOM CONT LOADED 2.31 s TIME TO DOM INTERACTIVE 2.05 s JS ERRORS (SAMPLED) 1,297,799 FIRST BYTE 1.06 s DNS 13 ms TCP 31 ms SSL 23 ms REDIRECT 2 ms BASE PAGE 54 ms"
+      },
+      {
+        "id": "355897-1786731551050",
+        "title": "Traffic Information - US2 Page Views Completed Sessions Average Session Length 1.13 M 274.9 K 4.1 Pages Conversion Rate Revenue Per Visitor 2.0% $4.27 2026-08-23 11:34 to 2026-08-2",
+        "visible": true,
+        "w": 712,
+        "h": 258,
+        "hasChart": false,
+        "hasTable": true,
+        "tableHeaders": [
+          "Page Views",
+          "Completed Sessions",
+          "Average Session Length",
+          "Conversion Rate",
+          "Revenue Per Visitor"
+        ],
+        "childIds": [
+          "chartID_355897-1786731551050",
+          "trafficDiv_355897-1786731551050",
+          "trafficTable_355897-1786731551050",
+          "pageViews",
+          "sessions",
+          "sessionLength",
+          "pageViewsTd",
+          "pageViews_355897-1786731551050",
+          "sessionsTd",
+          "sessions_355897-1786731551050",
+          "sessionLengthTd",
+          "sessionLength_355897-1786731551050",
+          "trafficTable2_355897-1786731551050",
+          "conversions",
+          "revenue",
+          "conversionsTd",
+          "conversions_355897-1786731551050",
+          "revenueTd",
+          "revenue_355897-1786731551050",
+          "time_355897-1786731551050"
+        ],
+        "bodySample": "Traffic Information - US2 Page Views Completed Sessions Average Session Length 1.13 M 274.9 K 4.1 Pages Conversion Rate Revenue Per Visitor 2.0% $4.27 2026-08-23 11:34 to 2026-08-24 11:34, IST (+05:30) GDC Test Site 2"
+      },
+      {
+        "id": "355897-1786731551051",
+        "title": "Timing Information - US2 Network Time Back-End Time Front-End Time 44 ms 778 ms 3.92 sec 2026-08-23 11:34 to 2026-08-24 11:34, IST (+05:30) GDC Test Site 2",
+        "visible": true,
+        "w": 593,
+        "h": 192,
+        "hasChart": false,
+        "hasTable": true,
+        "tableHeaders": [
+          "Network Time",
+          "Back-End Time",
+          "Front-End Time"
+        ],
+        "childIds": [
+          "chartID_355897-1786731551051",
+          "timersDiv_355897-1786731551051",
+          "timersTable_355897-1786731551051",
+          "network",
+          "backEnd",
+          "frontEnd",
+          "network_time",
+          "networkTime_355897-1786731551051",
+          "appended-network-355897-1786731551051",
+          "backend_time",
+          "backendTime_355897-1786731551051",
+          "appended-backend-355897-1786731551051",
+          "frontend_time",
+          "frontendTime_355897-1786731551051",
+          "time_355897-1786731551051"
+        ],
+        "bodySample": "Timing Information - US2 Network Time Back-End Time Front-End Time 44 ms 778 ms 3.92 sec 2026-08-23 11:34 to 2026-08-24 11:34, IST (+05:30) GDC Test Site 2"
+      },
+      {
+        "id": "355897-1786731551052",
+        "title": "Device Metrics - US2 Device Revenue Orders Page Views Onload JS Errors (Sampled) Brand Value Brand Orders $516,388 2,468 555,816 3.308 s 1,516,263 $0 0 $211,958 1,166 277,149 4.809",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": false,
+        "hasTable": true,
+        "tableHeaders": [
+          "Device",
+          "Revenue",
+          "Orders",
+          "Page Views",
+          "Onload",
+          "JS Errors (Sampled)",
+          "Brand Value",
+          "Brand Orders"
+        ],
+        "childIds": [
+          "chartID_355897-1786731551052",
+          "deviceMetricsPanel_355897-1786731551052",
+          "dMetricsTable_355897-1786731551052",
+          "deviceCol_355897-1786731551052",
+          "revenueCol_355897-1786731551052",
+          "ordersCol_355897-1786731551052",
+          "pagesCol_355897-1786731551052",
+          "onloadCol_355897-1786731551052",
+          "jsErrorCountCol_355897-1786731551052",
+          "brandValueCol_355897-1786731551052",
+          "brandOrdersCol_355897-1786731551052",
+          "dMetricsMobile_355897-1786731551052",
+          "mobileIcon_355897-1786731551052",
+          "mobileRev_355897-1786731551052",
+          "mobileOrders_355897-1786731551052",
+          "mobilePages_355897-1786731551052",
+          "mobileOnload_355897-1786731551052",
+          "mobilejsErrorCount_355897-1786731551052",
+          "mobileBrandValue_355897-1786731551052",
+          "mobileBrandOrders_355897-1786731551052",
+          "dMetricsAndroid_355897-1786731551052",
+          "androidIcon_355897-1786731551052",
+          "androidRev_355897-1786731551052",
+          "androidOrders_355897-1786731551052",
+          "androidPages_355897-1786731551052",
+          "androidOnload_355897-1786731551052",
+          "androidjsErrorCount_355897-1786731551052",
+          "androidBrandValue_355897-1786731551052",
+          "androidBrandOrders_355897-1786731551052",
+          "dMetricsDesktop_355897-1786731551052"
+        ],
+        "bodySample": "Device Metrics - US2 Device Revenue Orders Page Views Onload JS Errors (Sampled) Brand Value Brand Orders $516,388 2,468 555,816 3.308 s 1,516,263 $0 0 $211,958 1,166 277,149 4.809 s 741,642 $0 0 $444,415 1,866 295,583 4.362 s 783,349 $0 0 GDC Test Site 2"
+      },
+      {
+        "id": "355897-1786731551053",
+        "title": "Performance Path - US2 Comparing: TODAY To: Previous 4 weeks For: calendar year High Level Detail Level Selected Path: Test US2 Path Metric: Onload Browser: OS: Device: Last Update",
+        "visible": true,
+        "w": 1424,
+        "h": 786,
+        "hasChart": false,
+        "hasTable": true,
+        "tableHeaders": [
+          "Averages",
+          "Totals",
+          "Path Name",
+          "Onload",
+          "DOM Duration",
+          "Time To DOM Interactive",
+          "Time To DOM Content Loaded",
+          "Pages Per Session",
+          "Page Views",
+          "Orders",
+          "Revenue",
+          "Test US2 Path",
+          "Device Type",
+          "OnloadComparison Since(Hourly Averages)",
+          "OnloadTrend Since2026/8/3(Daily Averages)",
+          "Last Week Averages(compared to previous week)",
+          "Yesterday Averages(compared to previous day)",
+          "Onload",
+          "Pages Per Session",
+          "Page Views",
+          "Revenue",
+          "Onload",
+          "Pages Per Session",
+          "Page Views",
+          "Revenue",
+          "Desktop",
+          "iPhone",
+          "iPad",
+          "Android",
+          "Windows",
+          "Mac",
+          "Linux",
+          "Mobile iPhone",
+          "Mobile Android",
+          "Tablet iPad",
+          "Tablet Android",
+          "Step",
+          "OnloadComparison Since(Hourly Averages)",
+          "OnloadTrend Since2026/8/3(Daily Averages)",
+          "Last Week Averages(compared to previous week)"
+        ],
+        "childIds": [
+          "chartID_355897-1786731551053",
+          "pFlowWrpper_355897-1786731551053",
+          "pathComparisonSelectors",
+          "pcStartLabel_355897-1786731551053",
+          "pcStartInfo_355897-1786731551053",
+          "pcStartText_355897-1786731551053",
+          "pcStartDate_355897-1786731551053",
+          "pcEndLabel_355897-1786731551053",
+          "pcEndInfo_355897-1786731551053",
+          "pcEndText_355897-1786731551053",
+          "pcEndDate_355897-1786731551053",
+          "pcCalTypeLabel_355897-1786731551053",
+          "pcCalTypeInfo_355897-1786731551053",
+          "deviceToggleContainer",
+          "allDevicesButton_355897-1786731551053",
+          "desktopButton_355897-1786731551053",
+          "mobileButton_355897-1786731551053",
+          "ipadButton_355897-1786731551053",
+          "toggle-high-level-355897-1786731551053",
+          "toggle-detail-level-355897-1786731551053",
+          "androidButton_355897-1786731551053",
+          "subtitleYesterday_355897-1786731551053",
+          "dataType_355897-1786731551053",
+          "top-paths-minimize-left-side",
+          "high-level-355897-1786731551053",
+          "left-side-355897-1786731551053",
+          "pathSelector_355897-1786731551053",
+          "left-side-metric355897-1786731551053",
+          "left-side-browser355897-1786731551053",
+          "chrome-355897-1786731551053"
+        ],
+        "bodySample": "Performance Path - US2 Comparing: TODAY To: Previous 4 weeks For: calendar year High Level Detail Level Selected Path: Test US2 Path Metric: Onload Browser: OS: Device: Last Updated At: 11:34am STEP 1 NAVIGATE TO HOMEPAGE Infinity secToday Infinity sec Infinity secBaseline STEP 2 NAVIGATE TO CATEGORY PAGE Infinity secToday Infinity sec Infinity secBaseline STEP 3 NAVIGATE TO PRODUCT PAGE"
+      },
+      {
+        "id": "355897-1786731551054",
+        "title": "Performance by Geography - US2 Displayed Metric: Onload DOM Duration TEST OVERRIDE First Contentful Paint Largest Contentful Paint Total Blocking Time INP Time to DOM Content Loade",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": true,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "chartID_355897-1786731551054",
+          "metric-355897-1786731551054",
+          "map-355897-1786731551054",
+          "highcharts-n6kl3tk-6274",
+          "highcharts-n6kl3tk-6569",
+          "highcharts-drop-shadow-18",
+          "highcharts-n6kl3tk-6570-",
+          "highcharts-n6kl3tk-6571-"
+        ],
+        "bodySample": "Performance by Geography - US2 Displayed Metric: Onload DOM Duration TEST OVERRIDE First Contentful Paint Largest Contentful Paint Total Blocking Time INP Time to DOM Content Loaded Time To DOM Interactive First Byte DNS TCP SSL Redirect Base Page Total Page Views Total Sessions Total Revenue Total Orders Conversion Rate Onload By Geography 0s 20s 40s 60s"
+      },
+      {
+        "id": "355897-1786731551056",
+        "title": "SLA Violations - US2",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": false,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "chartID_355897-1786731551056"
+        ],
+        "bodySample": "SLA Violations - US2"
+      },
+      {
+        "id": "355897-1786731551055",
+        "title": "Year by Year Comparison - US2",
+        "visible": true,
+        "w": 712,
+        "h": 390,
+        "hasChart": false,
+        "hasTable": false,
+        "tableHeaders": [],
+        "childIds": [
+          "chartID_355897-1786731551055"
+        ],
+        "bodySample": "Year by Year Comparison - US2"
+      }
+    ],
+    "charts": [
+      {
+        "i": 0,
+        "id": "perfGraph-chartID_355897-1786731551041",
+        "hostId": "perfGraph-chartID_355897-1786731551041",
+        "parentId": "",
+        "w": 694,
+        "h": 328,
+        "title": "Performance Details",
+        "legend": [
+          "Onload",
+          "Onload",
+          "1stByte",
+          "1stByte",
+          "DNS",
+          "DNS",
+          "TCPCon",
+          "TCPCon",
+          "DOM Duration",
+          "DOM Duration",
+          "SSL",
+          "SSL",
+          "Redirect",
+          "Redirect",
+          "Base Page",
+          "Base Page",
+          "Time to DOM Interactive",
+          "Time to DOM Interactive",
+          "Time to DOM Content Loaded",
+          "Time to DOM Content Loaded",
+          "JS Errors (Sampled)",
+          "JS Errors (Sampled)",
+          "TEST OVERRIDE",
+          "TEST OVERRIDE",
+          "First Contentful Paint"
+        ]
+      },
+      {
+        "i": 1,
+        "id": "highcharts-n6kl3tk-480",
+        "hostId": "highcharts-n6kl3tk-480",
+        "parentId": "perfGraph-chartID_355897-1786731551041",
+        "w": 678,
+        "h": 328,
+        "title": "Performance Details",
+        "legend": [
+          "Onload",
+          "Onload",
+          "1stByte",
+          "1stByte",
+          "DNS",
+          "DNS",
+          "TCPCon",
+          "TCPCon",
+          "DOM Duration",
+          "DOM Duration",
+          "SSL",
+          "SSL",
+          "Redirect",
+          "Redirect",
+          "Base Page",
+          "Base Page",
+          "Time to DOM Interactive",
+          "Time to DOM Interactive",
+          "Time to DOM Content Loaded",
+          "Time to DOM Content Loaded",
+          "JS Errors (Sampled)",
+          "JS Errors (Sampled)",
+          "TEST OVERRIDE",
+          "TEST OVERRIDE",
+          "First Contentful Paint"
+        ]
+      },
+      {
+        "i": 2,
+        "id": "perfGraph-page-timings-graph-chartID_355897-1786731551042",
+        "hostId": "perfGraph-page-timings-graph-chartID_355897-1786731551042",
+        "parentId": "",
+        "w": 678,
+        "h": 400,
+        "title": "Groups / Pages: All Matching Groups / Pages",
+        "legend": [
+          "Group / Page Views",
+          "Group / Page Views",
+          "Performance Timing / Onload",
+          "Performance Timing / Onload",
+          "Errors and Crashes",
+          "Errors and Crashes",
+          "CPU Usage",
+          "CPU Usage",
+          "Memory Usage",
+          "Memory Usage",
+          "Largest Contentful Paint",
+          "Largest Contentful Paint",
+          "INP",
+          "INP",
+          "Cumulative Layout Shift",
+          "Cumulative Layout Shift",
+          "First Byte",
+          "First Byte",
+          "TCP",
+          "TCP",
+          "DNS",
+          "DNS",
+          "DOM Duration",
+          "DOM Duration",
+          "SSL"
+        ]
+      },
+      {
+        "i": 3,
+        "id": "highcharts-n6kl3tk-4008",
+        "hostId": "highcharts-n6kl3tk-4008",
+        "parentId": "perfGraph-page-timings-graph-chartID_355897-1786731551042",
+        "w": 662,
+        "h": 400,
+        "title": "Groups / Pages: All Matching Groups / Pages",
+        "legend": [
+          "Group / Page Views",
+          "Group / Page Views",
+          "Performance Timing / Onload",
+          "Performance Timing / Onload",
+          "Errors and Crashes",
+          "Errors and Crashes",
+          "CPU Usage",
+          "CPU Usage",
+          "Memory Usage",
+          "Memory Usage",
+          "Largest Contentful Paint",
+          "Largest Contentful Paint",
+          "INP",
+          "INP",
+          "Cumulative Layout Shift",
+          "Cumulative Layout Shift",
+          "First Byte",
+          "First Byte",
+          "TCP",
+          "TCP",
+          "DNS",
+          "DNS",
+          "DOM Duration",
+          "DOM Duration",
+          "SSL"
+        ]
+      },
+      {
+        "i": 4,
+        "id": "chartID_355897-1786731551043",
+        "hostId": "chartID_355897-1786731551043",
+        "parentId": "",
+        "w": 694,
+        "h": 346,
+        "title": "",
+        "legend": [
+          "All Matching Pages",
+          "All Matching Pages"
+        ]
+      },
+      {
+        "i": 5,
+        "id": "highcharts-n6kl3tk-5672",
+        "hostId": "highcharts-n6kl3tk-5672",
+        "parentId": "chartID_355897-1786731551043",
+        "w": 678,
+        "h": 330,
+        "title": "",
+        "legend": [
+          "All Matching Pages",
+          "All Matching Pages"
+        ]
+      },
+      {
+        "i": 6,
+        "id": "chartID_355897-1786731551044",
+        "hostId": "chartID_355897-1786731551044",
+        "parentId": "",
+        "w": 694,
+        "h": 346,
+        "title": "Bounce Rate and Page Views / Session by Onload",
+        "legend": [
+          "Sessions",
+          "Sessions",
+          "Bounce Rate",
+          "Bounce Rate",
+          "Page Views / Session",
+          "Page Views / Session"
+        ]
+      },
+      {
+        "i": 7,
+        "id": "highcharts-n6kl3tk-5556",
+        "hostId": "highcharts-n6kl3tk-5556",
+        "parentId": "chartID_355897-1786731551044",
+        "w": 678,
+        "h": 330,
+        "title": "Bounce Rate and Page Views / Session by Onload",
+        "legend": [
+          "Sessions",
+          "Sessions",
+          "Bounce Rate",
+          "Bounce Rate",
+          "Page Views / Session",
+          "Page Views / Session"
+        ]
+      },
+      {
+        "i": 8,
+        "id": "yearByYearVisits_355897-1786731551045",
+        "hostId": "yearByYearVisits_355897-1786731551045",
+        "parentId": "",
+        "w": 246,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 9,
+        "id": "highcharts-n6kl3tk-5976",
+        "hostId": "highcharts-n6kl3tk-5976",
+        "parentId": "yearByYearVisits_355897-1786731551045",
+        "w": 245,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 10,
+        "id": "yearByYearPageHits_355897-1786731551045",
+        "hostId": "yearByYearPageHits_355897-1786731551045",
+        "parentId": "",
+        "w": 246,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 11,
+        "id": "highcharts-n6kl3tk-5968",
+        "hostId": "highcharts-n6kl3tk-5968",
+        "parentId": "yearByYearPageHits_355897-1786731551045",
+        "w": 245,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 12,
+        "id": "yearByYearOnload_355897-1786731551045",
+        "hostId": "yearByYearOnload_355897-1786731551045",
+        "parentId": "",
+        "w": 246,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 13,
+        "id": "highcharts-n6kl3tk-5966",
+        "hostId": "highcharts-n6kl3tk-5966",
+        "parentId": "yearByYearOnload_355897-1786731551045",
+        "w": 245,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 14,
+        "id": "yearByYearTTDI_355897-1786731551045",
+        "hostId": "yearByYearTTDI_355897-1786731551045",
+        "parentId": "",
+        "w": 246,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 15,
+        "id": "highcharts-n6kl3tk-5964",
+        "hostId": "highcharts-n6kl3tk-5964",
+        "parentId": "yearByYearTTDI_355897-1786731551045",
+        "w": 245,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 16,
+        "id": "yearByYearAvgOrderValue_355897-1786731551045",
+        "hostId": "yearByYearAvgOrderValue_355897-1786731551045",
+        "parentId": "",
+        "w": 246,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 17,
+        "id": "highcharts-n6kl3tk-5978",
+        "hostId": "highcharts-n6kl3tk-5978",
+        "parentId": "yearByYearAvgOrderValue_355897-1786731551045",
+        "w": 245,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 18,
+        "id": "yearByYearRevenue_355897-1786731551045",
+        "hostId": "yearByYearRevenue_355897-1786731551045",
+        "parentId": "",
+        "w": 246,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 19,
+        "id": "highcharts-n6kl3tk-5974",
+        "hostId": "highcharts-n6kl3tk-5974",
+        "parentId": "yearByYearRevenue_355897-1786731551045",
+        "w": 245,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 20,
+        "id": "yearByYearOrders_355897-1786731551045",
+        "hostId": "yearByYearOrders_355897-1786731551045",
+        "parentId": "",
+        "w": 246,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 21,
+        "id": "highcharts-n6kl3tk-5972",
+        "hostId": "highcharts-n6kl3tk-5972",
+        "parentId": "yearByYearOrders_355897-1786731551045",
+        "w": 245,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 22,
+        "id": "yearByYearConvRate_355897-1786731551045",
+        "hostId": "yearByYearConvRate_355897-1786731551045",
+        "parentId": "",
+        "w": 246,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 23,
+        "id": "highcharts-n6kl3tk-5970",
+        "hostId": "highcharts-n6kl3tk-5970",
+        "parentId": "yearByYearConvRate_355897-1786731551045",
+        "w": 245,
+        "h": 200,
+        "title": "",
+        "legend": [
+          "Today",
+          "Today"
+        ]
+      },
+      {
+        "i": 24,
+        "id": "chartID_355897-1786731551046",
+        "hostId": "chartID_355897-1786731551046",
+        "parentId": "",
+        "w": 694,
+        "h": 742,
+        "title": "Performance By Browser",
+        "legend": [
+          "Onload",
+          "Onload",
+          "TCP",
+          "TCP",
+          "First Byte",
+          "First Byte",
+          "DNS",
+          "DNS",
+          "DOM Duration",
+          "DOM Duration",
+          "SSL",
+          "SSL",
+          "Redirect",
+          "Redirect"
+        ]
+      },
+      {
+        "i": 25,
+        "id": "highcharts-n6kl3tk-3955",
+        "hostId": "highcharts-n6kl3tk-3955",
+        "parentId": "chartID_355897-1786731551046",
+        "w": 678,
+        "h": 726,
+        "title": "Performance By Browser",
+        "legend": [
+          "Onload",
+          "Onload",
+          "TCP",
+          "TCP",
+          "First Byte",
+          "First Byte",
+          "DNS",
+          "DNS",
+          "DOM Duration",
+          "DOM Duration",
+          "SSL",
+          "SSL",
+          "Redirect",
+          "Redirect"
+        ]
+      },
+      {
+        "i": 26,
+        "id": "chartID_355897-1786731551047",
+        "hostId": "chartID_355897-1786731551047",
+        "parentId": "",
+        "w": 694,
+        "h": 742,
+        "title": "Performance By Country",
+        "legend": [
+          "Onload",
+          "Onload",
+          "TCP",
+          "TCP",
+          "First Byte",
+          "First Byte",
+          "DNS",
+          "DNS",
+          "DOM Duration",
+          "DOM Duration",
+          "SSL",
+          "SSL",
+          "Redirect",
+          "Redirect"
+        ]
+      },
+      {
+        "i": 27,
+        "id": "highcharts-n6kl3tk-5462",
+        "hostId": "highcharts-n6kl3tk-5462",
+        "parentId": "chartID_355897-1786731551047",
+        "w": 678,
+        "h": 726,
+        "title": "Performance By Country",
+        "legend": [
+          "Onload",
+          "Onload",
+          "TCP",
+          "TCP",
+          "First Byte",
+          "First Byte",
+          "DNS",
+          "DNS",
+          "DOM Duration",
+          "DOM Duration",
+          "SSL",
+          "SSL",
+          "Redirect",
+          "Redirect"
+        ]
+      },
+      {
+        "i": 28,
+        "id": "chartID_355897-1786731551048",
+        "hostId": "chartID_355897-1786731551048",
+        "parentId": "",
+        "w": 694,
+        "h": 742,
+        "title": "Performance By Region",
+        "legend": [
+          "Onload",
+          "Onload",
+          "TCP",
+          "TCP",
+          "First Byte",
+          "First Byte",
+          "DNS",
+          "DNS",
+          "DOM Duration",
+          "DOM Duration",
+          "SSL",
+          "SSL",
+          "Redirect",
+          "Redirect"
+        ]
+      },
+      {
+        "i": 29,
+        "id": "highcharts-n6kl3tk-5503",
+        "hostId": "highcharts-n6kl3tk-5503",
+        "parentId": "chartID_355897-1786731551048",
+        "w": 678,
+        "h": 726,
+        "title": "Performance By Region",
+        "legend": [
+          "Onload",
+          "Onload",
+          "TCP",
+          "TCP",
+          "First Byte",
+          "First Byte",
+          "DNS",
+          "DNS",
+          "DOM Duration",
+          "DOM Duration",
+          "SSL",
+          "SSL",
+          "Redirect",
+          "Redirect"
+        ]
+      },
+      {
+        "i": 30,
+        "id": "map-355897-1786731551054",
+        "hostId": "map-355897-1786731551054",
+        "parentId": "",
+        "w": 694,
+        "h": 285,
+        "title": "Onload By Geography",
+        "legend": [
+          "0s20s40s60s",
+          "0s",
+          "20s",
+          "40s",
+          "60s"
+        ]
+      },
+      {
+        "i": 31,
+        "id": "highcharts-n6kl3tk-6274",
+        "hostId": "highcharts-n6kl3tk-6274",
+        "parentId": "map-355897-1786731551054",
+        "w": 678,
+        "h": 285,
+        "title": "Onload By Geography",
+        "legend": [
+          "0s20s40s60s",
+          "0s",
+          "20s",
+          "40s",
+          "60s"
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "id": "trafficTable_355897-1786731551050",
+        "className": "timersTable table table-bordered table-striped",
+        "headers": [
+          "Page Views",
+          "Completed Sessions",
+          "Average Session Length"
+        ],
+        "rows": 2,
+        "visible": true
+      },
+      {
+        "id": "trafficTable2_355897-1786731551050",
+        "className": "timersTable table table-bordered table-striped",
+        "headers": [
+          "Conversion Rate",
+          "Revenue Per Visitor"
+        ],
+        "rows": 2,
+        "visible": true
+      },
+      {
+        "id": "timersTable_355897-1786731551051",
+        "className": "timersTable table table-bordered table-striped",
+        "headers": [
+          "Network Time",
+          "Back-End Time",
+          "Front-End Time"
+        ],
+        "rows": 2,
+        "visible": true
+      },
+      {
+        "id": "dMetricsTable_355897-1786731551052",
+        "className": "table table-bordered table-striped",
+        "headers": [
+          "Device",
+          "Revenue",
+          "Orders",
+          "Page Views",
+          "Onload",
+          "JS Errors (Sampled)",
+          "Brand Value",
+          "Brand Orders"
+        ],
+        "rows": 3,
+        "visible": true
+      },
+      {
+        "id": "fullPathTable_355897-1786731551053",
+        "className": "table table-bordered table-striped",
+        "headers": [
+          "Averages",
+          "Totals",
+          "Path Name",
+          "Onload",
+          "DOM Duration",
+          "Time To DOM Interactive",
+          "Time To DOM Content Loaded",
+          "Pages Per Session",
+          "Page Views",
+          "Orders",
+          "Revenue",
+          "Test US2 Path"
+        ],
+        "rows": 1,
+        "visible": false
+      },
+      {
+        "id": "onloadByDeviceTable_355897-1786731551053",
+        "className": "table table-bordered table-striped",
+        "headers": [
+          "Device Type",
+          "OnloadComparison Since(Hourly Averages)",
+          "OnloadTrend Since2026/8/3(Daily Averages)",
+          "Last Week Averages(compared to previous week)",
+          "Yesterday Averages(compared to previous day)",
+          "Onload",
+          "Pages Per Session",
+          "Page Views",
+          "Revenue",
+          "Onload",
+          "Pages Per Session",
+          "Page Views",
+          "Revenue",
+          "Desktop",
+          "iPhone",
+          "iPad",
+          "Android",
+          "Windows",
+          "Mac",
+          "Linux",
+          "Mobile iPhone",
+          "Mobile Android",
+          "Tablet iPad",
+          "Tablet Android"
+        ],
+        "rows": 11,
+        "visible": false
+      },
+      {
+        "id": "pageTable_355897-1786731551053",
+        "className": "stepBreakdown table table-bordered table-striped",
+        "headers": [
+          "Step",
+          "OnloadComparison Since(Hourly Averages)",
+          "OnloadTrend Since2026/8/3(Daily Averages)",
+          "Last Week Averages(compared to previous week)",
+          "Yesterday Averages(compared to previous day)",
+          "Onload",
+          "Sessions",
+          "Page Views",
+          "Onload",
+          "Sessions",
+          "Page Views",
+          "Navigate to Homepage",
+          "Navigate to Category Page",
+          "Navigate to Product Page"
+        ],
+        "rows": 3,
+        "visible": false
+      },
+      {
+        "id": "dashboard-settings-table",
+        "className": "table table-borderless table-plain modal-table",
+        "headers": [],
+        "rows": 19,
+        "visible": false
+      }
+    ],
+    "interestingIds": [
+      "global-action-notification",
+      "page-title",
+      "exclamation-view-alerts",
+      "exclamation-alert-number-text",
+      "toggle-help-video",
+      "help-video-menu",
+      "share-page-btn",
+      "toggle-filters",
+      "view-alerts-1",
+      "view-alerts-2",
+      "alert-number-text",
+      "alerts-totals-by-type",
+      "alert-box-close-1",
+      "alert-box-close-2",
+      "mobile-controls-filters-btn",
+      "refresh-dashboard-li",
+      "toggle-filters-li",
+      "share-page-li",
+      "help-video-li",
+      "page-wrapper",
+      "page-controls-og",
+      "dashboard-page-controls",
+      "switch-dashboard",
+      "select2-switch-dashboard-container",
+      "time-lookback",
+      "auto-refresh-btn-group",
+      "refresh-dashboard",
+      "auto-refresh",
+      "auto-refresh-frequency",
+      "last-updated-dashboard",
+      "dashboard-manager",
+      "create-dashboard-page-controls",
+      "dashboard-manager-share",
+      "dashboard-manager-share-btn",
+      "dashboard-settings-toggle",
+      "revenue-offset-message",
+      "page-contents",
+      "show-hide-chartID_355897-1786731551041",
+      "chartID_355897-1786731551041",
+      "perf-graph-div-chartID_355897-1786731551041",
+      "edit-show-hide-chartID_355897-1786731551041",
+      "chartID_355897-1786731551041-all-checked",
+      "chartID_355897-1786731551041-cwv",
+      "chartID_355897-1786731551041-hits",
+      "chartID_355897-1786731551041-onload",
+      "chartID_355897-1786731551041-tti",
+      "chartID_355897-1786731551041-fcp",
+      "chartID_355897-1786731551041-lcp",
+      "chartID_355897-1786731551041-tbt",
+      "chartID_355897-1786731551041-cls",
+      "chartID_355897-1786731551041-fid",
+      "chartID_355897-1786731551041-dom",
+      "chartID_355897-1786731551041-ttDomInt",
+      "chartID_355897-1786731551041-ttDomCont",
+      "chartID_355897-1786731551041-jsErrors",
+      "chartID_355897-1786731551041-firstByte",
+      "chartID_355897-1786731551041-dns",
+      "chartID_355897-1786731551041-tcp",
+      "chartID_355897-1786731551041-ssl",
+      "chartID_355897-1786731551041-redirect",
+      "chartID_355897-1786731551041-basePage",
+      "time-period-chartID_355897-1786731551041",
+      "selected-pages-chartID_355897-1786731551041",
+      "perfGraph-chartID_355897-1786731551041",
+      "highcharts-n6kl3tk-480",
+      "highcharts-n6kl3tk-481-",
+      "highcharts-drop-shadow-2",
+      "highcharts-n6kl3tk-482-",
+      "highcharts-n6kl3tk-483-",
+      "highcharts-n6kl3tk-484-",
+      "highcharts-n6kl3tk-485-",
+      "highcharts-n6kl3tk-486-",
+      "chartID_355897-1786731551042",
+      "perf-graph-div-chartID_355897-1786731551042",
+      "edit-show-hide-chartID_355897-1786731551042",
+      "chartID_355897-1786731551042-all-checked",
+      "chartID_355897-1786731551042-cwv",
+      "chartID_355897-1786731551042-hits",
+      "chartID_355897-1786731551042-onload",
+      "chartID_355897-1786731551042-jsErrors",
+      "chartID_355897-1786731551042-cpuAvg",
+      "chartID_355897-1786731551042-memoryAvg",
+      "chartID_355897-1786731551042-lcp",
+      "chartID_355897-1786731551042-fid",
+      "chartID_355897-1786731551042-cls",
+      "chartID_355897-1786731551042-firstByte",
+      "chartID_355897-1786731551042-tcp",
+      "chartID_355897-1786731551042-dns",
+      "chartID_355897-1786731551042-dom",
+      "chartID_355897-1786731551042-ssl",
+      "chartID_355897-1786731551042-redirect",
+      "chartID_355897-1786731551042-basePage",
+      "chartID_355897-1786731551042-ttDomInt",
+      "chartID_355897-1786731551042-ttDomCont",
+      "chartID_355897-1786731551042-tti",
+      "chartID_355897-1786731551042-fcp",
+      "chartID_355897-1786731551042-tbt",
+      "perfGraph-page-timings-graph-chartID_355897-1786731551042",
+      "highcharts-n6kl3tk-4008",
+      "highcharts-n6kl3tk-4009-",
+      "highcharts-drop-shadow-4",
+      "highcharts-n6kl3tk-4010-",
+      "highcharts-n6kl3tk-4011-",
+      "highcharts-n6kl3tk-4012-",
+      "highcharts-n6kl3tk-4013-",
+      "highcharts-n6kl3tk-4014-",
+      "highcharts-n6kl3tk-4015-",
+      "highcharts-n6kl3tk-4016-",
+      "chartID_355897-1786731551043",
+      "highcharts-n6kl3tk-5672",
+      "highcharts-drop-shadow-8",
+      "highcharts-n6kl3tk-5673-",
+      "highcharts-n6kl3tk-5963-",
+      "chartID_355897-1786731551044",
+      "highcharts-n6kl3tk-5556",
+      "highcharts-drop-shadow-7",
+      "highcharts-n6kl3tk-5557-",
+      "highcharts-n6kl3tk-5558-",
+      "highcharts-n6kl3tk-5559-",
+      "highcharts-n6kl3tk-5560-",
+      "chartID_355897-1786731551045",
+      "time-period-wrapper",
+      "time-period-icon",
+      "time-period-wrapper",
+      "time-period-icon",
+      "compareTimeFrame-355897-1786731551045",
+      "comparisonLookbackPeriod-355897-1786731551045",
+      "left-side-device355897-1786731551045",
+      "tablet-355897-1786731551045",
+      "left-side-browser355897-1786731551045",
+      "highcharts-n6kl3tk-5976",
+      "highcharts-drop-shadow-15",
+      "highcharts-n6kl3tk-5977-",
+      "highcharts-n6kl3tk-6056-",
+      "yearByYearPageHits_355897-1786731551045",
+      "highcharts-n6kl3tk-5968",
+      "highcharts-drop-shadow-11",
+      "highcharts-n6kl3tk-5969-",
+      "highcharts-n6kl3tk-6012-",
+      "yearByYearOnload_355897-1786731551045",
+      "highcharts-n6kl3tk-5966",
+      "highcharts-drop-shadow-10",
+      "highcharts-n6kl3tk-5967-",
+      "highcharts-n6kl3tk-6001-",
+      "highcharts-n6kl3tk-5964",
+      "highcharts-drop-shadow-9",
+      "highcharts-n6kl3tk-5965-",
+      "highcharts-n6kl3tk-5990-",
+      "yearByYearAvgOrderValue_355897-1786731551045",
+      "highcharts-n6kl3tk-5978",
+      "highcharts-drop-shadow-16",
+      "highcharts-n6kl3tk-5979-",
+      "highcharts-n6kl3tk-6067-",
+      "yearByYearRevenue_355897-1786731551045",
+      "highcharts-n6kl3tk-5974",
+      "highcharts-drop-shadow-14",
+      "highcharts-n6kl3tk-5975-",
+      "highcharts-n6kl3tk-6045-",
+      "yearByYearOrders_355897-1786731551045",
+      "highcharts-n6kl3tk-5972",
+      "highcharts-drop-shadow-13",
+      "highcharts-n6kl3tk-5973-",
+      "highcharts-n6kl3tk-6034-",
+      "highcharts-n6kl3tk-5970",
+      "highcharts-drop-shadow-12",
+      "highcharts-n6kl3tk-5971-",
+      "highcharts-n6kl3tk-6023-",
+      "chartID_355897-1786731551046",
+      "highcharts-n6kl3tk-3955",
+      "highcharts-drop-shadow-3",
+      "highcharts-n6kl3tk-3956-",
+      "highcharts-n6kl3tk-3957-",
+      "highcharts-drop-shadow-3--1--1",
+      "chartID_355897-1786731551047",
+      "highcharts-n6kl3tk-5462",
+      "highcharts-drop-shadow-5",
+      "highcharts-n6kl3tk-5463-",
+      "highcharts-n6kl3tk-5464-",
+      "highcharts-drop-shadow-5--1--1",
+      "chartID_355897-1786731551048"
+    ],
+    "syntheticHits": [
+      {
+        "text": "Synthetic Site Health",
+        "value": "984794",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "RUM Performance Detail",
+        "value": "984818",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "Synthetic Performance Detail",
+        "value": "984830",
+        "selected": false,
+        "group": "Preconfigured"
+      },
+      {
+        "text": "UA B2C - Business Metrics with Performance",
+        "value": "852571",
+        "selected": false,
+        "group": "Shared"
+      },
+      {
+        "text": "Synthetic Regression - US2",
+        "value": "998773",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Alerts Regression - US2",
+        "value": "998785",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Business Regression - US2",
+        "value": "998797",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Marketing Regression - US2",
+        "value": "998798",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "Tag Governance - US2",
+        "value": "998810",
+        "selected": false,
+        "group": "Custom"
+      },
+      {
+        "text": "RUM Regression - US2",
+        "value": "998822",
+        "selected": true,
+        "group": "Custom"
+      }
+    ],
+    "optionGroups": [
+      {
+        "label": "Preconfigured",
+        "count": 9,
+        "sample": [
+          {
+            "value": "984782",
+            "text": "Site Overview",
+            "selected": false
+          },
+          {
+            "value": "985034",
+            "text": "VitalPulse",
+            "selected": false
+          },
+          {
+            "value": "984794",
+            "text": "Synthetic Site Health",
+            "selected": false
+          },
+          {
+            "value": "984806",
+            "text": "Traffic Source and Medium",
+            "selected": false
+          },
+          {
+            "value": "984818",
+            "text": "RUM Performance Detail",
+            "selected": false
+          },
+          {
+            "value": "984830",
+            "text": "Synthetic Performance Detail",
+            "selected": false
+          },
+          {
+            "value": "984986",
+            "text": "Native App Performance Detail",
+            "selected": false
+          },
+          {
+            "value": "984998",
+            "text": "Native App Detailed Metrics - Android",
+            "selected": false
+          },
+          {
+            "value": "985010",
+            "text": "Native App Detailed Metrics - iOS",
+            "selected": false
+          }
+        ],
+        "hasTarget": false
+      },
+      {
+        "label": "Shared",
+        "count": 4,
+        "sample": [
+          {
+            "value": "843798",
+            "text": "test custom dash",
+            "selected": false
+          },
+          {
+            "value": "852569",
+            "text": "UA B2C - Traffic Breakdown Errors",
+            "selected": false
+          },
+          {
+            "value": "852571",
+            "text": "UA B2C - Business Metrics with Performance",
+            "selected": false
+          },
+          {
+            "value": "852574",
+            "text": "UA B2C - Desktop Performance for Top Journey Pages",
+            "selected": false
+          }
+        ],
+        "hasTarget": false
+      },
+      {
+        "label": "Custom",
+        "count": 6,
+        "sample": [
+          {
+            "value": "998773",
+            "text": "Synthetic Regression - US2",
+            "selected": false
+          },
+          {
+            "value": "998785",
+            "text": "Alerts Regression - US2",
+            "selected": false
+          },
+          {
+            "value": "998797",
+            "text": "Business Regression - US2",
+            "selected": false
+          },
+          {
+            "value": "998798",
+            "text": "Marketing Regression - US2",
+            "selected": false
+          },
+          {
+            "value": "998810",
+            "text": "Tag Governance - US2",
+            "selected": false
+          },
+          {
+            "value": "998822",
+            "text": "RUM Regression - US2",
+            "selected": true
+          }
+        ],
+        "hasTarget": true
+      }
+    ],
+    "bodySample": "Dashboards Get started 6 ADMINISTRATOR Site Overview VitalPulse Synthetic Site Health Traffic Source and Medium RUM Performance Detail Synthetic Performance Detail Native App Performance Detail Native App Detailed Metrics - Android Native App Detailed Metrics - iOS test custom dash UA B2C - Traffic Breakdown Errors UA B2C - Business Metrics with Performance UA B2C - Desktop Performance for Top Journey Pages Synthetic Regression - US2 Alerts Regression - US2 Business Regression - US2 Marketing Regression - US2 Tag Governance - US2 RUM Regression - US2 RUM Regression - US2 GDC Test Site 2 Demo eCommerce Global Last 24 hours Auto Refresh (10m) Carousel (off) + Widget + Dashboard RUM Performance - US2 Count Page Views 2026-08-23 11:30 to 2026-08-24 11:30, IST (+05:30)​GDC Test Site 2 Performance Details Pages: All Matching Pages Onload 1stByte DNS TCPCon DOM Duration SSL Redirect Base Page Time to DOM Interactive Time to DOM Content Loaded JS Errors (Sampled) TEST OVERRIDE First Contentful Paint Largest Contentful Paint Total Blocking Time Cumulative Layout Shift INP Page Views 1/4 0s 2.4s 4.8s 0 20k 40k 0 4.0K 8.0K 12:00 18:00 24 Aug 06:00 RUM Native App Performance - US2 Performance Timing /​Onload Group / Page Views Errors and Crashes CPU Usage Memory Usage 2026-08-23 11:30 to 2026-08-24 11:30,​IST (+05:30)​GDC Test Site 2 Groups / Pages: All Matching Groups / Pages Group / Page Views Performance Timing / Onload Errors and Crashes CPU Usage Memory Usage Largest Contentful Paint INP Cumulative Layout Shift First Byte TCP DNS DOM Duration SSL Redirect Base Page Time To DOM Interactive Time To DOM Content Loaded TEST OVERRIDE First Contentful Paint Total Blocking Time 1/6 0s 2.5s 5s 7.5s 0 6.0 K 2.0 K 4.0 K 0 1.00 K 2.00 K 3.00 K 0% 12% 24% 36% 0 15 MB 30 MB 45 MB 24 Aug 16:00 08:00 RUM Performance Comparison - US2 Onload 2026-08-23 11:30 to 2026-08-24 11:30, IST (+05:30)​GDC Test Site 2 Onload All Matching Pages 0s 2s 4s 6s 12:00 16:00 20:00 24 Aug 04:00 08:00 Bounce Rate - US2 Sessions Bounce Rate Page Views /​Session Onload (Seconds) from​2026-08-23 11:33 to 2026-08-24 11:33, IST (+05:30)​GDC Test Site 2 Bounce Rate and Page Views / Session by Onload Pages: PDP Sessions Bounce Rate Page Views / Session 0 4,000 8,000 0% 30% 60% 0 1.2 2.4 2 3 4 KPI Date Comparison - US2 Type of Comparison Day to Day Year to Year Custom Comparing Today To Same Day Last Month Same Day Last Year Custom Custom Compare Previous X Days Same Day Of Week For Last X Weeks Bucket Size Auto 1 Minutes 5 Minutes 10 Minutes 15 Minutes 30 Minutes Apply Selected Filters (Read Only) Device: OS : Browsers: GDC Test Site 2 Last Updated At: 11:34am * Shaded area denotes ongoing data processing VISITS Today 06:00 0 10K 20K 30K PAGE VIEWS Today 06:00 0 50K 100K ONLOAD Today 06:00 0 sec 2.5 sec 5 sec TIME TO DOM INTERACTIVE Today 06:00 0 sec 1 sec 2 sec AVG ORDER VALUE Today 06:00 0 200 400 REVENUE Today 06:00 $0 $50K $100K ORDERS Today 06:00 0 250 500 CONVERSION RATE Today 04:00 08:00 0 2 4 Performance by Browser - US2 Onload(seconds) ​Pages: PDP​GDC Test Site 2 Performance By Browser 2026-08-23 11:33 to 2026-08-24 11:33, IST (+05:30) 2.9s​2.9s 3.57s​3.57s 3.72s​3.72s 2.37s​2.37s 2.75s​2.75s 2.73s​2.73s 3.1s​3.1s 4s​4s 3.47s​3.47s 3.04s​3.04s 5.16s​5.16s 4.55s​4.55s 2.78s​2.78s 6.93s​6.93s 2.57s​2.57s 3.43s​3.43s 3.42s​3.42s 6.8s​6.8s 3.28s​3.28s 3.38s​3.38s 4.43s​4.43s 3.09s​3.09s 6.09s​6.09s 4.95s​4.95s 7.86s​7.86s 2.78s​2.78s 4.28s​4.28s 3.06s​3.06s 2.73s​2.73s 4.39s​4.39s 2.54s​2.54s 2.69s​2.69s 4.6s​4.6s 5.12s​5.12s 3.98s​3.98s 4.79s​4.79s 2.56s​2.56s 4.47s​4.47s 2.96s​2.96s 3.14s​3.14s 2.67s​2.67s 2.07s​2.07s 6.06s​6.06s 4.08s​4.08s 10.36s​10.36s 9.84s​9.84s 11.18s​11.18s 3.27s​3.27s 5.78s​5.78s 4.34s​4.34s Onload TCP First Byte DNS DOM Duration SSL Redirect Mobile Safari-26-iOS 18 Chrome-151-Windows 19 Chrome Mobile iOS-151-iOS 26 Mobile Safari-18-iOS 18 Chrome Mobile-151-Android 17 Chrome Mobile-151-Android 15 Facebook-575-iOS 26 Safari-18-Mac OS X 10 Chrome-151-Windows 15 Firefox-154-Windows 10 Chrome Mobile-150-Android 16 Edge-151-Windows 10 Chrome Mobile-151-Android 12 Chrome-151-Chrome OS 16733 Chrome-151-macOS 15 Chrome Mobile iOS-152-iOS 26 Safari-16-Mac OS X 10 Mobile Safari-16-iOS 16 Chrome-150-macOS 26 Google-434-iOS 18 Mobile Safari-27-iOS 18 Chrome-150-Windows 10 Chrome Mobile-151-Android 11 Chrome-151-Android 14 Chrome Mobile WebView-151-Androi… 0 2 4 6 8 10 12 Performance by Country - US2 Onload(seconds) ​Pages: PDP​GDC Test Site 2 Perfo"
+  },
+  "filtersOpen": {
+    "labels": [
+      "Time Lookback",
+      "Dashboard Refresh",
+      "Auto Refresh",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting",
+      "Logs",
+      "Monitoring",
+      "Real User Browser",
+      "Native App",
+      "Synthetic",
+      "Real Browser",
+      "API Checks",
+      "Network Health Checks",
+      "Manage",
+      "CSP & Tag Governance",
+      "Optimize",
+      "Audit",
+      "Protect",
+      "Type of Comparison",
+      "Comparing",
+      "To",
+      "Years to Compare",
+      "Comparing Today To",
+      "Custom Compare",
+      "Bucket Size",
+      "2026-08-23 11:34 to 2026-08-24 11:34 - GDC Test Site 2",
+      "PDP",
+      "Page Views",
+      "Completed Sessions",
+      "Average Session Length",
+      "Conversion Rate",
+      "Revenue Per Visitor",
+      "Network Time",
+      "Back-End Time",
+      "Front-End Time",
+      "Device",
+      "Revenue",
+      "Orders",
+      "Onload",
+      "JS Errors (Sampled)",
+      "Brand Value",
+      "Brand Orders",
+      "Averages",
+      "Totals",
+      "Path Name",
+      "DOM Duration",
+      "Time To DOM Interactive",
+      "Time To DOM Content Loaded",
+      "Pages Per Session",
+      "Test US2 Path",
+      "Device Type",
+      "OnloadComparison Since(Hourly Averages)",
+      "OnloadTrend Since2026/8/3(Daily Averages)",
+      "Last Week Averages(compared to previous week)",
+      "Yesterday Averages(compared to previous day)",
+      "Desktop",
+      "iPhone",
+      "iPad",
+      "Android",
+      "Windows",
+      "Mac",
+      "Linux",
+      "Mobile iPhone",
+      "Mobile Android",
+      "Tablet iPad",
+      "Tablet Android",
+      "Step",
+      "Sessions",
+      "Navigate to Homepage",
+      "Navigate to Category Page",
+      "Navigate to Product Page",
+      "DASHBOARD MANAGER",
+      "6/75 dashboards used",
+      "Clone Dashboard",
+      "Select users to clone the dashboard(s):",
+      "Add a Widget",
+      "Widget Type",
+      "Time Period",
+      "Timezone",
+      "Saved Data Science Graphs",
+      "Site",
+      "Use Time Lookback Offset?",
+      "Widget Title *",
+      "Data Type",
+      "Data Originated From",
+      "Graph Type",
+      "Performance Metric",
+      "Group Lines By",
+      "Add Comparison Line?",
+      "Compare Today To"
+    ],
+    "select2": [
+      {
+        "id": "select2-switch-dashboard-container",
+        "text": "RUM Regression - US2",
+        "visible": true
+      },
+      {
+        "id": "select2-quick-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": false
+      },
+      {
+        "id": "select2-switch-user-container",
+        "text": "My Dashboards",
+        "visible": false
+      },
+      {
+        "id": "select2-widget-type-container",
+        "text": "Performance",
+        "visible": false
+      },
+      {
+        "id": "select2-timezone-container",
+        "text": "Asia/Kolkata/Mumbai (+05:30)",
+        "visible": false
+      },
+      {
+        "id": "select2-data-science-saved-graph-selector-container",
+        "text": "No Filter Applied",
+        "visible": false
+      },
+      {
+        "id": "select2-site-id-container",
+        "text": "GDC Test Site 2",
+        "visible": false
+      },
+      {
+        "id": "select2-revenue-offset-days-container",
+        "text": "0",
+        "visible": false
+      },
+      {
+        "id": "select2-revenue-offset-hours-container",
+        "text": "0",
+        "visible": false
+      },
+      {
+        "id": "select2-data-type-container",
+        "text": "Real User",
+        "visible": false
+      },
+      {
+        "id": "select2-report-data-type-container",
+        "text": "Real User Browser Data",
+        "visible": false
+      },
+      {
+        "id": "select2-data-origin-container",
+        "text": "RUM Browser & Native Webview",
+        "visible": false
+      },
+      {
+        "id": "select2-graph-type-container",
+        "text": "Line Graph",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-rum-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-native-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-group-by-synth-container",
+        "text": "Displayed Metric (Default)",
+        "visible": false
+      },
+      {
+        "id": "select2-add-comparison-line-lookback-time-selector-container",
+        "text": "Yesterday",
+        "visible": false
+      },
+      {
+        "id": "select2-displayed-metric-rum-group-by-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-performance-metric-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-trim-histogram-left-side-container",
+        "text": ".1",
+        "visible": false
+      },
+      {
+        "id": "select2-trim-histogram-container",
+        "text": "30",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-rum-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-rum-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-native-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-native-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-xAxis-synth-container",
+        "text": "Time",
+        "visible": false
+      },
+      {
+        "id": "select2-yAxis-synth-container",
+        "text": "Onload",
+        "visible": false
+      },
+      {
+        "id": "select2-order-by-container",
+        "text": "Selected X-Axis (Lowest to Highest)",
+        "visible": false
+      },
+      {
+        "id": "select2-scatter-display-type-container",
+        "text": "Error",
+        "visible": false
+      },
+      {
+        "id": "select2-top-paths-data-trend-container",
+        "text": "Arithmetic Mean",
+        "visible": false
+      },
+      {
+        "id": "select2-scatter-group-by-container",
+        "text": "Script Name / Traffic Segment",
+        "visible": false
+      },
+      {
+        "id": "select2-year-format-container",
+        "text": "Calendar Year",
+        "visible": false
+      },
+      {
+        "id": "select2-comparison-type-container",
+        "text": "Day To Day",
+        "visible": false
+      },
+      {
+        "id": "select2-rollingEnd-container",
+        "text": "Custom Selector",
+        "visible": false
+      },
+      {
+        "id": "select2-custom-comparing-to-type-container",
+        "text": "Weeks",
+        "visible": false
+      },
+      {
+        "id": "select2-calendar-bucket-size-container",
+        "text": "Auto",
+        "visible": false
+      },
+      {
+        "id": "select2-day-bucket-size-container",
+        "text": "Auto",
+        "visible": false
+      },
+      {
+        "id": "select2-a-b-segment-filter-selector-container",
+        "text": "Multi-Select",
+        "visible": false
+      },
+      {
+        "id": "select2-sla-group-container",
+        "text": "No Filter Applied",
+        "visible": false
+      },
+      {
+        "id": "select2-statistical-method-container",
+        "text": "Arithmetic Mean",
+        "visible": false
+      },
+      {
+        "id": "select2-percentile-container",
+        "text": "99th",
+        "visible": false
+      },
+      {
+        "id": "select2-domain-container",
+        "text": "cabelas.com",
+        "visible": false
+      },
+      {
+        "id": "select2-trim-container",
+        "text": "120",
+        "visible": false
+      },
+      {
+        "id": "select2-discard-sessions-over-container",
+        "text": "80th",
+        "visible": false
+      }
+    ],
+    "buttons": [
+      "Toggle menu visibility",
+      "Toggle user menu visibility",
+      "Toggle settings menu visibility",
+      "Help Center",
+      "Blue Triangle Help Video",
+      "Change theme",
+      "Share this page",
+      "Toggle filters menu visibility",
+      "Toggle feedback form visibility",
+      "6",
+      "View Full Menu",
+      "GDC Test Site 2 Demo eCommerce Global",
+      "Last 24 hours",
+      "Custom Date Selection",
+      "Last 2 days",
+      "Last 7 days",
+      "Last 14 days",
+      "Last 30 days",
+      "Last 90 days",
+      "Today so far",
+      "This week so far",
+      "This month so far",
+      "Last 15 minutes",
+      "Last 30 minutes",
+      "Last 1 hour",
+      "Last 3 hours",
+      "Last 6 hours",
+      "Last 12 hours",
+      "Auto Refresh (10m)",
+      "Off",
+      "2 Minutes",
+      "5 Minutes",
+      "10 Minutes",
+      "15 Minutes",
+      "30 Minutes",
+      "60 Minutes",
+      "Carousel (off)",
+      "3m Interval",
+      "5m Interval",
+      "10m Interval"
+    ],
+    "tabs": [
+      {
+        "id": "my-filters-tab",
+        "text": "My Filters",
+        "cls": "active",
+        "active": true
+      },
+      {
+        "id": "",
+        "text": "My Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "shared-filters-tab",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      },
+      {
+        "id": "",
+        "text": "Shared Filters",
+        "cls": "",
+        "active": false
+      }
+    ],
+    "bodySample": "Dashboards Get started 6 ADMINISTRATOR Site Overview VitalPulse Synthetic Site Health Traffic Source and Medium RUM Performance Detail Synthetic Performance Detail Native App Performance Detail Native App Detailed Metrics - Android Native App Detailed Metrics - iOS test custom dash UA B2C - Traffic Breakdown Errors UA B2C - Business Metrics with Performance UA B2C - Desktop Performance for Top Journey Pages Synthetic Regression - US2 Alerts Regression - US2 Business Regression - US2 Marketing Regression - US2 Tag Governance - US2 RUM Regression - US2 RUM Regression - US2 GDC Test Site 2 Demo eCommerce Global Last 24 hours Auto Refresh (10m) Carousel (off) + Widget + Dashboard RUM Performance - US2 Count Page Views 2026-08-23 11:30 to 2026-08-24 11:30, IST (+05:30)​GDC Test Site 2 Performance Details Pages: All Matching Pages Onload 1stByte DNS TCPCon DOM Duration SSL Redirect Base Page Time to DOM Interactive Time to DOM Content Loaded JS Errors (Sampled) TEST OVERRIDE First Contentful Paint Largest Contentful Paint Total Blocking Time Cumulative Layout Shift INP Page Views 1/4 0s 2.4s 4.8s 0 20k 40k 0 4.0K 8.0K 12:00 18:00 24 Aug 06:00 RUM Native App Performance - US2 Performance Timing /​Onload Group / Page Views Errors and Crashes CPU Usage Memory Usage 2026-08-23 11:30 to 2026-08-24 11:30,​IST (+05:30)​GDC Test Site 2 Groups / Pages: All Matching Groups / Pages Group / Page Views Performance Timing / Onload Errors and Crashes CPU Usage Memory Usage Largest Contentful Paint INP Cumulative Layout Shift First Byte TCP DNS DOM Duration SSL Redirect Base Page Time To DOM Interactive Time To DOM Content Loaded TEST OVERRIDE First Contentful Paint Total Blocking Time 1/6 0s 2.5s 5s 7.5s 0 6.0 K 2.0 K 4.0 K 0 1.00 K 2.00 K 3.00 K 0% 12% 24% 36% 0 15 MB 30 MB 45 MB 24 Aug 16:00 08:00 RUM Performance Comparison - US2 Onload 2026-08-23 11:30 to 2026-08-24 11:30, IST (+05:30)​GDC Test Site 2 Onload All Matching Pages 0s 2s 4s 6s 12:00 16:00 20:00 24 Aug 04:00 08:00 Bounce Rate - US2 Sessions Bounce Rate Page Views /​Session Onload (Seconds) from​2026-08-23 11:33 to 2026-08-24 11:33, IST (+05:30)​GDC Test Site 2 Bounce Rate and Page Views / Session by Onload Pages: PDP Sessions Bounce Rate Page Views / Session 0 4,000 8,000 0% 30% 60% 0 1.2 2.4 2 3 4 KPI Date Comparison - US2 Type of Comparison Day to Day Year to Year Custom Comparing Today To Same Day Last Month Same Day Last Year Custom Custom Compare Previous X Days Same Day Of Week For Last X Weeks Bucket Size Auto 1 Minutes 5 Minutes 10 Minutes 15 Minutes 30 Minutes Apply Selected Filters (Read Only) Device: OS : Browsers: GDC Test Site 2 Last Updated At: 11:34am * Shaded area denotes ongoing data processing VISITS Today 06:00 0 10K 20K 30K PAGE VIEWS Today 06:00 0 50K 100K ONLOAD Today 06:00 0 sec 2.5 sec 5 sec TIME TO DOM INTERACTIVE Today 06:00 0 sec 1 sec 2 sec AVG ORDER VALUE Today 06:00 0 200 400 REVENUE Today 06:00 $0 $50K $100K ORDERS Today 06:00 0 250 500 CONVERSION RATE Today 04:00 08:00 0 "
+  },
+  "lookbackOptions": [
+    "Last 24 hours",
+    "Custom Date Selection",
+    "Last 2 days",
+    "Last 7 days",
+    "Last 14 days",
+    "Last 30 days",
+    "Last 90 days",
+    "Today so far",
+    "This week so far",
+    "This month so far",
+    "Last 15 minutes",
+    "Last 30 minutes",
+    "Last 1 hour",
+    "Last 3 hours",
+    "Last 6 hours",
+    "Last 12 hours"
+  ],
+  "autoRefreshOptions": [
+    "Off",
+    "2 Minutes",
+    "5 Minutes",
+    "10 Minutes",
+    "15 Minutes",
+    "30 Minutes",
+    "60 Minutes",
+    "Last 15 minutes",
+    "Last 30 minutes",
+    "Auto Refresh (10m)",
+    "Carousel (off)"
+  ],
+  "dashboardManagerSoft": {
+    "opened": true,
+    "headings": [
+      "Time Lookback",
+      "Dashboard Refresh",
+      "Auto Refresh",
+      "Help Videos",
+      "Support",
+      "Hello, Sagar",
+      "Executive",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Business Insights",
+      "Improve Traffic",
+      "Improve Conversion",
+      "Improve Revenue",
+      "Advanced Reporting & Alerting",
+      "Executive",
+      "Automated Reporting",
+      "Alerting",
+      "Custom Reporting"
+    ],
+    "buttons": [
+      "Toggle menu visibility",
+      "Toggle user menu visibility",
+      "Toggle settings menu visibility",
+      "Help Center",
+      "Blue Triangle Help Video",
+      "Change theme",
+      "Share this page",
+      "Toggle filters menu visibility",
+      "Toggle feedback form visibility",
+      "6",
+      "View Full Menu",
+      "GDC Test Site 2 Demo eCommerce Global",
+      "Last 24 hours",
+      "Custom Date Selection",
+      "Last 2 days",
+      "Last 7 days",
+      "Last 14 days",
+      "Last 30 days",
+      "Last 90 days",
+      "Today so far",
+      "This week so far",
+      "This month so far",
+      "Last 15 minutes",
+      "Last 30 minutes",
+      "Last 1 hour",
+      "Last 3 hours",
+      "Last 6 hours",
+      "Last 12 hours",
+      "Auto Refresh (10m)",
+      "Off"
+    ]
+  }
+}

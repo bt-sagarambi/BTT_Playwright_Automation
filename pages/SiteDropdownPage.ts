@@ -48,22 +48,42 @@ export class SiteDropdownPage {
   /** Select site by name; throws with available sites if missing. */
   async selectSite(siteName: string): Promise<void> {
     await this.expectVisible();
-    await this.waitForSiteOption(siteName);
-    const available = await this.listSites();
-    const match = this.findMatch(siteName, available);
-    if (!match) {
-      throw new Error(
-        `[SiteDropdown] Site "${siteName}" not found. Available: ${available.join(', ') || '(none)'}`
-      );
-    }
+    await this.waitForSiteOption(siteName, 10000);
+    let available = await this.listSites();
+    let match = this.findMatch(siteName, available);
 
     const current = await this.getSelectedSite();
     if (this.findMatch(siteName, [current])) return;
 
     await this.locators.siteSelectContainer.click();
     await expect(this.locators.select2Options.first()).toBeVisible({ timeout: 10000 });
-    await this.locators.select2Options.filter({ hasText: match }).first().click();
-    await expect(this.locators.siteSelectContainer).toContainText(match, { timeout: 15000 });
+    const search = this.page.locator('.select2-search__field, input.select2-search__field').first();
+    const searchText = match || siteName;
+    if (await search.isVisible().catch(() => false)) {
+      await search.fill('').catch(() => undefined);
+      await search.fill(searchText).catch(() => undefined);
+      await this.page.waitForTimeout(500);
+    }
+    const re = new RegExp(siteName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+    let opt = this.locators.select2Options.filter({ hasText: match || re }).first();
+    if (!(await opt.isVisible({ timeout: 5000 }).catch(() => false))) {
+      const token = siteName.split(/\s+/).find((p) => /GDC|Test/i.test(p)) || siteName.slice(0, 12);
+      if (await search.isVisible().catch(() => false)) {
+        await search.fill(token).catch(() => undefined);
+        await this.page.waitForTimeout(500);
+      }
+      opt = this.locators.select2Options.filter({ hasText: re }).first();
+    }
+    if (!(await opt.isVisible({ timeout: 5000 }).catch(() => false))) {
+      await this.page.keyboard.press('Escape').catch(() => undefined);
+      available = await this.listSites();
+      throw new Error(
+        `[SiteDropdown] Site "${siteName}" not found. Available: ${available.join(', ') || '(none)'}`
+      );
+    }
+    await opt.click();
+    const expectText = match || siteName;
+    await expect(this.locators.siteSelectContainer).toContainText(expectText, { timeout: 15000 });
   }
 
   /** Wait until the native <select> includes the target site (async portal loads). */
@@ -105,8 +125,33 @@ export class SiteDropdownPage {
       found = await this.waitForSiteOption(profile.siteName, 20000);
     }
 
-    const available = await this.listSites();
-    const match = this.findMatch(profile.siteName, available);
+    let available = await this.listSites();
+    let match = this.findMatch(profile.siteName, available);
+    if (!match) {
+      // Select2 typeahead may still resolve the site even when native options are incomplete
+      try {
+        await this.locators.siteSelectContainer.click();
+        const search = this.page.locator('.select2-search__field, input.select2-search__field').first();
+        if (await search.isVisible().catch(() => false)) {
+          await search.fill(profile.siteName).catch(() => undefined);
+          await this.page.waitForTimeout(700);
+          const typedOpt = this.locators.select2Options
+            .filter({ hasText: new RegExp(profile.siteName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') })
+            .first();
+          if (await typedOpt.isVisible({ timeout: 5000 }).catch(() => false)) {
+            await typedOpt.click();
+            await this.page.waitForTimeout(1500);
+            current = await this.getSelectedSite();
+            if (this.findMatch(profile.siteName, [current])) return;
+          }
+        }
+        await this.page.keyboard.press('Escape').catch(() => undefined);
+      } catch {
+        await this.page.keyboard.press('Escape').catch(() => undefined);
+      }
+      available = await this.listSites();
+      match = this.findMatch(profile.siteName, available);
+    }
     if (!match) {
       // Last chance: selected label may still be correct after navigation
       current = await this.getSelectedSite();

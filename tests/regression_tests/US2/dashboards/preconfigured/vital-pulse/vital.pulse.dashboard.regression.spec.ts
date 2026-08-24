@@ -569,6 +569,7 @@ test.describe('US2 Regression — Vital Pulse Dashboard', () => {
   test('REG-VP-031 — restore initial context; suite home healthy', async () => {
     await vp.restoreContext(initialCtx);
     await vp.ensureVitalPulseSelected();
+    await vp.ensureProfileSiteSelected();
     await vp.expectSelectedSite();
     await vp.expectCoreWidgetTitles();
     await vp.expectNotConfusedSurfaces();

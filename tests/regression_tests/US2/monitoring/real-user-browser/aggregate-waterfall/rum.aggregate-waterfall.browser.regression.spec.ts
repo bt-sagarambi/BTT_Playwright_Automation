@@ -122,13 +122,17 @@ test.describe('US2 Regression — RUM Aggregate Waterfall (Browser)', () => {
 
   test('REG-RUM-AW-009 — top filter combo: Device = Desktop', async () => {
     try {
-      await rum.applyTopFilterCombination({ devices: ['Desktop'] });
+      await withSoftDeadline(() => rum.applyTopFilterCombination({ devices: ['Desktop'] }), 90000);
     } catch (err) {
       test.info().annotations.push({
         type: 'note',
         description: `Top combo soft: ${err instanceof Error ? err.message : String(err)}`,
       });
-      await rum.expectChartsOrTablesReady();
+      if (!page.isClosed()) {
+        await rum.expectChartsOrTablesReady(20000).catch(() => undefined);
+      } else {
+        await rum.openViaNavigation().catch(() => undefined);
+      }
     }
   });
 

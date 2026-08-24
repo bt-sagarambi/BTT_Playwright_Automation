@@ -223,24 +223,38 @@ export class SiteOverviewDashboardPage {
   async ensureProfileSiteSelected(): Promise<void> {
     const profile = getActiveProfile();
     const re = new RegExp(profile.siteName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-    const current = await this.getSiteLabel();
-    if (re.test(current)) return;
+    if (re.test(await this.getSiteLabel())) return;
 
-    // Prefer dashboard quick site when global #site-id select2 is hidden on this shell.
-    const quick = this.locators.quickSiteContainer;
-    if (await quick.isVisible().catch(() => false)) {
-      await quick.click({ force: true, timeout: 5000 }).catch(() => undefined);
-      await this.page.waitForTimeout(400);
-      const opt = this.page.locator('.select2-results__option').filter({ hasText: re }).first();
-      if (await opt.isVisible({ timeout: 4000 }).catch(() => false)) {
-        await opt.click({ force: true });
-        await this.page.waitForTimeout(2500);
-        if (re.test(await this.getSiteLabel())) return;
-      }
-      await this.page.keyboard.press('Escape').catch(() => undefined);
-    }
+    // Typed Select2 search — native options often shrink to the sticky site only under parallel runs.
+    const { softSelectQuickSite } = await import('../helpers/preconfiguredDashboardChrome');
+    if (await softSelectQuickSite(this.page, profile.siteName)) return;
 
     await new SiteDropdownPage(this.page).ensureProfileSite().catch(() => undefined);
+    await this.page.waitForTimeout(1500);
+    if (re.test(await this.getSiteLabel())) return;
+
+    // Recover via overview (full site list), then re-select and return to Site Overview.
+    await this.page
+      .goto('/btportal/web/index.php?r=overview-dashboard/overview', {
+        waitUntil: 'domcontentloaded',
+        timeout: 60000,
+      })
+      .catch(() => undefined);
+    await new SiteDropdownPage(this.page).ensureProfileSite().catch(() => undefined);
+    if (!(await softSelectQuickSite(this.page, profile.siteName))) {
+      await softSelectQuickSite(this.page, /GDC Test Site 2/i);
+    }
+    await this.page
+      .goto('/btportal/web/index.php?r=site/dashboard', {
+        waitUntil: 'domcontentloaded',
+        timeout: 60000,
+      })
+      .catch(() => undefined);
+    await this.waitForPageReady().catch(() => undefined);
+    await this.ensureSiteOverviewSelected({ soft: true }).catch(() => undefined);
+    if (!(await softSelectQuickSite(this.page, profile.siteName))) {
+      await new SiteDropdownPage(this.page).ensureProfileSite().catch(() => undefined);
+    }
     await this.page.waitForTimeout(1500);
   }
 

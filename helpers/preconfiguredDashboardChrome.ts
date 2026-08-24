@@ -198,18 +198,52 @@ export async function softSelectQuickSite(
     typeof sitePattern === 'string'
       ? new RegExp(sitePattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i')
       : sitePattern;
+  const searchHint =
+    typeof sitePattern === 'string'
+      ? sitePattern
+      : String(sitePattern)
+          .replace(/^\/|\/[a-z]*$/gi, '')
+          .replace(/\\s\*/g, ' ')
+          .replace(/[^a-zA-Z0-9 ]+/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .slice(0, 40) || 'GDC';
+
   const container = page.locator('#select2-quick-site-id-container, #select2-site-id-container').first();
   if (!(await container.isVisible().catch(() => false))) return false;
+
+  // Already selected
+  const current = ((await container.textContent().catch(() => '')) || '').replace(/\s+/g, ' ').trim();
+  if (re.test(current)) return true;
+
   await container.click({ force: true, timeout: 5000 }).catch(() => undefined);
-  await page.waitForTimeout(400);
-  const opt = page.locator('.select2-results__option').filter({ hasText: re }).first();
+  await page.waitForTimeout(350);
+
+  // Type to expand full account site list (native options often shrink to current site only)
+  const search = page.locator('.select2-search__field, input.select2-search__field').first();
+  if (await search.isVisible().catch(() => false)) {
+    await search.fill('').catch(() => undefined);
+    await search.fill(searchHint).catch(() => undefined);
+    await page.waitForTimeout(500);
+  }
+
+  let opt = page.locator('.select2-results__option').filter({ hasText: re }).first();
+  if (!(await opt.isVisible({ timeout: 3000 }).catch(() => false))) {
+    // Broaden search once more with a short token
+    if (await search.isVisible().catch(() => false)) {
+      await search.fill('GDC').catch(() => undefined);
+      await page.waitForTimeout(500);
+      opt = page.locator('.select2-results__option').filter({ hasText: re }).first();
+    }
+  }
   if (!(await opt.isVisible({ timeout: 4000 }).catch(() => false))) {
     await page.keyboard.press('Escape').catch(() => undefined);
     return false;
   }
   await opt.click({ force: true });
   await page.waitForTimeout(3500);
-  return true;
+  const after = ((await container.textContent().catch(() => '')) || '').replace(/\s+/g, ' ').trim();
+  return re.test(after);
 }
 
 export async function softSiteChangeAndLock(page: Page): Promise<SiteLockResult> {
@@ -294,10 +328,47 @@ export async function softSiteChangeAndLock(page: Page): Promise<SiteLockResult>
     note = `${note} changed to "${midSite}"; sig delta=${beforeSig !== afterSig}`.trim();
   }
 
-  // Restore profile site
+  // Restore profile site (must not leave Demo / alternate sticky)
   let restored = await softSelectQuickSite(page, profile.siteName);
+  if (!restored && beforeSite && !profileRe.test(beforeSite)) {
+    // beforeSite was already non-profile — still try profile first via typed search
+    restored = await softSelectQuickSite(page, profile.siteName);
+  }
   if (!restored && beforeSite) restored = await softSelectQuickSite(page, beforeSite);
+  if (!restored) {
+    try {
+      const { SiteDropdownPage } = await import('../pages/SiteDropdownPage');
+      await new SiteDropdownPage(page).ensureProfileSite();
+      restored = true;
+    } catch {
+      // last resort: reload dashboard shell and type-select again
+      await page
+        .goto('/btportal/web/index.php?r=site/dashboard', {
+          waitUntil: 'domcontentloaded',
+          timeout: 60000,
+        })
+        .catch(() => undefined);
+      await page.waitForTimeout(2000);
+      restored = await softSelectQuickSite(page, profile.siteName);
+      if (!restored) {
+        try {
+          const { SiteDropdownPage } = await import('../pages/SiteDropdownPage');
+          await new SiteDropdownPage(page).ensureProfileSite();
+          restored = true;
+        } catch {
+          restored = false;
+        }
+      }
+    }
+  }
   await page.waitForTimeout(2000);
+
+  const finalSite = (
+    (await page.locator('#select2-quick-site-id-container, #select2-site-id-container').first().textContent().catch(() => '')) ||
+    ''
+  )
+    .replace(/\s+/g, ' ')
+    .trim();
 
   return {
     otherSite,
@@ -305,10 +376,8 @@ export async function softSiteChangeAndLock(page: Page): Promise<SiteLockResult>
     lockFound,
     lockToggled,
     lockedSeemedToBlockSwitch,
-    restored: restored || profileRe.test(
-      ((await page.locator('#select2-quick-site-id-container').textContent().catch(() => '')) || '')
-    ),
-    note: note || `beforeSite="${beforeSite}"`,
+    restored: restored || profileRe.test(finalSite),
+    note: note || `beforeSite="${beforeSite}" finalSite="${finalSite}"`,
   };
 }
 

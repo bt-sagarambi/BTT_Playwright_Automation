@@ -1,0 +1,425 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the **custom** dashboard **“RUM Regression - US2”**. Reverse-engineer the live application using **GDC Test Site 2** and refer to:
+  • Live portal reverse-engineering probe (Aug 24, 2026): docs/prompts/rum-regression-us2-dashboard-live-probe.json
+  • Probe script: scripts/probe-rum-regression-us2-dashboard.ts
+  • Live notes extract: docs/prompts/rum-regression-us2-dashboard-notes.txt
+  • Live screenshot: docs/prompts/rum-regression-us2-dashboard-live.png
+  • Help / widget language (no unique “RUM Regression - US2” product PDF in attachments — fold if re-attached):
+      https://help.bluetriangle.com/hc/en-us/articles/27022168923923-Custom-Dashboard-Widgets
+        (Bounce Rate; Performance by Browser / Country / Region; Real User Performance by Geography;
+         KPI Date Comparison; Year by Year Comparison; Performance / Performance Comparison catalog)
+      docs/prompts/rum-performance-detail-pdf-extract.txt
+        (sibling Preconfigured RUM Performance Detail — article 360033246414 — soft Performance Details /
+         metric-card / Auto Refresh language only; live Custom titles override)
+  • Shared dashboard shell patterns from:
+      docs/prompts/AI Prompt (For Automation Regression-Tag Governance - US2 Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Marketing Regression - US2 Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Business Regression - US2 Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Alerts Regression - US2 Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Synthetic Regression - US2 Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-RUM Performance Detail Dashboard).txt
+      helpers/preconfiguredDashboardChrome.ts
+      pages/TagGovernanceUs2DashboardPage.ts / MarketingRegressionUs2DashboardPage.ts /
+      BusinessRegressionUs2DashboardPage.ts / SyntheticRegressionUs2DashboardPage.ts /
+      RumPerformanceDetailDashboardPage.ts (shell only — different Preconfigured home)
+  • Navigation (user + live): Login → Left menu **Dashboards** → dashboard switcher → exact **RUM Regression - US2**
+  • **No companion product .txt / Help PDF uniquely titled “RUM Regression - US2”** was in Cursor attachments when this prompt was authored — live probe is SoT; re-fold txt/PDFs later without overriding live titles/hosts.
+
+NOTE ON DOCUMENTATION VS LIVE PRODUCT
+This board is a **Custom** (account) dashboard assembled for RUM / real-user regression coverage — not a Help Center “Preconfigured” product page and **not** Monitoring → Real User Browser left-nav modules. Prefer live widget **titles**, metric **labels**, chart **legend** names, table **headers**, Select2 values, KPI comparison chrome, Performance Path toggles, and stable id **prefixes** (chartID_*, perfGraph-chartID_*, perfGraph-page-timings-graph-chartID_*, *-card-chartID_*, trafficDiv_*, timersDiv_*, deviceMetricsPanel_*, map-*, metric-*, type-of-comparison-*, yearByYear*_*, pFlowWrpper_*, pathSelector_*). Dynamic grid-stack item ids and highcharts-* instance suffixes change per load — never hard-code them.
+
+Help vs live (prefer live):
+  • Custom Dashboard Widgets article describes Bounce Rate (x=page load / onload, y=bounce), top-50 Browser/Country/Region, Geography heat map, KPI Date Comparison baseline, Year by Year revenue lines — use for intent; live titles end with ** - US2**.
+  • RUM Performance Detail PDF describes Bar/Details/Performance Graph/Daily Averages on a **different Preconfigured** board — soft metric/legend language only; do not require Daily Averages or that dashboard’s exact layout here.
+  • Live inventory has **sixteen** titled widgets (some may be empty/collapsed): Performance, Native App Performance, Performance Comparison, Bounce Rate, KPI Date Comparison, Perf by Browser/Country/Region, Performance Summary, Traffic/Timing Information, Device Metrics, Performance Path, Geography, SLA Violations, Year by Year.
+  • Bounce Rate X-axis is **Onload (Seconds)** — not wall-clock time — so it is **not** the primary lookback datetime-interval hover widget.
+  • Widget pencil / X / Edit filters / Delete this widget — **never Save or Delete**. Soft open-cancel only if accidentally opened.
+
+CRITICAL DISTINCTION (do not confuse screens)
+  • **RUM Regression - US2 (THIS suite)** = Dashboards → #switch-dashboard / #select2-switch-dashboard-container exact option **RUM Regression - US2** under optgroup **Custom** on route **site/dashboard**.
+  • Other Custom US2 regression boards (**Synthetic / Alerts / Business / Marketing / Tag Governance - US2**) — soft sibling only; never accept as suite home.
+  • Preconfigured **RUM Performance Detail** / Synthetic Performance Detail / Site Overview / VitalPulse / Traffic Source and Medium / Native App * — soft-switch sample only; always restore **RUM Regression - US2**.
+  • Monitoring → Real User Browser (Performance Detail / Overview / Aggregate Waterfall / Bounce & Exit / Errors Explorer / Session Lookup / Performance Budgets) — **out of primary scope**; never treat as home; do not re-implement those suites here.
+  • How to Create Custom Dashboards / widget editor Save — out of scope.
+
+⚠️ PROBE / SELECTION PITFALLS
+1) Exact Select2 match: use `^\s*RUM Regression\s*-\s*US2\s*$`. Reject “Synthetic Regression - US2”, “Alerts Regression - US2”, “Business Regression - US2”, “Marketing Regression - US2”, “Tag Governance - US2”, other “*- US2” Custom boards, Preconfigured **RUM Performance Detail**, and Shared custom names.
+2) Optgroup is **Custom**, not Preconfigured — do not require Preconfigured listing.
+3) After dashboard switch, site must remain **GDC Test Site 2**; re-assert after switch (Demo eCommerce Global may appear in site menus — never leave it selected as suite site).
+4) Widget titles may be followed by chart/KPI body in samples — assert via title regex / hosts / bodySample language, not full body dump (Browser/Country/Region bars list many entities — never hard-code).
+5) This board **has Highcharts** (probe highcharts≈32). Lookback hover-interval coverage uses **RUM Performance - US2** and/or **RUM Performance Comparison - US2** time-series. Bounce Rate (onload axis), Geography map, KPI sparklets, and Summary cards are **not** the primary datetime lookback hover widgets.
+6) Widget pencil / X / Edit filters / Delete — **never Save or Delete**. Soft open-cancel only.
+7) KPI Date Comparison / Performance Path / Displayed Metric / device toggles — restore suite-start defaults; do not leave sticky Apply / path / device / metric.
+
+Live observations (GDC Test Site 2 — probe + screenshot, Aug 24, 2026)
+- URL: …/index.php?r=site/dashboard
+- Browser title / #page-title: Dashboards
+- Switcher text: RUM Regression - US2 (Custom)
+- Site: GDC Test Site 2
+- Time Lookback sample: Last 24 hours
+- Auto Refresh sample: Auto Refresh (10m); menu Off / 2 / 5 / 10 / 15 / 30 / 60 Minutes
+- Carousel (off) soft
+- Widgets (title SoT):
+    • **RUM Performance - US2** — Performance Details; All Matching Pages; multi-series timings + Page Views
+    • **RUM Native App Performance - US2** — Groups/Pages timings; CPU / Memory / Errors and Crashes soft
+    • **RUM Performance Comparison - US2** — Onload; All Matching Pages
+    • **Bounce Rate - US2** — Sessions / Bounce Rate / Page Views / Session by Onload
+    • **KPI Date Comparison - US2** — Day to Day / Year to Year / Custom; VISITS|PAGE VIEWS|ONLOAD|…
+    • **Performance by Browser - US2** / **Country - US2** / **Region - US2** — Onload bars; Pages sample PDP
+    • **Performance Summary - US2** — PAGE HITS / SESSIONS / PAGE ONLOAD / CWV cards soft
+    • **Traffic Information - US2** — Page Views / Sessions / Session Length / Conversion / RPV
+    • **Timing Information - US2** — Network / Back-End / Front-End Time
+    • **Device Metrics - US2** — Device × Revenue/Orders/Page Views/Onload/JS Errors soft
+    • **Performance Path - US2** — High/Detail Level; path selector; device toggles
+    • **Performance by Geography - US2** — Displayed Metric + map
+    • **SLA Violations - US2** / **Year by Year Comparison - US2** — soft (may be empty)
+- Tabs: My Filters / Shared Filters (filter drawer). KPI Type of Comparison and Performance Path High/Detail are **widget** controls, not dashboard nav tabs.
+- Filters / Dashboard Manager soft (do not hard-code dashboard usage counters)
+- chartID_* / highcharts-* / yearByYear*_ / map-* suffixes dynamic — use title + prefix hosts
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - RUM Regression - US2 is a **custom RUM regression board** consolidating Performance / Native App Performance timelines, Comparison, Bounce Rate, KPI date comparison, Browser/Country/Region/Geography breakdowns, Performance Summary cards, Traffic/Timing/Device tables, Performance Path, and soft SLA / Year-by-Year widgets — for end-to-end Real User coverage on US2/GDC **via Dashboards**, not via left-nav Monitoring RUM modules.
+   - Use live UI data only. Do not call APIs or query a database.
+   - Do not hard-code chartID_/grid-stack/highcharts-* suffixes, exact %, seconds, ms, page-view K/M counts, revenue $, browser/country/region names, path step text, timezone IST strings, dashboard clone counters, or exact Last Updated clocks.
+   - Capture at suite start: active dashboard label (must be RUM Regression - US2), active quick/site label, Time Lookback, Auto Refresh, presence of core widgets by title, KPI comparison type (if readable), Performance Path High/Detail + device (if readable), Geography Displayed Metric (if readable), filter drawer closed, Carousel state.
+   - Assert titles, metric/tile/table labels, formats (s/ms/%, K/M, $), graph shells, controlled empty states, before/after soft signatures rather than exact backend series.
+   - If a lookback/filter combo yields empty graphs, assert controlled empty, annotate, restore data-bearing lookback and continue.
+
+2. Navigation and implementation paths
+   User + live primary path:
+   Login → Left menu **Dashboards** → #select2-switch-dashboard-container → exact **RUM Regression - US2** (Custom)
+   Route: **site/dashboard**
+   Smoke catalog reference: **biz.dashboards** (menuLabel Dashboards, route site/dashboard, hrefIncludes site/dashboard, hrefExcludes marketing=yes)
+   Browser title: **Dashboards**
+   #page-title: **Dashboards**
+
+   Soft alternate: Dashboard Manager list → Eye/open RUM Regression - US2 if listed; close without Save/Delete. Soft Favorites if present.
+
+   Target automation folder:
+   tests/regression_tests/US2/dashboards/custom/rum-regression-us2/
+   Suggested spec name:
+   rum.regression.us2.dashboard.regression.spec.ts
+   Suggested POM / locators:
+   pages/RumRegressionUs2DashboardPage.ts
+   locators/RumRegressionUs2DashboardLocators.ts
+   Reuse:
+   - helpers/preconfiguredDashboardChrome.ts (exact dashboard select, lookback, auto refresh, filters soft, manager soft, ensure profile site, restore home)
+   - pages/TagGovernanceUs2DashboardPage.ts / MarketingRegressionUs2DashboardPage.ts / SyntheticRegressionUs2DashboardPage.ts (shell + recover; **evaluate-based scroll**, not hanging scrollIntoViewIfNeeded)
+   Suggested manual workbook:
+   docs/RUM_Regression_US2_Dashboard_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:rum-regression-us2
+   Suggested test case ID prefix:
+   REG-RR-US2-###
+   Probe:
+   scripts/probe-rum-regression-us2-dashboard.ts → docs/prompts/rum-regression-us2-dashboard-live-probe.json
+   Note: do **not** collide with existing Monitoring npm `test:regression:us2:rum-pd` or Preconfigured `rum-performance-detail` suite.
+
+3. Page load, authentication and default context
+   - Authenticated navigation without login redirect, blank shell, or perpetual loader.
+   - Browser title / #page-title match /Dashboards/i.
+   - URL contains site/dashboard (slash / %2F safe).
+   - Selected site is GDC Test Site 2 (#select2-quick-site-id-container when visible; global site select may be hidden — prefer quick-site recovery).
+   - Dismiss Get started / Don’t show me again / jconfirm before interacting.
+   - Verify #select2-switch-dashboard-container matches /^\s*RUM Regression\s*-\s*US2\s*$/i. If not, select exact option under Custom and wait for widgets to settle.
+   - Verify core inventory settles within bounded UI deadline (by **title text** / stable prefixes / body language):
+       • RUM Performance - US2 (Performance Details)
+       • RUM Native App Performance - US2
+       • RUM Performance Comparison - US2
+       • Bounce Rate - US2
+       • Soft core remainder: KPI Date Comparison - US2; Performance by Browser/Country/Region - US2; Performance Summary - US2; Traffic / Timing Information - US2; Device Metrics - US2; Performance Path - US2; Performance by Geography - US2
+       • Soft empty OK: SLA Violations - US2; Year by Year Comparison - US2
+   - Soft-assert #last-updated-dashboard when present.
+   - Soft-assert time-range + site + timezone sample shape on Performance/Comparison widgets — do not hard-code timestamps.
+   - Back/Forward/refresh return to healthy site/dashboard; re-select RUM Regression - US2 + GDC if lost.
+   - Capture uncaught page errors; distinguish blocking vs Highcharts/third-party noise.
+
+4. Dashboard chrome (tabs = My/Shared Filters + widget-local comparison/path toggles)
+   Live chrome:
+   - #switch-dashboard / #select2-switch-dashboard-container
+   - Quick site / site lock soft
+   - #time-lookback (sample Last 24 hours)
+   - #refresh-dashboard
+   - #auto-refresh / frequency menu (Off + 2–60 Minutes)
+   - Carousel soft off
+   - Filters #toggle-filters / #mobile-controls-filters-btn; Cancel; Apply soft when present
+   - + Widget / + Dashboard — soft open/close; **do not Save**
+   - Dashboard Manager / wrench — soft open/close; no delete/share sticky
+   - My Filters / Shared Filters — read-only; **do not Save Filter**
+   Cover:
+   - Exact dashboard selected/selectable; soft-list Custom names include RUM Regression - US2; distinguish Synthetic/Alerts/Business/Marketing/Tag Governance - US2 and Preconfigured RUM Performance Detail / Site Overview.
+   - Soft Auto Refresh options; restore.
+   - Soft Time Lookback change + restore (see §14 for full prescribed 6h/24h/7d/30d + hover interval checks).
+   - Click refresh; soft healthy widgets.
+   - Soft Filters open/Cancel/Escape.
+   - Soft Manager / Add Widget cancel (Widget Type **Performance** soft sample in wizard Select2 — **Cancel**, never Add).
+   - **Tabs:** My/Shared Filters. KPI Type of Comparison and Performance Path High/Detail are widget controls.
+
+5. Widget — RUM Performance - US2
+   Purpose (Help Performance widget + live): multi-series Performance Details over Dashboard Time Period.
+   Cover:
+   - Verify title **RUM Performance - US2** (or Performance - US2 soft).
+   - Soft **Performance Details** / Pages: All Matching Pages language.
+   - Soft legend/series subset: Onload, 1stByte, DNS, TCPCon, DOM Duration, SSL, Redirect, Base Page, FCP/LCP/TBT/CLS/INP, Page Views, JS Errors (Sampled), TEST OVERRIDE.
+   - Soft hosts chartID_* / perfGraph-chartID_* / edit-show-hide-chartID_*.
+   - Soft hover a series point when present — **preferred** lookback datetime/interval widget.
+   - Soft legend toggle restore if used.
+   - Pencil/X — do not Save/Delete.
+
+6. Widget — RUM Native App Performance - US2
+   Purpose: Groups/Pages performance + resource series for native/webview-capable RUM.
+   Cover:
+   - Verify title **RUM Native App Performance - US2**.
+   - Soft Groups / Pages: All Matching Groups / Pages.
+   - Soft legend: Group / Page Views; Performance Timing / Onload; Errors and Crashes; CPU Usage; Memory Usage (+ CWV soft).
+   - Soft hosts perfGraph-page-timings-graph-chartID_* / chartID_*-cpuAvg / memoryAvg / jsErrors.
+   - Soft hover when series exist.
+   - Pencil/X — do not Save/Delete.
+
+7. Widget — RUM Performance Comparison - US2
+   Purpose (Help Performance Comparison): compare onload (or selected metric) over time for matching pages.
+   Cover:
+   - Verify title **RUM Performance Comparison - US2**.
+   - Soft metric subtitle (often Onload) + All Matching Pages legend.
+   - Soft hover — also preferred for lookback interval checks.
+   - Pencil/X — do not Save/Delete.
+
+8. Widget — Bounce Rate - US2
+   Purpose (Help Bounce Rate): relationship between performance (onload) and bounce / page views per session.
+   Cover:
+   - Verify title **Bounce Rate - US2**.
+   - Soft chart title Bounce Rate and Page Views / Session by Onload.
+   - Soft legend Sessions | Bounce Rate | Page Views / Session.
+   - Soft Pages: … language (PDP sample — do not hard-require).
+   - **Not** primary datetime lookback hover widget (X = Onload seconds).
+   - Pencil/X — do not Save/Delete.
+
+9. Widget — KPI Date Comparison - US2
+   Purpose (Help KPI Date Comparison): real-time KPI vs past baseline; highly configurable.
+   Cover:
+   - Verify title **KPI Date Comparison - US2**.
+   - Soft Type of Comparison Day to Day | Year to Year | Custom — sample toggle then restore capture.
+   - Soft Comparing Today To / Same Day Last Month / Last Year / Custom Compare / Bucket Size language.
+   - Soft mini-chart headings VISITS | PAGE VIEWS | ONLOAD | TIME TO DOM INTERACTIVE | AVG ORDER VALUE | REVENUE | ORDERS | CONVERSION RATE (subset OK).
+   - Soft hosts type-of-comparison-* / comparing-to-* / quick-apply-* / yearByYearVisits_* / yearByYearOnload_*.
+   - Prefer **not** clicking sticky Apply; if Apply used, restore prior mode. Read-only filter chip language soft.
+   - Pencil/X — do not Save/Delete.
+
+10. Widgets — Performance by Browser / Country / Region - US2
+    Purpose (Help): top ~50 entities by performance for selected metric/page.
+    Cover:
+    - Verify titles **Performance by Browser - US2**, **Performance by Country - US2**, **Performance by Region - US2**.
+    - Soft Performance By Browser|Country|Region + Onload(seconds) language.
+    - Soft sized bar shells; never hard-code entity names or exact seconds.
+    - Soft Pages sample language.
+    - Pencil/X — do not Save/Delete.
+
+11. Widget — Performance Summary - US2
+    Purpose: KPI metric cards for selected pages/time (aligned with Performance Details card catalogs).
+    Cover:
+    - Verify **Performance Summary - US2** via title or bodySample (DOM title slot may be date-range only).
+    - Soft cards: PAGE HITS | SESSIONS | PAGE ONLOAD | TEST OVERRIDE | FCP | LCP | TBT | CLS | … subset.
+    - Soft hosts hits-card-chartID_* / sessions-card-chartID_* / selected-pages-chartID_* / *-card-chartID_*.
+    - Soft card click may change related graphs — restore default selected metric if changed without Save.
+    - Pencil/X — do not Save/Delete.
+
+12. Widgets — Traffic Information / Timing Information / Device Metrics - US2
+    Cover:
+    - **Traffic Information - US2**: Page Views; Completed Sessions; Average Session Length; Conversion Rate; Revenue Per Visitor — format-tolerant (K/M, %, $).
+    - **Timing Information - US2**: Network Time; Back-End Time; Front-End Time (ms / sec).
+    - **Device Metrics - US2**: Device | Revenue | Orders | Page Views | Onload | JS Errors (Sampled) | Brand Value | Brand Orders; Mobile/Android/Desktop soft rows.
+    - Hosts: trafficDiv_* / trafficTable_* / timersDiv_* / deviceMetricsPanel_* / dMetricsTable_*.
+    - Pencil/X — do not Save/Delete.
+
+13. Widget — Performance Path - US2
+    Cover:
+    - Verify title **Performance Path - US2**.
+    - Soft Comparing TODAY / Previous N weeks / calendar year language.
+    - Soft High Level | Detail Level toggle — sample then restore.
+    - Soft path selector (sample “Test US2 Path” — do not hard-require name); Metric Onload soft.
+    - Soft device toggles All / Desktop / Mobile / iPad / Android — sample one then restore All (or capture).
+    - Hosts: pFlowWrpper_* / pathSelector_* / toggle-high-level_* / toggle-detail-level_* / allDevicesButton_* / desktopButton_* / mobileButton_*.
+    - Never Save path configuration sticky.
+    - Pencil/X — do not Save/Delete.
+
+14. Widget — Performance by Geography - US2
+    Purpose (Help Real User Performance by Geography): global performance heat map.
+    Cover:
+    - Verify title **Performance by Geography - US2**.
+    - Soft Displayed Metric menu (Onload / DOM Duration / TEST OVERRIDE / FCP / LCP / TBT / INP / …) — open sample; restore prior.
+    - Soft map-* / metric-* hosts.
+    - Not primary lookback hover datetime widget.
+    - Pencil/X — do not Save/Delete.
+
+15. Widgets — SLA Violations - US2 / Year by Year Comparison - US2
+    Cover:
+    - Soft-assert title presence when reachable (evaluate scroll).
+    - Empty/collapsed shell → annotate controlled empty; do not hard-fail.
+    - Year by Year Help language: daily revenue lines per year — soft if series appear; never hard-code years/$ values.
+    - Pencil/X — do not Save/Delete.
+
+16. Fields / labels inventory (assert as set, not pixel layout)
+    Dashboard: Dashboards, RUM Regression - US2, Time Lookback, Dashboard Refresh, Auto Refresh, Carousel, + Widget, + Dashboard.
+    Performance: RUM Performance - US2; Performance Details; All Matching Pages; Onload; Page Views; 1stByte; DNS; TCPCon; …
+    Native App Performance: Groups / Pages; Group / Page Views; CPU Usage; Memory Usage; Errors and Crashes.
+    Comparison: RUM Performance Comparison - US2; All Matching Pages.
+    Bounce Rate: Sessions; Bounce Rate; Page Views / Session; Onload (Seconds).
+    KPI: Type of Comparison; Day to Day; Year to Year; Custom; VISITS; PAGE VIEWS; ONLOAD; REVENUE; ORDERS; CONVERSION RATE.
+    Breakdowns: Performance by Browser|Country|Region|Geography; Displayed Metric; Onload(seconds).
+    Summary: PAGE HITS; SESSIONS; PAGE ONLOAD; FIRST CONTENTFUL PAINT; LARGEST CONTENTFUL PAINT; …
+    Tables: Traffic Information; Timing Information; Device Metrics column set.
+    Path: High Level; Detail Level; Selected Path; Metric; Browser; OS; Device.
+    Soft: SLA Violations; Year by Year Comparison.
+    Filters drawer (when open): Time Period, Timezone, Site, Data Type / Data Originated From — Cancel only.
+    Wizard residue (if +Widget open): Widget Type Performance soft — Cancel.
+
+17. Graphs
+    Live probe: **~32** Highcharts containers. Assert **sized shells + titles/labels**, not SVG counts alone.
+    Cover:
+    - Performance / Native App / Comparison time-series shells + soft hover.
+    - Bounce Rate dual-axis by Onload.
+    - KPI mini charts; Browser/Country/Region bars; Geography map.
+    - Soft legend toggle restore on Performance when used.
+    - If a future build drops SLA / Year by Year / a breakdown widget, subset-match; do not hard-fail.
+
+18. Filters drawer
+    Hosts: #toggle-filters; Apply soft; #cancel-filters; #my-filters-tab / #shared-filters-tab.
+    Cover: open Filters; soft core labels; My/Shared tabs; Cancel/Escape. **No Save Filter / Clear Cache / Clear Genius Cache**.
+    Soft Apply only if it will not persist a shared account filter; prefer Cancel.
+    After close: still RUM Regression - US2 + core widgets.
+
+19. Sibling discrimination (soft)
+    - Soft once Tag Governance - US2 or Marketing Regression - US2 → restore RUM Regression - US2 + GDC.
+    - Soft once Synthetic Regression - US2 or Alerts Regression - US2 → restore home.
+    - Soft once Preconfigured **RUM Performance Detail** → restore home (critical non-confusion).
+    - Soft once Site Overview → restore home.
+    - Soft Shared/Favorites sample optional; no save.
+    - Always re-assert GDC Test Site 2 after switches.
+    - Soft left-nav Real User Browser only if already in a drill; restore Dashboards home without Save.
+
+20. Time Lookback / Auto Refresh / Filters (prescribed)
+    Lookback host: #time-lookback — presets soft (Custom Date; Last 2/7/14/30/90 days; Today/This week/This month so far; Last 15/30 minutes; Last 1/3/6/12/24 hours).
+    Cover:
+    - Open Time Lookback; soft verify multi-option menu (runtime list).
+    - **Required prescribed lookback apply set (hard to cover; soft on sparse data):** apply each of
+        1) **Last 6 hours**
+        2) **Last 24 hours**
+        3) **Last 7 days**
+        4) **Last 30 days**
+      After **each** selection:
+        • Assert `#time-lookback` label matches the applied preset (format-tolerant).
+        • Soft-assert core widgets ready (or controlled empty + annotate).
+        • Soft-assert dashboard data **reflects** the selected window: time-range subtitle on Performance/Comparison, and/or Highcharts signature change.
+        • **Graph hover / tooltip time-interval check (required soft):** on ≥1 time-series widget when points exist — prefer **RUM Performance - US2**, else **RUM Performance Comparison - US2**. Mouse-hover a point and capture Highcharts tooltip / axis / subtitle datetime text. Soft-compare across the four lookbacks that the **visible time interval / span / bucket scale differs**. Exact clock strings must not be hard-coded. **Do not** use Bounce Rate, Geography map, or Summary cards as the primary datetime-interval widget. If a lookback has no hoverable points, annotate controlled empty and continue.
+      After the full set: **restore** original Time Lookback from suite-start capture (fallback Last 24 hours / Last 6 hours soft).
+    - Soft Custom Date open/cancel.
+    - Soft Auto Refresh Off + one interval; restore captured preference (often 10m).
+    - Filters Cancel-only as §18.
+
+21. Combination, recovery, non-functional
+    - Capture → prescribed lookbacks (6h → 24h → 7d → 30d) with core-widget inventory **and** soft Performance graph-hover tooltip interval samples per lookback → restore lookback.
+    - Soft KPI comparison type restore; soft Geography Displayed Metric restore; soft Performance Path High/Detail + device restore.
+    - Soft Filters Cancel; soft Manager cancel; soft + Widget cancel.
+    - Refresh keeps RUM Regression - US2 identity.
+    - Viewport desktop + ~1100px OK; scroll Device Metrics / Geography / Path reachable (evaluate scrollIntoView — **do not hang on scrollIntoViewIfNeeded**).
+    - Performance: widgets settle within project soft deadlines.
+    - Soft a11y: filter toggle; chart titles / table headers / card labels readable.
+
+22. Out-of-scope mutations (always)
+    - Do not Save Filter / Save as New / Save Current / permanent shared filters.
+    - Do not Clear Cache / Clear Genius Cache.
+    - Do not permanently Save widget edits / Add Widget / Clone / Delete / Unshare dashboard / click widget X.
+    - Do not leave KPI comparison sticky Apply, Performance Path non-captured device/path, or Geography non-captured Displayed Metric.
+    - Do not expand into full Monitoring RUM / Preconfigured RUM Performance Detail / other Custom US2 suites — soft drill only.
+    - Do not hard-code browser/country/region catalogs, KPI totals, path step scripts, or exact time-range strings from the probe.
+
+23. Live reverse-engineering facts to preserve (GDC, Aug 24, 2026 probe)
+    - Custom optgroup; exact title RUM Regression - US2; site/dashboard route
+    - Sixteen widgets listed above; Highcharts ≈32
+    - Lookback Last 24 hours sample; Auto Refresh (10m) sample
+    - Probe JSON keys: target, selectResult, snap, filtersOpen, lookbackOptions, autoRefreshOptions, savedAt
+    - Help article soft: Custom Dashboard Widgets 27022168923923; RUM Performance Detail sibling 360033246414
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a Playwright automation suite under
+tests/regression_tests/US2/dashboards/custom/rum-regression-us2
+covering thorough regression for:
+  - navigation & exact Custom dashboard identity (reject Synthetic/Alerts/Business/Marketing/Tag Governance - US2, Preconfigured RUM Performance Detail / Site Overview, and left-nav Monitoring RUM as home)
+  - chrome: lookback, auto refresh, refresh, carousel soft, filters Cancel-only, My/Shared tabs, manager/+Widget cancel-only
+  - RUM Performance - US2 + Native App Performance - US2 + Performance Comparison - US2 (series/legends; hover)
+  - Bounce Rate - US2 (Sessions/Bounce/PV-Session by Onload — not primary datetime hover)
+  - KPI Date Comparison - US2 (comparison type soft restore; mini KPI charts)
+  - Performance by Browser / Country / Region / Geography - US2 (bars/map; Displayed Metric restore)
+  - Performance Summary - US2 cards; Traffic / Timing Information; Device Metrics tables
+  - Performance Path - US2 (High/Detail + device restore)
+  - Soft SLA Violations / Year by Year Comparison
+  - Time Lookback prescribed set **Last 6 hours / Last 24 hours / Last 7 days / Last 30 days** with per-lookback widget refresh + soft graph-hover tooltip **time-interval** differentiation on Performance/Comparison time-series (not Bounce Rate / Geography); restore lookback
+  - combination/recovery; GDC re-anchor
+  - explicit non-confusion with other Custom US2 boards, Preconfigured RUM Performance Detail, and Monitoring RUM nav
+
+Follow existing project framework and POM conventions. Prefer live probe titles/hosts as SoT; use Custom Dashboard Widgets article + RUM Performance Detail extract for field intent only.
+
+After generation:
+1. Execute only the newly created RUM Regression - US2 suite and fix automation hard failures.
+2. Generate fresh isolated Allure results + HTML report for this suite.
+3. Generate manual test-case workbook (Summary / Regression TCs / Notes).
+4. Include executed result summary and soft annotations for: empty graphs (SLA/Year-by-Year), prescribed lookbacks (6h/24h/7d/30d) + Performance hover tooltip interval samples, KPI/Path/Geography restores, Browser/Country/Region entity soft, Custom vs Preconfigured RUM Performance Detail / Monitoring RUM discrimination, GDC re-anchor.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable widget **titles** and id **prefixes** listed above; do not depend on dynamic Highcharts instance IDs or grid-stack suffixes alone.
+6. Do not hard-code %, seconds, ms, $, K/M counts, browser/country/region/path names, fixed time-range/timezone strings, or exact chart counts.
+7. Capture and restore RUM Regression - US2 home, GDC Test Site 2, Time Lookback, Auto Refresh, KPI comparison mode, Path High/Detail+device, Geography Displayed Metric when restorable without Save.
+8. Use a serial suite only when shared page state is intentional; optional/data-dependent failures must not abort unrelated tests (soft deadlines + recovery).
+9. Use bounded soft deadlines and explicit action timeouts.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page actions running into later serial tests; cancel/reload/reset before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save Filter, Clear Cache, permanently Save widgets/dashboard clones, or leave sticky KPI/Path/Geography state.
+13. Keep primary scope on RUM Regression - US2; restore after soft sibling visits.
+14. Close all menus, overlays, drawers, modals opened by tests.
+15. Do not claim widgets refreshed by merely counting SVG hosts.
+16. Treat %/count/time/size/currency units as format-tolerant.
+17. Never accept Synthetic/Alerts/Business/Marketing/Tag Governance - US2, Preconfigured RUM Performance Detail / Site Overview, or left-nav Monitoring RUM as suite home.
+18. If any requirement is ambiguous or missing, flag it before generating automation.
+19. Prefer evaluate-based scroll; do not hang on scrollIntoViewIfNeeded.
+20. Do not name npm script `test:regression:us2:rum-pd` (reserved for Monitoring Performance Detail).
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- **Companion .txt / PDF package uniquely titled RUM Regression - US2 was not in Cursor attachments** — live probe + Custom Dashboard Widgets article + RUM Performance Detail extract are SoT. Re-fold attachments if supplied later.
+- Dashboard is **Custom**, not Preconfigured — account must retain RUM Regression - US2; if missing on another env, flag before suite run.
+- Widget order/grid may reflow — prefer title presence over coordinates (live first viewport: Performance → Native App Performance → Comparison → Bounce Rate).
+- Performance Summary DOM title slot may be date-range only — assert via bodySample / PAGE HITS language.
+- SLA Violations / Year by Year Comparison may be empty shells — soft.
+- Bounce Rate / Browser / Country / Region **Pages: PDP** sample is data-dependent — never hard-require PDP.
+- KPI “Apply Selected Filters (Read Only)” — prefer no sticky Apply.
+- Formal SLA for widget reload — use project soft deadlines.
+- Coach/Get started overlays may appear.
+- Preconfigured RUM Performance Detail and Monitoring rum-pd suites are purpose-related; do not require those routes as home.
+- REG-RR-US2 prefix is **RUM Regression** (Dashboards Custom), not Monitoring RUM module suites (REG-RUM-* / rum-pd).
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to:
+- docs/prompts/AI Prompt (For Automation Regression-Tag Governance - US2 Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Marketing Regression - US2 Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Business Regression - US2 Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Alerts Regression - US2 Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Synthetic Regression - US2 Dashboard).txt
+- tests/regression_tests/US2/dashboards/custom/tag-governance-us2/
+- tests/regression_tests/US2/dashboards/custom/marketing-regression-us2/
+- helpers/preconfiguredDashboardChrome.ts
+- pages/TagGovernanceUs2DashboardPage.ts / pages/MarketingRegressionUs2DashboardPage.ts / pages/SyntheticRegressionUs2DashboardPage.ts
+
+Follow their patterns for POM/locator separation, authenticated GDC site selection, exact dashboard Select2 matching, filter open/cancel, Highcharts soft toggles, serial recovery after soft sibling switches, isolated Allure + Excel workbooks, prescribed lookbacks, and npm naming that does not collide with tag-governance-us2, marketing-regression-us2, rum-performance-detail, or Monitoring `test:regression:us2:rum-pd`.

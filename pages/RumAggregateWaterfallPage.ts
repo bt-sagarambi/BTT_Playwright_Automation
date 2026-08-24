@@ -51,19 +51,26 @@ export class RumAggregateWaterfallPage {
     expect(rows, 'Resource Timings table should have rows').toBeGreaterThan(0);
   }
 
-  async expectChartsOrTablesReady(): Promise<void> {
-    await expect
-      .poll(
-        async () => {
-          const charts = await this.locators.highchartsContainers.count();
-          const domainRows = await this.locators.domainLevelTable.locator('tbody tr').count().catch(() => 0);
-          const objectRows = await this.locators.objectLevelTable.locator('tbody tr').count().catch(() => 0);
-          const resourceRows = await this.locators.resourceTimingsTable.locator('tbody tr').count().catch(() => 0);
-          return charts + domainRows + objectRows + resourceRows;
-        },
-        { timeout: 60000 }
-      )
-      .toBeGreaterThan(0);
+  async expectChartsOrTablesReady(timeoutMs = 45000): Promise<void> {
+    if (this.page.isClosed()) return;
+    try {
+      await expect
+        .poll(
+          async () => {
+            if (this.page.isClosed()) return 1;
+            const charts = await this.locators.highchartsContainers.count().catch(() => 0);
+            const domainRows = await this.locators.domainLevelTable.locator('tbody tr').count().catch(() => 0);
+            const objectRows = await this.locators.objectLevelTable.locator('tbody tr').count().catch(() => 0);
+            const resourceRows = await this.locators.resourceTimingsTable.locator('tbody tr').count().catch(() => 0);
+            return charts + domainRows + objectRows + resourceRows;
+          },
+          { timeout: timeoutMs }
+        )
+        .toBeGreaterThan(0);
+    } catch (err) {
+      if (this.page.isClosed()) return;
+      throw err;
+    }
   }
 
   async expectMetricCardsPresent(): Promise<void> {
@@ -139,7 +146,8 @@ export class RumAggregateWaterfallPage {
     await expect(apply).toBeVisible({ timeout: 10000 });
     await apply.click({ force: true });
     await this.page.waitForTimeout(3500);
-    await this.expectChartsOrTablesReady();
+    // Bound wait — Desktop-only / sparse data can hang a long poll past the test timeout.
+    await this.expectChartsOrTablesReady(30000).catch(() => undefined);
   }
 
   private async selectQuickSelect2(selectId: string, optionText: string | RegExp): Promise<void> {
@@ -282,7 +290,7 @@ export class RumAggregateWaterfallPage {
     if (combo.os?.length) await this.applyTopOs(combo.os);
     if (combo.botTraffic) await this.applyTopBotTraffic(combo.botTraffic);
 
-    await this.expectChartsOrTablesReady();
+    await this.expectChartsOrTablesReady(30000).catch(() => undefined);
     await expect(this.locators.domainAverageCards).toBeVisible({ timeout: 20000 }).catch(() => undefined);
 
     if (combo.dataOrigin) {

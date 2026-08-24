@@ -1,0 +1,154 @@
+RUM Regression - US2 — live reverse-engineering notes (Aug 24, 2026)
+================================================================================
+Companion package .txt uniquely titled “RUM Regression - US2” was NOT present in
+Cursor attachments when this extract was authored. SoT = live portal probe +
+screenshot. Soft field language from:
+  • Help: Custom Dashboard Widgets
+    https://help.bluetriangle.com/hc/en-us/articles/27022168923923-Custom-Dashboard-Widgets
+    (Bounce Rate; Performance by Browser / Country / Region; Real User Performance
+     by Geography; KPI Date Comparison; Year by Year Comparison; Performance /
+     Performance Comparison catalog blurbs)
+  • Help PDF extract (related preconfigured sibling — not this Custom board):
+    docs/prompts/rum-performance-detail-pdf-extract.txt
+    article 360033246414 — Performance Details / metric card / Auto Refresh language
+  • Shared Custom US2 shell prompts (Synthetic / Alerts / Business / Marketing /
+    Tag Governance - US2)
+
+Probe script: scripts/probe-rum-regression-us2-dashboard.ts
+Probe JSON:   docs/prompts/rum-regression-us2-dashboard-live-probe.json
+Screenshot:   docs/prompts/rum-regression-us2-dashboard-live.png
+
+Identity
+- Menu: Dashboards (left nav)
+- Route: site/dashboard
+- Browser / #page-title: Dashboards
+- Switcher: #select2-switch-dashboard-container = **RUM Regression - US2**
+- Optgroup: **Custom** (NOT Preconfigured)
+- Option value sample: 355897 (dynamic — never hard-code)
+- Site: GDC Test Site 2 (#select2-quick-site-id-container)
+- Time Lookback sample: Last 24 hours
+- Auto Refresh sample: Auto Refresh (10m); Off / 2–60 Minutes
+- Carousel: Carousel (off) soft
+- Highcharts containers ≈ 32
+- Filters: #toggle-filters; My Filters / Shared Filters; Cancel present
+- Last Updated sample: Last Updated HH:MM (do not hard-code clock)
+
+Exact Select2 match
+  /^\s*RUM Regression\s*-\s*US2\s*$/i
+Reject as home:
+  Synthetic / Alerts / Business / Marketing / Tag Governance Regression - US2
+  Preconfigured: Site Overview, VitalPulse, Synthetic Site Health, Traffic Source
+  and Medium, RUM Performance Detail, Synthetic Performance Detail, Native App *
+  Left-nav Monitoring → Real User Browser modules (Performance Detail / Overview /
+  Aggregate Waterfall / Bounce & Exit / Errors Explorer / Session Lookup / Budgets)
+  — purpose-related; never suite home
+
+Widgets (title SoT — prefer title regex / bodySample / id prefixes)
+1) **RUM Performance - US2**
+   - Performance Details; Pages: All Matching Pages
+   - Multi-series: Onload, 1stByte, DNS, TCPCon, DOM Duration, SSL, Redirect,
+     Base Page, Time to DOM Interactive / Content Loaded, JS Errors (Sampled),
+     TEST OVERRIDE, FCP, LCP, TBT, CLS, INP, Page Views
+   - Hosts: chartID_*, perfGraph-chartID_*, edit-show-hide-chartID_*
+   - Preferred lookback hover datetime widget (time on X-axis)
+
+2) **RUM Native App Performance - US2**
+   - Groups / Pages: All Matching Groups / Pages
+   - Legend soft: Group / Page Views, Performance Timing / Onload, Errors and Crashes,
+     CPU Usage, Memory Usage, LCP, INP, CLS, First Byte, TCP, DNS, DOM, SSL, …
+   - Hosts: perfGraph-page-timings-graph-chartID_*, chartID_*-cpuAvg / memoryAvg / …
+
+3) **RUM Performance Comparison - US2**
+   - Subtitle metric sample: Onload; legend All Matching Pages
+   - Also preferred for lookback hover (time series)
+
+4) **Bounce Rate - US2**
+   - Chart title: Bounce Rate and Page Views / Session by Onload
+   - Legend: Sessions | Bounce Rate | Page Views / Session
+   - X-axis = Onload (Seconds) — NOT primary datetime lookback-interval widget
+   - Pages sample: PDP (do not hard-code)
+
+5) **KPI Date Comparison - US2**
+   - Type of Comparison: Day to Day | Year to Year | Custom
+   - Comparing Today To / Same Day Last Month / Last Year / Custom Compare /
+     Previous X Days / Same Day Of Week For Last X Weeks; Bucket Size soft
+   - Mini charts: VISITS | PAGE VIEWS | ONLOAD | TIME TO DOM INTERACTIVE |
+     AVG ORDER VALUE | REVENUE | ORDERS | CONVERSION RATE
+   - Hosts: type-of-comparison-*, comparing-to-*, quick-apply-*, yearByYearVisits_*,
+     yearByYearPageHits_*, yearByYearOnload_*
+   - “Apply Selected Filters (Read Only)” soft — prefer Cancel / no sticky Apply;
+     restore suite-start comparison mode if changed
+
+6) **Performance by Browser - US2**
+   - Performance By Browser; Onload(seconds); Pages sample PDP
+   - Top browser bars — never hard-code browser names/versions
+
+7) **Performance by Country - US2**
+   - Performance By Country; Onload(seconds); top countries — no hard-code names
+
+8) **Performance by Region - US2**
+   - Performance By Region; Onload(seconds); top regions — no hard-code names
+
+9) **Performance Summary - US2**
+   - Metric cards: PAGE HITS, SESSIONS, PAGE ONLOAD, TEST OVERRIDE, FCP, LCP, TBT,
+     CLS, … (subset OK); selected-pages / hits-card / sessions-card / *-card-chartID_*
+   - Title may probe as date-range string — assert via bodySample / PAGE HITS language
+
+10) **Traffic Information - US2**
+    - Page Views | Completed Sessions | Average Session Length | Conversion Rate |
+      Revenue Per Visitor
+    - Hosts: trafficDiv_*, trafficTable_*, pageViews_*, sessions_*, sessionLength_*,
+      conversions_*, revenue_*
+
+11) **Timing Information - US2**
+    - Network Time | Back-End Time | Front-End Time (ms / sec formats)
+    - Hosts: timersDiv_*, timersTable_*, networkTime_*, backendTime_*, frontendTime_*
+
+12) **Device Metrics - US2**
+    - Columns: Device | Revenue | Orders | Page Views | Onload | JS Errors (Sampled) |
+      Brand Value | Brand Orders
+    - Rows soft: Mobile / Android / Desktop (+ Tablet if present)
+    - Hosts: deviceMetricsPanel_*, dMetricsTable_*, mobileRev_*, androidRev_*, …
+
+13) **Performance Path - US2**
+    - Comparing TODAY / Previous N weeks; High Level | Detail Level; path selector
+      (sample “Test US2 Path”); Metric Onload; device toggles All/Desktop/Mobile/iPad/Android
+    - Hosts: pFlowWrpper_*, pathSelector_*, toggle-high-level-*, toggle-detail-level-*,
+      allDevicesButton_*, desktopButton_*, mobileButton_*
+    - Soft open path/metric menus; restore; never Save path config sticky
+
+14) **Performance by Geography - US2**
+    - Displayed Metric menu: Onload, DOM Duration, TEST OVERRIDE, FCP, LCP, TBT, INP, …
+    - Map host: map-*; metric-*
+    - Not primary datetime lookback hover widget
+
+15) **SLA Violations - US2**
+    - May be empty/collapsed — soft presence by title; annotate empty
+
+16) **Year by Year Comparison - US2**
+    - May be empty/collapsed below fold — soft presence by title; Help: daily revenue
+      lines per year — soft if series appear
+
+Lookback presets observed
+Last 24 hours | Custom Date Selection | Last 2/7/14/30/90 days | Today/This week/
+This month so far | Last 15/30 minutes | Last 1/3/6/12 hours
+
+Prescribed lookback set for automation
+Last 6 hours → Last 24 hours → Last 7 days → Last 30 days
+Hover primary: RUM Performance - US2 and/or RUM Performance Comparison - US2
+Do NOT use Bounce Rate (onload axis) or Geography map as primary datetime-interval widget
+
+Out of scope mutations
+- No Save Filter / Clear Cache / widget X Save / Delete / Clone sticky
+- No sticky KPI comparison Apply that persists account state
+- No sticky Performance Path device/path changes without restore
+- Do not treat Preconfigured RUM Performance Detail or Monitoring RUM pages as home
+
+Ambiguities
+- No unique “RUM Regression - US2” Help PDF / companion txt in attachments
+- Widget grid order may reflow; assert by title presence
+- Performance Summary title often buried under date-range header in DOM title slot
+- SLA Violations / Year by Year may render empty shells
+- Bounce Rate / Browser / Country / Region page filter sample “PDP” is data-dependent
+- Custom Dashboard Widgets Cloudflare-gated in automated fetch — use article URL +
+  search snippets; re-fold PDF extracts if user attaches them later
