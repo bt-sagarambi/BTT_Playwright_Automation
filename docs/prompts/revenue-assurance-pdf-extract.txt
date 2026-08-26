@@ -1,0 +1,75 @@
+Revenue Assurance — documentation extract (Help Center + live probe)
+====================================================================
+Generated: 2026-08-25
+
+HELP CENTER (primary article)
+-----------------------------
+Title: Revenue Assurance — Product Overview
+URL: https://help.bluetriangle.com/hc/en-us/articles/52207889409683-Revenue-Assurance-Product-Overview
+Related listing: Business Analytics section also lists “Revenue Assurance Overview” (soft sibling title).
+
+Product purpose (Help):
+- Single-pane-of-glass portal that translates web/mobile performance data into dollars of recoverable revenue.
+- Money-ranked backlog with user story + acceptance criteria already written for engineering hand-off.
+- Closes the loop between observability (Blue Triangle RUM, Chrome CrUX, Android Vitals) and execution
+  (tickets, status tracking, realized-revenue attribution).
+
+Audiences (Help):
+- Executives / revenue owners — total annualized opportunity, recognized-vs-remaining progress, forecast.
+- Product managers — ranked, filterable backlog by platform and sub-area.
+- Engineers — fully-formed recommendations (analysis, user story, acceptance criteria, expected result, source metrics).
+
+Key concepts (Help):
+- Annualized opportunity — estimated yearly revenue lift if opportunity fully realized.
+- Recognized revenue — opportunity already captured by implemented recommendations (green progress bar).
+- Platform — Browser / iOS Mobile App / Android Mobile App + global All.
+- Recommendation status — New → In Progress → Implemented; plus Internal Review staging for drafts.
+  (Live GDC also exposes Declined and Internal Declined — prefer live status inventory.)
+- Estimated effort — Large / Medium / Small (L/M/S), editable inline.
+- Source metrics — Blue Triangle RUM, Chrome CrUX, Android Vitals, CWV (INP/LCP/CLS), Macrobenchmark, Baseline Profiles.
+
+Landing dashboard (Help):
+- Hero card: total annualized opportunity; recognized-vs-remaining progress; donuts for Recommendations by State
+  and Opportunity by Platform; platform toggle re-scopes dashboard.
+- Revenue Opportunities: money-ranked cards by platform; Compact/Relaxed density; Coming Soon for not-ready items.
+- Show Me deep-links into All Recommendations table (sortable/filterable/paginated): Recommendation, Revenue
+  Opportunity, Effort, Revenue Realized, Status, Platform, Created date.
+- Rich cards / expand: parent opportunity, annualized lift, realized revenue, Status + Effort dropdowns,
+  Expand / Share / Feedback; Detailed Analysis with source-metric chips; User Story; Acceptance Criteria;
+  Expected Result.
+
+LIVE PORTAL (GDC Test Site 2 — Aug 2026 probe)
+---------------------------------------------
+Path: Login → Business Insights → Improve Revenue → Revenue Assurance
+Route: revenue-assurance/dashboard
+Smoke catalog: biz.revenue-assurance
+Browser / #page-title: Revenue Assurance Dashboard
+Site: GDC Test Site 2
+
+Artifacts:
+- docs/prompts/revenue-assurance-live-probe.json
+- docs/prompts/revenue-assurance-live.png
+- docs/prompts/revenue-assurance-detail-probe.json
+- scripts/probe-revenue-assurance.ts
+- scripts/probe-revenue-assurance-detail.ts
+
+Live chrome highlights:
+- Platform toggles: All | Browser | iOS Native App | Android Native App + Share
+- Hero: TOTAL ANNUALIZED OPPORTUNITY, Scaling Applied badge, Show Me, Recognized Revenue Progress,
+  Recognized Year to Date, Remaining Opportunity; gear / opportunity-factor-setting soft
+- Donuts: #recommendationsChart (RECOMMENDATIONS IMPACT), #platformChart (OPPORTUNITY BY PLATFORM)
+- Status Show Me hosts: #in-progress-records-btn, #implemented-records-btn, #declined-records-btn,
+  #internal-declined-records-btn, #internal-review-records-btn
+- Platform Show Me: #browser-platform-show-btn, #ios-platform-show-btn, #android-platform-show-btn
+- Revenue Opportunities cards: #revenue-cards-section, #gridViewBtn, #cardSearch, #card-* 
+- Table: #revenueAssuranceTable (#statusFilter, #sortPlatform, #table-search-revenueAssuranceTable,
+  #batchStatusSelect, pager)
+- Recommendation detail deep-link: …&recommendation_id=…
+  Tabs Overview | Action | History; Summary; Detailed Analysis; Related Recommendations;
+  Revenue Attribution / Attribution Analysis; Follow Up Recommendations; Activity History;
+  Status + Effort (S/M/L); copyable ID: field; Data Science / Object Detail → SOURCE DATA
+  (#recPerfViewDataModal / #raImpactAnalysisModal soft)
+
+NOTE:
+No dedicated Revenue Assurance PDF/txt package was present in the workspace when this extract was written.
+Prefer live control ids / labels when Help is incomplete; fold any later-attached PDF into the AI Prompt SoT.

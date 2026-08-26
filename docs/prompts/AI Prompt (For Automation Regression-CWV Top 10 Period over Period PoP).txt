@@ -1,0 +1,332 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the **“CWV Top 10 Period over Period (PoP)”** Business Intelligence dashboard. Reverse-engineer the live application using **GDC Test Site 2** and refer to:
+  • Attached PDF package: **“BI Dashboard: CWV Top 10 Period over Period (PoP) Performance Dashboard”**
+      docs/prompts/BI_Dashboard_CWV_Top_10_Period_over_Period_PoP_Performance_Dashboard.pdf
+      (Help article: https://help.bluetriangle.com/hc/en-us/articles/37569255525523-BI-Dashboard-CWV-Top-10-Period-over-Period-PoP-Performance-Dashboard)
+  • PDF extract notes: docs/prompts/cwv-top10-pop-pdf-extract.txt
+      (raw dump: docs/prompts/cwv-top10-pop-pdf-extract-raw.txt)
+  • Shared BI overview (soft sibling doc only): **“Blue Triangle - Business Intelligence”**
+      https://help.bluetriangle.com/hc/en-us/articles/32871857479571-Blue-Triangle-Business-Intelligence
+  • Live portal reverse-engineering probe (Aug 2026): docs/prompts/cwv-top10-pop-live-probe.json
+  • Live notes / screenshots: docs/prompts/cwv-top10-pop-live-notes.txt ,
+      docs/prompts/cwv-top10-pop-live.png , docs/prompts/cwv-top10-pop-dashboard.png
+  • Probe script: scripts/probe-cwv-top10-pop.ts
+  • Soft sibling BI catalog / PoP suites for shared chrome patterns only (do not treat as home):
+      Native App Top 10 Period over Period (PoP), CWV Trends, CWV Trends by Page,
+      Site Operations + CWV Trends, Period-over-Period Key Metrics Dashboards,
+      Core Web Vital URL Volume (PDF related-articles)
+  • Soft sibling portal CWV shells (different product surfaces — soft hop only):
+      docs/prompts/AI Prompt (For Automation Regression-Core Web Vitals).txt
+      docs/prompts/AI Prompt (For Automation Regression-Vital Pulse Dashboard).txt
+
+NOTE ON DOCUMENTATION VS LIVE PRODUCT
+1) **PDF attached (5 pages, print 8/26/26)** is SoT for product purpose, the **5 comparative charts**, per-page comparative tables, Google CWV bands, delta legend, and the **Filter Options** inventory/defaults below. Prefer **live** `#bi-iframe` control hosts / month steppers / Apply / Save As / Refresh Data / Reset to Default labels when PDF is silent or older than the BI shell.
+2) Live portal path (probe Aug 2026): Menu → **Advanced Reporting & Alerting** → **Custom Reporting** → **Business Intelligence** → (BI iframe) **Dashboards** → Search **“CWV Top 10 Period over Period (PoP)”** → open the matching card/result.
+3) Portal shell route: **business-intelligence/tool** (sid query soft). Browser / #page-title soft: **Business Intelligence**.
+4) Product UI host is the embedded BI app iframe **`#bi-iframe`** → `https://jbi.bluetriangletech.com/…` (JWT token query — do not hard-code tokens). **All dashboard widgets / Lookback / Save As / Refresh Data / Reset to Default live inside this iframe** (or nested frames). Portal chrome (site Select2, Get started, portal Filters funnel) is outer shell only — **do not confuse** portal `#toggle-filters` with BI **Lookback Period**.
+5) Live catalog card (GDC): title **CWV Top 10 Period over Period (PoP)**; type badge **Grid**; description soft “Analyzes the CWVs for the top 10 pages… custom time period comparison”; **13 widgets** (catalog metadata — PDF describes 5 comparative charts + tables + filters; remaining widgets may be chrome/supporting — soft-assert PDF five + tables first).
+6) PDF Introduction objective: comprehensive overview of **top pages (or user-selected pages)** key performance elements (**CWV, page load, page views**) in a **period-over-period** comparative fashion.
+7) PDF chart note: comparative visualization values are an **average of all pages included in the filter** (user-controllable via Page Name / filters) — soft-assert average semantics via labels only; do not recompute averages from tables unless trivial and format-tolerant.
+
+CRITICAL DISTINCTION (do not confuse screens)
+  • **CWV Top 10 Period over Period (PoP) (THIS suite)** = BI iframe Dashboards → exact title match **/CWV Top 10 Period over Period \(PoP\)/i**; portal route **business-intelligence/tool**.
+  • **Native App Top 10 Period over Period (PoP)** — BI catalog sibling; soft presence only; restore CWV Top 10 PoP.
+  • **CWV Trends / CWV Trends by Page / CWV Selector Performance / Site Operations*** — BI siblings; soft only.
+  • **Period-over-Period Key Metrics** (Daily/Weekly/Monthly/Quarterly Revenue / UX Metrics) — different BI PoP family; soft only.
+  • **VitalPulse** (preconfigured site/dashboard) / **Core Web Vitals (VitalScope)** (RUM Performance Overview) — **not** suite home.
+  • Portal **Dashboards** (site/dashboard Site Overview etc.) — unrelated shell; out of primary scope.
+  • BI **AI Query / Charts / Schedules / Folders / Favorites** tabs — soft chrome only; always restore **Dashboards → CWV Top 10 PoP**.
+
+⚠️ PROBE / MUTATION PITFALLS
+1) **iframe SoT:** Never assert widget text from the portal `body` alone. Scope locators to `#bi-iframe` contentFrame (and nested frames if present). Re-acquire frame after navigation / Search / open dashboard.
+2) **Search** on Dashboards list: use the visible **Search…** input; open the **title link** of **CWV Top 10 Period over Period (PoP)** (not only the Grid badge / heart / ⋮ menu). Confirm viewer shows that dashboard title before widget asserts.
+3) **Lookback Period** month increase/decrease + **Apply** mutates shared dashboard filter state for the session — capture original lookback/end-date signature at suite start; **restore** (or **Reset to Default**) before suite end.
+4) **Save As** clones a dashboard — use a **disposable clone name** with unique suffix (timestamp/random); verify clone appears; then **delete/clean up** the clone if UI allows, or annotate leftover clone for manual cleanup. Never overwrite shared Global templates permanently.
+5) **Refresh Data** — soft click and assert widgets re-settle (signature / last-refreshed / loading→ready); do not treat as destructive.
+6) **Reset to Default** — soft verify it restores default filter/lookback state after intentional changes; if Reset is unavailable on a locked Global dashboard, annotate and use Save As clone for mutation tests.
+7) Do **not** permanently edit shared Global dashboard widgets/layout, create production Schedules, or leave AI Query / Chart Builder drafts saved.
+8) Do **not** Save portal Genius Filters / Clear Genius Cache from outer shell.
+9) Page names, LCP/INP/CLS values, page-view counts, delta %, widget instance ids, JWT tokens, and “Last modified …” strings are **data-dependent** — never hard-code probe samples; assert formats, labels, Google band language, and before/after soft signatures.
+10) After Lookback Apply / multi-filter Apply / Refresh / Reset / Save As / sibling hop, always re-assert **GDC Test Site 2** + **CWV Top 10 Period over Period (PoP)** identity (title in BI viewer).
+11) Highcharts / chart SVG ids inside BI are dynamic — prefer widget titles, chart axis labels (LCP/INP/CLS/Page Load/Page Views), and table headers.
+12) If Search yields empty catalog or open fails, assert controlled empty, annotate entitlement/folder scope, try folder filter **All Folders** / soft Global folder, and fail soft only after recovery attempts.
+
+Live observations (GDC Test Site 2 — probe Aug 2026)
+- Portal URL: …/index.php?r=business-intelligence/tool&sid=…
+- Portal title / #page-title: **Business Intelligence**
+- Site: GDC Test Site 2
+- Outer iframe: `#bi-iframe` (title soft “Business Intelligence”) → jbi.bluetriangletech.com
+- BI left rail soft: **Favorites | Dashboards | AI Query | Charts | Schedules | Folders** (+ **AI Help**)
+- Dashboards list chrome soft: **+ Create Dashboard**; pager **5/10/25/50 / Page**; **Search…**;
+    folder filter (**All Folders / My Folder / Global / Site Folder / Account Folder / Development**);
+    status filter; sort (**Last Modified Desc** etc.); **Local | UTC**; **Reset**; grid/list toggles; favorites heart
+- Catalog card soft for THIS dashboard:
+    **CWV Top 10 Period over Period (PoP)** · Grid · ~**13 widgets** ·
+    description mentions top 10 pages + custom time period comparison
+- Soft sibling cards nearby: CWV Trends by Page, CWV Selector Performance, Native App Top 10 PoP, Site Operations*
+- PDF-required in-dashboard content (confirm live hosts after open — re-probe if needed):
+    Exactly **5 Key Metrics Comparative Visualizations**:
+      Page load time | LCP | INP | CLS | Page views (comparative)
+    Key Metrics Comparative Data Tables (per page)
+    Google CWV bands on CWV charts: **Poor / Needs improvement / Good**
+    CLS table cells color-coded to Google thresholds
+    Delta metric color coding + bottom legend:
+      Improvement > 5% | Improvement or Degradation of < 5% | Degradation > 5%
+- PDF Filter Options (soft exact labels; live may add Apply / chips):
+    **Lookback Period** — period to use and compare
+    **Comparison Method** — Directly vs. previous **or** vs. same period last year
+    **End date** — when lookback ends (fixed date, or matches user attribute → start of month/week for schedules)
+    **Browser** | **Bot Traffic** (defaults **exclude bots**) | **Device** (Desktop or Mobile browser)
+    **Operating System** | **Originated from** (RUM Browser / Native App / Webviews)
+    **Page Name** | **Return/New User** | **Traffic Segment**
+    **Percentile** (CWV only; default **75th**) | **Timezone**
+- PDF scheduling note: schedule Filters tab overrides dashboard filters — schedule create cancel-only / out of permanent scope
+- User-required BI chrome (REQUIRED — live hosts; not button-named in the 5-page PDF):
+    **Lookback Period** increase/decrease **months** → **Apply** → data refresh;
+    other filter combinations → Apply → data refresh;
+    **Save As** (clone); **Refresh Data**; **Reset to Default**
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - CWV Top 10 PoP reframes top-page CWV + load + volume as a **period-over-period** comparative dashboard (charts + tables + delta coloring).
+   - Metric formats soft: seconds/ms for timings, unitless CLS, counts for page views, % deltas, Google band labels — format-tolerant; **never hard-code** page names, numeric CWV values, or widget counts from the probe beyond soft “≈13 widgets on catalog card”.
+   - Use live UI data only. Do not call APIs or query a database.
+   - Capture at suite start (inside BI iframe after dashboard open): dashboard title, Lookback Period value/signature, Comparison Period, End date (if shown), key filter chip/values, presence of core chart titles + table headers, overlays closed, clone-name none.
+   - Assert labels, formats, chart/table shells, Google band / delta legend language, controlled empty states, before/after soft signatures rather than exact backend series.
+   - If a lookback/filter combo yields empty charts/tables, assert controlled empty, annotate, Reset to Default / restore captured filters and continue.
+   - Do not hard-code JWT tokens, nested chart instance ids, or Highcharts internal ids.
+
+2. Navigation and implementation paths
+   Live primary path (user + probe):
+   Login → Left menu **Advanced Reporting & Alerting** → **Custom Reporting** → **Business Intelligence**
+   → portal **business-intelligence/tool** → wait `#bi-iframe` ready → BI rail **Dashboards**
+   → Search field **“CWV Top 10 Period over Period (PoP)”** (or shorter unique token **“CWV Top 10 Period”**)
+   → click the **displayed result / card title** → dashboard viewer.
+
+   Soft alternate: BI Favorites if already favorited; Folders → Global/Site → same title; Help deep-link if present — still require exact PoP title.
+
+   Target automation folder:
+   tests/regression_tests/US2/advanced-reporting/custom-reporting/business-intelligence/cwv-top10-pop/
+   Suggested spec name:
+   cwv.top10.pop.regression.spec.ts
+   Suggested POM / locators:
+   pages/CwvTop10PopDashboardPage.ts
+   locators/CwvTop10PopDashboardLocators.ts
+   Reuse patterns: portal session + LeftNav expand Advanced/Custom Reporting; iframe frame helpers;
+   soft Search/Reset on BI Dashboards list; recover via re-goto business-intelligence/tool + re-open dashboard.
+   Do **not** treat VitalPulse / Site Overview / Core Web Vitals POM as home.
+   Suggested manual workbook:
+   docs/CWV_Top10_Period_over_Period_PoP_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:cwv-top10-pop
+   Suggested test case ID prefix:
+   REG-CWV-POP-###
+   Probe:
+   scripts/probe-cwv-top10-pop.ts → docs/prompts/cwv-top10-pop-live-probe.json
+   (After first automation pass, extend probe to open the card and dump in-dashboard filter/widget inventory.)
+
+3. Page load, authentication and default context
+   - Authenticated navigation without login redirect, blank BI shell, or perpetual `#jbi-iframe-loading`.
+   - Portal browser title / #page-title matches /Business Intelligence/i.
+   - URL contains business-intelligence/tool (slash / %2F safe).
+   - Selected site is GDC Test Site 2.
+   - Dismiss portal Get started / Don’t show me again / jconfirm before iframe work.
+   - Wait for `#bi-iframe` attached + contentFrame body text length soft-ready.
+   - Open Dashboards → Search → open **CWV Top 10 Period over Period (PoP)**.
+   - Verify BI viewer identity: title matches /CWV Top 10 Period over Period \(PoP\)/i.
+   - Verify core inventory settles within a bounded UI deadline (PDF SoT + live titles):
+       • Soft-assert the **5** comparative visualizations: Page load, LCP, INP, CLS, Page views
+         (annotate if a chart is lazy/collapsed; do not hard-fail solely on dynamic SVG ids)
+       • ≥1 Key Metrics comparative **per-page** data table with headers soft
+       • Soft Google band language (Poor / Needs improvement / Good) on CWV charts
+       • Soft delta legend at bottom (>5% / <5% / Degradation >5%) when present
+       • Filter / Lookback chrome reachable (**Lookback Period**, **Comparison Method**, **End date**, …)
+   - Soft-assert catalog ~13 widgets vs PDF’s 5 named charts — annotate supporting widgets; prefer PDF five + tables as hard inventory.
+   - Back/Forward/refresh: restore BI tool + re-open PoP if iframe resets; re-select GDC if lost.
+   - Capture uncaught page errors; distinguish portal noise vs BI iframe errors.
+
+4. BI shell chrome (Favorites / Dashboards list / Search) — REQUIRED before viewer
+   Cover:
+   - Soft-assert BI rail items Favorites / Dashboards / AI Query / Charts / Schedules / Folders.
+   - Soft Favorites empty/controlled state OK; not suite home.
+   - On Dashboards: Search for PoP token → ≥1 matching card; clear search before suite end if sticky.
+   - Soft folder/status/sort/Local-UTC/Reset on list toolbar — non-destructive; restore All Folders + default sort when changed.
+   - Soft grid vs list toggle then restore.
+   - Soft ⋮ / heart on card — open/close only; do not leave unwanted favorite sticky if avoidable (or unfavorite before end).
+   - Soft Create Dashboard / New Schedule — open/cancel only; **no permanent create**.
+   - Soft sibling card presence (Native App Top 10 PoP / CWV Trends*) once; do not open deep; stay on list or restore PoP viewer.
+
+5. Dashboard viewer identity + layout (PDF Dashboard Components)
+   Cover:
+   - Soft-assert dashboard title **CWV Top 10 Period over Period (PoP)**.
+   - Soft Back to Dashboards then re-open (recovery pattern).
+   - Soft-assert PDF **Key Metrics Comparative Visualizations** (5 charts):
+       Page load time | LCP | INP | CLS | Page views — comparative period-over-period
+   - Soft-assert PDF note behavior only at label level: chart values reflect **average of pages in filter**.
+   - Soft-assert **Key Metrics Comparative Data Tables** (per page); CLS color-coding soft; Delta columns soft.
+   - Soft-assert Google bands **Poor / Needs improvement / Good** on CWV charts.
+   - Soft-assert bottom **Delta** legend: Improvement > 5% | < 5% | Degradation > 5%.
+   - Soft scroll all major widgets into view; assert no perpetual spinner per widget (bounded).
+   - Soft export/download/share menus if present — open/close only.
+
+6. Lookback Period filter — REQUIRED (user regression point #1; PDF Filter Options)
+   Cover:
+   - Open **Lookback Period** (PDF: “The period to use and compare”; label soft `/Lookback Period/i`).
+   - Capture current lookback signature (e.g. N months / displayed range text / end-date).
+   - **Increase** months (stepper / + / input) by a small delta (e.g. +1 month); **Apply**.
+   - Soft-assert dashboard data refreshed: loading indicators clear; chart/table soft signature changes **or** controlled identical annotate if data sparse; timestamps/range labels update when shown.
+   - **Decrease** months (e.g. −1 toward original or another valid value); **Apply**; soft re-assert refresh.
+   - Soft invalid/zero month handling if UI blocks — annotate.
+   - **Restore** original lookback (manual set or Reset to Default) and Apply if required.
+   - Do not leave an extreme lookback that empties all widgets for later tests.
+
+7. Other filters + combinations — REQUIRED (user point #1; PDF Filter Options inventory)
+   Cover soft combinations (sample ≥2–3 non-destructive combos; restore after each):
+   - **Comparison Method** (PDF): Directly vs. previous **or** vs. same period last year
+   - **End date** (PDF): fixed disposable date preferred; soft-open “matches a user attribute” /
+     start of month|week **without** saving a permanent schedule
+   - **Browser**; **Bot Traffic** (default exclude bots — soft verify default then sample Include if safe);
+     **Device** (Desktop or Mobile); **Operating System**
+   - **Originated from**: soft sample RUM Browser / Native App / Webviews (restore)
+   - **Page Name** selector (prefer data-bearing page; soft select/deselect) — charts average pages in filter
+   - **Return/New User**; **Traffic Segment**; **Percentile** (CWV; soft default **75th**); **Timezone**
+   - For each Apply: assert widgets refresh (before/after signature) or controlled empty + annotate
+   - Cross-check at least one combo that keeps charts non-empty when data exists
+   - Always restore baseline filters before Save As / lifecycle-unrelated tests
+   - Soft: do **not** create permanent scheduled reports; if Schedules UI opened, Cancel only
+     (PDF: schedule Filters tab would override dashboard filters)
+
+8. Save As / Refresh Data / Reset to Default — REQUIRED (user regression point #2)
+   A) **Save As** (clone)
+      - Soft-assert **Save As** control present (or equivalent “Save as” / “Clone dashboard”).
+      - Open Save As; enter disposable name `CWV-PoP-QA-<unique>`; confirm save.
+      - Soft-assert clone opens or appears in Dashboards list Search.
+      - Soft-assert clone shows same widget family titles (not empty shell).
+      - Cleanup: delete clone via ⋮/Folders if available; else annotate leftover name.
+      - Never Save As overwriting the shared Global **CWV Top 10 Period over Period (PoP)** title.
+
+   B) **Refresh Data**
+      - Capture soft widget signature.
+      - Click **Refresh Data** (or live equivalent Refresh).
+      - Assert loading→ready; widgets still present; signature may match or change — annotate.
+      - Identity still PoP + GDC.
+
+   C) **Reset to Default**
+      - Intentionally change Lookback and one other filter; Apply.
+      - Click **Reset to Default**.
+      - Soft-assert filters return toward defaults / captured baseline; widgets refresh.
+      - If control missing on read-only Global dashboard: annotate; perform Reset checks on the Save As clone instead.
+
+9. Graphs / tables / a11y
+   - Soft assert independent chart hosts for comparative metrics (titles/axes — not SVG counts alone).
+   - Soft hover one comparative series for tooltip presence (format-tolerant); no hard series values.
+   - Soft table sort/search/pager inside dashboard widgets when present — restore.
+   - Soft Escape closes filter popovers/modals/menus.
+   - Soft focus Lookback / Apply / Save As / Refresh / Search.
+
+10. Sibling discrimination (soft)
+   - Soft once Native App Top 10 PoP or CWV Trends from Dashboards list → restore **CWV Top 10 Period over Period (PoP)** viewer + GDC.
+   - Soft portal left-nav Core Web Vitals / VitalPulse is not suite home — if hopped, return to business-intelligence/tool + PoP.
+   - Always re-assert GDC Test Site 2 after site-like switches.
+
+11. Combination, recovery, non-functional
+   - Capture → Lookback +1 Apply → filter combo Apply → Refresh Data → Reset/restore → Save As clone soft cleanup.
+   - Refresh portal page: re-enter iframe → Dashboards Search → PoP.
+   - Performance: iframe + widgets settle within project soft deadlines.
+   - Viewport: desktop + ~1100px OK (BI sidebar may collapse).
+
+12. Out-of-scope mutations (always)
+   - Do not permanently modify Global PoP layout/widgets.
+   - Do not leave unrestored Lookback/filter changes on the shared dashboard.
+   - Do not create permanent Schedules / AI Query saved assets / Chart Builder publishes.
+   - Do not Clear Genius Cache / Save portal Filters.
+   - Do not expand into full VitalPulse / VitalScope / Native App PoP / Monthly Revenue suites.
+   - Do not hard-code CWV numeric catalogs or page-name lists from the probe.
+
+13. Live reverse-engineering + PDF facts to preserve
+   - Portal route business-intelligence/tool; title Business Intelligence
+   - `#bi-iframe` → jbi.bluetriangletech.com
+   - BI Dashboards Search finds **CWV Top 10 Period over Period (PoP)** (Grid, ~13 widgets)
+   - Catalog description: top 10 pages + custom time period comparison
+   - Soft list chrome: Search, All Folders, Local/UTC, Reset, Create Dashboard
+   - PDF: **5** comparative charts (Page load, LCP, INP, CLS, Page views) + per-page tables +
+     Google bands + delta legend (>5% / <5% / Degradation >5%) + Filter Options inventory
+     (Lookback Period, Comparison Method, End date, Browser, Bot Traffic default exclude,
+     Device Desktop/Mobile, OS, Originated from RUM Browser/Native App/Webviews, Page Name,
+     Return/New User, Traffic Segment, Percentile default 75th, Timezone)
+   - Required user flows (live chrome): Lookback months ± + Apply; filter combos; Save As clone; Refresh Data; Reset to Default
+   - Probe JSON keys soft: navOpen/shellUrl, wentDashboards, opened, dashboard, chromeHints, screenshots, savedAt
+   - PDF path: docs/prompts/BI_Dashboard_CWV_Top_10_Period_over_Period_PoP_Performance_Dashboard.pdf
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a Playwright automation suite under
+tests/regression_tests/US2/advanced-reporting/custom-reporting/business-intelligence/cwv-top10-pop
+covering thorough regression for:
+  - navigation & identity (portal BI tool + iframe Dashboards Search → exact CWV Top 10 PoP)
+  - BI rail / Dashboards list chrome (Search, folders, soft siblings)
+  - dashboard viewer widgets: comparative charts + tables + CWV bands + delta legend soft
+  - Lookback Period increase/decrease months + Apply + data refresh asserts + restore
+  - combinations of other BI filters + Apply + refresh/empty handling + restore
+  - Save As clone (disposable) + Refresh Data + Reset to Default
+  - recovery / GDC re-anchor / non-confusion with VitalPulse, VitalScope, Native App PoP, portal Dashboards
+
+Follow existing project framework and POM conventions. Prefer live probe hosts/titles as SoT; re-probe inside the opened dashboard if filter control ids are still sparse.
+
+After generation:
+1. Execute only the newly created CWV Top 10 PoP regression suite and fix automation hard failures.
+2. Generate fresh isolated Allure results + HTML report for this suite.
+3. Generate manual test-case workbook (Summary / Regression TCs / Notes).
+4. Include executed result summary and soft annotations for: empty lookback/filter combos, missing Reset/Save As on locked Global, clone cleanup failures, sparse Internal data, iframe load flakes, GDC re-anchor.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable titles/labels and portal `#bi-iframe` frame scope; do not depend on dynamic Highcharts instance IDs or JWT tokens alone.
+6. Do not hard-code KPI totals, page names, CWV values, delta %, or fixed dates from the probe.
+7. Capture and restore PoP home, GDC Test Site 2, Lookback/filters baseline; cleanup Save As clones.
+8. Use a serial suite only when shared page/iframe state is intentional; optional/data-dependent failures must not abort unrelated tests (soft deadlines + recovery).
+9. Use bounded soft deadlines and explicit action timeouts.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page/iframe actions running into later serial tests; cancel/reload/reset before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save portal Filters, Clear Genius Cache, permanently edit Global PoP, or leave unrestored lookback mutations.
+13. Keep primary scope on CWV Top 10 PoP; restore after soft sibling/list/AI Query visits.
+14. Close all menus, overlays, drawers, modals opened by tests.
+15. Do not claim widgets refreshed by merely counting SVG hosts.
+16. Treat timing/%/date units as format-tolerant.
+17. Never accept VitalPulse, VitalScope Performance Overview, or Native App Top 10 PoP as suite home without the exact CWV Top 10 Period over Period (PoP) title in the BI viewer.
+18. If any requirement is ambiguous or missing, flag it before generating automation.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- **PDF is now attached** (5 pages, 8/26/26 print) — SoT for charts/tables/filters/delta legend. Save As / Refresh Data / Reset to Default / month steppers remain **live BI chrome** (not named as buttons in the PDF) — confirm hosts on first open (re-probe).
+- Probe confirmed Dashboards **catalog** + card metadata (~13 widgets); PDF names **5** comparative charts + tables — treat PDF five + tables as primary hard inventory; annotate extra supporting widgets.
+- Lookback “months” UI may be numeric stepper, dropdown, or duration chips — drive whatever live control increases/decreases month span; PDF only defines Lookback Period purpose.
+- PDF **Comparison Method** (vs previous / vs same period last year) may appear as “Comparison Period” in live UI — match by semantics.
+- Save As / Reset may be restricted on Global folder dashboards — use disposable clone for mutation depth if needed.
+- End date “matches a user attribute” is for **scheduled** reports (PDF) — soft open only; do not leave permanent schedules.
+- Outer portal Filters funnel (`#toggle-filters`) is **not** the BI Lookback Period control — do not confuse shells.
+- Percentile default is **75th** per PDF — soft-assert when readable; do not hard-fail if UI hides default until opened.
+- Chart values are **averages of pages in filter** (PDF note) — do not assert exact arithmetic from table cells unless format-tolerant and clearly labeled.
+- Formal SLA for iframe widget reload — use project soft deadlines.
+- Coach/Get started overlays may appear on portal shell.
+- Parallel workers may race on shared Global filter state — prefer serial for Lookback/Save As tests.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to:
+- docs/prompts/AI Prompt (For Automation Regression-Revenue Assurance Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Vital Pulse Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Site Overview Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Core Web Vitals).txt
+- pages/VitalPulseDashboardPage.ts / SiteOverviewDashboardPage.ts / RevenueAssurancePage.ts (patterns only)
+
+Follow their patterns for POM/locator separation, authenticated GDC site selection, filter apply/cancel/restore, graph soft asserts, serial recovery after soft sibling switches, reversible mutations with restore, isolated Allure + Excel workbooks, and npm naming that does not collide with VitalPulse / Core Web Vitals / Native App PoP.

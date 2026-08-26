@@ -1,0 +1,12 @@
+Revenue Assurance live probe notes
+URL: https://portal.bluetriangle.com/btportal/web/index.php?r=revenue-assurance%2Fdashboard&sid=305836
+Title: Revenue Assurance Dashboard
+Page title: Revenue Assurance Dashboard
+Headings: Support | Hello, Sagar | Executive | Business Insights | Improve Traffic | Improve Conversion | Improve Revenue | Business Insights | Improve Traffic | Improve Conversion | Improve Revenue | Advanced Reporting & Alerting | Executive | Automated Reporting | Alerting
+Statuses: New (6) $108.8M Show Me In Progress (1) $60.5M Show Me Implemented (1) $28.5M Show Me | New (6) $108.8M Show Me | New (6) | New | In Progress (1) $60.5M Show Me | In Progress (1) | In Progress | Implemented (1) $28.5M Show Me | Implemented (1) | Implemented | Declined* (1) $44.2M Show Me | Declined* (1) | Declined* | Internal Declined* (1) $19.5K Show Me | Internal Declined* (1) | Internal Declined* | Internal Review* (22) $22.5M Show Me | Internal Review* (22) | Internal Review* | Declined | Internal Review | Internal Declined | Link to Jira Create a new ticket or link to an existing one | Create a new ticket or link to an existing one | Get only changes and new data from the past week | Notify me when new features launch | Save Save as New Filter Save Current Filter | Save as New Filter Save Current Filter | Save as New Filter | Create new saved filter
+Show Me count: 40
+Tables: 1
+Cards: 33
+Highcharts: 6
+Platform notes: clicked platform ~/iOS/i; clicked platform ~/Android/i
+ShowMeOpened: false

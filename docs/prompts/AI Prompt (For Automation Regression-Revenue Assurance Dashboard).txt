@@ -1,0 +1,348 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the **“Revenue Assurance Dashboard”** page (Business Insights → Improve Revenue). Reverse-engineer the live application using **GDC Test Site 2** and refer to:
+  • Help Center article: **“Revenue Assurance — Product Overview”**
+      https://help.bluetriangle.com/hc/en-us/articles/52207889409683-Revenue-Assurance-Product-Overview
+      (Business Analytics section may also list soft sibling title “Revenue Assurance Overview”)
+  • Documentation extract notes: docs/prompts/revenue-assurance-pdf-extract.txt
+  • Live portal reverse-engineering probe (Aug 2026): docs/prompts/revenue-assurance-live-probe.json
+  • Live recommendation-detail probe: docs/prompts/revenue-assurance-detail-probe.json
+  • Live screenshots: docs/prompts/revenue-assurance-live.png (and detail shot if present)
+  • Probe scripts: scripts/probe-revenue-assurance.ts , scripts/probe-revenue-assurance-detail.ts
+  • Soft sibling Improve Revenue / Improve Conversion suites for shared chrome patterns only:
+      tests/regression_tests/US2/business-insights/improve-conversion/revenue-opportunity/
+      tests/regression_tests/US2/business-insights/improve-conversion/revenue-calculator/
+      tests/regression_tests/US2/business-insights/improve-conversion/revenue-attribution/
+      pages/RevenueOpportunityPage.ts / RevenueCalculatorPage.ts / RevenueAttributionPage.ts / MarketingOverviewPage.ts
+      docs/prompts/AI Prompt (For Automation Regression-Revenue Calculator).txt
+      docs/prompts/AI Prompt (For Automation Regression-Revenue Attribution).txt
+  • Smoke catalog: **biz.revenue-assurance** (config/smokeCatalog.ts)
+
+NOTE ON DOCUMENTATION VS LIVE PRODUCT
+1) If a package PDF named like **“Revenue Assurance — Product Overview – Blue Triangle Help Center.pdf”** or **“Revenue Assurance Overview”** (or a txt package brief) is provided/reattached later, fold its steps into this prompt — **prefer live control ids / titles / card labels / table headers / recommendation_id deep-links when PDF is older or incomplete**.
+2) Live BI path (probe Aug 2026): Menu → **Business Insights** → **Improve Revenue** → **Revenue Assurance**.
+3) Route: **revenue-assurance/dashboard** (sid query soft).
+4) Prefer live status inventory (**New / In Progress / Implemented / Declined / Internal Declined / Internal Review**) over Help’s shorter New→In Progress→Implemented + Internal Review sample — Help is conceptual SoT; live GDC exposes Declined* / Internal Declined* / Internal Review* with Show Me.
+5) Prefer live platform labels **Browser / iOS Native App / Android Native App** (Help may say iOS/Android Mobile App).
+6) Product purpose (Help + live): translate performance friction into **annualized recoverable revenue**, prioritize a money-ranked recommendation backlog, track status through review → work → implemented/declined, and hand engineers Detailed Analysis + source metrics + user-story style briefs.
+
+CRITICAL DISTINCTION (do not confuse screens)
+  • **Revenue Assurance Dashboard (THIS suite)** = Improve Revenue → Revenue Assurance; route **revenue-assurance/dashboard**; browser/#page-title **Revenue Assurance Dashboard**.
+  • **Revenue Opportunity / Brand Opportunity** — Improve Conversion opportunity reports; soft sibling only then restore RA.
+  • **Revenue Calculator / Brand Calculator / Revenue Attribution / Brand Attribution / Revenue Analysis** — Improve Conversion siblings; soft presence/one-hop restore only.
+  • **Broken Links / Out of Stock / Cart Refresh** — Improve Revenue siblings; soft only (RA cards may deep-link conceptually — do not expand into full Broken Links / OOS suites).
+  • Monitoring RUM / Data Science standalone pages — soft hop from Detailed Analysis only; always restore RA home.
+  • Custom dashboards / Site Overview — out of primary scope.
+
+⚠️ PROBE / MUTATION PITFALLS
+1) Status changes (**Internal Review → New / In Progress / Implemented / Declined / Internal Declined**) mutate shared backlog counts — for automation prefer **soft reversible** transitions: change status, assert count delta on Recommendations Impact list, then **restore original status** before suite end. Never leave a large Internal Review backlog emptied. Prefer disposable Internal Review sample rows; annotate if restore fails.
+2) **Do not** click Generate Recommendations / Clear Recommendations permanently; open/close modals only (`#generateRecsModal`, `#clearRecsModal`).
+3) **Do not** Save Filter / Save as New / Save Current / Clear Genius Cache.
+4) Jira link / Update in Jira / bulk Jira status sync — soft open/cancel only; **no permanent ticket create** unless an explicitly disposable sandboxed flow is approved and cleaned up.
+5) Share Recommendation / Feedback / Priority / Crash Coming Soon modals — open/close or Cancel only.
+6) Opportunity Factor / Scaling gear (`#opportunity-factor-setting`, `#opportunityFactorModal`) — open/inspect/Cancel; **do not permanently Save** scaling on shared accounts.
+7) Highcharts instance ids (`highcharts-*`) are dynamic — use stable hosts `#recommendationsChart`, `#platformChart`, `#raImpactAnalysisChart`, `#recPerfViewDataModal`.
+8) Recommendation titles / dollar amounts / counts (`$39.6M`, `Internal Review* (22)`, card `$70.4M`) are **data-dependent** — never hard-code probe samples; assert formats, labels, and before/after deltas.
+9) After platform toggle / Show Me / card drill / status change / recommendation_id deep-link, always re-assert GDC Test Site 2 + Revenue Assurance identity.
+10) Table `#revenueAssuranceTable` may be attached but not “visible” until Show Me / scroll — wait for attached + rows or scroll `#revenue-assurance-recommendations-table` into view.
+
+Live observations (GDC Test Site 2 — probe + screenshot + detail probe, Aug 2026)
+- URL sample: …/index.php?r=revenue-assurance/dashboard&sid=…
+- Recommendation detail URL sample: …&recommendation_id=<hash>…
+- Browser title / #page-title: **Revenue Assurance Dashboard**
+- Site: GDC Test Site 2 (#select2-site-id-container)
+- Platform toggles (soft exact labels): **All | Browser | iOS Native App | Android Native App**
+- Share control (top right near platform toggles)
+- Hero / TOTAL ANNUALIZED OPPORTUNITY card (`.opportunity-item-card` / main-card soft):
+    Total annualized amount; **Scaling Applied** badge (e.g. “20% Scaling Applied” — format-tolerant);
+    **Show Me** (`.show-me-btn` / `.show-me-wrapper`);
+    **Recognized Revenue Progress** (% Realized);
+    **Recognized Year to Date**; **Remaining Opportunity**
+- Recommendations Impact: host `#recommendationsChart` donut; center soft total $ + “N Total”;
+    status rows with **Show Me**: New / In Progress / Implemented (+ Declined* / Internal Declined* / Internal Review* when listed)
+    button ids soft: `#in-progress-records-btn`, `#implemented-records-btn`, `#declined-records-btn`,
+    `#internal-declined-records-btn`, `#internal-review-records-btn`
+- Opportunity by Platform: host `#platformChart`; Browser / iOS Native App / Android Native App + Show Me
+    `#browser-platform-show-btn`, `#ios-platform-show-btn`, `#android-platform-show-btn`
+- Revenue Opportunities section (`#revenue-cards-section`): platform group headers (Browser / iOS / Android totals);
+    cards `#card-*` with annualized amounts + per-card **Show Me**;
+    sample card names (data-dependent — soft presence): Perceived Performance (LCP), Optimize Web Pages - Desktop/iOS/Android,
+    Interactive Response (INP), Visual Stability (CLS), Broken Links, Out of Stock,
+    Optimize Native Web Views — iOS/Android, Optimize Native Screens Experience — iOS/Android,
+    Slow Launch Timers — iOS/Android, Coming Soon (Crashes & Errors / Even More Coming Soon)
+    `#gridViewBtn`, `#cardSearch` soft
+- All Recommendations table: `#revenueAssuranceTable` inside `#revenueAssuranceTableWrapper` / `#revenue-assurance-recommendations-table`
+    Headers: Recommendation | Category | Revenue Opp. | Effort | Revenue Real. | Status | Jira | Platform | Date
+    Filters soft: `#statusFilter`, platform sort `#sortPlatform`, `#table-search-revenueAssuranceTable`, pager info
+    Batch bar soft: `#revenueAssuranceBatchActionBar`, `#batchStatusSelect`
+- Recommendation detail (`#recommendationContainer` / `#recommendation-card`):
+    Back / Expand / Edit / Save Changes soft; Status select (Internal Review / New / In Progress / Implemented / Internal Declined / Declined);
+    Effort S|M|L (`#estimatedEffortDetails`); **ID:** copyable value;
+    Tabs: **Overview | Action | History**;
+    Sections soft: Summary, Detailed Analysis, Related Recommendations, Revenue Attribution, Attribution Analysis,
+    Follow Up Recommendations, Activity History;
+    Detailed Analysis soft chips + **Data Science** / **Object Detail** → SOURCE DATA (`#recPerfViewDataModal`, `#raImpactAnalysisModal`)
+- Soft modals: Share (`#customShareModal`), Jira (`#customJiraModal` / `#customJiraStatusModal`), Preview, Opportunity Factor,
+    Generate/Clear Recs, Crash feedback, Priority vote, Attachment preview — Cancel/Close preferred
+- Filters drawer soft (global chrome): `#toggle-filters`, My Filters / Shared Filters — **no Save Filter**; Clear Genius Cache — **do not click**
+- Soft coach / Get started — dismiss before asserts
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - Revenue Assurance reframes performance problems as a prioritized, money-ranked recommendation backlog with status workflow and source-backed briefs.
+   - Metric formats soft: currency ($ / K / M), %, counts in parentheses, dates MM/DD/YYYY — format-tolerant; **never hard-code** hero totals, status counts, card annualized amounts, table row dollars, or recommendation_id hashes from the probe.
+   - Use live UI data only. Do not call APIs or query a database.
+   - Capture at suite start: platform toggle pressed (All/Browser/iOS/Android), hero totals text signature, Recommendations Impact status counts + amounts, Opportunity by Platform counts, Revenue Opportunities card non-zero set, table status filter (if any), open recommendation_id (none), overlays closed.
+   - Assert labels, formats, graph/table shells, controlled empty/Coming Soon states, before/after soft signatures rather than exact backend series.
+   - If a platform/status filter yields empty table, assert controlled empty, annotate, restore All / clear status filter and continue.
+   - Do not hard-code Highcharts internal ids.
+
+2. Navigation and implementation paths
+   Live primary path:
+   Login → Left menu **Business Insights** → **Improve Revenue** → **Revenue Assurance**
+   Route: **revenue-assurance/dashboard**
+   Smoke catalog: **biz.revenue-assurance** (menuLabel Revenue Assurance, route revenue-assurance/dashboard)
+   Browser title / #page-title: **Revenue Assurance Dashboard**
+
+   Soft alternate: menu search “Revenue Assurance”; Favorites/Help deep-link if present — still require RA title/route.
+
+   Target automation folder:
+   tests/regression_tests/US2/business-insights/improve-revenue/revenue-assurance/
+   Suggested spec name:
+   revenue.assurance.regression.spec.ts
+   Suggested POM / locators:
+   pages/RevenueAssurancePage.ts
+   locators/RevenueAssuranceLocators.ts
+   Reuse filter open/cancel + soft signature + recover patterns from Revenue Opportunity / Calculator / Attribution / Marketing Overview; do not treat those POMs as home.
+   Suggested manual workbook:
+   docs/Revenue_Assurance_Dashboard_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:revenue-assurance
+   Suggested test case ID prefix:
+   REG-RAS-###
+   Probe:
+   scripts/probe-revenue-assurance.ts → docs/prompts/revenue-assurance-live-probe.json
+   scripts/probe-revenue-assurance-detail.ts → docs/prompts/revenue-assurance-detail-probe.json
+
+3. Page load, authentication and default context
+   - Authenticated navigation without login redirect, blank shell, or perpetual loader.
+   - Browser title matches /Revenue Assurance/i.
+   - #page-title matches /Revenue Assurance Dashboard/i.
+   - URL contains revenue-assurance/dashboard (slash / %2F safe).
+   - Selected site is GDC Test Site 2.
+   - Dismiss Get started / Don’t show me again / jconfirm before interacting.
+   - Verify core inventory settles within bounded UI deadline:
+       • Hero TOTAL ANNUALIZED OPPORTUNITY region
+       • Recommendations Impact (#recommendationsChart) + Opportunity by Platform (#platformChart)
+       • Revenue Opportunities section (#revenue-cards-section) with ≥1 card host
+       • Soft All Recommendations table host attached (#revenueAssuranceTable)
+   - Soft-assert platform toggle All selected (or capture live default).
+   - Back/Forward/refresh return to healthy RA + GDC; re-select if lost.
+   - Capture uncaught page errors; distinguish blocking vs Highcharts noise.
+
+4. Top chrome (platform toggles, Share, scaling/opportunity factor, Get started)
+   Cover:
+   - Soft-assert platform toggles **All / Browser / iOS Native App / Android Native App** present.
+   - Soft toggle Browser → hero/cards/donut re-scope (amounts/counts may change) → restore **All**.
+   - Soft sample iOS Native App and Android Native App once each when enabled; restore All.
+   - Soft Share open → Cancel/Escape — no sticky share send.
+   - Soft Opportunity Factor / gear (`#opportunity-factor-setting` / `#opportunityFactorModal`): open; assert scaling language soft; **Cancel/Close only** — do not Save permanent scaling.
+   - Soft Help Videos / Help “Revenue Assurance” chrome when present.
+   - Soft Get started dismiss only.
+
+5. Hero — Total Annualized Opportunity
+   Cover:
+   - Soft-assert labels: TOTAL ANNUALIZED OPPORTUNITY, Recognized Revenue Progress, Recognized Year to Date, Remaining Opportunity.
+   - Soft currency/% format on hero values — never hard-code probe `$39.6M` / `14% Realized`.
+   - Soft Scaling Applied badge presence when shown (percent format-tolerant).
+   - Soft hero **Show Me** (top-right of hero): scrolls/opens All Recommendations worklist showing **all recommendation types/statuses** for the current opportunity scope (user regression point #2) — assert table filters soft to All Status or equivalent; row count ≥1 when data exists; restore scroll/filter.
+
+6. Recommendations Impact donut + status Show Me (REQUIRED REGRESSION DEPTH)
+   Host: `#recommendationsChart` + status Show Me buttons.
+   Cover:
+   - Soft-assert RECOMMENDATIONS IMPACT title; donut shell; center total soft.
+   - Soft-assert status inventory presence (subset OK): New, In Progress, Implemented, Declined*, Internal Declined*, Internal Review*.
+   - For each **data-bearing** status with Show Me (count > 0): click Show Me / status button (`#internal-review-records-btn` etc.); assert `#statusFilter` or table filter reflects that status; assert visible rows Status column matches; soft pager; restore All Status / clear filter.
+   - Soft zero-count status Show Me: assert empty/controlled table or disabled soft — annotate.
+
+7. Opportunity by Platform donut + Show Me
+   Host: `#platformChart` + `#browser-platform-show-btn` / `#ios-platform-show-btn` / `#android-platform-show-btn`.
+   Cover:
+   - Soft-assert OPPORTUNITY BY PLATFORM; platform rows Browser / iOS Native App / Android Native App.
+   - Soft Show Me on a non-zero platform → table Platform filter/rows align; restore All Platforms.
+
+8. Revenue Opportunities cards (REQUIRED REGRESSION DEPTH — user point #3)
+   Host: `#revenue-cards-section`, `.sortable-opportunity-cards`, `#card-*`.
+   Cover:
+   - Soft-assert section heading Revenue Opportunities + platform group totals when shown.
+   - Soft Compact/Relaxed / `#gridViewBtn` / `#cardSearch` when present — toggle/search then clear.
+   - **Non-zero cards are clickable:** for each visible card whose annualized value is non-zero (`$0` / `$0 Annualized` excluded):
+       • Capture card title + amount text.
+       • Click card (not Coming Soon).
+       • Soft-assert drill/detail screen or in-page area loads.
+       • Cross-check displayed opportunity/total amount matches card amount (format-tolerant currency parse).
+       • Soft-assert **TOP REVENUE OPPORTUNITY AREAS** (or live AREAS list) when present; sum of AREA line amounts ≈ card/screen total (tolerance for rounding/K/M formatting).
+       • Soft **Show Me** on each AREA record opens details on a new screen/panel; Back/restore.
+       • Restore Revenue Opportunities / dashboard home between cards.
+   - **Zero-value cards are not clickable:** cards showing `$0` / `$0 Annualized` must not navigate/drill (pointer-events/disabled/no route change) — soft assert URL + panel unchanged.
+   - Coming Soon cards: soft open feedback/vote Cancel only — not treated as opportunity drill.
+
+9. All Recommendations table
+   Host: `#revenueAssuranceTable`.
+   Cover:
+   - Soft scroll into view; assert headers Recommendation / Category / Revenue Opp. / Effort / Revenue Real. / Status / Jira / Platform / Date.
+   - Soft sort one column then restore default sort when practical.
+   - Soft search (`#table-search-revenueAssuranceTable`) with a runtime recommendation keyword → ≥1 match or controlled empty; **clear search** before suite end.
+   - Soft Status / Platform filters; soft pager (5/10/25/… per page) sample; restore.
+   - Soft Export if present — open/close without hard file asserts.
+   - Soft batch bar presence (`#batchStatusSelect`) — **do not** bulk-mutate statuses permanently.
+
+10. Recommendation detail — Overview / Action / History + status lifecycle (REQUIRED — user point #1)
+    Path soft: Recommendations Impact → **Internal Review** Show Me (`#internal-review-records-btn`) → click any table record → recommendation detail (`recommendation_id` in URL) → click recommendation / Expand if needed.
+    Cover:
+    A) Detail chrome
+       - Soft-assert recommendation title, category, Est. revenue, Created date, Status, Effort S/M/L.
+       - Soft-assert **ID:** field present; copy link/value (clipboard soft when available).
+       - Paste ID link into a **new browser tab/context** → same recommendation detail opens (`recommendation_id` match + title soft match).
+       - Soft-assert Summary stats vs top-right summary/header stats (Est. revenue / status / effort) — cross-verify consistency (user point #1).
+    B) Tabs Overview / Action / History
+       - Click **Overview**: soft Summary + Detailed Analysis content.
+       - Click **Action**: soft actionable fields / Jira / status edit / acceptance-style content when present.
+       - Click **History** / Activity History: soft activity timeline or empty controlled state.
+       - Soft Related Recommendations / Revenue Attribution / Attribution Analysis / Follow Up Recommendations sections when present (read-only / soft hop + restore).
+    C) Detailed Analysis — Data Science / Object Detail SOURCE DATA
+       - Soft click **Data Science** → `#recPerfViewDataModal` or live SOURCE DATA popup: **table data loaded by default** on open (≥1 header + rows or controlled empty with annotate).
+       - Soft click **Object Detail** → SOURCE DATA popup: click different options/tabs/chips in the popup; after each click assert table data loads/refreshes; Close/Escape.
+       - Soft `#raImpactAnalysisModal` / Performance Metrics Before vs Target when offered — open/close.
+    D) Status lifecycle count math (reversible)
+       Capture Recommendations Impact counts for Internal Review and target status before change.
+       Change status from Internal Review → **New**; soft-assert Internal Review count decreases by 1 and New count increases by 1 (or $ amount deltas soft when counts tied to $ buckets — prefer count assertions from status labels).
+       Restore status to Internal Review (or original); soft re-assert counts.
+       Soft-repeat pattern (one sample each when data allows) for transitions into **In Progress**, **Implemented**, **Declined**, **Internal Declined** — always restore; annotate if a status option is missing for the sample row.
+       Prefer Edit/Save Changes only when required to persist status; if Expand-to-edit workflow exists, complete minimal save then restore.
+    E) Back to Dashboard / Internal Review list; clear sticky recommendation_id.
+
+11. Filters drawer (global) + My/Shared
+    Cover:
+    - Soft open `#toggle-filters`; soft Site/Time Range/settings labels when present.
+    - Soft My Filters / Shared Filters tabs — read-only; **do not Save Filter / Save as New / Save Current**.
+    - Cancel/Escape close; **do not Clear Genius Cache**.
+
+12. Graphs, exports, a11y
+    - Soft Highcharts signatures for `#recommendationsChart` and `#platformChart` independently.
+    - Soft Escape recovers modals/menus/detail expand.
+    - Soft focus Share / Show Me / platform toggles; Help chrome soft.
+    - Soft do not claim refresh by SVG host counts alone — use titles / status labels / table Status column / recommendation_id.
+
+13. Sibling discrimination (soft)
+    - Soft once Revenue Opportunity or Revenue Calculator or Broken Links / Out of Stock menu → restore **Revenue Assurance Dashboard** + GDC.
+    - Soft Data Science left-nav presence is not suite home — after Detailed Analysis popup close, still on RA.
+    - Always re-assert GDC Test Site 2 after site-like switches.
+
+14. Combination, recovery, non-functional
+    - Capture → platform Browser → soft card/table inventory → restore All.
+    - Soft Internal Review Show Me → open recommendation → Overview/Action/History → Back → restore filter All.
+    - Soft hero Show Me → assert all-type recommendations → restore.
+    - Soft non-zero card drill → AREAS sum check → Show Me AREA → Back → home.
+    - Soft reversible status New then restore Internal Review.
+    - Refresh keeps Revenue Assurance identity.
+    - Performance: widgets settle within project soft deadlines.
+    - Viewport: desktop + ~1100px OK.
+
+15. Out-of-scope mutations (always)
+    - Do not permanently Clear Recommendations / Generate Recommendations.
+    - Do not Save Filter / Clear Genius Cache.
+    - Do not permanently Save Opportunity Factor / Scaling.
+    - Do not create permanent Jira tickets or leave bulk status changes unrestored.
+    - Do not leave table search hiding all rows.
+    - Do not expand into full Revenue Opportunity / Calculator / Attribution / Broken Links / OOS / Data Science suites — soft sibling / popup only.
+    - Do not hard-code recommendation catalogs, dollar totals, or status counts from the probe.
+
+16. Live reverse-engineering facts to preserve (GDC Test Site 2, Aug 2026 probe)
+    - Route revenue-assurance/dashboard; title Revenue Assurance Dashboard; BI Improve Revenue path
+    - Platform toggles All/Browser/iOS Native App/Android Native App
+    - Hero annualized + recognized progress + Show Me
+    - Recommendations Impact + Opportunity by Platform donuts + per-status/platform Show Me ids
+    - Revenue Opportunities cards (non-zero clickable / zero not clickable) + AREAS sum + Show Me
+    - Table #revenueAssuranceTable + statusFilter Internal Review sample
+    - Recommendation detail recommendation_id + Overview/Action/History + ID: deep-link + status lifecycle restore
+    - Data Science default table vs Object Detail option-driven table (#recPerfViewDataModal)
+    - Probe JSON keys: nav, snap, afterShowMe, opportunityCardClick / detail probe keys, savedAt
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a Playwright automation suite under
+tests/regression_tests/US2/business-insights/improve-revenue/revenue-assurance
+covering thorough regression for:
+  - navigation & identity (exact Revenue Assurance Dashboard under Improve Revenue)
+  - platform toggles + Share + opportunity-factor cancel-only
+  - hero Total Annualized Opportunity + top-right Show Me (all recommendation types)
+  - Recommendations Impact / Opportunity by Platform donuts + status/platform Show Me
+  - Revenue Opportunities cards: non-zero clickable amount/AREAS-sum/Show Me; zero not clickable; Coming Soon soft
+  - All Recommendations table filters/sort/search/pager soft
+  - Internal Review → recommendation detail: Overview/Action/History; summary vs top-right; ID link new tab; status transitions New/In Progress/Implemented/Declined/Internal Declined with count math + restore
+  - Detailed Analysis Data Science (table default) + Object Detail (options reload table)
+  - Filters My/Shared cancel-only; combination/recovery; GDC re-anchor
+  - explicit non-confusion with Revenue Opportunity / Calculator / Attribution / Broken Links / OOS / Monitoring
+
+Follow existing project framework and POM conventions. Prefer live probe hosts/titles as SoT.
+
+After generation:
+1. Execute only the newly created Revenue Assurance regression suite and fix automation hard failures.
+2. Generate fresh isolated Allure results + HTML report for this suite.
+3. Generate manual test-case workbook (Summary / Regression TCs / Notes).
+4. Include executed result summary and soft annotations for: empty/zero cards, Coming Soon, sparse Internal Review, status restore failures, SOURCE DATA empty tables, platform-disabled toggles, GDC re-anchor.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable control titles/headers and id prefixes (#recommendationsChart, #platformChart, #revenueAssuranceTable, #internal-review-records-btn, #revenue-cards-section, #recommendation-card, #recPerfViewDataModal, recommendation_id query, etc.); do not depend on dynamic Highcharts instance IDs alone.
+6. Do not hard-code KPI totals, status counts, card dollars, recommendation titles, or fixed dates from the probe.
+7. Capture and restore Revenue Assurance home, GDC Test Site 2, platform All, cleared table filters/search, original recommendation statuses after reversible tests.
+8. Use a serial suite only when shared page state is intentional; optional/data-dependent failures must not abort unrelated tests (soft deadlines + recovery).
+9. Use bounded soft deadlines and explicit action timeouts.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page actions running into later serial tests; cancel/reload/reset before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save Filter, Clear Cache, permanently Clear/Generate Recommendations, permanently Save scaling, or leave unrestored status mutations.
+13. Keep primary scope on Revenue Assurance Dashboard; restore after soft sibling/detail/popup visits.
+14. Close all menus, overlays, drawers, modals, Export menus opened by tests.
+15. Do not claim widgets refreshed by merely counting SVG hosts.
+16. Treat currency/%/date units as format-tolerant; parse K/M suffixes when comparing card vs AREAS sums.
+17. Never accept Revenue Opportunity, Revenue Calculator, or partial “Revenue” without Revenue Assurance Dashboard title/route as suite home.
+18. If any requirement is ambiguous or missing, flag it before generating automation.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- **No dedicated Revenue Assurance PDF/txt package was attached in-repo when this prompt was authored.** Proceed with Help Center Product Overview + live probes as documentation layer; fold any later-attached PDF/txt into SoT and re-probe if UI differs.
+- Live left-nav path is **Business Insights → Improve Revenue → Revenue Assurance** (Help may still say Business Analytics) — prefer live BI path.
+- Help status lifecycle emphasizes New → In Progress → Implemented + Internal Review; live GDC also shows **Declined** and **Internal Declined** — cover live inventory.
+- Hero Show Me “all types of recommendations for the opportunity” — confirm whether it clears status filter to All vs scrolls to full table; assert live behavior.
+- Card click vs card **Show Me** may differ (card body drill vs Show Me list filter) — cover both; zero-value cards must not drill.
+- AREAS sum vs card amount may use annualized vs filtered scope — use format-tolerant compare + annotate rounding.
+- Status change may require Expand + Save Changes — detect live edit workflow; always restore.
+- ID: field may be plain text or anchor — support copy via selection or href; new-tab open must use absolute URL with recommendation_id.
+- Data Science vs Object Detail popup option labels are data-dependent — click runtime options; do not hard-code option catalogs.
+- Compact/Relaxed density toggle may be labeled differently or absent — soft.
+- Opportunity Factor / Scaling Save must remain out of scope on shared accounts.
+- Formal SLA for table/detail reload — use project soft deadlines.
+- Coach/Get started overlays may appear.
+- Parallel workers may race on shared status mutations — prefer serial for status-lifecycle tests or isolated recommendation rows.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to:
+- docs/prompts/AI Prompt (For Automation Regression-Revenue Calculator).txt
+- docs/prompts/AI Prompt (For Automation Regression-Revenue Attribution).txt
+- docs/prompts/AI Prompt (For Automation Regression-Revenue Opportunity).txt (if present) / Bottom of the Sales Funnel / Customer Journey Analysis prompts
+- tests/regression_tests/US2/business-insights/improve-conversion/revenue-calculator/
+- tests/regression_tests/US2/business-insights/improve-conversion/revenue-attribution/
+- pages/RevenueCalculatorPage.ts / RevenueAttributionPage.ts / RevenueOpportunityPage.ts / MarketingOverviewPage.ts
+
+Follow their patterns for POM/locator separation, authenticated GDC site selection, filter open/apply/cancel, Highcharts soft asserts, table sort/search/export soft, serial recovery after soft sibling switches, reversible mutations with restore, isolated Allure + Excel workbooks, and npm naming that does not collide with Revenue Opportunity / Calculator / Attribution.

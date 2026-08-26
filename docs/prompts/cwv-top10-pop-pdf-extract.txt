@@ -1,0 +1,98 @@
+Blue Triangle Help Center > Documentation > BT Business Intelligence
+BI Dashboard: CWV Top 10 Period over Period (PoP) Performance Dashboard
+Amir Rozenberg · Updated (~1 year ago at PDF print)
+Source PDF (attached Aug 26, 2026):
+  attachments/…/BI_Dashboard__CWV_Top_10_Period_over_Period__PoP__Performance_Dashboard_1.pdf
+  copied to: docs/prompts/BI_Dashboard_CWV_Top_10_Period_over_Period_PoP_Performance_Dashboard.pdf
+Article: https://help.bluetriangle.com/hc/en-us/articles/37569255525523-BI-Dashboard-CWV-Top-10-Period-over-Period-PoP-Performance-Dashboard
+PDF length: 5 pages (print stamp 8/26/26). Raw text: docs/prompts/cwv-top10-pop-pdf-extract-raw.txt
+
+PDF Table of Contents
+- Introduction
+- Dashboard Components
+  - Key Metrics Comparative Visualizations
+  - Key Metrics Comparative Data Tables
+- Filter Options
+
+Introduction (PDF)
+------------------
+Objective: provide a comprehensive overview of the top pages (or ones the user can select)
+key performance elements (CWV, page load, page views) in a period-over-period comparative fashion.
+
+Dashboard Components — Key Metrics Comparative Visualizations (PDF)
+------------------------------------------------------------------
+Exactly **5 charts** with comparative values for:
+  1) Page load time
+  2) LCP (Core Web Vital)
+  3) INP (Core Web Vital)
+  4) CLS (Core Web Vital)
+  5) Page views
+…for the defined period and filters.
+
+CWV visualizations indicate Google’s performance thresholds per metric:
+  Poor / Needs improvement / Good
+
+*Note (PDF): values in these visualizations are an **average of all pages included in the filter**,
+which the user can control.
+
+Dashboard Components — Key Metrics Comparative Data Tables (PDF)
+---------------------------------------------------------------
+Per-page data used to build the visualizations is also provided in tables.
+
+- CLS values are color-coded to Google’s threshold for that metric.
+- “Delta metric” color coding = deviation from the comparative period.
+- Delta thresholds are visible at the **bottom of the dashboard**:
+    • Improvement > 5%
+    • Improvement or Degradation of < 5%
+    • Degradation > 5%
+
+Filter Options (PDF — authoritative label set for this dashboard)
+-----------------------------------------------------------------
+- Lookback Period: The period to use and compare
+- Comparison Method: Directly vs. previous **or** vs. same period last year
+- End date: When the lookback period ends.
+    • May be a fixed date
+    • For scheduled reports: prefer “matches a user attribute” then
+      “start of the month” or “Start of the week” so the sent report covers
+      the period leading up to creation time
+- Browser: Selection of browsers
+- Bot Traffic: Defaults to **exclude bots**
+- Device: Desktop or Mobile (browser)
+- Operating System: Selection of OS
+- Originated from:
+    • RUM Browser: Desktop browsers
+    • Native App: Native app views (iOS, Android)
+    • Webviews: HTML pages rendered inside a mobile application (Hybrid Application Explainer)
+- Page Name: Page selector
+- Return/New User
+- Traffic Segment
+- Percentile (applicable only to CWV, **default is 75th percentile**)
+- Timezone for the dashboard
+
+Scheduling note (PDF)
+---------------------
+When scheduling a dashboard report, the report uses the filter settings selected in the dashboard.
+If the scheduling dialog’s Filters tab selects other settings, **those override all others**.
+(Automation: schedule create is out of scope / cancel-only unless disposable + cleaned up.)
+
+Related articles (PDF footer — soft siblings, not suite home)
+------------------------------------------------------------
+- BI Dashboard: CWV Trends
+- BI Dashboard: Site Operations
+- BI Dashboard: Core Web Vital URL Volume
+- BI Dashboard: Period-over-Period Key Metrics Dashboards
+- Network Health Checks Overview
+
+Live catalog cross-check (GDC probe Aug 2026 — not from PDF)
+-----------------------------------------------------------
+BI Dashboards card: “CWV Top 10 Period over Period (PoP)” · Grid · ~13 widgets ·
+“Analyzes the CWVs for the top 10 pages of the site, with the ability to make a custom
+time period comparison.”
+Shell: portal business-intelligence/tool → #bi-iframe → jbi.bluetriangletech.com
+
+SoT rule
+--------
+PDF is SoT for purpose, 5 comparative charts, tables, Google bands, delta legend, and
+filter option inventory/defaults. Prefer live control hosts/labels inside #bi-iframe when
+PDF is older or incomplete (e.g. Save As / Refresh Data / Reset to Default / month steppers
+are live BI chrome not enumerated as buttons in this 5-page PDF).
