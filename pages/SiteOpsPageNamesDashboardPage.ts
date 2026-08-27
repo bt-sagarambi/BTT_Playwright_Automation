@@ -1,5 +1,5 @@
-import { Page, Frame, expect, Locator } from '@playwright/test';
-import { CwvTop10PopDashboardLocators } from '../locators/CwvTop10PopDashboardLocators';
+import { Page, Frame, expect } from '@playwright/test';
+import { SiteOpsPageNamesDashboardLocators } from '../locators/SiteOpsPageNamesDashboardLocators';
 import { LeftNavPage } from './LeftNavPage';
 import { SiteDropdownPage } from './SiteDropdownPage';
 import { ensurePortalSession } from '../helpers/portalSession';
@@ -7,26 +7,27 @@ import { getActiveProfile } from '../config/profiles';
 
 const BI_TOOL_URL =
   'https://portal.bluetriangle.com/btportal/web/index.php?r=business-intelligence/tool';
-const POP_TITLE = /CWV Top 10 Period over Period \(PoP\)/i;
-const POP_SEARCH = 'CWV Top 10 Period over Period';
+const SOPN_TITLE = /Site Operations Dashboard for Page Names/i;
+const SOPN_SEARCH = 'Site Operations Dashboard for Page Names';
 
-export type CwvPopContext = {
+export type SopnContext = {
   siteLabel: string;
   lookbackSignature: string;
   bodySignature: string;
+  monthHeaders: string;
 };
 
 /**
- * BI Dashboard — CWV Top 10 Period over Period (PoP).
+ * BI Dashboard — Site Operations Dashboard for Page Names.
  * Shell: business-intelligence/tool → #bi-iframe.
- * Mutations (Lookback / filters) must be restored; Save As clones cleaned up.
+ * Mutations (Lookback / filters / sort) must be restored; Save As clones cleaned up.
  */
-export class CwvTop10PopDashboardPage {
-  readonly locators: CwvTop10PopDashboardLocators;
+export class SiteOpsPageNamesDashboardPage {
+  readonly locators: SiteOpsPageNamesDashboardLocators;
   private frame: Frame | null = null;
 
   constructor(private readonly page: Page) {
-    this.locators = new CwvTop10PopDashboardLocators(page);
+    this.locators = new SiteOpsPageNamesDashboardLocators(page);
   }
 
   async openViaNavigation(): Promise<void> {
@@ -41,7 +42,7 @@ export class CwvTop10PopDashboardPage {
     await this.waitForPortalReady();
     await this.waitForBiFrame();
     await this.openDashboardsList();
-    await this.searchAndOpenPop();
+    await this.searchAndOpenDashboard();
     await this.waitForDashboardReady();
   }
 
@@ -94,7 +95,6 @@ export class CwvTop10PopDashboardPage {
 
   async bi(): Promise<Frame> {
     if (this.frame && !this.frame.isDetached()) {
-      // Prefer viewer frame when PoP is open
       const refreshed = await this.bestViewerFrame(this.frame).catch(() => this.frame!);
       this.frame = refreshed;
       return refreshed;
@@ -121,10 +121,7 @@ export class CwvTop10PopDashboardPage {
   async expectSelectedSite(): Promise<void> {
     const profile = getActiveProfile();
     const label = await this.getSiteLabel();
-    if (!label) {
-      // Select2 may be soft-hidden on BI shell — annotate via throw message for soft catch
-      throw new Error(`site label empty (profile=${profile.siteName})`);
-    }
+    if (!label) throw new Error(`site label empty (profile=${profile.siteName})`);
     expect(label).toMatch(new RegExp(profile.siteName.replace(/\s+/g, '\\s+'), 'i'));
   }
 
@@ -145,30 +142,30 @@ export class CwvTop10PopDashboardPage {
     this.frame = (await (await this.page.$('#bi-iframe'))?.contentFrame()) || fr;
   }
 
-  async searchAndOpenPop(): Promise<void> {
+  async searchAndOpenDashboard(): Promise<void> {
     const fr = await this.bi();
     const L = this.locators.inFrame(fr);
     if (await L.searchInput.isVisible().catch(() => false)) {
       await L.searchInput.click({ force: true });
       await L.searchInput.fill('');
-      await L.searchInput.fill(POP_SEARCH);
+      await L.searchInput.fill(SOPN_SEARCH);
       await this.page.waitForTimeout(3000);
     }
 
     const clicked = await fr.evaluate(() => {
-      const want = /CWV Top 10 Period over Period \(PoP\)/i;
-      const skip = /Native App/i;
+      const want = /Site Operations Dashboard for Page Names/i;
       const nodes = Array.from(
         document.querySelectorAll('a, button, h1, h2, h3, h4, [role="heading"], [role="link"], div, span')
-      ) as HTMLElement[];
-      const scored = nodes
-        .map((el) => {
-          const t = (el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim();
-          if (!want.test(t) || skip.test(t)) return null;
-          const score = t.length < 80 ? 3 : t.length < 160 ? 2 : 1;
-          return { el, t, score };
-        })
-        .filter(Boolean) as { el: HTMLElement; t: string; score: number }[];
+      );
+      const scored = [];
+      for (const el of nodes) {
+        const t = (el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim();
+        if (!want.test(t)) continue;
+        if (/Page Groups/i.test(t) && !/Page Names/i.test(t)) continue;
+        if (/Site Operations \+ CWV/i.test(t)) continue;
+        const score = t.length < 90 ? 3 : t.length < 180 ? 2 : 1;
+        scored.push({ el, t, score });
+      }
       scored.sort((a, b) => b.score - a.score || a.t.length - b.t.length);
       const hit = scored[0];
       if (!hit) return false;
@@ -180,15 +177,14 @@ export class CwvTop10PopDashboardPage {
     if (!clicked) {
       const card = fr
         .locator('a, h2, h3, h4, [role="heading"], button, div')
-        .filter({ hasText: POP_TITLE })
-        .filter({ hasNotText: /Native App/i })
+        .filter({ hasText: SOPN_TITLE })
+        .filter({ hasNotText: /Page Groups|\+ CWV/i })
         .first();
       await expect(card).toBeVisible({ timeout: 30000 });
       await card.click({ force: true });
     }
     await this.page.waitForTimeout(10000);
     this.frame = (await (await this.page.$('#bi-iframe'))?.contentFrame()) || (await this.bi());
-    // Prefer nested/viewer frame when available
     this.frame = await this.bestViewerFrame(this.frame);
   }
 
@@ -199,13 +195,14 @@ export class CwvTop10PopDashboardPage {
       const sample = await f
         .evaluate(() => (document.body?.innerText || '').replace(/\s+/g, ' ').slice(0, 4000))
         .catch(() => '');
-      if (!POP_TITLE.test(sample)) continue;
+      if (!SOPN_TITLE.test(sample)) continue;
       let score = 0;
-      if (/Save As|Refresh Data|Reset to Default/i.test(sample)) score += 5;
+      if (/Save As|Refresh Data|Reset to Defaults?/i.test(sample)) score += 5;
       if (/Lookback Period/i.test(sample)) score += 3;
-      if (/\bLCP\b/i.test(sample) && /\bINP\b/i.test(sample)) score += 2;
+      if (/\bLCP\b/i.test(sample) && /\bINP\b/i.test(sample) && /\bCLS\b/i.test(sample)) score += 3;
+      if (/PAGE NAME/i.test(sample)) score += 2;
       if (!/Create Dashboard/i.test(sample)) score += 2;
-      if (/13 widgets/i.test(sample) && /Create Dashboard/i.test(sample)) score -= 3;
+      if (/8 widgets/i.test(sample) && /Create Dashboard/i.test(sample)) score -= 3;
       if (score > bestScore) {
         bestScore = score;
         best = f;
@@ -215,14 +212,8 @@ export class CwvTop10PopDashboardPage {
   }
 
   async waitForDashboardReady(): Promise<void> {
-    const fr = await this.bi();
-    await expect
-      .poll(async () => this.getBodySample(2500), { timeout: 90000 })
-      .toMatch(POP_TITLE);
-    // Soft settle — charts/tables may load gradually
-    await expect
-      .poll(async () => this.widgetsReadyScore(), { timeout: 60000 })
-      .toBeGreaterThanOrEqual(2);
+    await expect.poll(async () => this.getBodySample(2500), { timeout: 90000 }).toMatch(SOPN_TITLE);
+    await expect.poll(async () => this.widgetsReadyScore(), { timeout: 60000 }).toBeGreaterThanOrEqual(3);
     await this.page.waitForTimeout(1500);
   }
 
@@ -235,56 +226,58 @@ export class CwvTop10PopDashboardPage {
   async widgetsReadyScore(): Promise<number> {
     const body = await this.getBodySample(8000);
     let score = 0;
-    if (POP_TITLE.test(body)) score += 2;
-    if (/Page Load|Onload|page load/i.test(body)) score += 1;
-    if (/\bLCP\b|Largest Contentful Paint/i.test(body)) score += 1;
-    if (/\bINP\b|Interaction to Next Paint/i.test(body)) score += 1;
-    if (/\bCLS\b|Cumulative Layout Shift/i.test(body)) score += 1;
-    if (/Page Views?/i.test(body)) score += 1;
+    if (SOPN_TITLE.test(body)) score += 2;
+    if (/\bLCP\b/i.test(body)) score += 1;
+    if (/\bINP\b/i.test(body)) score += 1;
+    if (/\bCLS\b/i.test(body)) score += 1;
+    if (/PAGE NAME/i.test(body)) score += 1;
     if (/Lookback Period/i.test(body)) score += 1;
-    if (/Needs improvement|Improvement >|Degradation >|Delta Definitions/i.test(body)) score += 1;
-    if (/Good|Poor/i.test(body)) score += 1;
     if (/Refresh Data|Save As|Reset to Defaults?/i.test(body)) score += 1;
+    if (/Core Web Vitals of Top Viewed Pages/i.test(body)) score += 1;
     return score;
   }
 
-  async expectPopIdentity(): Promise<void> {
+  async expectSopnIdentity(): Promise<void> {
     await expect(this.page).toHaveURL(/business-intelligence\/tool|business-intelligence%2Ftool/i);
     const body = await this.getBodySample(3000);
-    expect(body, 'PoP dashboard title in BI iframe').toMatch(POP_TITLE);
+    expect(body, 'SOPN title in BI iframe').toMatch(SOPN_TITLE);
   }
 
   async expectNotConfusedSurfaces(): Promise<void> {
     await expect(this.page).toHaveURL(/business-intelligence\/tool|business-intelligence%2Ftool/i);
     await expect(this.page).not.toHaveURL(/site\/dashboard(?!-)|real-user-monitoring\/performance-overview/i);
     const body = await this.getBodySample(2000);
-    expect(body).toMatch(POP_TITLE);
-    // Soft: must not be only Native App PoP title without CWV Top 10
-    expect(body).toMatch(/CWV Top 10/i);
+    expect(body).toMatch(SOPN_TITLE);
+    expect(body).not.toMatch(/Site Operations Dashboard for Page Groups(?![\s\S]{0,40}Page Names)/i);
   }
 
   async getLookbackSignature(): Promise<string> {
     const body = await this.getBodySample(4000);
     const m =
-      body.match(/Lookback Period[:\s]*([^\n|]{0,80})/i) ||
       body.match(/Last\s+\d+\s+Complete\s+Months?/i) ||
-      body.match(/Last\s+\d+\s+(?:Days|Months|Weeks)/i) ||
-      body.match(/(\d+\s*months?|\d+\s*month)/i);
+      body.match(/Lookback Period[:\s]*([^\n|]{0,80})/i) ||
+      body.match(/Last\s+\d+\s+(?:Days|Months|Weeks)/i);
     return (m?.[0] || body.slice(0, 120)).replace(/\s+/g, ' ').trim();
   }
 
-  async captureContext(): Promise<CwvPopContext> {
+  async getMonthHeadersSignature(): Promise<string> {
+    const body = await this.getBodySample(5000);
+    const months = body.match(/\b(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)\s+\d{4}\b/gi) || [];
+    return [...new Set(months.map((m) => m.toUpperCase()))].slice(0, 8).join('|');
+  }
+
+  async captureContext(): Promise<SopnContext> {
     return {
       siteLabel: await this.getSiteLabel().catch(() => getActiveProfile().siteName),
       lookbackSignature: await this.getLookbackSignature(),
       bodySignature: (await this.getBodySample(600)).slice(0, 400),
+      monthHeaders: await this.getMonthHeadersSignature(),
     };
   }
 
   async openLookbackPeriod(): Promise<boolean> {
     const fr = await this.bi();
     const L = this.locators.inFrame(fr);
-    // Filters panel may host Lookback
     if (await L.filtersBtn.isVisible().catch(() => false)) {
       await L.filtersBtn.click({ force: true }).catch(() => undefined);
       await this.page.waitForTimeout(800);
@@ -293,53 +286,33 @@ export class CwvTop10PopDashboardPage {
     if (!(await host.count().catch(() => 0))) return false;
     await host.scrollIntoViewIfNeeded({ timeout: 5000 }).catch(() => undefined);
     await host.click({ force: true, timeout: 8000 }).catch(async () => {
-      await host.evaluate((el: HTMLElement) => el.click()).catch(() => undefined);
+      await host.evaluate((el) => (el).click()).catch(() => undefined);
     });
     await this.page.waitForTimeout(800);
     return true;
   }
 
-  /** Try to bump lookback span (live: "Last N Complete Month" chips / Day|Week). */
   async adjustLookbackMonths(direction: 'up' | 'down'): Promise<boolean> {
     const fr = await this.bi();
     await this.openLookbackPeriod();
 
-    // Live default observed: "Last 1 Complete Month" — open that control
     const lookbackChip = fr
       .locator('button, [role="button"], div, span, a')
-      .filter({ hasText: /Last\s+\d+\s+Complete\s+Month|Complete Month|Lookback Period/i })
+      .filter({ hasText: /Last\s+\d+\s+Complete\s+Months?|Complete Month|Lookback Period/i })
       .first();
     if (await lookbackChip.isVisible().catch(() => false)) {
       await lookbackChip.click({ force: true }).catch(() => undefined);
       await this.page.waitForTimeout(600);
     }
 
-    // Prefer another month-span option when opening a menu
     const options = fr.locator('[role="option"], li, button, a, label, div').filter({
-      hasText: /Last\s+\d+\s+Complete\s+Months?|Last\s+\d+\s+Months?|Complete Month/i,
+      hasText: /Last\s+\d+\s+Complete\s+Months?|Last\s+\d+\s+Months?/i,
     });
     const count = await options.count().catch(() => 0);
     if (count > 0) {
       const idx = direction === 'up' ? Math.min(count - 1, 1) : 0;
       await options.nth(idx).click({ force: true }).catch(() => undefined);
-      await this.page.waitForTimeout(800);
-      return true;
-    }
-
-    // Day / Week granularity soft alternate (still mutates lookback chrome)
-    const gran = fr.locator('button, [role="option"], label').filter({ hasText: direction === 'up' ? /^Week$/i : /^Day$/i }).first();
-    if (await gran.isVisible().catch(() => false)) {
-      await gran.click({ force: true });
-      await this.page.waitForTimeout(600);
-      return true;
-    }
-
-    const num = fr.locator('input[type="number"]').first();
-    if (await num.isVisible().catch(() => false)) {
-      const cur = parseInt((await num.inputValue().catch(() => '1')) || '1', 10) || 1;
-      const next = direction === 'up' ? cur + 1 : Math.max(1, cur - 1);
-      await num.fill(String(next), { timeout: 5000 });
-      await this.page.waitForTimeout(400);
+      await this.page.waitForTimeout(2500);
       return true;
     }
     return false;
@@ -353,7 +326,6 @@ export class CwvTop10PopDashboardPage {
       await this.page.waitForTimeout(3500);
       return true;
     }
-    // Live Filters panel often applies on selection — soft wait for settle
     await this.page.waitForTimeout(2500);
     return false;
   }
@@ -405,7 +377,7 @@ export class CwvTop10PopDashboardPage {
     if (!(await btn.count().catch(() => 0))) return false;
     await btn.click({ force: true });
     await this.page.waitForTimeout(1000);
-    const input = fr.locator('input[type="text"], input:not([type])').filter({ hasNot: fr.locator('[type="search"]') }).last();
+    const input = fr.locator('input[type="text"], input:not([type])').last();
     if (await input.isVisible().catch(() => false)) {
       await input.fill(name, { timeout: 8000 }).catch(() => undefined);
     } else {
@@ -425,7 +397,10 @@ export class CwvTop10PopDashboardPage {
       await L.searchInput.fill(name);
       await this.page.waitForTimeout(1500);
     }
-    const card = fr.locator('a, h2, h3, h4, div').filter({ hasText: new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') }).first();
+    const card = fr
+      .locator('a, h2, h3, h4, div')
+      .filter({ hasText: new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') })
+      .first();
     if (!(await card.isVisible().catch(() => false))) return false;
     const menu = card.locator('xpath=ancestor::*[contains(@class,"card") or contains(@class,"tile") or self::div][1]//button').last();
     await menu.click({ force: true }).catch(async () => {
@@ -443,14 +418,14 @@ export class CwvTop10PopDashboardPage {
     return false;
   }
 
-  /** First-column page-name order from first visible Page Name table. */
+  /** Capture first-column page-name order from first visible PAGE NAME table. */
   async getTableRowSignature(maxRows = 8): Promise<string> {
     const fr = await this.bi();
     return fr.evaluate((n) => {
       const tables = Array.from(document.querySelectorAll('table')).filter((t) => t.getClientRects().length);
       for (const t of tables) {
         const headers = Array.from(t.querySelectorAll('th')).map((th) => (th.innerText || '').replace(/\s+/g, ' ').trim());
-        if (!headers.some((h) => /Page Name/i.test(h))) continue;
+        if (!headers.some((h) => /PAGE NAME/i.test(h))) continue;
         const rows = Array.from(t.querySelectorAll('tbody tr')).slice(0, n);
         const names = rows.map((r) => {
           const cell = r.querySelector('td');
@@ -462,59 +437,18 @@ export class CwvTop10PopDashboardPage {
     }, maxRows);
   }
 
-  /** Unique visible table header labels from first PoP data table (Page Name family). */
-  async listSortableHeaders(): Promise<string[]> {
-    const fr = await this.bi();
-    return fr.evaluate(() => {
-      const tables = Array.from(document.querySelectorAll('table')).filter((t) => t.getClientRects().length);
-      for (const t of tables) {
-        const headers = Array.from(t.querySelectorAll('th'))
-          .map((th) => (th.innerText || '').replace(/\s+/g, ' ').trim())
-          .filter((h) => h && h.length < 40);
-        if (headers.some((h) => /Page Name/i.test(h))) {
-          return [...new Set(headers)];
-        }
-      }
-      return [];
-    });
-  }
-
-  async softSortColumn(headerRe: RegExp): Promise<{ clicked: boolean; before: string; after: string; header: string }> {
+  async softSortColumn(headerRe: RegExp): Promise<{ clicked: boolean; before: string; after: string }> {
     const fr = await this.bi();
     const before = await this.getTableRowSignature();
     const header = fr.locator('th, [role="columnheader"]').filter({ hasText: headerRe }).first();
-    const label = ((await header.innerText().catch(() => '')) || headerRe.source).replace(/\s+/g, ' ').trim().slice(0, 40);
     if (!(await header.isVisible().catch(() => false))) {
-      return { clicked: false, before, after: before, header: label };
+      return { clicked: false, before, after: before };
     }
     await header.scrollIntoViewIfNeeded({ timeout: 5000 }).catch(() => undefined);
     await header.click({ force: true }).catch(() => undefined);
     await this.page.waitForTimeout(1500);
     const after = await this.getTableRowSignature();
-    return { clicked: true, before, after, header: label };
-  }
-
-  async softSortAllVisibleColumns(): Promise<
-    { header: string; clicked: boolean; changed: boolean; before: string; after: string }[]
-  > {
-    const headers = await this.listSortableHeaders();
-    const results: { header: string; clicked: boolean; changed: boolean; before: string; after: string }[] = [];
-    for (const h of headers) {
-      const escaped = h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const r = await this.softSortColumn(new RegExp(`^${escaped}$`, 'i'));
-      results.push({
-        header: r.header || h,
-        clicked: r.clicked,
-        changed: !!(r.before && r.after && r.before !== r.after),
-        before: r.before,
-        after: r.after,
-      });
-      // toggle reverse once for Page Name / first numeric-ish column sample
-      if (r.clicked && /Page Name|Onload|LCP|Change/i.test(h)) {
-        await this.softSortColumn(new RegExp(`^${escaped}$`, 'i'));
-      }
-    }
-    return results;
+    return { clicked: true, before, after };
   }
 
   async softOpenExportMenu(): Promise<{ opened: boolean; options: string[] }> {
@@ -582,9 +516,8 @@ export class CwvTop10PopDashboardPage {
     let mid = '';
     if (await card.isVisible().catch(() => false)) {
       mid = ((await card.innerText().catch(() => '')) || '').replace(/\s+/g, ' ').trim().slice(0, 80);
-      // Do not deep-open — presence only is enough for soft sibling
     }
-    await this.searchAndOpenPop();
+    await this.searchAndOpenDashboard();
     await this.waitForDashboardReady();
     return mid;
   }
@@ -598,38 +531,34 @@ export class CwvTop10PopDashboardPage {
         await this.waitForPortalReady().catch(() => undefined);
         await this.waitForBiFrame(60000);
         await this.openDashboardsList();
-        await this.searchAndOpenPop();
+        await this.searchAndOpenDashboard();
         await this.waitForDashboardReady().catch(() => undefined);
         await this.ensureProfileSiteSelected();
       })(),
       new Promise<void>((_, rej) => setTimeout(() => rej(new Error('recoverPage soft timeout')), 120000)),
     ]).catch(async (err) => {
-      console.log(`[CWV-POP] recover: ${err instanceof Error ? err.message : String(err)}`);
+      console.log(`[SOPN] recover: ${err instanceof Error ? err.message : String(err)}`);
       await this.openViaNavigation().catch(() => undefined);
     });
   }
 
-  async restoreContext(ctx: CwvPopContext): Promise<void> {
+  async restoreContext(ctx: SopnContext): Promise<void> {
     await this.clickResetToDefault().catch(() => undefined);
     await this.ensureProfileSiteSelected();
-    // Best-effort lookback restore not always possible — Reset preferred
     void ctx;
   }
 
   async closeOverlays(): Promise<void> {
-    const fr = await this.bi().catch(() => null);
     await this.page.keyboard.press('Escape').catch(() => undefined);
-    if (fr) await fr.page().keyboard.press('Escape').catch(() => undefined);
     await this.page.waitForTimeout(200);
   }
 
-  chartTitlePresence(): Promise<{ pageLoad: boolean; lcp: boolean; inp: boolean; cls: boolean; pageViews: boolean }> {
+  metricPresence(): Promise<{ lcp: boolean; cls: boolean; inp: boolean; pageName: boolean }> {
     return this.getBodySample(8000).then((body) => ({
-      pageLoad: /Page Load|Onload|page load time/i.test(body),
-      lcp: /\bLCP\b|Largest Contentful Paint/i.test(body),
-      inp: /\bINP\b|Interaction to Next Paint/i.test(body),
-      cls: /\bCLS\b|Cumulative Layout Shift/i.test(body),
-      pageViews: /Page Views?/i.test(body),
+      lcp: /\bLCP\b/i.test(body),
+      cls: /\bCLS\b/i.test(body),
+      inp: /\bINP\b/i.test(body),
+      pageName: /PAGE NAME/i.test(body),
     }));
   }
 }

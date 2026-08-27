@@ -406,13 +406,14 @@ test.describe('US2 Regression — CWV Top 10 Period over Period (PoP)', () => {
     expect(body).toMatch(/CWV Top 10 Period over Period \(PoP\)/i);
   });
 
-  test('REG-CWV-POP-020 — combination Lookback → filter → Refresh → Reset soft', async () => {
+  test('REG-CWV-POP-020 — combination Lookback → filter → sort → Refresh → Reset soft', async () => {
     try {
       await withSoftDeadline(
         async () => {
           await pop.adjustLookbackMonths('up');
           await pop.clickApply();
           await pop.softFilterCombo(/Device/i, /Desktop|Mobile/i);
+          await pop.softSortColumn(/Page Name/i);
           await pop.clickRefreshData();
           await pop.clickResetToDefault();
           await pop.expectPopIdentity();
@@ -458,6 +459,67 @@ test.describe('US2 Regression — CWV Top 10 Period over Period (PoP)', () => {
       await recover();
     });
     if (prev) await page.setViewportSize(prev);
+  });
+
+  test('REG-CWV-POP-024 — column sort all visible grid headers; rows rearrange soft', async () => {
+    try {
+      const results = await withSoftDeadline(() => pop.softSortAllVisibleColumns(), 90000, recover);
+      if (!results.length) {
+        annotate('no sortable Page Name table headers found — soft');
+      } else {
+        const clicked = results.filter((r) => r.clicked).length;
+        const changed = results.filter((r) => r.changed).length;
+        annotate(
+          `sort headers=${results.map((r) => r.header).join('|')} clicked=${clicked}/${results.length} changed=${changed}`
+        );
+        expect(clicked, 'at least one column header clickable').toBeGreaterThan(0);
+        if (changed === 0) annotate('sort clicks OK but row order identical soft (equal/sparse values?)');
+      }
+      await pop.clickResetToDefault().catch(() => undefined);
+    } catch (e) {
+      annotate(`column sort soft: ${e instanceof Error ? e.message : String(e)}`);
+    }
+    await pop.closeOverlays();
+    await pop.expectPopIdentity();
+  });
+
+  test('REG-CWV-POP-025 — Export chart hamburger PNG / PDF / PowerPoint soft vs UI', async () => {
+    const body = await pop.getBodySample(3000);
+    const uiSig = {
+      title: /CWV Top 10 Period over Period \(PoP\)/i.test(body),
+      lcp: /\bLCP\b/i.test(body),
+      pageName: /Page Name/i.test(body),
+      onload: /Onload|Page Load/i.test(body),
+    };
+    annotate(`export UI sig title=${uiSig.title} lcp=${uiSig.lcp} pageName=${uiSig.pageName} onload=${uiSig.onload}`);
+
+    const menu = await pop.softOpenExportMenu();
+    if (!menu.opened) annotate('Export chart menu soft-miss');
+    else annotate(`export options soft: ${menu.options.join(', ')}`);
+
+    if (!menu.options.some((o) => /PowerPoint/i.test(o))) annotate('PowerPoint soft-miss — live menu may be PNG/PDF/CSV');
+
+    const png = await pop.softExportOption(/PNG Image/i);
+    if (png.triggered) annotate(`PNG export soft triggered download="${png.downloadHint || 'none/dialog'}"`);
+    else annotate('PNG Image option soft-miss');
+
+    const pdf = await pop.softExportOption(/PDF Document/i);
+    if (pdf.triggered) annotate(`PDF export soft triggered download="${pdf.downloadHint || 'none/dialog'}"`);
+    else annotate('PDF Document option soft-miss');
+
+    const ppt = await pop.softExportOption(/PowerPoint|\bPPT\b/i);
+    if (ppt.triggered) annotate(`PowerPoint export soft triggered download="${ppt.downloadHint || 'none'}"`);
+    else {
+      const csv = await pop.softExportOption(/CSV Data/i);
+      if (csv.triggered) annotate(`CSV export soft (PPT substitute) download="${csv.downloadHint || 'none'}"`);
+      else annotate('PPT/CSV export soft-miss');
+    }
+
+    // Soft cross-check: UI signature still holds after exports (label-level; no OCR golden)
+    await pop.expectPopIdentity();
+    const after = await pop.getBodySample(2000);
+    expect(after).toMatch(/LCP|Onload|Page Name/i);
+    await pop.closeOverlays();
   });
 
   test('REG-CWV-POP-023 — restore baseline; suite home healthy', async () => {

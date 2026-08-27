@@ -37,9 +37,11 @@ const cases = [
   { id: 'REG-CWV-POP-017', submodule: 'Lifecycle', title: 'Save As disposable clone; verify; cleanup', steps: 'Save As CWV-PoP-QA-<unique>; verify; delete if possible.', expected: 'Clone created; shared Global title not overwritten; cleanup.' },
   { id: 'REG-CWV-POP-018', submodule: 'A11y', title: 'Chart hover / Escape / focus Lookback|Apply|Refresh soft', steps: 'Hover chart; Escape; focus controls.', expected: 'No stuck overlays.' },
   { id: 'REG-CWV-POP-019', submodule: 'Discrimination', title: 'Not VitalPulse / VitalScope / Native App PoP / site dashboard', steps: 'Assert route + title.', expected: 'Only CWV Top 10 PoP in BI tool.' },
-  { id: 'REG-CWV-POP-020', submodule: 'Combo', title: 'Lookback → filter → Refresh → Reset soft', steps: 'Chain mutations; Reset.', expected: 'PoP identity retained; filters restored soft.' },
+  { id: 'REG-CWV-POP-020', submodule: 'Combo', title: 'Lookback → filter → sort → Refresh → Reset soft', steps: 'Chain Lookback, Device filter, Page Name sort, Refresh; Reset.', expected: 'PoP identity retained; filters/sort restored soft.' },
   { id: 'REG-CWV-POP-021', submodule: 'Recovery', title: 'Portal reload; re-open PoP + GDC soft', steps: 'Reload portal; re-enter iframe; Search open PoP.', expected: 'Healthy PoP on GDC.' },
   { id: 'REG-CWV-POP-022', submodule: 'Responsive', title: '~1100px viewport keeps BI title reachable', steps: 'Resize 1100x800; assert title.', expected: 'Business Intelligence reachable; PoP soft.' },
+  { id: 'REG-CWV-POP-024', submodule: 'Sort', title: 'Column sort all visible grid headers; rows rearrange soft', steps: 'Click each sortable header on Page Name tables; assert row order soft; Reset.', expected: 'Headers clickable; order changes or annotate equal values.' },
+  { id: 'REG-CWV-POP-025', submodule: 'Export', title: 'Export chart hamburger PNG/PDF/PowerPoint soft vs UI', steps: 'Open Export chart; assert PNG/PDF/PPT (or CSV); soft export; cross-check UI labels.', expected: 'Menu options soft; downloads soft; PoP identity + LCP/Page Name retained.' },
   { id: 'REG-CWV-POP-023', submodule: 'Recovery', title: 'Restore baseline; clone cleanup; suite home healthy', steps: 'Reset/restore; delete clone; assert PoP.', expected: 'Shared PoP healthy; no leftover mutations.' },
 ];
 
@@ -50,7 +52,7 @@ async function main() {
     site: SITE,
     dc: DC,
     module: MODULE,
-    typeLabel: 'Regression (reversible Lookback/filter + disposable Save As)',
+    typeLabel: 'Regression (reversible Lookback/filter/sort + disposable Save As + soft export)',
     helpLine:
       'SoT = PDF BI Dashboard CWV Top 10 PoP + live #bi-iframe probe. Suite home: Business Intelligence → Dashboards → CWV Top 10 Period over Period (PoP).',
     automation: AUTOMATION,
@@ -59,11 +61,11 @@ async function main() {
     notes: [
       'Exact home: Advanced Reporting & Alerting / Custom Reporting / Business Intelligence / Dashboards / CWV Top 10 Period over Period (PoP).',
       'Never accept VitalPulse, VitalScope (Core Web Vitals), Native App Top 10 PoP, or portal site/dashboard as suite home.',
-      'All widgets/filters live inside #bi-iframe (jbi.bluetriangletech.com). Do not assert portal body alone.',
+      'All widgets/filters/sort/export live inside #bi-iframe (jbi.bluetriangletech.com). Do not assert portal body alone.',
       'Portal #toggle-filters is NOT BI Lookback Period.',
       'PDF: 5 comparative charts (Page load, LCP, INP, CLS, Page views) + per-page tables + Google bands + delta legend.',
       'Catalog ~13 widgets soft; prefer PDF five + tables as primary inventory.',
-      'Lookback ± months + Apply; filter combos; Save As clone; Refresh Data; Reset to Default — restore all mutations.',
+      'Lookback ± months + Apply; filter combos; column sort all headers; Export chart PNG/PDF/PPT soft; Save As clone; Refresh Data; Reset to Default — restore all mutations.',
       'Do not create permanent Schedules / AI Query assets / overwrite Global PoP.',
       'npm run test:regression:us2:cwv-top10-pop',
     ],

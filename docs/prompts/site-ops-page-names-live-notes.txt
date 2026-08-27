@@ -1,0 +1,81 @@
+Site Ops Page Names live probe 2026-08-27T07:21:28.761Z
+shell=https://portal.bluetriangle.com/btportal/web/index.php?r=business-intelligence/tool&sid=305836
+wentDashboards=true
+opened={"found":true,"how":"dom-click","text":"Site Operations Dashboard for Page Names"}
+dashUrl=https://jbi.bluetriangletech.com/
+chromeHints={
+  "stillOnList": false,
+  "hasLookbackPeriod": true,
+  "hasTimePeriod": false,
+  "hasSaveAs": true,
+  "hasRefreshData": true,
+  "hasResetToDefault": true,
+  "hasApply": false,
+  "hasLcp": true,
+  "hasInp": true,
+  "hasCls": true,
+  "hasPageViews": false,
+  "hasPageLoad": false,
+  "hasGoodNeedsPoor": false,
+  "hasBrowser": true,
+  "hasDevice": true,
+  "hasBotTraffic": true,
+  "hasPercentile": true,
+  "hasTimezone": true,
+  "hasPageName": true,
+  "hasPageGroup": true,
+  "hasExportPng": true,
+  "hasExportPdf": true,
+  "hasExportPpt": false,
+  "hasSortableHeaders": true,
+  "frameUrl": "https://jbi.bluetriangletech.com/",
+  "tableHeaders": [
+    [
+      "PAGE NAME ▲",
+      "MAY 2026 ▲",
+      "JUN 2026 ▲",
+      "JUL 2026 ▲"
+    ],
+    [
+      "PAGE NAME ▲",
+      "MAY 2026 ▲",
+      "JUN 2026 ▲",
+      "JUL 2026 ▲"
+    ],
+    [
+      "PAGE NAME ▲",
+      "MAY 2026 ▲",
+      "JUN 2026 ▲",
+      "JUL 2026 ▲"
+    ],
+    [
+      "PAGE NAME ▲",
+      "MAY 2026 ▲",
+      "JUN 2026 ▲",
+      "JUL 2026 ▲"
+    ],
+    [
+      "PAGE NAME ▲",
+      "MAY 2026 ▲",
+      "JUN 2026 ▲",
+      "JUL 2026 ▲"
+    ],
+    [
+      "PAGE NAME ▲",
+      "MAY 2026 ▲",
+      "JUN 2026 ▲",
+      "JUL 2026 ▲"
+    ]
+  ]
+}
+exportProbe={
+  "opened": true,
+  "bodySample": "Favorites Dashboards AI Query Charts Schedules Folders AI Help Back Site Operations Dashboard for Page Names Global Responsive Grid Refresh Data Save As Reset to Defaults Filters Lookback Period Last 3 Complete Months Bot Traffic = != in not in contains not contains starts with ends with is null is not null Device = != in not in contains not contains starts with ends with is null is not null Mobile Originated From = != in not in > >= < <= is null is not null RUM Browser, Native App Webview Page Name = != in not in contains not contains starts with ends with is null is not null Return/New Visitor = != in not in > >= < <= is null is not null Traffic Segment = != in not in contains not contains starts with ends with is null is not null Page Group = != in not in contains not contains starts with ends with is null is not null Time Zone = != in not in > >= < <= is null is not null GMT (+00:00) Percentile p5 p10 p15 p20 p25 p30 p35 p40 p45 p50 p55 p60 p65 p70 p75 p80 p85 p90 p95 p99 LCP PAGE NAME ▲ MAY 2026 ▲ JUN 2026 ▲ JUL 2026 ▲ PDP 6.05 6.04 5.2 Category 5.1 5.13 4.24 Checkout-vt - - - Category-vt - - - Sitelet Landing-vt - - - Sitelet Landing 5.28 5.24 4.47 Search Results-vt - - - Homepage 5.84 5.81 5.32 Search Results 5.59 5.6 3.88 PDP-vt - - - LCP PAGE NAME ▲ MAY 2026 ▲ JUN 2026 ▲ JUL 2026 ▲ PDP 6.05 6.04 5.2 Category 5.1 5.13 4.24 Checkout-vt - - - Category-vt - - - Sitelet Landing-vt - - - Sitelet Landing 5.28 5.24 4.47 Search Results-vt - - - Homepage 5.84 5.81 5.32 Search "
+}
+buttons=Favorites | Dashboards | AI Query | Charts | Schedules | Folders | AI Help | Back | Last 7 Days | Explain | Run Query | Select table… | Filters | Bar | Line | Combo | Area | Pie | Scatter | Heatmap | Formatted Table | Grid | Sheet | Geo | #Number | Advanced Options | Default | Ocean | Sunset | Forest | Mono | Reset | Show me daily sessions for the last 7 days | What are the top 10 countries by session count? | Show conversion rate by device type | Compare average page load time (Onload) by browser | What are the top traffic sources by revenue? | Explain date ranges | -- No Segment -- | Refresh Data | Save As | Reset to Defaults | Last 3 Complete Months | New Schedule | My Folder | Global | Site Folder | Account Folder | Development | PNG Image | PDF Document | CSV Data
+headings=Chart Builder | Chart Type | Options | Order By | Top N | Color Palette | Favorite Dashboards | Favorite Charts | AI Query | Site Operations Dashboard for Page Names | LCP | LCP | CLS | CLS | INP | INP | Schedules
+labels sample=Allow lookback period override | Single period | Compare periods (trend) | Compare periods (totals) | Lookback Period: | Site Operations Dashboard for Page Names | Filters | Lookback Period | Last 3 Complete Months | LCP | PAGE NAME ▲ | PAGE NAME | CLS | Site Operations Dashboard | Core Web Vitals of Top Viewed Pages | INP
+tables=[{"i":0,"id":"","headers":["PAGE NAME ▲","MAY 2026 ▲","JUN 2026 ▲","JUL 2026 ▲"],"rows":10,"visible":true},{"i":1,"id":"","headers":["PAGE NAME ▲","MAY 2026 ▲","JUN 2026 ▲","JUL 2026 ▲"],"rows":10,"visible":true},{"i":2,"id":"","headers":["PAGE NAME ▲","MAY 2026 ▲","JUN 2026 ▲","JUL 2026 ▲"],"rows":10,"visible":true},{"i":3,"id":"","headers":["PAGE NAME ▲","MAY 2026 ▲","JUN 2026 ▲","JUL 2026 ▲"],"rows":10,"visible":true},{"i":4,"id":"","headers":["PAGE NAME ▲","MAY 2026 ▲","JUN 2026 ▲","JUL 2026 ▲"],"rows":10,"visible":true},{"i":5,"id":"","headers":["PAGE NAME ▲","MAY 2026 ▲","JUN 2026 ▲","JUL 2026 ▲"],"rows":10,"visible":true},{"i":6,"id":"","headers":["Name","Type","Target","Format","Frequency","Next Run","Last Run","Status"],"rows":7,"visible":false}]
+inputs=[{"tag":"INPUT","id":"","name":"","type":"text","placeholder":"Search fields…","aria":"","value":"","visible":false},{"tag":"INPUT","id":"","name":"","type":"number","placeholder":"All (1000)","aria":"","value":"","visible":false},{"tag":"INPUT","id":"","name":"","type":"text","placeholder":"Search...","aria":"","value":"","visible":false},{"tag":"TEXTAREA","id":"","name":"","type":"","placeholder":"e.g., Show me daily sessions for the last 7 days","aria":"","value":"","visible":false},{"tag":"SELECT","id":"","name":"","type":"","placeholder":"","aria":"","value":"in","visible":true},{"tag":"INPUT","id":"react-select-2-input","name":"","type":"text","placeholder":"","aria":"","value":"","visible":true},{"tag":"SELECT","id":"","name":"","type":"","placeholder":"","aria":"","value":"in","visible":true},{"tag":"INPUT","id":"react-select-3-input","name":"","type":"text","placeholder":"","aria":"","value":"","visible":true},{"tag":"SELECT","id":"","name":"","type":"","placeholder":"","aria":"","value":"in","visible":true},{"tag":"INPUT","id":"react-select-4-input","name":"","type":"text","placeholder":"","aria":"","value":"","visible":true},{"tag":"SELECT","id":"","name":"","type":"","placeholder":"","aria":"","value":"in","visible":true},{"tag":"INPUT","id":"react-select-5-input","name":"","type":"text","placeholder":"","aria":"","value":"","visible":true},{"tag":"SELECT","id":"","name":"","type":"","placeholder":"","aria":"","value":"in","visible":true},{"tag":"INPUT","id":"react-select-6-input","name":"","type":"text","placeholder":"","aria":"","value":"","visible":true},{"tag":"SELECT","id":"","name":"","type":"","placeholder":"","aria":"","value":"in","visible":true},{"tag":"INPUT","id":"react-select-7-input","name":"","type":"text","placeholder":"","aria":"","value":"","visible":true},{"tag":"SELECT","id":"","name":"","type":"","placeholder":"","aria":"","value":"in","visible":true},{"tag":"INPUT","id":"react-select-8-input","name":"","type":"text","placeholder":"","aria":"","value":"","visible":true},{"tag":"SELECT","id":"","name":"","type":"","placeholder":"","aria":"","value":"eq","visible":true},{"tag":"INPUT","id":"react-select-9-input","name":"","type":"text","placeholder":"","aria":"","value":"","visible":true},{"tag":"SELECT","id":"","name":"","type":"","placeholder":"","aria":"","value":"0.75","visible":true},{"tag":"INPUT","id":"","name":"","type":"text","placeholder":"Search...","aria":"","value":"","visible":false}]
+menuIcons=[{"aria":"","title":"Export chart","cls":"flex items-center justify-center w-6 h-6 rounded bg-white/80 backdrop-blur-sm shadow border border-g","text":"","visible":true},{"aria":"","title":"Export chart","cls":"flex items-center justify-center w-6 h-6 rounded bg-white/80 backdrop-blur-sm shadow border border-g","text":"","visible":true},{"aria":"","title":"Export chart","cls":"flex items-center justify-center w-6 h-6 rounded bg-white/80 backdrop-blur-sm shadow border border-g","text":"","visible":true},{"aria":"","title":"","cls":"w-full text-left px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-100","text":"PNG Image","visible":true},{"aria":"","title":"","cls":"w-full text-left px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-100","text":"PDF Document","visible":true}]
+body=Favorites Dashboards AI Query Charts Schedules Folders AI Help Back Site Operations Dashboard for Page Names Global Responsive Grid Refresh Data Save As Reset to Defaults Filters Lookback Period Last 3 Complete Months Bot Traffic = != in not in contains not contains starts with ends with is null is not null Device = != in not in contains not contains starts with ends with is null is not null Mobile Originated From = != in not in > >= < <= is null is not null RUM Browser, Native App Webview Page Name = != in not in contains not contains starts with ends with is null is not null Return/New Visitor = != in not in > >= < <= is null is not null Traffic Segment = != in not in contains not contains starts with ends with is null is not null Page Group = != in not in contains not contains starts with ends with is null is not null Time Zone = != in not in > >= < <= is null is not null GMT (+00:00) Percentile p5 p10 p15 p20 p25 p30 p35 p40 p45 p50 p55 p60 p65 p70 p75 p80 p85 p90 p95 p99 LCP PAGE NAME ▲ MAY 2026 ▲ JUN 2026 ▲ JUL 2026 ▲ PDP 6.05 6.04 5.2 Category 5.1 5.13 4.24 Checkout-vt - - - Category-vt - - - Sitelet Landing-vt - - - Sitelet Landing 5.28 5.24 4.47 Search Results-vt - - - Homepage 5.84 5.81 5.32 Search Results 5.59 5.6 3.88 PDP-vt - - - LCP PAGE NAME ▲ MAY 2026 ▲ JUN 2026 ▲ JUL 2026 ▲ PDP 6.05 6.04 5.2 Category 5.1 5.13 4.24 Checkout-vt - - - Category-vt - - - Sitelet Landing-vt - - - Sitelet Landing 5.28 5.24 4.47 Search Results-vt - - - Homepage 5.84 5.81 5.32 Search Results 5.59 5.6 3.88 PDP-vt - - - CLS PAGE NAME ▲ MAY 2026 ▲ JUN 2026 ▲ JUL 2026 ▲ PDP 0.567 0.597 0.603 Category 0.63 0.63 0.761 Sitelet Landing-vt - - - Category-vt - - - Sitelet Landing 0.629 0.646 0.747 Search Results-vt - - - Checkout-vt - - - Homepage 0.777 0.716 0.764 Search Results 0.536 0.572 0.684 PDP-vt - - - CLS PAGE NAME ▲ MAY 2026 ▲ JUN 2026 ▲ JUL 2026 ▲ PDP 0.567 0.597 0.603 Category 0.63 0.63 0.761 Sitelet Landing-vt - - - Category-vt - - - Sitelet Landing 0.629 0.646 0.747 Search Results-vt - - - Checkout-vt - - - Homepage 0.777 0.716 0.764 Search Results 0.536 0.572 0.684 PDP-vt - - - Site Operations Dashboard | Core Web Vitals of Top Viewed Pages INP PAGE NAME ▲ MAY 2026 ▲ JUN 2026 ▲ JUL 2026 ▲ Checkout-vt 0.16 0.192 0.176 Category-vt 0.24 0.28 0.256 Homepage 0.2 0.192 0.192 Sitelet Landing-vt 0.216 0.24 0.24 Search Results-vt 0.224 0.28 0.232 Sitelet Landing 0.184 0.208 0.2 PDP-vt 0.184 0.224 0.232 PDP 0.2 0.264 0.208 Category 0.32 0.4 0.256 Search Results 0.312 0.352 0.184 INP PAGE NAME ▲ MAY 2026 ▲ JUN 2026 ▲ JUL 2026 ▲ Checkout-vt 0.16 0.192 0.176 Category-vt 0.24 0.28 0.256 Homepage 0.2 0.192 0.192 Sitelet Landing-vt 0.216 0.24 0.24 Search Results-vt 0.224 0.28 0.232 Sitelet Landing 0.184 0.208 0.2 PDP-vt 0.184 0.224 0.232 PDP 0.2 0.264 0.208 Category 0.32 0.4 0.256 Search Results 0.312 0.352 0.184 GDC Test Site 2 PNG ImagePDF Document CSV Data

@@ -87,7 +87,9 @@ Live observations (GDC Test Site 2 — probe Aug 2026)
 - User-required BI chrome (REQUIRED — live hosts; not button-named in the 5-page PDF):
     **Lookback Period** increase/decrease **months** → **Apply** → data refresh;
     other filter combinations → Apply → data refresh;
-    **Save As** (clone); **Refresh Data**; **Reset to Default**
+    **Save As** (clone); **Refresh Data**; **Reset to Default**;
+    **Column header sort** on comparative data tables (rows rearrange);
+    Top-right **Export chart / hamburger** → **PNG Image** / **PDF Document** / **PowerPoint** (or live CSV) soft cross-check vs UI
 
 1. Business purpose, site and data handling
    - Site: GDC Test Site 2
@@ -221,12 +223,22 @@ Live observations (GDC Test Site 2 — probe Aug 2026)
       - Soft-assert filters return toward defaults / captured baseline; widgets refresh.
       - If control missing on read-only Global dashboard: annotate; perform Reset checks on the Save As clone instead.
 
-9. Graphs / tables / a11y
+9. Graphs / tables / a11y / column sort — REQUIRED (user regression point #3)
    - Soft assert independent chart hosts for comparative metrics (titles/axes — not SVG counts alone).
    - Soft hover one comparative series for tooltip presence (format-tolerant); no hard series values.
-   - Soft table sort/search/pager inside dashboard widgets when present — restore.
-   - Soft Escape closes filter popovers/modals/menus.
-   - Soft focus Lookback / Apply / Save As / Refresh / Search.
+   - **Column sort (REQUIRED):** for each sortable header on visible Page Name comparative tables
+     (Page Name, Onload, Page Hits, LCP, INP, CLS, Current/Previous/Change soft):
+       capture first-N row signature → click header → soft-assert order change or annotate equal values → toggle reverse soft.
+   - Restore sort / Reset to Default before export / Save As unrelated tests.
+   - Soft table search/pager inside dashboard widgets when present — restore.
+   - Soft Escape closes filter popovers/modals/menus/export menus.
+   - Soft focus Lookback / Apply / Save As / Refresh / Search / sort header.
+
+9b. Hamburger / Export chart — PNG / PDF / PowerPoint — REQUIRED (user regression point #4)
+   - Locate top-right / widget **Export chart** control (title soft "Export chart").
+   - Open menu; soft-assert **PNG Image**, **PDF Document**, **PowerPoint** (if absent annotate; soft-verify CSV if live substitute).
+   - For each available option: soft trigger download/preview; soft cross-check UI labels (PoP title / LCP|Onload|Page Name) — no pixel OCR golden; cancel downloads; close dialogs.
+   - Identity still PoP + GDC after exports.
 
 10. Sibling discrimination (soft)
    - Soft once Native App Top 10 PoP or CWV Trends from Dashboards list → restore **CWV Top 10 Period over Period (PoP)** viewer + GDC.

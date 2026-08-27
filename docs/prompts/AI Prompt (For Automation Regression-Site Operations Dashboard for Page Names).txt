@@ -1,0 +1,371 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the **“Site Operations Dashboard for Page Names”** Business Intelligence dashboard. Reverse-engineer the live application using **GDC Test Site 2** and refer to:
+  • Attached PDF package: **“BI Dashboard: Site Operations Report: Core Web Vitals(CWV) of the top viewed pages”**
+      docs/prompts/BI_Dashboard_Site_Operations_Report_CWV_Top_Viewed_Pages.pdf
+      (alias copy also present: docs/prompts/BI_Dashboard_Site_Operations_Report_Core_Web_Vitals_CWV__of_the_top_viewe.pdf)
+      (Help article: https://help.bluetriangle.com/hc/en-us/articles/46381861678739-BI-Dashboard-Site-Operations-Report-Core-Web-Vitals-CWV-of-the-top-viewed-pages)
+  • PDF extract notes: docs/prompts/site-ops-page-names-pdf-extract.txt
+  • Soft sibling Help article (related, different catalog title): **“BI Dashboard: Site Operations”**
+      https://help.bluetriangle.com/hc/en-us/articles/37570915250707-BI-Dashboard-Site-Operations
+  • Shared BI overview (soft sibling doc only): **“Blue Triangle - Business Intelligence”**
+      https://help.bluetriangle.com/hc/en-us/articles/32871857479571-Blue-Triangle-Business-Intelligence
+  • Live portal reverse-engineering probe (Aug 2026): docs/prompts/site-ops-page-names-live-probe.json
+  • Live notes / screenshots: docs/prompts/site-ops-page-names-live-notes.txt ,
+      docs/prompts/site-ops-page-names-live.png , docs/prompts/site-ops-page-names-dashboard.png
+  • Probe script: scripts/probe-site-ops-page-names.ts
+  • Soft sibling BI catalog / Site Ops family for shared chrome patterns only (do not treat as home):
+      Site Operations Dashboard for Page Groups, Site Operations + CWV Trends,
+      CWV Top 10 Period over Period (PoP), CWV Trends, CWV Trends by Page,
+      CWV Selector Performance, URL Category Analysis
+  • Soft sibling portal CWV / BI shells (different product surfaces — soft hop only):
+      docs/prompts/AI Prompt (For Automation Regression-CWV Top 10 Period over Period PoP).txt
+      docs/prompts/AI Prompt (For Automation Regression-Core Web Vitals).txt
+      docs/prompts/AI Prompt (For Automation Regression-Vital Pulse Dashboard).txt
+
+NOTE ON DOCUMENTATION VS LIVE PRODUCT
+1) **PDF attached (4 pages, print 8/27/26)** is SoT for product purpose (**monthly CWV per page**, each CWV metric trended per page), Google CWV band language, and the **Filter Options** inventory below. Prefer **live** `#bi-iframe` control hosts / Lookback month chips / Apply / Save As / Refresh Data / Reset to Defaults / export hamburger labels when PDF is silent or older than the BI shell.
+2) Live portal path (probe Aug 2026): Menu → **Advanced Reporting & Alerting** → **Custom Reporting** → **Business Intelligence** → (BI iframe) **Dashboards** → Search **“Site Operations Dashboard for Page Names”** → open the matching card/result.
+3) Portal shell route: **business-intelligence/tool** (sid query soft). Browser / #page-title soft: **Business Intelligence**.
+4) Product UI host is the embedded BI app iframe **`#bi-iframe`** → `https://jbi.bluetriangletech.com/…` (JWT token query — do not hard-code tokens). **All dashboard widgets / Lookback / Save As / Refresh Data / Reset to Defaults / table sort / export hamburger live inside this iframe** (or nested frames). Portal chrome (site Select2, Get started, portal Filters funnel) is outer shell only — **do not confuse** portal `#toggle-filters` with BI **Lookback Period**.
+5) Live catalog card (GDC): title **Site Operations Dashboard for Page Names**; type badge **Grid**; soft ~**8 widgets**; sibling cards nearby include Page Groups (4 widgets) and Site Operations + CWV Trends (10 widgets) — do not open those as home.
+6) PDF Introduction objective: overview of **key CWV values on a monthly basis for each page** in the defined set; **each CWV metric is trended over time for each page separately**.
+7) PDF Dashboard Components — **Monthly CWV Per Page Metrics**:
+      • In each metric chart, each page is trended; timespan bucketing depends on selected report timespan.
+      • In the table, the metric is provided **per page on a monthly basis**.
+      • CWV coloring indicates Google thresholds: **Poor / Needs Improvement / Good** (soft-assert when visible; annotate if live tables use numeric cells without band labels in the sampled body).
+8) Live viewer soft subtitle / section language: **“Site Operations Dashboard | Core Web Vitals of Top Viewed Pages”** (aligns with Help article title semantics).
+9) Live metric hosts confirmed (probe): **LCP**, **CLS**, **INP** charts + paired monthly tables (6 visible tables with headers **PAGE NAME** + dynamic month columns e.g. MAY/JUN/JUL YYYY + sort markers ▲). Soft-assert these three CWV families first; annotate if Page Load / Page Views appear as supporting widgets.
+
+CRITICAL DISTINCTION (do not confuse screens)
+  • **Site Operations Dashboard for Page Names (THIS suite)** = BI iframe Dashboards → exact title match **/Site Operations Dashboard for Page Names/i**; portal route **business-intelligence/tool**.
+  • **Site Operations Dashboard for Page Groups** — BI catalog sibling; soft presence only; restore Page Names.
+  • **Site Operations + CWV Trends** — different BI card; soft only.
+  • **CWV Top 10 Period over Period (PoP) / CWV Trends / CWV Trends by Page** — BI siblings; soft only.
+  • **VitalPulse** (preconfigured site/dashboard) / **Core Web Vitals (VitalScope)** (RUM Performance Overview) — **not** suite home.
+  • Portal **Dashboards** (site/dashboard Site Overview etc.) — unrelated shell; out of primary scope.
+  • BI **AI Query / Charts / Schedules / Folders / Favorites** tabs — soft chrome only; always restore **Dashboards → Site Operations Dashboard for Page Names**.
+
+⚠️ PROBE / MUTATION PITFALLS
+1) **iframe SoT:** Never assert widget text from the portal `body` alone. Scope locators to `#bi-iframe` contentFrame (and nested frames if present). Re-acquire frame after navigation / Search / open dashboard.
+2) **Search** on Dashboards list: use the visible **Search…** input; open the **title** of **Site Operations Dashboard for Page Names** (not Page Groups / Site Operations + CWV Trends / Grid badge / heart / ⋮ alone). Confirm viewer shows that dashboard title before widget asserts.
+3) **Lookback Period** month increase/decrease + **Apply** (or live auto-apply) mutates shared dashboard filter state for the session — capture original lookback signature at suite start (probe default soft: **Last 3 Complete Months**); **restore** (or **Reset to Defaults**) before suite end.
+4) **Save As** clones a dashboard — use a **disposable clone name** with unique suffix (timestamp/random) e.g. `SOPN-QA-<unique>`; verify clone appears; then **delete/clean up** the clone if UI allows, or annotate leftover clone for manual cleanup. Never overwrite shared Global templates permanently.
+5) **Refresh Data** — soft click and assert widgets re-settle (signature / loading→ready); do not treat as destructive.
+6) **Reset to Defaults** (live plural) — soft verify it restores default filter/lookback state after intentional changes; if Reset is unavailable on a locked Global dashboard, annotate and use Save As clone for mutation tests.
+7) Do **not** permanently edit shared Global dashboard widgets/layout, create production Schedules, or leave AI Query / Chart Builder drafts saved.
+8) Do **not** Save portal Genius Filters / Clear Genius Cache from outer shell.
+9) Page names (PDP, Homepage, Category, …), LCP/INP/CLS monthly cell values, month header labels, widget instance ids, JWT tokens, and “Last modified …” strings are **data-dependent** — never hard-code probe samples; assert formats, labels, sort direction markers, Google band language when present, and before/after soft signatures.
+10) After Lookback Apply / multi-filter Apply / Refresh / Reset / Save As / sibling hop / export menu, always re-assert **GDC Test Site 2** + **Site Operations Dashboard for Page Names** identity (title in BI viewer).
+11) Highcharts / chart SVG ids inside BI are dynamic — prefer widget titles (**LCP / CLS / INP**), table headers (**PAGE NAME**, month columns), and export menu item labels.
+12) If Search yields empty catalog or open fails, assert controlled empty, annotate entitlement/folder scope, try folder filter **All Folders** / soft Global folder, and fail soft only after recovery attempts.
+13) **Column sort** mutates table row order only — capture first-row / ordered-name soft signature before click; restore sort or Reset when sticky and interfering later tests.
+14) **Export hamburger / Export chart** may open download dialogs or new tabs — prefer soft open menu + assert option labels; for PNG/PDF/PPT (or live CSV) soft-verify opened document/download exists and key labels (dashboard title / LCP|CLS|INP / PAGE NAME / month headers) match UI without pixel-perfect OCR; cancel leftover dialogs; do not leave downloaded files asserted as golden binaries.
+
+Live observations (GDC Test Site 2 — probe Aug 2026)
+- Portal URL: …/index.php?r=business-intelligence/tool&sid=…
+- Portal title / #page-title: **Business Intelligence**
+- Site: GDC Test Site 2
+- Outer iframe: `#bi-iframe` → jbi.bluetriangletech.com
+- BI left rail soft: **Favorites | Dashboards | AI Query | Charts | Schedules | Folders** (+ **AI Help**)
+- Dashboards list chrome soft: **+ Create Dashboard**; pager **5/10/25/50 / Page**; **Search…**;
+    folder filter (**All Folders / My Folder / Global / Site Folder / Account Folder / Development**);
+    status filter; sort (**Last Modified Desc** etc.); **Local | UTC**; **Reset**; grid/list toggles; favorites heart
+- Catalog card soft for THIS dashboard:
+    **Site Operations Dashboard for Page Names** · Grid · ~**8 widgets**
+- Soft sibling cards nearby: Site Operations Dashboard for Page Groups, Site Operations + CWV Trends, CWV Top 10 PoP, CWV Trends by Page
+- In-dashboard viewer chrome (REQUIRED — live hosts):
+    **Refresh Data** | **Save As** | **Reset to Defaults** | **Filters** | **Lookback Period** (soft value **Last 3 Complete Months**)
+- PDF-required / live-confirmed content:
+    Monthly CWV per-page charts + tables for **LCP / CLS / INP**
+    Table headers soft: **PAGE NAME** + dynamic month columns (e.g. MAY 2026 / JUN 2026 / JUL 2026) with sort affordance **▲**
+    Soft Google bands Poor / Needs Improvement / Good when rendered on charts/cells
+- Live Filter Options hosts (soft exact; PDF names Time Period / Origin — map by semantics):
+    **Lookback Period** (PDF: Time Period)
+    **Bot Traffic** (defaults exclude bots — soft)
+    **Device** (Desktop or Mobile; live sample Device / Mobile present)
+    **Originated From** (PDF: Origin) — RUM Browser / Native App / Webviews
+    **Page Name** | **Return/New Visitor** (PDF: Return/New User)
+    **Traffic Segment** | **Page Group** | **Time Zone** | **Percentile** (default **p75** / 0.75)
+- Export / hamburger (user regression point #4; live menu title soft **Export chart**):
+    Confirmed options: **PNG Image** | **PDF Document** | **CSV Data**
+    **PowerPoint** requested by user — soft-assert if present; if absent annotate live menu = PNG/PDF/CSV and still soft-verify available document exports against UI labels
+- User-required BI chrome (REQUIRED):
+    1) **Lookback Period** increase/decrease **months** → Apply/auto-apply → data refresh; other filter combos → refresh
+    2) **Save As** clone; **Refresh Data**; **Reset to Defaults**
+    3) **Column header sort** on all sortable grid columns; rows rearrange accordingly
+    4) Top-right **hamburger / Export chart** → PNG / PDF / PowerPoint (or live CSV) → soft cross-check vs UI
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - Site Operations Dashboard for Page Names presents **monthly CWV (LCP/CLS/INP) per page** with trend charts + monthly tables for the filtered page set.
+   - Metric formats soft: seconds/ms for LCP/INP, unitless CLS, dash/empty cells for sparse pages, month headers — format-tolerant; **never hard-code** page names, numeric CWV values, month labels, or widget counts from the probe beyond soft “≈8 widgets on catalog card”.
+   - Use live UI data only. Do not call APIs or query a database.
+   - Capture at suite start (inside BI iframe after dashboard open): dashboard title, Lookback Period value/signature, key filter chip/values, presence of LCP/CLS/INP titles + table headers, sort markers, export control presence, overlays closed, clone-name none.
+   - Assert labels, formats, chart/table shells, sort direction changes, export option labels, controlled empty states, before/after soft signatures rather than exact backend series.
+   - If a lookback/filter combo yields empty charts/tables, assert controlled empty, annotate, Reset to Defaults / restore captured filters and continue.
+   - Do not hard-code JWT tokens, nested chart instance ids, or Highcharts internal ids.
+
+2. Navigation and implementation paths
+   Live primary path (user + probe):
+   Login → Left menu **Advanced Reporting & Alerting** → **Custom Reporting** → **Business Intelligence**
+   → portal **business-intelligence/tool** → wait `#bi-iframe` ready → BI rail **Dashboards**
+   → Search field **“Site Operations Dashboard for Page Names”** (or shorter unique token **“Dashboard for Page Names”**)
+   → click the **displayed result / card title** → dashboard viewer.
+
+   Soft alternate: BI Favorites if already favorited; Folders → Global/Site → same title; Help deep-link if present — still require exact Page Names title (not Page Groups).
+
+   Target automation folder:
+   tests/regression_tests/US2/advanced-reporting/custom-reporting/business-intelligence/site-ops-page-names/
+   Suggested spec name:
+   site.ops.page.names.regression.spec.ts
+   Suggested POM / locators:
+   pages/SiteOpsPageNamesDashboardPage.ts
+   locators/SiteOpsPageNamesDashboardLocators.ts
+   Reuse patterns: portal session + LeftNav expand Advanced/Custom Reporting; iframe frame helpers from CWV Top 10 PoP suite;
+   soft Search/Reset on BI Dashboards list; recover via re-goto business-intelligence/tool + re-open dashboard.
+   Do **not** treat VitalPulse / Site Overview / Core Web Vitals / CWV Top 10 PoP POM as home.
+   Suggested manual workbook:
+   docs/Site_Operations_Dashboard_for_Page_Names_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:site-ops-page-names
+   Suggested test case ID prefix:
+   REG-SOPN-###
+   Probe:
+   scripts/probe-site-ops-page-names.ts → docs/prompts/site-ops-page-names-live-probe.json
+   (After first automation pass, extend probe if needed for PowerPoint option / Apply button hosts.)
+
+3. Page load, authentication and default context
+   - Authenticated navigation without login redirect, blank BI shell, or perpetual `#jbi-iframe-loading`.
+   - Portal browser title / #page-title matches /Business Intelligence/i.
+   - URL contains business-intelligence/tool (slash / %2F safe).
+   - Selected site is GDC Test Site 2.
+   - Dismiss portal Get started / Don’t show me again / jconfirm before iframe work.
+   - Wait for `#bi-iframe` attached + contentFrame body text length soft-ready.
+   - Open Dashboards → Search → open **Site Operations Dashboard for Page Names**.
+   - Verify BI viewer identity: title matches /Site Operations Dashboard for Page Names/i.
+   - Verify core inventory settles within a bounded UI deadline (PDF SoT + live titles):
+       • Soft-assert **LCP**, **CLS**, **INP** chart/section titles
+       • ≥1 monthly per-page data table with **PAGE NAME** + month-column headers soft
+       • Soft Google band language (Poor / Needs Improvement / Good) when present
+       • Filter / Lookback chrome reachable (**Lookback Period**, Bot Traffic, Device, Originated From, Page Name, …)
+       • Soft export / hamburger control reachable
+   - Soft-assert catalog ~8 widgets vs PDF monthly CWV components — annotate supporting widgets; prefer LCP/CLS/INP charts + tables as hard inventory.
+   - Back/Forward/refresh: restore BI tool + re-open Page Names if iframe resets; re-select GDC if lost.
+   - Capture uncaught page errors; distinguish portal noise vs BI iframe errors.
+
+4. BI shell chrome (Favorites / Dashboards list / Search) — REQUIRED before viewer
+   Cover:
+   - Soft-assert BI rail items Favorites / Dashboards / AI Query / Charts / Schedules / Folders.
+   - Soft Favorites empty/controlled state OK; not suite home.
+   - On Dashboards: Search for Page Names token → ≥1 matching card; clear search before suite end if sticky.
+   - Soft folder/status/sort/Local-UTC/Reset on list toolbar — non-destructive; restore All Folders + default sort when changed.
+   - Soft grid vs list toggle then restore.
+   - Soft ⋮ / heart on card — open/close only; do not leave unwanted favorite sticky if avoidable (or unfavorite before end).
+   - Soft Create Dashboard / New Schedule — open/cancel only; **no permanent create**.
+   - Soft sibling card presence (Page Groups / Site Operations + CWV Trends / CWV Top 10 PoP) once; do not open deep; stay on list or restore Page Names viewer.
+
+5. Dashboard viewer identity + layout (PDF Dashboard Components)
+   Cover:
+   - Soft-assert dashboard title **Site Operations Dashboard for Page Names**.
+   - Soft Back to Dashboards then re-open (recovery pattern).
+   - Soft-assert PDF **Monthly CWV Per Page Metrics** for **LCP / CLS / INP** (charts + monthly tables).
+   - Soft-assert timespan bucketing depends on Lookback (month headers change when Lookback changes — soft).
+   - Soft-assert table structure: **PAGE NAME** + month columns; sparse cells may show `-`.
+   - Soft-assert Google bands **Poor / Needs Improvement / Good** when visible on CWV charts/cells.
+   - Soft scroll all major widgets into view; assert no perpetual spinner per widget (bounded).
+   - Soft export/download menus — covered in §9 / user point #4 (not open/close-only only).
+
+6. Lookback Period filter — REQUIRED (user regression point #1; PDF Filter Options / Time Period)
+   Cover:
+   - Open **Lookback Period** (PDF: “Time Period”; live label soft `/Lookback Period/i`).
+   - Capture current lookback signature (e.g. **Last 3 Complete Months** / displayed range / month headers).
+   - **Increase** months (stepper / chip / dropdown option) by a small delta (e.g. to Last 6 Complete Months or +1 month span); **Apply** if present (live may auto-apply — annotate).
+   - Soft-assert dashboard data refreshed: loading indicators clear; chart/table soft signature **or month headers** change **or** controlled identical annotate if data sparse.
+   - **Decrease** months toward original or another valid value; Apply/auto-apply; soft re-assert refresh.
+   - Soft invalid/zero month handling if UI blocks — annotate.
+   - **Restore** original lookback (manual set or Reset to Defaults).
+   - Do not leave an extreme lookback that empties all widgets for later tests.
+
+7. Other filters + combinations — REQUIRED (user point #1; PDF + live Filter Options inventory)
+   Cover soft combinations (sample ≥2–3 non-destructive combos; restore after each):
+   - **Bot Traffic** (default exclude bots — soft verify default then sample Include if safe)
+   - **Device** (Desktop or Mobile)
+   - **Originated From** / Origin: soft sample RUM Browser / Native App / Webviews (restore)
+   - **Page Name** selector (prefer data-bearing page; soft select/deselect) — charts/tables re-scope to pages in filter
+   - **Return/New Visitor** (PDF: Return/New User); **Traffic Segment**; **Page Group**
+   - **Percentile** (CWV; soft default **75th** / p75 / 0.75); **Time Zone**
+   - For each Apply/auto-apply: assert widgets refresh (before/after signature / month headers / first rows) or controlled empty + annotate
+   - Cross-check at least one combo that keeps tables non-empty when data exists
+   - Always restore baseline filters before Save As / sort / export / lifecycle-unrelated tests
+   - Soft: do **not** create permanent scheduled reports; if Schedules UI opened, Cancel only
+     (PDF: scheduled Time Period “matches a user attribute” / start of month|week — soft open only)
+
+8. Save As / Refresh Data / Reset to Defaults — REQUIRED (user regression point #2)
+   A) **Save As** (clone)
+      - Soft-assert **Save As** control present.
+      - Open Save As; enter disposable name `SOPN-QA-<unique>`; confirm save.
+      - Soft-assert clone opens or appears in Dashboards list Search.
+      - Soft-assert clone shows same widget family titles (LCP/CLS/INP — not empty shell).
+      - Cleanup: delete clone via ⋮/Folders if available; else annotate leftover name.
+      - Never Save As overwriting the shared Global **Site Operations Dashboard for Page Names** title.
+
+   B) **Refresh Data**
+      - Capture soft widget / table signature.
+      - Click **Refresh Data**.
+      - Assert loading→ready; widgets still present; signature may match or change — annotate.
+      - Identity still Page Names + GDC.
+
+   C) **Reset to Defaults**
+      - Intentionally change Lookback and one other filter; Apply/auto-apply.
+      - Click **Reset to Defaults** (live plural; also accept Reset to Default).
+      - Soft-assert filters return toward defaults / captured baseline; widgets refresh.
+      - If control missing on read-only Global dashboard: annotate; perform Reset checks on the Save As clone instead.
+
+9. Column sorting — REQUIRED (user regression point #3)
+   Cover:
+   - Identify visible monthly CWV tables (soft: headers include **PAGE NAME** and month columns with ▲/▼ sort markers).
+   - For **each sortable column header** in at least one primary table (prefer all visible LCP/CLS/INP table headers when practical; otherwise sample PAGE NAME + ≥2 month columns per metric family and annotate):
+       • Capture soft ordered signature of first N data rows (page-name list / first cell texts — format-tolerant; do not hard-code probe page names as expected constants).
+       • Click column header once → soft-assert sort marker / aria-sort / order changes **or** controlled identical annotate if all equal.
+       • Click again → soft-assert reverse direction when UI supports toggle.
+   - Soft-assert rows rearrange consistently with clicked column (numeric month columns: ascending/descending format-tolerant; PAGE NAME: alpha order soft).
+   - Do not require exact parity across duplicate mirrored tables if UI renders chart+table pairs.
+   - Restore default sort (re-click until baseline, or Reset to Defaults) before export / Save As unrelated tests.
+   - Close any sticky header tooltips with Escape.
+
+10. Hamburger / Export chart — PNG / PDF / PowerPoint — REQUIRED (user regression point #4)
+   Cover:
+   - Locate top-right / widget **Export chart** / hamburger / kebab control (live: `title="Export chart"` soft; menu may also expose from dashboard chrome).
+   - Open menu; soft-assert available options. Live probe confirmed: **PNG Image**, **PDF Document**, **CSV Data**. Soft-search **PowerPoint** / PPT; if missing annotate and still exercise PNG + PDF (+ CSV soft).
+   - For each available document-like option (PNG, PDF, PowerPoint if present; CSV soft):
+       • Capture UI soft signature first (dashboard title, LCP/CLS/INP presence, PAGE NAME header, one month header, soft first-row page-name token if non-empty).
+       • Trigger export; handle download / new tab / preview dialog with bounded timeout.
+       • Soft cross-verify exported artifact against UI:
+            - PNG: soft file download exists / preview shows readable title or metric labels when OCR/text layer available; else annotate visual download OK without hard OCR.
+            - PDF: soft assert downloaded/opened PDF text (when extractable) contains dashboard identity and/or metric/table labels matching UI; format-tolerant; do not hard-code cell values.
+            - PowerPoint: same soft label match if option exists.
+            - CSV: soft assert headers include PAGE NAME / month tokens matching UI when CSV is the live substitute for PPT.
+       • Close preview / revoke object URLs / dismiss dialogs; do not leave downloads open blocking later tests.
+   - Never treat export as permanent dashboard mutation; identity still Page Names + GDC after exports.
+
+11. Graphs / tables / a11y
+   - Soft assert independent chart hosts for LCP / CLS / INP (titles — not SVG counts alone).
+   - Soft hover one series for tooltip presence (format-tolerant); no hard series values.
+   - Soft table search/pager inside dashboard widgets when present — restore.
+   - Soft Escape closes filter popovers/modals/menus/export menus.
+   - Soft focus Lookback / Save As / Refresh / Search / a sort header / export control.
+
+12. Sibling discrimination (soft)
+   - Soft once Site Operations Dashboard for Page Groups or Site Operations + CWV Trends or CWV Top 10 PoP from Dashboards list → restore **Site Operations Dashboard for Page Names** viewer + GDC.
+   - Soft portal left-nav Core Web Vitals / VitalPulse is not suite home — if hopped, return to business-intelligence/tool + Page Names.
+   - Always re-assert GDC Test Site 2 after site-like switches.
+
+13. Combination, recovery, non-functional
+   - Capture → Lookback ± Apply → filter combo → column sort sample → Refresh Data → Reset/restore → export menu soft → Save As clone soft cleanup.
+   - Refresh portal page: re-enter iframe → Dashboards Search → Page Names.
+   - Performance: iframe + widgets settle within project soft deadlines.
+   - Viewport: desktop + ~1100px OK (BI sidebar may collapse).
+
+14. Out-of-scope mutations (always)
+   - Do not permanently modify Global Page Names layout/widgets.
+   - Do not leave unrestored Lookback/filter/sort changes on the shared dashboard.
+   - Do not create permanent Schedules / AI Query saved assets / Chart Builder publishes.
+   - Do not Clear Genius Cache / Save portal Filters.
+   - Do not expand into full VitalPulse / VitalScope / Page Groups / CWV Top 10 PoP suites as primary scope.
+   - Do not hard-code CWV numeric catalogs or page-name lists from the probe.
+
+15. Live reverse-engineering + PDF facts to preserve
+   - Portal route business-intelligence/tool; title Business Intelligence
+   - `#bi-iframe` → jbi.bluetriangletech.com
+   - BI Dashboards Search finds **Site Operations Dashboard for Page Names** (Grid, ~8 widgets)
+   - Soft list chrome: Search, All Folders, Local/UTC, Reset, Create Dashboard
+   - PDF: monthly CWV per-page charts + tables; Google bands; Filter Options
+     (Time Period→live Lookback Period, Bot Traffic default exclude, Device Desktop/Mobile,
+      Origin→Originated From RUM Browser/Native App/Webviews, Page Name, Return/New User,
+      Traffic Segment, Page Group, Timezone, Percentile default 75th)
+   - Live: Lookback **Last 3 Complete Months**; LCP/CLS/INP; sortable **PAGE NAME + month** columns;
+     Refresh Data / Save As / Reset to Defaults; Export chart → PNG Image / PDF Document / CSV Data
+   - Required user flows: Lookback months ±; filter combos; Save As/Refresh/Reset; column sort all headers;
+     hamburger export PNG/PDF/PPT soft cross-check vs UI
+   - Probe JSON keys soft: shellUrl, wentDashboards, opened, dashboard, chromeHints, exportProbe, screenshots, savedAt
+   - PDF path: docs/prompts/BI_Dashboard_Site_Operations_Report_CWV_Top_Viewed_Pages.pdf
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a Playwright automation suite under
+tests/regression_tests/US2/advanced-reporting/custom-reporting/business-intelligence/site-ops-page-names
+covering thorough regression for:
+  - navigation & identity (portal BI tool + iframe Dashboards Search → exact Site Operations Dashboard for Page Names)
+  - BI rail / Dashboards list chrome (Search, folders, soft siblings)
+  - dashboard viewer widgets: monthly LCP/CLS/INP charts + per-page monthly tables + CWV bands soft
+  - Lookback Period increase/decrease months + Apply/auto-apply + data refresh asserts + restore
+  - combinations of other BI filters + Apply + refresh/empty handling + restore
+  - Save As clone (disposable) + Refresh Data + Reset to Defaults
+  - column header sorting for sortable grid columns with row-order soft asserts + restore
+  - hamburger / Export chart → PNG Image / PDF Document / PowerPoint (or live CSV) with soft UI↔document label cross-check
+  - recovery / GDC re-anchor / non-confusion with Page Groups, Site Operations + CWV Trends, VitalPulse, VitalScope, portal Dashboards
+
+Follow existing project framework and POM conventions. Prefer live probe hosts/titles as SoT; re-probe inside the opened dashboard if PowerPoint / Apply hosts are still sparse.
+
+After generation:
+1. Execute only the newly created Site Operations Page Names regression suite and fix automation hard failures.
+2. Generate fresh isolated Allure results + HTML report for this suite.
+3. Generate manual test-case workbook (Summary / Regression TCs / Notes).
+4. Include executed result summary and soft annotations for: empty lookback/filter combos, missing Reset/Save As on locked Global, clone cleanup failures, missing PowerPoint option, export download flakes, sort no-op on equal values, sparse Internal data, iframe load flakes, GDC re-anchor.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable titles/labels and portal `#bi-iframe` frame scope; do not depend on dynamic Highcharts instance IDs or JWT tokens alone.
+6. Do not hard-code KPI totals, page names, CWV values, month headers, or fixed dates from the probe.
+7. Capture and restore Page Names home, GDC Test Site 2, Lookback/filters/sort baseline; cleanup Save As clones; close export menus/dialogs.
+8. Use a serial suite only when shared page/iframe state is intentional; optional/data-dependent failures must not abort unrelated tests (soft deadlines + recovery).
+9. Use bounded soft deadlines and explicit action timeouts.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page/iframe actions running into later serial tests; cancel/reload/reset before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save portal Filters, Clear Genius Cache, permanently edit Global Page Names, or leave unrestored lookback/sort mutations.
+13. Keep primary scope on Site Operations Dashboard for Page Names; restore after soft sibling/list/AI Query visits.
+14. Close all menus, overlays, drawers, modals, export dialogs opened by tests.
+15. Do not claim widgets refreshed by merely counting SVG hosts.
+16. Treat timing/%/date units as format-tolerant.
+17. Never accept VitalPulse, VitalScope Performance Overview, Page Groups, Site Operations + CWV Trends, or CWV Top 10 PoP as suite home without the exact **Site Operations Dashboard for Page Names** title in the BI viewer.
+18. If any requirement is ambiguous or missing, flag it before generating automation.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- **PDF attached** (4 pages, 8/27/26 print) maps Help title **“Site Operations Report: CWV of the top viewed pages”** to live catalog title **“Site Operations Dashboard for Page Names”** — treat live exact catalog/viewer title as identity SoT; PDF for purpose/filters/CWV monthly semantics.
+- Soft sibling Help **“BI Dashboard: Site Operations”** is related but not proven identical to this catalog card — do not require that article’s inventory if live differs.
+- Catalog ~**8 widgets**; PDF describes monthly CWV charts+tables — treat live **LCP/CLS/INP** charts+tables as primary hard inventory; annotate extras.
+- PDF **Time Period** ↔ live **Lookback Period** (soft default **Last 3 Complete Months**); PDF **Origin** ↔ live **Originated From**; PDF **Return/New User** ↔ live **Return/New Visitor**.
+- Lookback “months” UI may be Complete Month chips / dropdown — drive whatever live control increases/decreases month span; PDF schedules “matches a user attribute” is cancel-only.
+- **Apply** button may be absent (probe `hasApply: false`) — selection may auto-apply; still assert refresh/signature after change.
+- Save As / Reset may be restricted on Global folder dashboards — use disposable clone for mutation depth if needed.
+- Google band labels may be visual cell colors without readable “Poor/Needs Improvement/Good” text in body sample — soft-assert language when present; annotate color-only.
+- Outer portal Filters funnel (`#toggle-filters`) is **not** the BI Lookback Period control.
+- Percentile default is **75th** per PDF — live select value soft `0.75` / p75; soft-assert when readable.
+- **PowerPoint** was requested but live export menu showed **PNG Image / PDF Document / CSV Data** (no PPT in Aug 2026 probe) — soft-assert PPT if present; otherwise annotate and soft-verify PNG/PDF (+ CSV) against UI labels.
+- Export cross-check is soft/label-level (not pixel-perfect OCR or binary golden files).
+- Column sort: duplicate mirrored tables (chart+table pairs) may share headers — sample primary visible tables; do not hard-fail if one mirror does not re-sort independently.
+- Formal SLA for iframe widget reload / download — use project soft deadlines.
+- Coach/Get started overlays may appear on portal shell.
+- Parallel workers may race on shared Global filter/sort state — prefer serial for Lookback / Save As / sort / export tests.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to:
+- docs/prompts/AI Prompt (For Automation Regression-CWV Top 10 Period over Period PoP).txt
+- docs/prompts/AI Prompt (For Automation Regression-Revenue Assurance Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Vital Pulse Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Site Overview Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Core Web Vitals).txt
+- pages/CwvTop10PopDashboardPage.ts / VitalPulseDashboardPage.ts / SiteOverviewDashboardPage.ts (patterns only)
+
+Follow their patterns for POM/locator separation, authenticated GDC site selection, iframe `#bi-iframe` scoping, filter apply/cancel/restore, graph/table soft asserts, serial recovery after soft sibling switches, reversible mutations with restore, disposable Save As cleanup, isolated Allure + Excel workbooks, and npm naming that does not collide with CWV Top 10 PoP / VitalPulse / Core Web Vitals / Page Groups.
