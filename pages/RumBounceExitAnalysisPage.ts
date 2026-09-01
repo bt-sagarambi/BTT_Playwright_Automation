@@ -2,7 +2,7 @@ import { Page, expect, Locator } from '@playwright/test';
 import { RumBounceExitAnalysisLocators } from '../locators/RumBounceExitAnalysisLocators';
 import { LeftNavPage } from './LeftNavPage';
 import { SiteDropdownPage } from './SiteDropdownPage';
-import { ensurePortalSession } from '../helpers/portalSession';
+import { ensurePortalSession, portalBase } from '../helpers/portalSession';
 
 const PAGE_DEF = {
   id: 'rum.bounce-exit',
@@ -355,7 +355,7 @@ export class RumBounceExitAnalysisPage {
     if (!onList) {
       const indexRoute = kind === 'custom' ? 'site-level-events/index' : 'global-level-events/index';
       await popup
-        .goto(`https://portal.bluetriangle.com/btportal/web/index.php?r=${indexRoute}`, {
+        .goto(`${portalBase()}/index.php?r=${indexRoute}`, {
           waitUntil: 'domcontentloaded',
         })
         .catch(() => undefined);

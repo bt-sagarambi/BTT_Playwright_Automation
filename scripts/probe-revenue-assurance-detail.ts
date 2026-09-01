@@ -4,7 +4,7 @@
 import { chromium } from '@playwright/test';
 import path from 'path';
 import fs from 'fs';
-import { ensurePortalSession } from '../helpers/portalSession';
+import { ensurePortalSession, portalBase } from '../helpers/portalSession';
 import { SiteDropdownPage } from '../pages/SiteDropdownPage';
 import { LeftNavPage } from '../pages/LeftNavPage';
 
@@ -174,7 +174,7 @@ async function main() {
 
   // Hero Show Me + Compact/Relaxed
   try {
-    await page.goto('https://portal.bluetriangle.com/btportal/web/index.php?r=revenue-assurance/dashboard', {
+    await page.goto(`${portalBase()}/index.php?r=revenue-assurance/dashboard`, {
       waitUntil: 'domcontentloaded',
       timeout: 60000,
     });

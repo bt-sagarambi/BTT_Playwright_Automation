@@ -2,6 +2,7 @@ import { test, expect, Page } from '@playwright/test';
 import path from 'path';
 import { RumErrorsExplorerPage } from '../../../../../../pages/RumErrorsExplorerPage';
 import { getActiveProfile } from '../../../../../../config/profiles';
+import { portalBase } from '../../../../../../helpers/portalSession';
 
 /**
  * Regression: Errors Explorer (RUM Browser)
@@ -346,7 +347,7 @@ test.describe('US2 Regression — RUM Errors Explorer (Browser)', () => {
         description: `Drill-down soft: ${err instanceof Error ? err.message : String(err)}`,
       });
       await page
-        .goto('https://portal.bluetriangle.com/btportal/web/index.php?r=javascript-errors/real-user', {
+        .goto(`${portalBase()}/index.php?r=javascript-errors/real-user`, {
           waitUntil: 'domcontentloaded',
         })
         .catch(() => undefined);

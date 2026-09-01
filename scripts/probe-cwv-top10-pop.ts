@@ -7,7 +7,7 @@
 import { chromium, Frame, Page } from '@playwright/test';
 import path from 'path';
 import fs from 'fs';
-import { ensurePortalSession } from '../helpers/portalSession';
+import { ensurePortalSession, portalBase } from '../helpers/portalSession';
 import { SiteDropdownPage } from '../pages/SiteDropdownPage';
 import { LeftNavPage } from '../pages/LeftNavPage';
 
@@ -150,7 +150,7 @@ async function openBiTool(page: Page) {
   }
   if (!/business-intelligence\/tool|business-intelligence%2Ftool/i.test(page.url())) {
     await page.goto(
-      'https://portal.bluetriangle.com/btportal/web/index.php?r=business-intelligence/tool&sid=305836',
+      `${portalBase()}/index.php?r=business-intelligence/tool&sid=305836`,
       { waitUntil: 'domcontentloaded', timeout: 90000 }
     );
   }

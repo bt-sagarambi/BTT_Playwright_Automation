@@ -1,5 +1,5 @@
 import { Page, Frame, expect } from '@playwright/test';
-import { SiteOpsPageNamesDashboardLocators } from '../locators/SiteOpsPageNamesDashboardLocators';
+import { MonthlyQuarterlyUxMetricsDashboardLocators } from '../locators/MonthlyQuarterlyUxMetricsDashboardLocators';
 import { LeftNavPage } from './LeftNavPage';
 import { SiteDropdownPage } from './SiteDropdownPage';
 import { ensurePortalSession, portalBase } from '../helpers/portalSession';
@@ -8,27 +8,29 @@ import { getActiveProfile } from '../config/profiles';
 function biToolUrl(): string {
   return `${portalBase()}/index.php?r=business-intelligence/tool`;
 }
-const SOPN_TITLE = /Site Operations Dashboard for Page Names/i;
-const SOPN_SEARCH = 'Site Operations Dashboard for Page Names';
 
-export type SopnContext = {
+const UXM_TITLE = /Monthly\/Quarterly\s*-\s*UX Metrics/i;
+const UXM_SEARCH = 'Monthly/Quarterly - UX Metrics';
+
+export type MqUxmContext = {
   siteLabel: string;
-  lookbackSignature: string;
+  comparisonSignature: string;
+  endDateSignature: string;
   bodySignature: string;
-  monthHeaders: string;
 };
 
 /**
- * BI Dashboard — Site Operations Dashboard for Page Names.
+ * BI Dashboard — Monthly/Quarterly - UX Metrics.
  * Shell: business-intelligence/tool → #bi-iframe.
- * Mutations (Lookback / filters / sort) must be restored; Save As clones cleaned up.
+ * Filter mutations restored; Save As clones cleaned up.
+ * Never treat Monthly/Quarterly Revenue as home.
  */
-export class SiteOpsPageNamesDashboardPage {
-  readonly locators: SiteOpsPageNamesDashboardLocators;
+export class MonthlyQuarterlyUxMetricsDashboardPage {
+  readonly locators: MonthlyQuarterlyUxMetricsDashboardLocators;
   private frame: Frame | null = null;
 
   constructor(private readonly page: Page) {
-    this.locators = new SiteOpsPageNamesDashboardLocators(page);
+    this.locators = new MonthlyQuarterlyUxMetricsDashboardLocators(page);
   }
 
   async openViaNavigation(): Promise<void> {
@@ -149,42 +151,41 @@ export class SiteOpsPageNamesDashboardPage {
     if (await L.searchInput.isVisible().catch(() => false)) {
       await L.searchInput.click({ force: true });
       await L.searchInput.fill('');
-      await L.searchInput.fill(SOPN_SEARCH);
+      await L.searchInput.fill(UXM_SEARCH);
       await this.page.waitForTimeout(3000);
     }
 
     const clicked = await fr.evaluate(() => {
-      const want = /Site Operations Dashboard for Page Names/i;
+      const want = /Monthly\/Quarterly\s*-\s*UX Metrics/i;
       const nodes = Array.from(
         document.querySelectorAll('a, button, h1, h2, h3, h4, [role="heading"], [role="link"], div, span')
       );
-      const scored = [];
+      const scored: { el: Element; t: string; score: number }[] = [];
       for (const el of nodes) {
-        const t = (el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim();
+        const t = ((el as HTMLElement).innerText || el.textContent || '').replace(/\s+/g, ' ').trim();
         if (!want.test(t)) continue;
-        if (/Page Groups/i.test(t) && !/Page Names/i.test(t)) continue;
-        if (/Site Operations \+ CWV/i.test(t)) continue;
+        if (/Monthly\/Quarterly Revenue/i.test(t) && !/UX Metrics/i.test(t)) continue;
         const score = t.length < 90 ? 3 : t.length < 180 ? 2 : 1;
         scored.push({ el, t, score });
       }
       scored.sort((a, b) => b.score - a.score || a.t.length - b.t.length);
       const hit = scored[0];
       if (!hit) return false;
-      hit.el.scrollIntoView({ block: 'center' });
-      hit.el.click();
+      (hit.el as HTMLElement).scrollIntoView({ block: 'center' });
+      (hit.el as HTMLElement).click();
       return true;
     });
 
     if (!clicked) {
       const card = fr
         .locator('a, h2, h3, h4, [role="heading"], button, div')
-        .filter({ hasText: SOPN_TITLE })
-        .filter({ hasNotText: /Page Groups|\+ CWV/i })
+        .filter({ hasText: UXM_TITLE })
+        .filter({ hasNotText: /Revenue/i })
         .first();
       await expect(card).toBeVisible({ timeout: 30000 });
       await card.click({ force: true });
     }
-    await this.page.waitForTimeout(10000);
+    await this.page.waitForTimeout(12000);
     this.frame = (await (await this.page.$('#bi-iframe'))?.contentFrame()) || (await this.bi());
     this.frame = await this.bestViewerFrame(this.frame);
   }
@@ -194,16 +195,16 @@ export class SiteOpsPageNamesDashboardPage {
     let bestScore = -1;
     for (const f of this.page.frames()) {
       const sample = await f
-        .evaluate(() => (document.body?.innerText || '').replace(/\s+/g, ' ').slice(0, 4000))
+        .evaluate(() => (document.body?.innerText || '').replace(/\s+/g, ' ').slice(0, 5000))
         .catch(() => '');
-      if (!SOPN_TITLE.test(sample)) continue;
+      if (!UXM_TITLE.test(sample) && !/UX Metrics/i.test(sample)) continue;
       let score = 0;
       if (/Save As|Refresh Data|Reset to Defaults?/i.test(sample)) score += 5;
-      if (/Lookback Period/i.test(sample)) score += 3;
+      if (/Comparison Period|End Date/i.test(sample)) score += 3;
       if (/\bLCP\b/i.test(sample) && /\bINP\b/i.test(sample) && /\bCLS\b/i.test(sample)) score += 3;
-      if (/PAGE NAME/i.test(sample)) score += 2;
+      if (/Onload Monthly|Onload Quarterly/i.test(sample)) score += 2;
       if (!/Create Dashboard/i.test(sample)) score += 2;
-      if (/8 widgets/i.test(sample) && /Create Dashboard/i.test(sample)) score -= 3;
+      if (/25 widgets/i.test(sample) && /Create Dashboard/i.test(sample)) score -= 3;
       if (score > bestScore) {
         bestScore = score;
         best = f;
@@ -213,8 +214,8 @@ export class SiteOpsPageNamesDashboardPage {
   }
 
   async waitForDashboardReady(): Promise<void> {
-    await expect.poll(async () => this.getBodySample(2500), { timeout: 90000 }).toMatch(SOPN_TITLE);
-    await expect.poll(async () => this.widgetsReadyScore(), { timeout: 60000 }).toBeGreaterThanOrEqual(3);
+    await expect.poll(async () => this.getBodySample(3000), { timeout: 90000 }).toMatch(UXM_TITLE);
+    await expect.poll(async () => this.widgetsReadyScore(), { timeout: 60000 }).toBeGreaterThanOrEqual(4);
     await this.page.waitForTimeout(1500);
   }
 
@@ -225,119 +226,110 @@ export class SiteOpsPageNamesDashboardPage {
   }
 
   async widgetsReadyScore(): Promise<number> {
-    const body = await this.getBodySample(8000);
+    const body = await this.getBodySample(10000);
     let score = 0;
-    if (SOPN_TITLE.test(body)) score += 2;
+    if (UXM_TITLE.test(body)) score += 2;
     if (/\bLCP\b/i.test(body)) score += 1;
     if (/\bINP\b/i.test(body)) score += 1;
     if (/\bCLS\b/i.test(body)) score += 1;
-    if (/PAGE NAME/i.test(body)) score += 1;
-    if (/Lookback Period/i.test(body)) score += 1;
+    if (/Onload/i.test(body)) score += 1;
+    if (/Comparison Period|End Date/i.test(body)) score += 1;
     if (/Refresh Data|Save As|Reset to Defaults?/i.test(body)) score += 1;
-    if (/Core Web Vitals of Top Viewed Pages/i.test(body)) score += 1;
+    if (/Current Onload|Previous Onload|Current LCP|Previous LCP/i.test(body)) score += 1;
+    if (/Dynamic Chart Metrics/i.test(body)) score += 1;
     return score;
   }
 
-  async expectSopnIdentity(): Promise<void> {
+  async expectUxmIdentity(): Promise<void> {
     await expect(this.page).toHaveURL(/business-intelligence\/tool|business-intelligence%2Ftool/i);
     const body = await this.getBodySample(3000);
-    expect(body, 'SOPN title in BI iframe').toMatch(SOPN_TITLE);
+    expect(body, 'UX Metrics title in BI iframe').toMatch(UXM_TITLE);
   }
 
   async expectNotConfusedSurfaces(): Promise<void> {
     await expect(this.page).toHaveURL(/business-intelligence\/tool|business-intelligence%2Ftool/i);
     await expect(this.page).not.toHaveURL(/site\/dashboard(?!-)|real-user-monitoring\/performance-overview/i);
     const body = await this.getBodySample(2000);
-    expect(body).toMatch(SOPN_TITLE);
-    expect(body).not.toMatch(/Site Operations Dashboard for Page Groups(?![\s\S]{0,40}Page Names)/i);
+    expect(body).toMatch(UXM_TITLE);
+    // Must not be sitting on Revenue sibling as home title alone
+    if (/Monthly\/Quarterly Revenue/i.test(body) && !UXM_TITLE.test(body)) {
+      throw new Error('confused with Monthly/Quarterly Revenue');
+    }
   }
 
-  async getLookbackSignature(): Promise<string> {
-    const body = await this.getBodySample(4000);
-    const m =
-      body.match(/Last\s+\d+\s+Complete\s+Months?/i) ||
-      body.match(/Lookback Period[:\s]*([^\n|]{0,80})/i) ||
-      body.match(/Last\s+\d+\s+(?:Days|Months|Weeks)/i);
-    return (m?.[0] || body.slice(0, 120)).replace(/\s+/g, ' ').trim();
-  }
-
-  async getMonthHeadersSignature(): Promise<string> {
+  async getComparisonSignature(): Promise<string> {
     const body = await this.getBodySample(5000);
-    const months = body.match(/\b(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)\s+\d{4}\b/gi) || [];
-    return [...new Set(months.map((m) => m.toUpperCase()))].slice(0, 8).join('|');
+    const m =
+      body.match(/Comparison Period[:\s]*([^\n|]{0,60})/i) ||
+      body.match(/Default \(from chart\)|Directly Previous Period|Same Time Last Year/i);
+    return (m?.[0] || '').replace(/\s+/g, ' ').trim();
   }
 
-  async captureContext(): Promise<SopnContext> {
+  async getEndDateSignature(): Promise<string> {
+    const body = await this.getBodySample(5000);
+    const m =
+      body.match(/End Date[:\s]*([^\n|]{0,80})/i) ||
+      body.match(/Today\s*\([^)]+\)|Yesterday\s*\([^)]+\)|Start of (?:Week|Month|Quarter|Previous Month)[^\n|]{0,40}/i);
+    return (m?.[0] || '').replace(/\s+/g, ' ').trim();
+  }
+
+  async captureContext(): Promise<MqUxmContext> {
     return {
       siteLabel: await this.getSiteLabel().catch(() => getActiveProfile().siteName),
-      lookbackSignature: await this.getLookbackSignature(),
+      comparisonSignature: await this.getComparisonSignature(),
+      endDateSignature: await this.getEndDateSignature(),
       bodySignature: (await this.getBodySample(600)).slice(0, 400),
-      monthHeaders: await this.getMonthHeadersSignature(),
     };
   }
 
-  async openLookbackPeriod(): Promise<boolean> {
+  async openFiltersPanel(): Promise<boolean> {
     const fr = await this.bi();
     const L = this.locators.inFrame(fr);
     if (await L.filtersBtn.isVisible().catch(() => false)) {
       await L.filtersBtn.click({ force: true }).catch(() => undefined);
       await this.page.waitForTimeout(800);
-    }
-    const host = fr.locator('label, button, div, span, [role="button"]').filter({ hasText: /Lookback Period/i }).first();
-    if (!(await host.count().catch(() => 0))) return false;
-    await host.scrollIntoViewIfNeeded({ timeout: 5000 }).catch(() => undefined);
-    await host.click({ force: true, timeout: 8000 }).catch(async () => {
-      await host.evaluate((el) => (el).click()).catch(() => undefined);
-    });
-    await this.page.waitForTimeout(800);
-    return true;
-  }
-
-  async adjustLookbackMonths(direction: 'up' | 'down'): Promise<boolean> {
-    const fr = await this.bi();
-    await this.openLookbackPeriod();
-
-    const lookbackChip = fr
-      .locator('button, [role="button"], div, span, a')
-      .filter({ hasText: /Last\s+\d+\s+Complete\s+Months?|Complete Month|Lookback Period/i })
-      .first();
-    if (await lookbackChip.isVisible().catch(() => false)) {
-      await lookbackChip.click({ force: true }).catch(() => undefined);
-      await this.page.waitForTimeout(600);
-    }
-
-    const options = fr.locator('[role="option"], li, button, a, label, div').filter({
-      hasText: /Last\s+\d+\s+Complete\s+Months?|Last\s+\d+\s+Months?/i,
-    });
-    const count = await options.count().catch(() => 0);
-    if (count > 0) {
-      const idx = direction === 'up' ? Math.min(count - 1, 1) : 0;
-      await options.nth(idx).click({ force: true }).catch(() => undefined);
-      await this.page.waitForTimeout(2500);
       return true;
     }
     return false;
   }
 
-  async clickApply(): Promise<boolean> {
+  async softSetComparisonPeriod(option: RegExp): Promise<boolean> {
     const fr = await this.bi();
-    const btn = fr.locator('button, a').filter({ hasText: /^Apply$/i }).first();
-    if (await btn.isVisible().catch(() => false)) {
-      await btn.click({ force: true, timeout: 8000 }).catch(() => undefined);
-      await this.page.waitForTimeout(3500);
+    await this.openFiltersPanel();
+    const host = fr.locator('label, button, div, span, [role="button"]').filter({ hasText: /Comparison Period/i }).first();
+    if (!(await host.count().catch(() => 0))) return false;
+    await host.scrollIntoViewIfNeeded({ timeout: 5000 }).catch(() => undefined);
+    await host.click({ force: true }).catch(() => undefined);
+    await this.page.waitForTimeout(600);
+    const opt = fr.locator('[role="option"], li, button, a, label, div').filter({ hasText: option }).first();
+    if (await opt.isVisible().catch(() => false)) {
+      await opt.click({ force: true }).catch(() => undefined);
+      await this.page.waitForTimeout(3000);
       return true;
     }
-    await this.page.waitForTimeout(2500);
+    return false;
+  }
+
+  async softSetEndDate(option: RegExp): Promise<boolean> {
+    const fr = await this.bi();
+    await this.openFiltersPanel();
+    const host = fr.locator('label, button, div, span, [role="button"]').filter({ hasText: /End Date/i }).first();
+    if (!(await host.count().catch(() => 0))) return false;
+    await host.scrollIntoViewIfNeeded({ timeout: 5000 }).catch(() => undefined);
+    await host.click({ force: true }).catch(() => undefined);
+    await this.page.waitForTimeout(600);
+    const opt = fr.locator('[role="option"], li, button, a, label, div').filter({ hasText: option }).first();
+    if (await opt.isVisible().catch(() => false)) {
+      await opt.click({ force: true }).catch(() => undefined);
+      await this.page.waitForTimeout(3000);
+      return true;
+    }
     return false;
   }
 
   async softFilterCombo(label: RegExp, option?: RegExp): Promise<boolean> {
     const fr = await this.bi();
-    const L = this.locators.inFrame(fr);
-    if (await L.filtersBtn.isVisible().catch(() => false)) {
-      await L.filtersBtn.click({ force: true }).catch(() => undefined);
-      await this.page.waitForTimeout(600);
-    }
+    await this.openFiltersPanel();
     const host = fr.locator('label, button, div, span').filter({ hasText: label }).first();
     if (!(await host.count().catch(() => 0))) return false;
     await host.scrollIntoViewIfNeeded({ timeout: 5000 }).catch(() => undefined);
@@ -350,7 +342,12 @@ export class SiteOpsPageNamesDashboardPage {
         await this.page.waitForTimeout(400);
       }
     }
-    await this.clickApply();
+    // Auto-apply on this dashboard (no Apply button on probe)
+    const apply = fr.locator('button, a').filter({ hasText: /^Apply$/i }).first();
+    if (await apply.isVisible().catch(() => false)) {
+      await apply.click({ force: true }).catch(() => undefined);
+    }
+    await this.page.waitForTimeout(2800);
     return true;
   }
 
@@ -403,7 +400,9 @@ export class SiteOpsPageNamesDashboardPage {
       .filter({ hasText: new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') })
       .first();
     if (!(await card.isVisible().catch(() => false))) return false;
-    const menu = card.locator('xpath=ancestor::*[contains(@class,"card") or contains(@class,"tile") or self::div][1]//button').last();
+    const menu = card
+      .locator('xpath=ancestor::*[contains(@class,"card") or contains(@class,"tile") or self::div][1]//button')
+      .last();
     await menu.click({ force: true }).catch(async () => {
       await fr.locator('button').filter({ hasText: /⋮|More|Delete/i }).first().click({ force: true }).catch(() => undefined);
     });
@@ -419,46 +418,17 @@ export class SiteOpsPageNamesDashboardPage {
     return false;
   }
 
-  /** Capture first-column page-name order from first visible PAGE NAME table. */
-  async getTableRowSignature(maxRows = 8): Promise<string> {
+  async softOpenExportMenu(scope: 'widget' | 'dashboard' = 'widget'): Promise<{ opened: boolean; options: string[] }> {
     const fr = await this.bi();
-    return fr.evaluate((n) => {
-      const tables = Array.from(document.querySelectorAll('table')).filter((t) => t.getClientRects().length);
-      for (const t of tables) {
-        const headers = Array.from(t.querySelectorAll('th')).map((th) => (th.innerText || '').replace(/\s+/g, ' ').trim());
-        if (!headers.some((h) => /PAGE NAME/i.test(h))) continue;
-        const rows = Array.from(t.querySelectorAll('tbody tr')).slice(0, n);
-        const names = rows.map((r) => {
-          const cell = r.querySelector('td');
-          return ((cell && cell.innerText) || '').replace(/\s+/g, ' ').trim().slice(0, 40);
-        });
-        return names.filter(Boolean).join('|');
+    if (scope === 'widget') {
+      const exportBtn = fr.locator('[title="Export chart"], button[title*="Export" i]').first();
+      if (await exportBtn.isVisible().catch(() => false)) {
+        await exportBtn.scrollIntoViewIfNeeded().catch(() => undefined);
+        await exportBtn.click({ force: true }).catch(() => undefined);
+        await this.page.waitForTimeout(800);
       }
-      return '';
-    }, maxRows);
-  }
-
-  async softSortColumn(headerRe: RegExp): Promise<{ clicked: boolean; before: string; after: string }> {
-    const fr = await this.bi();
-    const before = await this.getTableRowSignature();
-    const header = fr.locator('th, [role="columnheader"]').filter({ hasText: headerRe }).first();
-    if (!(await header.isVisible().catch(() => false))) {
-      return { clicked: false, before, after: before };
-    }
-    await header.scrollIntoViewIfNeeded({ timeout: 5000 }).catch(() => undefined);
-    await header.click({ force: true }).catch(() => undefined);
-    await this.page.waitForTimeout(1500);
-    const after = await this.getTableRowSignature();
-    return { clicked: true, before, after };
-  }
-
-  async softOpenExportMenu(): Promise<{ opened: boolean; options: string[] }> {
-    const fr = await this.bi();
-    const exportBtn = fr.locator('[title="Export chart"], button[title*="Export" i]').first();
-    if (await exportBtn.isVisible().catch(() => false)) {
-      await exportBtn.click({ force: true }).catch(() => undefined);
-      await this.page.waitForTimeout(800);
     } else {
+      // Prefer top-right dashboard chrome icons
       await fr.evaluate(() => {
         const rects = Array.from(document.querySelectorAll('button, a, [role="button"]'));
         const topRight = rects
@@ -467,9 +437,23 @@ export class SiteOpsPageNamesDashboardPage {
             return r.width > 8 && r.height > 8 && r.top < 140 && r.right > window.innerWidth - 320;
           })
           .sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right);
-        if (topRight[0]) topRight[0].click();
+        for (const el of topRight.slice(0, 8)) {
+          const t = ((el as HTMLElement).getAttribute('title') || '') + (el.getAttribute('aria-label') || '');
+          if (/export|download|menu|hamburger|more/i.test(t) || !t) {
+            (el as HTMLElement).click();
+            break;
+          }
+        }
       });
       await this.page.waitForTimeout(800);
+      // Also try Export chart as fallback when dashboard hamburger is absent
+      if (!/PNG Image|PDF Document|PowerPoint|CSV Data/i.test(await this.getBodySample(3000))) {
+        const exportBtn = fr.locator('[title="Export chart"], button[title*="Export" i]').first();
+        if (await exportBtn.isVisible().catch(() => false)) {
+          await exportBtn.click({ force: true }).catch(() => undefined);
+          await this.page.waitForTimeout(800);
+        }
+      }
     }
     const body = await this.getBodySample(4000);
     const options: string[] = [];
@@ -482,7 +466,6 @@ export class SiteOpsPageNamesDashboardPage {
 
   async softExportOption(label: RegExp): Promise<{ triggered: boolean; downloadHint: string }> {
     const fr = await this.bi();
-    await this.softOpenExportMenu();
     const opt = fr.locator('button, a, [role="menuitem"], div').filter({ hasText: label }).first();
     if (!(await opt.isVisible().catch(() => false))) {
       return { triggered: false, downloadHint: '' };
@@ -503,6 +486,33 @@ export class SiteOpsPageNamesDashboardPage {
     await this.page.waitForTimeout(1500);
     await this.page.keyboard.press('Escape').catch(() => undefined);
     return { triggered: true, downloadHint };
+  }
+
+  async softSwitchMetric(): Promise<{ opened: boolean; before: string; after: string; changed: boolean }> {
+    const fr = await this.bi();
+    const before = (await this.getBodySample(1200)).slice(0, 200);
+    const gear = fr.locator('[title="Switch metric"], button[title*="Switch metric" i]').first();
+    if (!(await gear.isVisible().catch(() => false))) {
+      return { opened: false, before, after: before, changed: false };
+    }
+    await gear.scrollIntoViewIfNeeded().catch(() => undefined);
+    await gear.click({ force: true }).catch(() => undefined);
+    await this.page.waitForTimeout(800);
+    const menuBody = await this.getBodySample(2500);
+    const opened = /Onload|LCP|CLS|INP|Active|Metric/i.test(menuBody);
+    // Prefer selecting an alternate UX metric if menu options are visible
+    const alt = fr
+      .locator('[role="option"], li, button, a, label, div')
+      .filter({ hasText: /^(Onload|LCP|CLS|INP|Largest Contentful Paint|Interaction to Next Paint|Cumulative Layout Shift)/i })
+      .nth(1);
+    if (await alt.isVisible().catch(() => false)) {
+      await alt.click({ force: true }).catch(() => undefined);
+      await this.page.waitForTimeout(2500);
+    } else {
+      await this.page.keyboard.press('Escape').catch(() => undefined);
+    }
+    const after = (await this.getBodySample(1200)).slice(0, 200);
+    return { opened, before, after, changed: before !== after };
   }
 
   async softOpenSiblingThenRestore(sibling: RegExp): Promise<string> {
@@ -538,12 +548,12 @@ export class SiteOpsPageNamesDashboardPage {
       })(),
       new Promise<void>((_, rej) => setTimeout(() => rej(new Error('recoverPage soft timeout')), 120000)),
     ]).catch(async (err) => {
-      console.log(`[SOPN] recover: ${err instanceof Error ? err.message : String(err)}`);
+      console.log(`[MQ-UXM] recover: ${err instanceof Error ? err.message : String(err)}`);
       await this.openViaNavigation().catch(() => undefined);
     });
   }
 
-  async restoreContext(ctx: SopnContext): Promise<void> {
+  async restoreContext(ctx: MqUxmContext): Promise<void> {
     await this.clickResetToDefault().catch(() => undefined);
     await this.ensureProfileSiteSelected();
     void ctx;
@@ -554,12 +564,34 @@ export class SiteOpsPageNamesDashboardPage {
     await this.page.waitForTimeout(200);
   }
 
-  metricPresence(): Promise<{ lcp: boolean; cls: boolean; inp: boolean; pageName: boolean }> {
-    return this.getBodySample(8000).then((body) => ({
-      lcp: /\bLCP\b/i.test(body),
-      cls: /\bCLS\b/i.test(body),
-      inp: /\bINP\b/i.test(body),
-      pageName: /PAGE NAME/i.test(body),
+  metricPresence(): Promise<{
+    onload: boolean;
+    lcp: boolean;
+    cls: boolean;
+    inp: boolean;
+    monthly: boolean;
+    quarterly: boolean;
+    currentPrevious: boolean;
+    kpiCards: boolean;
+  }> {
+    return this.getBodySample(10000).then((body) => ({
+      onload: /Onload/i.test(body),
+      lcp: /\bLCP\b|Largest Contentful Paint/i.test(body),
+      cls: /\bCLS\b|Cumulative Layout Shift/i.test(body),
+      inp: /\bINP\b|Interaction to Next Paint/i.test(body),
+      monthly: /Onload Monthly|LCP Monthly|CLS Monthly|INP Monthly/i.test(body),
+      quarterly: /Onload Quarterly|LCP Quarterly|CLS Quarterly|INP Quarterly/i.test(body),
+      currentPrevious: /Current Onload|Previous Onload|Current LCP|Previous LCP|Current CLS|Previous INP/i.test(body),
+      kpiCards: /Dynamic Chart Metrics|Prev:/i.test(body),
     }));
+  }
+
+  async countWidgetChrome(): Promise<{ switchMetric: number; exportChart: number }> {
+    const fr = await this.bi();
+    return fr.evaluate(() => {
+      const switchMetric = document.querySelectorAll('[title="Switch metric"]').length;
+      const exportChart = document.querySelectorAll('[title="Export chart"]').length;
+      return { switchMetric, exportChart };
+    });
   }
 }

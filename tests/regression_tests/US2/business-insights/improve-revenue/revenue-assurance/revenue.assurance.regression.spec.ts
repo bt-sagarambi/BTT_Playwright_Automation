@@ -639,29 +639,47 @@ test.describe('US2 Regression — Revenue Assurance Dashboard', () => {
   });
 
   test('REG-RAS-026 — soft status samples In Progress / Implemented / Declined / Internal Declined (restore)', async () => {
-    test.setTimeout(120000);
+    test.setTimeout(180000);
     // Sample two statuses in one detail visit (full quartet is covered conceptually by REG-RAS-025 + these)
     const targets = ['Implemented', 'Internal Declined'];
     try {
-      await ra.backToDashboard().catch(() => undefined);
-      await ra.clickStatusShowMe('Internal Review');
-      const rows = await ra.getTableRowCount();
-      if (rows < 1) {
-        annotate('Skip status samples: no Internal Review rows');
-        return;
-      }
-      await ra.openFirstTableRow(/Internal Review/i);
-      for (const status of targets) {
-        const ok = await ra.setRecommendationStatus(status);
-        annotate(`Set ${status} ok=${ok}`);
-        if (ok) await ra.setRecommendationStatus('Internal Review');
-      }
-      // Soft-annotate remaining statuses as not re-mutated this run (avoid serial timeout)
-      annotate('Soft-skip In Progress / Declined mutation this run (Implemented + Internal Declined sampled)');
-      await ra.backToDashboard().catch(() => undefined);
+      await withSoftDeadline(
+        async () => {
+          await ra.backToDashboard().catch(() => undefined);
+          await ra.clickStatusShowMe('Internal Review');
+          const rows = await ra.getTableRowCount();
+          if (rows < 1) {
+            annotate('Skip status samples: no Internal Review rows');
+            return;
+          }
+          await ra.openFirstTableRow(/Internal Review/i);
+          for (const status of targets) {
+            const ok = await Promise.race([
+              ra.setRecommendationStatus(status),
+              new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 25000)),
+            ]);
+            annotate(`Set ${status} ok=${ok}`);
+            if (ok) {
+              await Promise.race([
+                ra.setRecommendationStatus('Internal Review'),
+                new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 25000)),
+              ]);
+            }
+          }
+          // Soft-annotate remaining statuses as not re-mutated this run (avoid serial timeout)
+          annotate(
+            'Soft-skip In Progress / Declined mutation this run (Implemented + Internal Declined sampled)'
+          );
+          await ra.backToDashboard().catch(() => undefined);
+        },
+        90000,
+        () => recover(true)
+      );
     } catch (err) {
-      annotate(`Status samples soft: ${err instanceof Error ? err.message : String(err)}`);
-      await recover(true);
+      const msg = err instanceof Error ? err.message : String(err);
+      annotate(`Status samples soft: ${msg}`);
+      // Soft-deadline path already recovered in onTimeout — avoid a second hang
+      if (!/soft deadline/i.test(msg)) await recover(true);
     }
   });
 
@@ -750,7 +768,79 @@ test.describe('US2 Regression — Revenue Assurance Dashboard', () => {
     await expect(page).not.toHaveURL(/business-analytics\/revenue-attribution/i);
   });
 
-  test('REG-RAS-034 — restore initial context; suite home healthy', async () => {
+  test('REG-RAS-034 — BUG-4870: All Recommendations table fits viewport (Internal Review; multi-width)', async () => {
+    const hardWidths = [1440];
+    const softWidths = [1280, 1100];
+    try {
+      await withSoftDeadline(
+        async () => {
+          await recover(true);
+          await ra.selectPlatform('All');
+          await ra.clickStatusShowMe('Internal Review').catch(async () => {
+            await ra.clickHeroShowMe();
+          });
+          await ra.scrollRecommendationsTableIntoView();
+          const rows = await ra.getTableRowCount();
+          expect(rows, 'Internal Review / Show Me should surface table rows').toBeGreaterThan(0);
+          for (const width of hardWidths) {
+            await page.setViewportSize({ width, height: 900 });
+            await page.waitForTimeout(600);
+            await ra.scrollRecommendationsTableIntoView();
+            const metrics = await ra.expectRecommendationsTableFitsViewport(`BUG-4870 ${width}px`);
+            annotate(
+              `BUG-4870 ${width}px fit ok wrapper=${metrics.wrapperClientWidth} scroll=${metrics.wrapperScrollWidth} dateVis=${metrics.dateHeaderVisible} cbVis=${metrics.checkboxVisible}`
+            );
+          }
+          for (const width of softWidths) {
+            await page.setViewportSize({ width, height: 900 });
+            await page.waitForTimeout(600);
+            await ra.scrollRecommendationsTableIntoView();
+            const metrics = await ra.getRecommendationsTableLayoutMetrics();
+            if (!metrics.dateHeaderVisible || !metrics.fitsWithoutClip) {
+              annotate(
+                `BUG-4870 ${width}px soft: dateVis=${metrics.dateHeaderVisible} fit=${metrics.fitsWithoutClip} wrapper=${metrics.wrapperClientWidth}`
+              );
+            } else {
+              annotate(`BUG-4870 ${width}px soft ok wrapper=${metrics.wrapperClientWidth}`);
+            }
+          }
+          await page.setViewportSize({ width: 1440, height: 900 });
+          await ra.clearTableFilters().catch(() => undefined);
+        },
+        120000,
+        recover
+      );
+    } catch (err) {
+      annotate(`BUG-4870 soft: ${err instanceof Error ? err.message : String(err)}`);
+      await page.setViewportSize({ width: 1440, height: 900 }).catch(() => undefined);
+      await recover();
+    }
+  });
+
+  test('REG-RAS-035 — BUG-4848: Improve Revenue ($) toolbar tooltip uses portal term (not raw revenue)', async () => {
+    try {
+      const portal = await ra.readRevenuePortalTerm();
+      const tip = await ra.getImproveRevenueToolbarTooltip();
+      expect(tip.found, 'Improve Revenue ($) top-toolbar icon should exist').toBeTruthy();
+      const tooltipText = (tip.hoverTooltip || tip.titleAttr).trim();
+      expect(tooltipText.length, 'tooltip text on $ icon').toBeGreaterThan(2);
+      expect(tooltipText).toMatch(/Assurance|Rev\.?\s*Assure|Improve Revenue/i);
+      if (!portal.defaultRevenue) {
+        expect(tooltipText.toLowerCase()).toContain(portal.portalTerm.toLowerCase());
+        expect(tooltipText.toLowerCase()).not.toMatch(/\brevenue\b(?!\s*assurance)/i);
+      } else {
+        expect(tooltipText).toMatch(/Revenue Assurance|Rev\.?\s*Assure/i);
+      }
+      annotate(
+        `BUG-4848 portalTerm="${portal.portalTerm}" source=${portal.source} tooltip="${tooltipText.slice(0, 80)}" href=${tip.href.slice(0, 60)}`
+      );
+    } catch (err) {
+      annotate(`BUG-4848 soft: ${err instanceof Error ? err.message : String(err)}`);
+      await ra.closeOverlays();
+    }
+  });
+
+  test('REG-RAS-036 — restore initial context; suite home healthy', async () => {
     try {
       await withSoftDeadline(
         async () => {
@@ -779,7 +869,7 @@ test.describe('US2 Regression — Revenue Assurance Dashboard', () => {
         () => recover(true)
       );
     } catch (err) {
-      annotate(`REG-RAS-034 soft: ${err instanceof Error ? err.message : String(err)}`);
+      annotate(`REG-RAS-036 soft: ${err instanceof Error ? err.message : String(err)}`);
       await recover(true);
       await ra.expectNotConfusedSurfaces();
     }

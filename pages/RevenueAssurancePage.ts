@@ -2,7 +2,7 @@ import { Page, expect, Locator } from '@playwright/test';
 import { RevenueAssuranceLocators } from '../locators/RevenueAssuranceLocators';
 import { LeftNavPage } from './LeftNavPage';
 import { SiteDropdownPage } from './SiteDropdownPage';
-import { ensurePortalSession } from '../helpers/portalSession';
+import { ensurePortalSession, portalBase } from '../helpers/portalSession';
 import { getActiveProfile } from '../config/profiles';
 
 const PAGE_DEF = {
@@ -23,6 +23,35 @@ export type RevenueAssuranceContext = {
 };
 
 export type StatusCountMap = Record<string, { count: number; amountText: string }>;
+
+export type RecommendationsTableLayoutMetrics = {
+  viewportWidth: number;
+  wrapperClientWidth: number;
+  wrapperScrollWidth: number;
+  tableScrollWidth: number;
+  firstHeaderLeft: number;
+  lastHeaderRight: number;
+  wrapperLeft: number;
+  wrapperRight: number;
+  checkboxLeft: number | null;
+  checkboxVisible: boolean;
+  dateHeaderVisible: boolean;
+  horizontalOverflow: boolean;
+  fitsWithoutClip: boolean;
+};
+
+export type RevenuePortalTermProbe = {
+  portalTerm: string;
+  source: string;
+  defaultRevenue: boolean;
+};
+
+export type ImproveRevenueToolbarTooltip = {
+  found: boolean;
+  titleAttr: string;
+  hoverTooltip: string;
+  href: string;
+};
 
 /** Parse $12.3M / $19.5K / $1,234 into absolute number (NaN if unparseable). */
 export function parseMoney(text: string): number {
@@ -253,7 +282,7 @@ export class RevenueAssurancePage {
     await Promise.race([
       (async () => {
         await this.page
-          .goto('https://portal.bluetriangle.com/btportal/web/index.php?r=revenue-assurance/dashboard', {
+          .goto(`${portalBase()}/index.php?r=revenue-assurance/dashboard`, {
             waitUntil: 'domcontentloaded',
             timeout: 45000,
           })
@@ -564,14 +593,15 @@ export class RevenueAssurancePage {
   }
 
   async backToDashboard(): Promise<void> {
-    if (await this.locators.backBtn.isVisible().catch(() => false)) {
+    const onRa = /revenue-assurance\/dashboard|revenue-assurance%2Fdashboard/i.test(this.page.url());
+    if (onRa && (await this.locators.backBtn.isVisible().catch(() => false))) {
       await this.locators.backBtn.click({ force: true });
       await this.page.waitForTimeout(2500);
     } else {
       await this.page
-        .goto('https://portal.bluetriangle.com/btportal/web/index.php?r=revenue-assurance/dashboard', {
+        .goto(`${portalBase()}/index.php?r=revenue-assurance/dashboard`, {
           waitUntil: 'domcontentloaded',
-          timeout: 60000,
+          timeout: 45000,
         })
         .catch(() => undefined);
       await this.page.waitForTimeout(2500);
@@ -600,7 +630,7 @@ export class RevenueAssurancePage {
     }
     if (!href && value) {
       const sid = this.page.url().match(/sid=(\d+)/)?.[1] || '';
-      href = `https://portal.bluetriangle.com/btportal/web/index.php?r=revenue-assurance/dashboard&sid=${sid}&recommendation_id=${encodeURIComponent(value)}`;
+      href = `${portalBase()}/index.php?r=revenue-assurance/dashboard&sid=${sid}&recommendation_id=${encodeURIComponent(value)}`;
     }
     return { text: value, href };
   }
@@ -667,15 +697,18 @@ export class RevenueAssurancePage {
    * Caller must restore.
    */
   async setRecommendationStatus(status: string): Promise<boolean> {
-    const expand = this.page.locator('button, a').filter({ hasText: /Expand to edit|Expand|Edit/i }).first();
+    // Prefer RA detail "Expand to edit" only — bare "Edit" matches profile chrome ("Editing My Profile")
+    const scope = this.locators.recommendationCard
+      .or(this.locators.recommendationContainer)
+      .or(this.page.locator('body'));
+    const expand = scope
+      .locator('button, a')
+      .filter({ hasText: /Expand to edit/i })
+      .first();
     if ((await expand.count().catch(() => 0)) > 0) {
       await this.forceDomClick(expand);
       await this.page.waitForTimeout(800);
     }
-    // Scope to recommendation card when possible to avoid nav "New" collisions
-    const scope = this.locators.recommendationCard
-      .or(this.locators.recommendationContainer)
-      .or(this.page.locator('body'));
     const select = scope
       .locator('select')
       .filter({ hasText: /New|In Progress|Internal Review|Declined/i })
@@ -728,6 +761,180 @@ export class RevenueAssurancePage {
       await this.locators.sharedFiltersTab.click({ force: true }).catch(() => undefined);
     }
     await this.closeOverlays();
+  }
+
+  /** BUG-4870 — table wrapper/column edges should fit without clipping checkbox or Date column. */
+  async getRecommendationsTableLayoutMetrics(): Promise<RecommendationsTableLayoutMetrics> {
+    await this.scrollRecommendationsTableIntoView();
+    return this.page.evaluate(() => {
+      const tolerance = 4;
+      const wrapper =
+        (document.querySelector('#revenueAssuranceTable-table-viewport') as HTMLElement | null) ||
+        (document.querySelector('#revenueAssuranceTableWrapper') as HTMLElement | null);
+      const table = document.querySelector('#revenueAssuranceTable') as HTMLElement | null;
+      const headers = Array.from(table?.querySelectorAll('thead th') || []) as HTMLElement[];
+      const first = headers[0];
+      const last = headers[headers.length - 1];
+      const wRect = wrapper?.getBoundingClientRect();
+      const fRect = first?.getBoundingClientRect();
+      const lRect = last?.getBoundingClientRect();
+      const checkbox = table?.querySelector(
+        'thead input[type="checkbox"], tbody input[type="checkbox"], th input[type="checkbox"]'
+      ) as HTMLElement | null;
+      const cbRect = checkbox?.getBoundingClientRect();
+      const wrapperLeft = wRect?.left ?? 0;
+      const wrapperRight = wRect?.right ?? 0;
+      const wrapperClientWidth = wrapper?.clientWidth ?? 0;
+      const wrapperScrollWidth = wrapper?.scrollWidth ?? 0;
+      const tableScrollWidth = table?.scrollWidth ?? 0;
+      const scrollLeft = wrapper?.scrollLeft ?? 0;
+      const firstHeaderLeft = fRect?.left ?? 0;
+      const lastHeaderRight = lRect?.right ?? 0;
+      const firstOffset = first ? first.offsetLeft : 0;
+      const lastOffsetEnd = last ? last.offsetLeft + last.offsetWidth : 0;
+      const horizontalOverflow =
+        wrapperScrollWidth > wrapperClientWidth + tolerance || tableScrollWidth > wrapperClientWidth + tolerance;
+      const checkboxLeft = cbRect ? cbRect.left : null;
+      const checkboxVisible =
+        !!cbRect &&
+        cbRect.width > 0 &&
+        (cbRect.left >= wrapperLeft - tolerance || firstOffset >= scrollLeft - tolerance) &&
+        cbRect.right <= wrapperRight + tolerance;
+      const dateHeaderVisible =
+        !!last &&
+        /date/i.test((last.textContent || '').trim()) &&
+        last.offsetWidth > 0 &&
+        (lastOffsetEnd <= scrollLeft + wrapperClientWidth + tolerance ||
+          (lRect && lRect.width > 0 && lRect.left >= wrapperLeft - tolerance && lRect.right <= wrapperRight + tolerance));
+      const fitsWithoutClip =
+        firstOffset >= scrollLeft - tolerance &&
+        lastOffsetEnd <= scrollLeft + wrapperClientWidth + tolerance &&
+        !horizontalOverflow;
+      return {
+        viewportWidth: window.innerWidth,
+        wrapperClientWidth,
+        wrapperScrollWidth,
+        tableScrollWidth,
+        firstHeaderLeft,
+        lastHeaderRight,
+        wrapperLeft,
+        wrapperRight,
+        checkboxLeft,
+        checkboxVisible,
+        dateHeaderVisible,
+        horizontalOverflow,
+        fitsWithoutClip,
+      };
+    });
+  }
+
+  async expectRecommendationsTableFitsViewport(note?: string): Promise<RecommendationsTableLayoutMetrics> {
+    const metrics = await this.getRecommendationsTableLayoutMetrics();
+    expect(metrics.wrapperClientWidth, `${note || 'table'} wrapper width`).toBeGreaterThan(200);
+    expect(metrics.fitsWithoutClip, `${note || 'table'} fits without horizontal clip/overflow`).toBeTruthy();
+    return metrics;
+  }
+
+  /** BUG-4848 — read configured revenue portal term from page globals when exposed. */
+  async readRevenuePortalTerm(): Promise<RevenuePortalTermProbe> {
+    return this.page.evaluate(() => {
+      const w = window as unknown as Record<string, unknown>;
+      const pick = (obj: unknown, ...keys: string[]): string => {
+        if (!obj || typeof obj !== 'object') return '';
+        for (const key of keys) {
+          const val = (obj as Record<string, unknown>)[key];
+          if (typeof val === 'string' && val.trim()) return val.trim();
+        }
+        return '';
+      };
+      const sources: Array<[string, string]> = [];
+      const trySources = [
+        ['window.portalTerms.revenue', pick(w.portalTerms, 'revenue', 'Revenue')],
+        ['window.portalTerms.rev_assure', pick(w.portalTerms, 'rev_assure', 'revAssure')],
+        ['window.BT.portalTerms.revenue', pick((w.BT as Record<string, unknown>)?.portalTerms, 'revenue', 'Revenue')],
+        [
+          'window.sitePortalTerms.revenue',
+          pick(w.sitePortalTerms, 'revenue', 'Revenue'),
+        ],
+        [
+          'window.appConfig.portalTerms.revenue',
+          pick((w.appConfig as Record<string, unknown>)?.portalTerms, 'revenue', 'Revenue'),
+        ],
+        ['body[data-portal-term-revenue]', document.body?.getAttribute('data-portal-term-revenue') || ''],
+      ] as Array<[string, string]>;
+      for (const [source, term] of trySources) {
+        if (term) sources.push([source, term]);
+      }
+      if (!sources.length) {
+        const scripts = Array.from(document.querySelectorAll('script:not([src])'));
+        for (const script of scripts) {
+          const text = script.textContent || '';
+          const m =
+            text.match(/portalTerms[^}]*revenue['"]\s*:\s*['"]([^'"]+)['"]/i) ||
+            text.match(/"revenue"\s*:\s*"([^"]+)"/i);
+          if (m?.[1]) {
+            sources.push(['inline-script', m[1].trim()]);
+            break;
+          }
+        }
+      }
+      const portalTerm = sources[0]?.[1] || 'Revenue';
+      const defaultRevenue = /^revenue$/i.test(portalTerm);
+      return { portalTerm, source: sources[0]?.[0] || 'default', defaultRevenue };
+    });
+  }
+
+  /** BUG-4848 — hover the Improve Revenue ($) top-toolbar icon and capture tooltip text. */
+  async getImproveRevenueToolbarTooltip(): Promise<ImproveRevenueToolbarTooltip> {
+    const icon = this.locators.improveRevenueToolbarIcon;
+    if ((await icon.count().catch(() => 0)) < 1) {
+      const fallback = this.page
+        .locator('a.ctrl.pull-right, button.ctrl.pull-right')
+        .filter({ hasText: /\$/ })
+        .first();
+      if ((await fallback.count().catch(() => 0)) < 1) {
+        return { found: false, titleAttr: '', hoverTooltip: '', href: '' };
+      }
+      await fallback.scrollIntoViewIfNeeded({ timeout: 5000 }).catch(() => undefined);
+      const titleAttr =
+        (await fallback.getAttribute('data-original-title').catch(() => '')) ||
+        (await fallback.getAttribute('title').catch(() => '')) ||
+        (await fallback.getAttribute('aria-label').catch(() => '')) ||
+        '';
+      const href = (await fallback.getAttribute('href').catch(() => '')) || '';
+      const box = await fallback.boundingBox().catch(() => null);
+      if (box) {
+        await this.page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+        await this.page.waitForTimeout(400);
+      }
+      const hoverTooltip = (
+        (await this.page.locator('.tooltip.in, .tooltip.show, [role="tooltip"]').filter({ visible: true }).first().innerText().catch(() => '')) ||
+        titleAttr
+      )
+        .replace(/\s+/g, ' ')
+        .trim();
+      return { found: true, titleAttr: titleAttr.trim(), hoverTooltip, href };
+    }
+    await icon.scrollIntoViewIfNeeded({ timeout: 5000 }).catch(() => undefined);
+    const titleAttr =
+      (await icon.getAttribute('data-original-title').catch(() => '')) ||
+      (await icon.getAttribute('title').catch(() => '')) ||
+      (await icon.getAttribute('aria-label').catch(() => '')) ||
+      '';
+    const href = (await icon.getAttribute('href').catch(() => '')) || '';
+    const box = await icon.boundingBox().catch(() => null);
+    if (box) {
+      await this.page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+      await this.page.waitForTimeout(400);
+    }
+    const hoverTooltip = (
+      (await this.page.locator('.tooltip.in, .tooltip.show, [role="tooltip"]').filter({ visible: true }).first().innerText().catch(() => '')) ||
+      titleAttr
+    )
+      .replace(/\s+/g, ' ')
+      .trim();
+    await this.page.keyboard.press('Escape').catch(() => undefined);
+    return { found: true, titleAttr: titleAttr.trim(), hoverTooltip, href };
   }
 
   async softSiblingThenRestore(menuLabel: RegExp): Promise<string> {

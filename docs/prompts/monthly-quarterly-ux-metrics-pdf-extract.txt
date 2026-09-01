@@ -1,0 +1,107 @@
+Blue Triangle Help Center > Documentation > BT Business Intelligence
+BI Dashboard: Period-over-Period Key Metrics Dashboards
+Source: https://help.bluetriangle.com/hc/en-us/articles/37570512713875-BI-Dashboard-Period-over-Period-Key-Metrics-Dashboards
+(Use attached PDF package when present: docs/prompts/BI_Dashboard_Period_over_Period_Key_Metrics_Dashboards.pdf)
+
+PDF / Help Table of Contents
+- Introduction
+- Dashboard Components
+  - Key Metrics Visualization
+- Filter Options
+
+Introduction (Help / PDF family)
+----------------------------------
+This set of dashboards offers a comprehensive overview of the key metrics for users,
+in a comparative manner.
+
+Predefined time periods for these dashboards:
+  • Daily, Weekly
+  • Monthly, Quarterly
+
+There are 8 different dashboards, one for each predefined time period listed above,
+addressing unique aspects of performance:
+
+  • Revenue Dashboard
+      - Conversion Rate %
+      - Sales $
+      - Average Order Value $
+      - Revenue per paying User $
+      - Revenue per Session $
+  • UX Metrics  ← **Monthly/Quarterly - UX Metrics (THIS suite)**
+      - Onload (Seconds)
+      - LCP (Seconds)
+      - CLS (Score)
+      - INP (Seconds)
+  • Bounces
+      - Bounce Rate %
+  • Traffic
+      - Unique Visitors
+      - Returning Visitors
+      - Sessions
+      - Session Duration (seconds)
+
+Dashboard Components — Key Metrics Visualizations (Help / PDF)
+-------------------------------------------------------------
+In each of these dashboards, for each metric, the timeframe, KPI and the comparative
+trendline are shown. Example: INP value charted for daily vs weekly comparative views.
+
+Filter Options (Help / PDF — authoritative inventory; map live labels below)
+-----------------------------------------------------------------------------
+- End Date: According to the period used in the dashboard (daily/weekly/monthly/quarterly),
+    this would be the first date to be excluded from the dashboard.
+    • May be a fixed date
+    • For scheduled dashboards: prefer "matches a user attribute" then
+      "start of the month" or "Start of the week" so the sent report covers
+      the period leading up to creation time
+- Comparison Method: Directly vs. previous **or** vs. same period last year
+    (Live UI label: **Comparison Period** with options including
+    Default (from chart), Directly Previous Period, Same Time Last Year)
+- Browser: Selection of browsers
+- Bot Traffic: Defaults to exclude bots
+- Device: Desktop or Mobile (browser)
+- Operating System: Selection of OS
+- Originated from:
+    • RUM Browser: Desktop browsers
+    • Native App: Native app views (iOS, Android)
+    • Webviews: HTML pages rendered inside a mobile application
+- Page Name: Page selector
+- Return/New User  (Live: **Return/New Visitor**)
+- Traffic Segment
+- Percentile (applicable only to CWV, **default is 75th percentile**)
+
+Scheduling note (Help / PDF)
+----------------------------
+When scheduling a dashboard report, the report uses the filter settings selected in
+the dashboard. If the scheduling dialog Filters tab selects other settings, those
+override all others. (Automation: schedule create cancel-only / out of scope unless disposable.)
+
+Live catalog cross-check (GDC probe Sep 2026 — not from PDF)
+-------------------------------------------------------------
+BI Dashboards card: **Monthly/Quarterly - UX Metrics** · Grid · ~**25 widgets**
+Shell: portal business-intelligence/tool → #bi-iframe → jbi.bluetriangletech.com
+Sibling card: **Monthly/Quarterly Revenue** (~31 widgets) — do NOT open as home.
+
+Live viewer identity (GDC probe Sep 2026)
+-------------------------------------------
+Title: **Monthly/Quarterly - UX Metrics**
+Folder badge: **Global** · layout: **Responsive Grid**
+Toolbar: **Refresh Data** | **Save As** | **Reset to Defaults** | **Filters**
+Filters panel hosts:
+  Comparison Period | End Date | Browser | Bot Traffic | Device | Operating System |
+  Originated From | Page Name | Page Group | Return/New Visitor | Traffic Segment | Percentile
+
+Widget families confirmed live:
+  • Onload Monthly / LCP Monthly / CLS Monthly / INP Monthly (Current vs Previous trend charts)
+  • Onload Quarterly / LCP Quarterly / CLS Quarterly / INP Quarterly
+  • Dynamic Chart Metrics Monthly Number Charts (KPI + Prev + delta %)
+  • Dynamic Chart Metrics Quarterly Number Charts
+Per-widget chrome:
+  • Gear icon title **Switch metric** (user: Active metric) — 16 instances on probe
+  • Hamburger title **Export chart** — 16 instances on probe
+
+SoT rule
+--------
+Help/PDF is SoT for product purpose (Period-over-Period UX Metrics family), metric inventory
+(Onload/LCP/CLS/INP), Comparison Method semantics, and filter option inventory/defaults.
+Prefer live control hosts/labels inside #bi-iframe when PDF is older or incomplete
+(Save As / Refresh Data / Reset to Defaults / Switch metric / Export chart menus are live BI chrome).

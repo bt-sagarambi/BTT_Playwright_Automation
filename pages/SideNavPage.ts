@@ -1,5 +1,6 @@
 import { Page, expect } from '@playwright/test';
 import { SideNavLocators } from '../locators/SideNavLocators';
+import { portalOrigin } from '../helpers/portalSession';
 
 export type SideNavLeaf = {
   text: string;
@@ -85,11 +86,12 @@ export class SideNavPage {
       await link.click({ force: true, timeout: 8000 });
       await this.page.waitForLoadState('domcontentloaded');
     } catch {
+      const origin = portalOrigin();
       const absolute = href.startsWith('http')
         ? href
         : href.startsWith('/')
-          ? `https://portal.bluetriangle.com${href}`
-          : `https://portal.bluetriangle.com/btportal/web/${href}`;
+          ? `${origin}${href}`
+          : `${origin}/btportal/web/${href}`;
       await this.page.goto(absolute, { waitUntil: 'domcontentloaded' });
     }
   }
@@ -152,7 +154,7 @@ export class SideNavPage {
 
   private toRouteKey(href: string): string {
     try {
-      const url = new URL(href, 'https://portal.bluetriangle.com/');
+      const url = new URL(href, `${portalOrigin()}/`);
       const route = url.searchParams.get('r') || '';
       if (!route) return '';
       const extras = [...url.searchParams.entries()]

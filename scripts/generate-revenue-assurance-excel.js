@@ -51,7 +51,25 @@ const cases = [
   { id: 'REG-RAS-031', submodule: 'Responsive', title: '1100px viewport keeps hero reachable', steps: 'Resize; scroll hero.', expected: 'Title reachable.' },
   { id: 'REG-RAS-032', submodule: 'Recovery', title: 'Reload soft recovery; still RA + GDC', steps: 'Reload; re-assert.', expected: 'Healthy RA on GDC.' },
   { id: 'REG-RAS-033', submodule: 'Negative', title: 'Not Calculator / Opportunity / Attribution / Monitoring as home', steps: 'Assert route/title.', expected: 'RA dashboard only.' },
-  { id: 'REG-RAS-034', submodule: 'Recovery', title: 'Restore initial context; suite home healthy', steps: 'restoreContext; assert.', expected: 'Healthy RA on GDC.' },
+  {
+    id: 'REG-RAS-034',
+    submodule: 'Table',
+    title: 'BUG-4870: All Recommendations table fits viewport (Internal Review; multi-width)',
+    steps:
+      'Internal Review Show Me (or hero Show Me); scroll #revenueAssuranceTable; hard assert 1440px; soft annotate 1280/1100.',
+    expected:
+      'At 1440px table fits wrapper (checkbox + Date not clipped; no horizontal overflow). 1280/1100px annotated soft (BUG-4870 / BTTS-3916).',
+  },
+  {
+    id: 'REG-RAS-035',
+    submodule: 'Chrome',
+    title: 'BUG-4848: Improve Revenue ($) toolbar tooltip uses portal term',
+    steps:
+      'Read revenue portal term from page config; hover top-toolbar $ / Revenue Assurance icon; inspect title/bootstrap tooltip.',
+    expected:
+      'Tooltip reflects configured portal term (not hardcoded "revenue" when term customized); shows Revenue Assurance / Rev Assure label (BUG-4848 / BTTS-3886).',
+  },
+  { id: 'REG-RAS-036', submodule: 'Recovery', title: 'Restore initial context; suite home healthy', steps: 'restoreContext; assert.', expected: 'Healthy RA on GDC.' },
 ];
 
 async function main() {
@@ -73,7 +91,9 @@ async function main() {
       'No Save Filter / Clear Genius Cache / permanent Clear|Generate Recommendations / permanent Scaling Save / permanent Jira create.',
       'Status changes must be restored (Internal Review sample preferred).',
       'Dollar amounts and status counts are live-data — never hard-code.',
-      'Stable hosts: #recommendationsChart, #platformChart, #revenueAssuranceTable, #internal-review-records-btn, #recPerfViewDataModal.',
+      'Stable hosts: #recommendationsChart, #platformChart, #revenueAssuranceTable, #revenueAssuranceTable-table-viewport, #internal-review-records-btn, #recPerfViewDataModal.',
+      'BUG-4870 (REG-RAS-034): All Recommendations table must fit viewport — checkbox + Date columns not clipped at 1440/1280/1100.',
+      'BUG-4848 (REG-RAS-035): Top-toolbar $ icon tooltip must honor revenue portal term configuration.',
       'npm run test:regression:us2:revenue-assurance',
     ],
     cases: cases.map((c) => ({ ...c, module: MODULE, type: 'Regression' })),

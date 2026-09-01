@@ -40,6 +40,8 @@ export class RevenueAssuranceLocators {
   readonly recommendationsTableSection: Locator;
   readonly revenueAssuranceTable: Locator;
   readonly revenueAssuranceTableWrapper: Locator;
+  readonly tableViewport: Locator;
+  readonly improveRevenueToolbarIcon: Locator;
   readonly statusFilter: Locator;
   readonly sortPlatform: Locator;
   readonly tableSearch: Locator;
@@ -116,6 +118,20 @@ export class RevenueAssuranceLocators {
     this.recommendationsTableSection = page.locator('#revenue-assurance-recommendations-table');
     this.revenueAssuranceTable = page.locator('#revenueAssuranceTable');
     this.revenueAssuranceTableWrapper = page.locator('#revenueAssuranceTableWrapper');
+    this.tableViewport = page.locator('#revenueAssuranceTable-table-viewport');
+    this.improveRevenueToolbarIcon = page
+      .locator(
+        [
+          'a.ctrl.pull-right[href*="revenue-assurance"]',
+          'a.ctrl.pull-right[data-original-title*="Assurance" i]',
+          'a.ctrl.pull-right[title*="Assurance" i]',
+          'button.ctrl.pull-right[data-original-title*="Assurance" i]',
+          'button.ctrl.pull-right[title*="Assurance" i]',
+          '#revenue-assurance-icon',
+          'a.ctrl.pull-right:has(.fa-dollar-sign, .fa-dollar, .fas.fa-dollar-sign)',
+        ].join(', ')
+      )
+      .first();
     this.statusFilter = page.locator('#statusFilter');
     this.sortPlatform = page.locator('#sortPlatform');
     this.tableSearch = page.locator('#table-search-revenueAssuranceTable');

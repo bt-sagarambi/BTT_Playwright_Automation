@@ -2,11 +2,12 @@ import { Page, Frame, expect, Locator } from '@playwright/test';
 import { CwvTop10PopDashboardLocators } from '../locators/CwvTop10PopDashboardLocators';
 import { LeftNavPage } from './LeftNavPage';
 import { SiteDropdownPage } from './SiteDropdownPage';
-import { ensurePortalSession } from '../helpers/portalSession';
+import { ensurePortalSession, portalBase } from '../helpers/portalSession';
 import { getActiveProfile } from '../config/profiles';
 
-const BI_TOOL_URL =
-  'https://portal.bluetriangle.com/btportal/web/index.php?r=business-intelligence/tool';
+function biToolUrl(): string {
+  return `${portalBase()}/index.php?r=business-intelligence/tool`;
+}
 const POP_TITLE = /CWV Top 10 Period over Period \(PoP\)/i;
 const POP_SEARCH = 'CWV Top 10 Period over Period';
 
@@ -36,7 +37,7 @@ export class CwvTop10PopDashboardPage {
     await nav.openMenu().catch(() => undefined);
     await nav.expandCommonSections().catch(() => undefined);
     if (!/business-intelligence\/tool|business-intelligence%2Ftool/i.test(this.page.url())) {
-      await this.page.goto(BI_TOOL_URL, { waitUntil: 'domcontentloaded', timeout: 90000 });
+      await this.page.goto(biToolUrl(), { waitUntil: 'domcontentloaded', timeout: 90000 });
     }
     await this.waitForPortalReady();
     await this.waitForBiFrame();
@@ -594,7 +595,7 @@ export class CwvTop10PopDashboardPage {
     await this.page.evaluate(() => window.stop()).catch(() => undefined);
     await Promise.race([
       (async () => {
-        await this.page.goto(BI_TOOL_URL, { waitUntil: 'domcontentloaded', timeout: 60000 }).catch(() => undefined);
+        await this.page.goto(biToolUrl(), { waitUntil: 'domcontentloaded', timeout: 60000 }).catch(() => undefined);
         await this.waitForPortalReady().catch(() => undefined);
         await this.waitForBiFrame(60000);
         await this.openDashboardsList();

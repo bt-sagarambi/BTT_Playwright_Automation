@@ -9,6 +9,14 @@ export const environments = {
     username: 'your.email@example.com',
     password: 'your-password',
   },
+  /**
+   * Optional — omit to reuse stage username/password (see config/env.ts).
+   * UAT portal: https://portaluat.bluetriangle.com/
+   */
+  // uat: {
+  //   username: 'your.email@example.com',
+  //   password: 'your-password',
+  // },
 };
 
 /**

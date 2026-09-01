@@ -98,3 +98,8 @@ export function portalBase(): string {
   const base = config.baseURL.replace(/\/$/, '');
   return `${base}/btportal/web`;
 }
+
+/** Origin only (no path) — for URL() resolution and absolute href joins. */
+export function portalOrigin(): string {
+  return config.baseURL.replace(/\/$/, '');
+}

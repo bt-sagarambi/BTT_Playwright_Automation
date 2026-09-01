@@ -2,7 +2,7 @@ import { Page, expect, Locator } from '@playwright/test';
 import { RumErrorsExplorerLocators } from '../locators/RumErrorsExplorerLocators';
 import { LeftNavPage } from './LeftNavPage';
 import { SiteDropdownPage } from './SiteDropdownPage';
-import { ensurePortalSession } from '../helpers/portalSession';
+import { ensurePortalSession, portalBase } from '../helpers/portalSession';
 
 const PAGE_DEF = {
   id: 'rum.errors-explorer',
@@ -302,7 +302,7 @@ export class RumErrorsExplorerPage {
     }
     if (!/javascript-errors\/real-user/i.test(opened.page.url())) {
       await opened.page
-        .goto('https://portal.bluetriangle.com/btportal/web/index.php?r=javascript-errors/real-user', {
+        .goto(`${portalBase()}/index.php?r=javascript-errors/real-user`, {
           waitUntil: 'domcontentloaded',
         })
         .catch(() => undefined);
@@ -580,7 +580,7 @@ export class RumErrorsExplorerPage {
     if (!onList) {
       const indexRoute = kind === 'custom' ? 'site-level-events/index' : 'global-level-events/index';
       await popup
-        .goto(`https://portal.bluetriangle.com/btportal/web/index.php?r=${indexRoute}`, {
+        .goto(`${portalBase()}/index.php?r=${indexRoute}`, {
           waitUntil: 'domcontentloaded',
         })
         .catch(() => undefined);

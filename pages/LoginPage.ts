@@ -1,5 +1,5 @@
 import { Page, expect } from '@playwright/test';
-import { config, environments } from '../config/env';
+import { config } from '../config/env';
 import { LoginPageLocators } from '../locators/LoginPageLocators';
 
 export class LoginPage {
@@ -45,9 +45,9 @@ export class LoginPage {
     await this.clickSignIn();
   }
 
-  /** Uses stage username/password from config/env.ts */
+  /** Uses username/password for the active environment from config/env.ts */
   async loginAsStageUser(): Promise<void> {
-    const { username, password } = environments.stage;
+    const { username, password } = config;
     await this.login(username, password);
   }
 

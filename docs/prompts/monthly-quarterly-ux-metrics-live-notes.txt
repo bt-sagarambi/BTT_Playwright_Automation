@@ -1,0 +1,45 @@
+Monthly/Quarterly - UX Metrics — live probe notes (Sep 2026)
+Site: GDC Test Site 2 | Portal: business-intelligence/tool | iframe: #bi-iframe
+
+Navigation (confirmed):
+Login → Left menu Advanced Reporting & Alerting → Custom Reporting → Business Intelligence
+→ BI rail Dashboards → Search "Monthly/Quarterly - UX Metrics" → click card title
+
+Catalog card: Monthly/Quarterly - UX Metrics · Grid · ~25 widgets
+Sibling: Monthly/Quarterly Revenue · Grid · ~31 widgets (not home)
+
+Viewer chrome:
+  Back | Monthly/Quarterly - UX Metrics | Global | Responsive Grid
+  Refresh Data | Save As | Reset to Defaults | Filters
+
+Filters (opened):
+  Comparison Period: Default (from chart) | Directly Previous Period | Same Time Last Year
+  End Date: Today | Yesterday | Start of Week (Mon/Sun) | Start of Month | Start of Previous Month | Start of Quarter | Custom
+  Browser (operators =, !=, in, contains, …)
+  Bot Traffic (sample value Non-Bot)
+  Device (sample Mobile)
+  Operating System
+  Originated From (RUM Browser, Native App Webview)
+  Page Name | Page Group | Return/New Visitor | Traffic Segment
+  Percentile: p5…p99 (incl p75)
+
+Widgets / sections:
+  Onload Monthly, LCP Monthly, CLS Monthly, INP Monthly — Current/Previous line charts
+  Onload Quarterly, LCP Quarterly, CLS Quarterly, INP Quarterly — Current/Previous line charts
+  Dynamic Chart Metrics Monthly Number Charts — Onload/LCP/CLS/INP KPI cards with Prev + ▲/▼ delta
+  Dynamic Chart Metrics Quarterly Number Charts — same pattern
+  Period labels e.g. "Jul 03, 2026 - Aug 02, 2026 vs Aug 02, 2026 - Sep 01, 2026"
+
+Per-widget controls (probe counts):
+  Switch metric (gear): 16
+  Export chart (hamburger): 16
+  Visible chart hosts: ~60
+
+Probe gaps (re-probe during automation):
+  Dashboard-level top-right hamburger PNG/PDF/PowerPoint — not auto-opened in probe; user-required
+  Widget Export chart menu options (PNG Image / PDF Document / CSV Data) — confirm on first widget click
+  Switch metric menu options after gear click — confirm alternate metrics list
+
+JSON: docs/prompts/monthly-quarterly-ux-metrics-live-probe.json
+Screenshots: docs/prompts/monthly-quarterly-ux-metrics-live.png , monthly-quarterly-ux-metrics-dashboard.png
+Probe script: scripts/probe-monthly-quarterly-ux-metrics.ts
