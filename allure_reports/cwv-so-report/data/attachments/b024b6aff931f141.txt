@@ -1,0 +1,4 @@
+[CWV-SO] Export menu opened=true options=[PNG Image, PDF Document, CSV Data]
+[CWV-SO] Export PNG Image triggered=false download="n/a"
+[CWV-SO] Export PDF Document triggered=true download="n/a"
+[CWV-SO] Export CSV Data triggered=true download="n/a"

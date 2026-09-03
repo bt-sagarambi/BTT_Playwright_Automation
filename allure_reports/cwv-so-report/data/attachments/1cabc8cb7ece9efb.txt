@@ -1,0 +1,3 @@
+[CWV-SO] profile=us-gdc-test-site-2 site=GDC Test Site 2 loadMs=21162 lookback="Lookback Period: Last 30 days · Mode: Period vs Previous Period · Last modified 2026-07-09 19:54:"
+[CWV-SO] Chart Builder opened=true tables=[Sessions, Favorites Dashboards AI Query Charts Sch] runQueryEnabled=false
+[CWV-SO] builder: Run Query disabled until axes configured — expected soft

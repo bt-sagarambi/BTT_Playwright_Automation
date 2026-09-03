@@ -1,0 +1,359 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the **“CWV Top 10 Summary Onload”** Business Intelligence **chart** (Charts catalog — not a Dashboards Grid card). Reverse-engineer the live application using **GDC Test Site 2** and refer to:
+  • Live portal reverse-engineering probe (Sep 2026): docs/prompts/cwv-top10-summary-onload-live-probe.json
+  • Live notes / screenshots: docs/prompts/cwv-top10-summary-onload-live-notes.txt ,
+      docs/prompts/cwv-top10-summary-onload-live.png ,
+      docs/prompts/cwv-top10-summary-onload-chart.png ,
+      docs/prompts/cwv-top10-summary-onload-chart-builder.png
+  • Probe script: scripts/probe-cwv-top10-summary-onload.ts
+  • Shared BI overview (soft sibling doc only): **“Blue Triangle - Business Intelligence”**
+      https://help.bluetriangle.com/hc/en-us/articles/32871857479571-Blue-Triangle-Business-Intelligence
+  • Chart Builder / Looks soft sibling Help (when accessible): **“BT Business Intelligence: Creating Dashboards and Looks”**
+      https://help.bluetriangle.com/hc/en-us/articles/41379265534355-BT-Business-Intelligence-Creating-Dashboards-and-Looks
+  • Soft sibling BI chart/dashboard prompts for shared chrome patterns only (do not treat as home):
+      docs/prompts/AI Prompt (For Automation Regression-CWV Top 10 Period over Period PoP).txt
+      docs/prompts/AI Prompt (For Automation Regression-Monthly Quarterly UX Metrics Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Site Operations Dashboard for Page Names).txt
+      docs/prompts/AI Prompt (For Automation Regression-URL Category Analysis Dashboard).txt
+  • Soft sibling portal CWV shells (different product surfaces — soft hop only):
+      docs/prompts/AI Prompt (For Automation Regression-Core Web Vitals).txt
+      docs/prompts/AI Prompt (For Automation Regression-Vital Pulse Dashboard).txt
+
+NOTE ON DOCUMENTATION VS LIVE PRODUCT
+1) There is **no dedicated Help PDF** titled “CWV Top 10 Summary Onload” in the attached package inventory. Prefer **live** `#bi-iframe` chart viewer hosts as SoT for title, Filters, Export, Refresh Data, table columns, and Chart Builder chrome. Soft-cross-check shared BI Help for Charts / Chart Builder concepts only.
+2) Live portal path (probe Sep 2026 — REQUIRED user navigation):
+   Login → Left menu **Advanced Reporting & Alerting** → **Custom Reporting** → **Business Intelligence**
+   → (BI iframe) left rail **Charts** → Search field **“CWV Top 10 Summary Onload”** → click the **displayed result / card title**.
+3) Portal shell route: **business-intelligence/tool** (sid query soft). Browser / #page-title soft: **Business Intelligence**.
+4) Product UI host is the embedded BI app iframe **`#bi-iframe`** → `https://jbi.bluetriangletech.com/…` (JWT token query — do not hard-code tokens). **All Charts list / Chart Builder / chart viewer Filters / Export / Refresh Data live inside this iframe** (or nested frames). Portal chrome (site Select2, Get started, portal Filters funnel) is outer shell only — **do not confuse** portal `#toggle-filters` with BI chart **Filters**.
+5) Live Charts catalog card (GDC): title **CWV Top 10 Summary Onload**; preview shows a **table** (Page Name / Onload / Date soft in card thumbnail); **Last Modified ~1 month ago**; heart + ⋮ soft. Soft sibling card nearby: **CWV Top 10 Summary** (without “Onload”) — never open as suite home.
+6) Live chart viewer identity (probe):
+   **Back** | title **CWV Top 10 Summary Onload** | folder badge **Global**
+   **Chart Builder** (link soft) | **Export ▾** | **Refresh Data**
+   Prompt soft: `“[Chart Builder] Page Name, Onload, Page Hits”`
+   Lookback soft: **Last 30 Days** (Day / Week chips soft) | **Reset to default**
+   Mode soft: **Period vs Previous Period**
+   Comparison soft: **Directly Previous Period** | **Same Time Last Year**
+   Meta soft: Last modified / Data refreshed timestamps (format-tolerant; never hard-code probe clock)
+7) Live data surface (hard inventory soft-assert):
+   Primary table / chart titled **CWV Top 10 Summary Onload** with columns soft:
+     **Page Name** | **Onload** | **Page Hits** | **Current** | **Previous** | **Change**
+     (Onload + Page Hits each expose Current/Previous/Change groups)
+   Soft **Data Table (20 rows)** section with the same header family.
+   Values format-tolerant: Onload seconds (`4.8 s`), Page Hits counts, Change `%` with ±.
+   Soft color / threshold highlighting on Onload cells when present (Good / Needs improvement / Poor language soft — do not hard-code RGB).
+8) **Chart Builder prerequisite (REQUIRED — user regression point #3):** Before automating deep CWV Top 10 Summary Onload chart scripts, open **Chart Builder** from the Charts main screen and exercise Data Explorer / axes / chart type / Options / Order By / Top N / Run Query / top filters as specified in section **4b** below. Soft-cancel / do not permanently Save a production chart unless using a disposable name that is cleaned up.
+
+CRITICAL DISTINCTION (do not confuse screens)
+  • **CWV Top 10 Summary Onload (THIS suite)** = BI iframe **Charts** → exact title match **/CWV Top 10 Summary Onload/i**; portal route **business-intelligence/tool**.
+  • **CWV Top 10 Summary** (no “Onload”) — Charts catalog sibling; soft presence only; restore Onload chart.
+  • **CWV Top 10 Period over Period (PoP)** — **Dashboards** Grid card (~13 widgets); different surface; soft only.
+  • **CWV Trends / CWV Trends by Page / Site Ops Page Name LCP|INP|CLS** — Charts siblings; soft only.
+  • **Chart Builder** — authoring shell (prerequisite soft suite section); always restore **Charts → CWV Top 10 Summary Onload** for primary asserts.
+  • **VitalPulse** / **Core Web Vitals (VitalScope)** — **not** suite home.
+  • Portal **Dashboards** (Site Overview etc.) — unrelated shell; out of primary scope.
+  • BI **Dashboards / AI Query / Schedules / Folders / Favorites** tabs — soft chrome only; primary home is **Charts → CWV Top 10 Summary Onload**.
+
+⚠️ PROBE / MUTATION PITFALLS
+1) **iframe SoT:** Never assert chart text from the portal `body` alone. Scope locators to `#bi-iframe` contentFrame (and nested frames if present). Re-acquire frame after Charts Search / open chart / Chart Builder / Back.
+2) **Search** on Charts list: use the visible **Search…** input; open the **title** of **CWV Top 10 Summary Onload** (not only the card preview table / heart / ⋮). Confirm viewer shows **Back** + exact title before filter/export asserts. Catalog click can “find” the title without entering the viewer — require viewer chrome (**Export** / **Refresh Data** / **Lookback Period** / Filters inventory).
+3) **Lookback Period** + **Comparison** + dimensional **Filters** mutate shared chart filter state for the session — capture original lookback / comparison / filter signature at suite start; **restore** (or **Reset to default**) before suite end.
+4) **Export ▾** — soft open menu; exercise **PNG Image**, **PDF Document**, **CSV Data** (or live equivalents) with soft download/preview cross-check; cancel leftover dialogs. Do not leave downloads blocking later tests.
+5) **Refresh Data** — soft click and assert table/chart re-settle (signature / “Data refreshed …” when shown / loading→ready); not destructive.
+6) **Reset to default** — soft verify it restores default lookback/comparison/filters after intentional changes; if restricted on locked Global chart, annotate and use Chart Builder disposable Save path only when cleanup is possible.
+7) Do **not** permanently overwrite the shared Global **CWV Top 10 Summary Onload** chart definition, create production Schedules, or leave Chart Builder drafts saved under shared names.
+8) Do **not** Save portal Genius Filters / Clear Genius Cache from outer shell.
+9) Page names, Onload seconds, Page Hits, Current/Previous/Change %, JWT tokens, “Last modified …”, and “Data refreshed …” strings are **data-dependent** — never hard-code probe samples; assert formats, labels, and before/after soft signatures.
+10) After Lookback / Comparison / multi-filter Apply / Refresh / Reset / Export / Chart Builder hop / sibling hop, always re-assert **GDC Test Site 2** + **CWV Top 10 Summary Onload** identity.
+11) Highcharts / SVG ids inside BI are dynamic — prefer titles (**CWV Top 10 Summary Onload**), table headers (**Page Name|Onload|Page Hits|Current|Previous|Change**), and Export/Refresh labels.
+12) If Charts Search yields empty catalog or open fails, assert controlled empty, annotate entitlement/folder scope, try folder filter **All Folders** / soft Global, and fail soft only after recovery attempts.
+13) Chart Builder **Run Query** stays disabled until table + axes are configured — soft-assert disabled empty state; enable only after selecting a table and placing dimension/metric.
+14) Selecting Tables like **Sessions / Sessions Page / RUM Hits** in Chart Builder is soft exploratory — restore Charts → Onload chart afterward; do not leave a half-built query published.
+
+Live observations (GDC Test Site 2 — probe Sep 2026)
+- Portal URL: …/index.php?r=business-intelligence/tool&sid=…
+- Portal title / #page-title: **Business Intelligence**
+- Site: GDC Test Site 2
+- Outer iframe: `#bi-iframe` → jbi.bluetriangletech.com
+- BI left rail soft: **Favorites | Dashboards | AI Query | Charts | Schedules | Folders** (+ **AI Help**)
+- Charts list chrome soft: **Chart Builder**; pager **5/10/25/50 / Page**; **Search…**;
+    folder filter (**All Folders / My Folder / Global / Site Folder / Account Folder / Development**);
+    status filter; sort (**Name Asc/Desc**, **Last Modified Asc/Desc**, **Favorite Asc/Desc**);
+    **Local | UTC**; **Reset**; favorites heart; soft card grid with preview tables/charts
+- Catalog card soft for THIS chart:
+    **CWV Top 10 Summary Onload** · preview table soft (**Page Name / Onload / Date**) · Last Modified ~1 month ago
+- Soft sibling cards nearby: CWV Top 10 Summary, CWV Trends by Page, Site Ops Page Name LCP/INP/CLS, …
+- Chart viewer chrome (REQUIRED — live hosts):
+    **Back** | **CWV Top 10 Summary Onload** | **Global**
+    **Chart Builder** | **Export ▾** | **Refresh Data**
+    Lookback chip **Last 30 Days** (+ **Day** / **Week**) | **Reset to default**
+    **Comparison:** Directly Previous Period | Same Time Last Year
+    Prompt / Mode soft: Chart Builder Page Name, Onload, Page Hits · Period vs Previous Period
+- Filters inventory (REQUIRED — user regression point #1; live open on viewer):
+    **Lookback Period**
+    **Comparison** (Directly Previous Period / Same Time Last Year)
+    **Percentile** — p5…p99 (incl **p75**)
+    **Browser** | **Bot Traffic** | **Device** | **Operating System**
+    **Originated From** | **Page Name** | **Return/New Visitor** | **Traffic Segment**
+    **Page Group** | **Time Zone** (e.g. GMT (+00:00) soft)
+    Soft Options: **Grid** | **Labels** | Legend Top/Bottom/Hidden | **Palette**
+- Data inventory (REQUIRED):
+    Table/chart **CWV Top 10 Summary Onload** + **Data Table (20 rows)** soft
+    Headers: Page Name | Onload | Page Hits | Current | Previous | Change (× metric groups)
+- Chart Builder (REQUIRED prerequisite — user point #3; live hosts):
+    Toolbar: **Last 7 Days** (soft) | Allow lookback period override | Allow granularity override |
+      Mode: **Single period** | **Compare periods (trend)** | **Compare periods (totals)** | **Run Query**
+    **Data Explorer** → **TABLES** → **Select table…** (Sessions / Sessions Page / RUM Hits soft when listed)
+    Field types soft: Dimension | Metric | Computed
+    Zones: **X-AXIS** | **Y-AXIS** | **BREAKDOWN** | **Filters**
+    Chart Controls **CHART TYPE**: Bar | Line | Combo | Area | Pie | Scatter | Heatmap |
+      Formatted Table | Grid | Sheet | Geo | Number
+    **OPTIONS**: Horizontal Grid Lines | Vertical Grid Lines | Show Data Labels | Show Legend | Show Data Points
+    **ORDER BY** (Auto default) | **TOP N** (e.g. All (1000) / Top N) | Advanced Options | **COLOR PALETTE**
+      (Default | Ocean | Sunset | Forest | Mono)
+    Empty state soft: “No data to display. Configure fields and run the query.”
+- User-required flows (live + user spec):
+    1) Filter combinations → implications on chart/table data (Lookback, Comparison, Percentile, Device, Page Name, Page Group, Browser, OS, Return/New Visitor, Timezone, Bot Traffic, Origin, Traffic Segment, …)
+    2) **Export** → PNG Image / PDF Document / CSV Data + **Refresh Data**
+    3) **Chart Builder** exploratory path (tables, axes, chart type, Options, Order By, Top N, Run Query, top filters) **before** deep Onload chart automation
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - CWV Top 10 Summary Onload is a **saved BI chart** summarizing **top pages by Onload** (with Page Hits) in a **period-vs-previous** comparative table/chart (Current / Previous / Change).
+   - Metric formats soft: Onload seconds, Page Hits integers, Change %, page-name strings — format-tolerant; **never hard-code** probe page names or numeric cells.
+   - Use live UI data only. Do not call APIs or query a database.
+   - Capture at suite start (inside BI iframe after chart open): chart title, Lookback, Comparison, key filter chips, table header signature, Export/Refresh presence, overlays closed.
+   - Assert labels, formats, table shells, controlled empty states, before/after soft signatures rather than exact backend series.
+   - If a lookback/filter combo yields empty table, assert controlled empty, annotate, Reset to default / restore captured filters and continue.
+   - Do not hard-code JWT tokens, nested chart instance ids, or Highcharts internal ids.
+
+2. Navigation and implementation paths
+   Live primary path (user + probe):
+   Login → Left menu **Advanced Reporting & Alerting** → **Custom Reporting** → **Business Intelligence**
+   → portal **business-intelligence/tool** → wait `#bi-iframe` ready → BI rail **Charts**
+   → Search field **“CWV Top 10 Summary Onload”** (or shorter unique token **“Summary Onload”** with guard against plain **CWV Top 10 Summary**)
+   → click the **displayed result / card title** → chart viewer.
+
+   Soft alternate: BI Favorites if already favorited; Folders → Global → same title; Chart Builder → Back → Charts Search — still require exact **CWV Top 10 Summary Onload** title.
+
+   Target automation folder:
+   tests/regression_tests/US2/advanced-reporting/custom-reporting/business-intelligence/cwv-top10-summary-onload/
+   Suggested spec name:
+   cwv.top10.summary.onload.regression.spec.ts
+   Suggested POM / locators:
+   pages/CwvTop10SummaryOnloadChartPage.ts
+   locators/CwvTop10SummaryOnloadChartLocators.ts
+   Reuse patterns: portal session + LeftNav expand Advanced/Custom Reporting; iframe frame helpers from CWV Top 10 PoP / Monthly UX Metrics / Site Ops Page Names suites;
+   soft Search/Reset on BI Charts list; recover via re-goto business-intelligence/tool + Charts Search → re-open chart.
+   Do **not** treat Dashboards PoP / VitalPulse / VitalScope / plain CWV Top 10 Summary POM as home.
+   Suggested manual workbook:
+   docs/CWV_Top10_Summary_Onload_Chart_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:cwv-top10-summary-onload
+   Suggested test case ID prefix:
+   REG-CWV-SO-###
+   Probe:
+   scripts/probe-cwv-top10-summary-onload.ts → docs/prompts/cwv-top10-summary-onload-live-probe.json
+
+3. Page load, authentication and default context
+   - Authenticated navigation without login redirect, blank BI shell, or perpetual `#jbi-iframe-loading`.
+   - Portal browser title / #page-title matches /Business Intelligence/i.
+   - URL contains business-intelligence/tool (slash / %2F safe).
+   - Selected site is GDC Test Site 2.
+   - Dismiss portal Get started / Don’t show me again / jconfirm before iframe work.
+   - Wait for `#bi-iframe` attached + contentFrame body text length soft-ready.
+   - Open Charts → Search → open **CWV Top 10 Summary Onload**.
+   - Verify BI viewer identity: title matches /CWV Top 10 Summary Onload/i; **Back** present; **not** stuck on Charts catalog (**Chart Builder** + pager alone).
+   - Verify core inventory settles within a bounded UI deadline:
+       • Soft-assert **Export ▾** + **Refresh Data**
+       • Soft-assert Lookback (**Last 30 Days** soft default on probe — do not hard-require exact default forever) + Comparison chips
+       • Soft-assert Filters inventory hosts (Percentile, Browser, Bot Traffic, Device, OS, Originated From, Page Name, Return/New Visitor, Traffic Segment, Page Group, Time Zone)
+       • Soft-assert table headers Page Name | Onload | Page Hits | Current | Previous | Change
+       • Soft-assert ≥1 data row **or** controlled empty + annotate
+   - Back/Forward/refresh: restore BI tool + Charts Search → Onload if iframe resets; re-select GDC if lost.
+   - Capture uncaught page errors; distinguish portal noise vs BI iframe errors.
+
+4. BI shell chrome (Charts list / Search) — REQUIRED before viewer
+   Cover:
+   - Soft-assert BI rail items Favorites / Dashboards / AI Query / Charts / Schedules / Folders.
+   - Soft Favorites empty/controlled state OK; not suite home.
+   - On Charts: Search for Onload token → ≥1 matching card; clear search before suite end if sticky.
+   - Soft folder/status/sort/Local-UTC/Reset on list toolbar — non-destructive; restore All Folders + default sort when changed.
+   - Soft ⋮ / heart on card — open/close only; do not leave unwanted favorite sticky if avoidable (or unfavorite before end).
+   - Soft sibling card presence (**CWV Top 10 Summary**, Site Ops Page Name*, CWV Trends by Page) once; do not deep-open; stay on list or restore Onload viewer.
+   - Soft Create Dashboard / New Schedule — open/cancel only; **no permanent create**.
+
+4b. Chart Builder prerequisite — REQUIRED (user regression point #3) BEFORE deep Onload chart automation
+   Cover (soft, non-permanent; restore Charts → CWV Top 10 Summary Onload after):
+   - From Charts main screen click **Chart Builder**.
+   - Soft-assert builder chrome: Mode radios (**Single period** / **Compare periods (trend)** / **Compare periods (totals)**),
+     lookback control, override checkboxes, **Run Query** (may be disabled until configured).
+   - **Data Explorer → TABLES → Select table…**: soft sample at least two of **Sessions**, **Sessions Page**, **RUM Hits** (or whatever live table names appear); soft-assert fields list appears (Dimension / Metric / Computed).
+   - Soft place a **dimension** on **X-AXIS** and a **metric** on **Y-AXIS**; soft optional **BREAKDOWN**.
+   - Soft select **Chart Type** samples: **Bar**, **Line** (and one more if stable: Combo / Area / Pie / Formatted Table).
+   - Soft toggle **OPTIONS** (grid lines, data labels, legend, data points) — restore sensible defaults.
+   - Soft set **ORDER BY** and **TOP N** (e.g. Top 10) — annotate if controls are disabled until query valid.
+   - Soft **Run Query** when enabled; assert chart/table area leaves “No data to display…” empty state **or** controlled empty + annotate; soft signature change after filter/lookback change on builder toolbar.
+   - Soft apply a builder top filter / lookback change and re-Run Query; soft-assert data area refresh implication.
+   - Soft-open builder **Filters** zone; cancel / clear without saving.
+   - Soft Color Palette switch then restore Default.
+   - **Do not Save** a shared chart unless disposable name `CWV-SO-QA-<unique>` with cleanup; prefer Cancel/Back.
+   - Always **Back** / rail **Charts** → Search → re-open **CWV Top 10 Summary Onload** before sections 5–9.
+
+5. Chart viewer identity + layout
+   Cover:
+   - Soft-assert title **CWV Top 10 Summary Onload** + **Global**.
+   - Soft-assert Prompt / Mode language (Page Name, Onload, Page Hits · Period vs Previous Period) when visible.
+   - Soft-assert primary table/chart + **Data Table (20 rows)** soft.
+   - Soft-assert Onload Current/Previous/Change and Page Hits Current/Previous/Change column groups.
+   - Soft scroll table; assert no perpetual spinner (bounded).
+   - Soft Escape closes filter popovers/export menus.
+
+6. Lookback Period + Comparison — REQUIRED (user regression point #1)
+   Cover:
+   - Capture current Lookback signature (e.g. Last 30 Days / Day|Week).
+   - Soft change Lookback (alternate preset or Day↔Week); apply if required; soft-assert table refresh (signature / Data refreshed / loading→ready) or controlled empty + annotate.
+   - Soft toggle **Comparison**: Directly Previous Period ↔ Same Time Last Year; soft-assert Current/Previous/Change still coherent or empty controlled.
+   - Soft **Reset to default**; restore captured baseline.
+   - Do not leave an extreme lookback that empties the table for later tests.
+
+7. Other filters + combinations — REQUIRED (user point #1)
+   Cover soft combinations (sample ≥3–4 non-destructive combos; restore after each):
+   - **Percentile** (sample p75 and one alternate e.g. p50/p90)
+   - **Device**; **Browser**; **Operating System**
+   - **Bot Traffic** (soft default Non-Bot / exclude bots when shown)
+   - **Originated From** (RUM Browser / Native App / Webview soft)
+   - **Page Name**; **Page Group**
+   - **Return/New Visitor**; **Traffic Segment**; **Time Zone**
+   - Soft Options (Grid / Labels / Legend / Palette) — visual only; restore
+   - For each Apply: assert table/chart refresh (before/after signature) or controlled empty + annotate
+   - Cross-check at least one combo that keeps rows non-empty when data exists
+   - Always restore baseline filters before Export / Chart Builder unrelated tests
+   - Soft: do **not** create permanent scheduled reports; if Schedules UI opened, Cancel only
+
+8. Export + Refresh Data — REQUIRED (user regression point #2)
+   A) **Export ▾**
+      - Soft-assert Export control present.
+      - Open menu; soft-assert **PNG Image**, **PDF Document**, **CSV Data** (annotate if a format is missing / renamed).
+      - For each available option: soft trigger download/preview; soft cross-check UI labels (chart title / Page Name / Onload) — no pixel OCR golden; cancel downloads; close dialogs.
+      - Identity still CWV Top 10 Summary Onload + GDC after exports.
+
+   B) **Refresh Data**
+      - Capture soft table signature (first-N Page Name + Onload cells format-tolerant).
+      - Click **Refresh Data**.
+      - Assert loading→ready; table still present; signature may match or change — annotate.
+      - Soft-assert “Data refreshed …” updates when shown (format-tolerant).
+
+9. Graphs / tables / a11y / column sort
+   - Soft assert independent table hosts (primary + Data Table) by headers — not SVG counts alone (probe may show 0 SVG when Formatted Table).
+   - Soft hover one Onload / Change cell or chart point for tooltip presence when chart type is graphical.
+   - Soft **column sort** on Page Name / Onload / Page Hits / Change when headers are sortable:
+       capture first-N row signature → click header → soft-assert order change or annotate equal values → toggle reverse soft.
+   - Soft table pager inside chart widgets when present — restore.
+   - Soft Escape closes menus; soft focus Lookback / Filters / Export / Refresh / Search.
+
+10. Sibling discrimination (soft)
+   - Soft once **CWV Top 10 Summary** (no Onload) or **CWV Trends by Page** from Charts list → restore **CWV Top 10 Summary Onload** viewer + GDC.
+   - Soft Dashboards → CWV Top 10 PoP is not suite home — if hopped, return to business-intelligence/tool + Charts → Onload.
+   - Soft portal left-nav Core Web Vitals / VitalPulse is not suite home.
+   - Always re-assert GDC Test Site 2 after site-like switches.
+
+11. Combination, recovery, non-functional
+   - Capture → Chart Builder soft sample → restore Onload → Lookback change → filter combo → Refresh Data → Export soft → Reset/restore.
+   - Refresh portal page: re-enter iframe → Charts Search → Onload.
+   - Performance: iframe + table settle within project soft deadlines.
+   - Viewport: desktop + ~1100px OK (BI sidebar may collapse).
+
+12. Out-of-scope mutations (always)
+   - Do not permanently modify Global CWV Top 10 Summary Onload chart definition/layout.
+   - Do not leave unrestored Lookback/filter changes on the shared chart.
+   - Do not create permanent Schedules / AI Query saved assets / Chart Builder publishes (except disposable cleanup).
+   - Do not Clear Genius Cache / Save portal Filters.
+   - Do not expand into full CWV Top 10 PoP / Monthly UX Metrics / VitalPulse / VitalScope suites.
+   - Do not hard-code Onload/Page Hits catalogs or page-name lists from the probe.
+
+13. Live reverse-engineering facts to preserve
+   - Portal route business-intelligence/tool; title Business Intelligence
+   - `#bi-iframe` → jbi.bluetriangletech.com
+   - BI **Charts** Search finds **CWV Top 10 Summary Onload** (preview table Page Name/Onload/Date soft)
+   - Viewer: Back | Global | Export ▾ | Refresh Data | Lookback Last 30 Days soft | Comparison Directly Previous / Same Time Last Year
+   - Filters: Percentile p5–p99 | Browser | Bot Traffic | Device | OS | Originated From | Page Name | Return/New Visitor | Traffic Segment | Page Group | Time Zone
+   - Table: Page Name | Onload | Page Hits | Current | Previous | Change (+ Data Table 20 rows soft)
+   - Chart Builder: Data Explorer tables, X/Y/Breakdown, Chart Type Bar/Line/…, Options, Order By, Top N, Run Query, modes Single/Compare
+   - Soft list chrome: Search, All Folders, Local/UTC, Reset, Chart Builder
+   - Probe JSON keys soft: wentCharts, chartBuilderOpened, opened, chromeHints, chartViewer, chartBuilder, screenshots, savedAt
+   - Soft sibling: CWV Top 10 Summary (without Onload)
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a Playwright automation suite under
+tests/regression_tests/US2/advanced-reporting/custom-reporting/business-intelligence/cwv-top10-summary-onload
+covering thorough regression for:
+  - Chart Builder prerequisite (tables, axes, chart types, Options, Order By, Top N, Run Query, builder filters) then restore
+  - navigation & identity (portal BI tool + iframe Charts Search → exact CWV Top 10 Summary Onload)
+  - Charts list chrome (Search, folders, soft siblings)
+  - chart viewer: Onload/Page Hits comparative table + Data Table soft
+  - Lookback Period + Comparison changes + data refresh asserts + restore
+  - combinations of Filters (Percentile, Device, Page Name, Page Group, Browser, OS, Return/New Visitor, Timezone, Bot Traffic, Origin, Traffic Segment, …) + refresh/empty handling + restore
+  - Export PNG / PDF / CSV soft + Refresh Data
+  - recovery / GDC re-anchor / non-confusion with CWV Top 10 Summary, CWV Top 10 PoP, VitalPulse, VitalScope, portal Dashboards
+
+Follow existing project framework and POM conventions. Prefer live probe hosts/titles as SoT; re-probe if Export submenu labels or table operator chips differ.
+
+After generation:
+1. Execute only the newly created CWV Top 10 Summary Onload regression suite and fix automation hard failures.
+2. Generate fresh isolated Allure results + HTML report for this suite.
+3. Generate manual test-case workbook (Summary / Regression TCs / Notes).
+4. Include executed result summary and soft annotations for: empty lookback/filter combos, missing Export formats, Chart Builder Run Query disabled, sparse data, iframe load flakes, GDC re-anchor, leftover disposable saves.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable titles/labels and portal `#bi-iframe` frame scope; do not depend on dynamic Highcharts instance IDs or JWT tokens alone.
+6. Do not hard-code KPI totals, page names, Onload values, Page Hits, delta %, or fixed dates from the probe.
+7. Capture and restore chart home, GDC Test Site 2, Lookback/filters baseline; cleanup disposable Chart Builder saves.
+8. Use a serial suite only when shared page/iframe state is intentional; optional/data-dependent failures must not abort unrelated tests (soft deadlines + recovery).
+9. Use bounded soft deadlines and explicit action timeouts.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page/iframe actions running into later serial tests; cancel/reload/reset before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save portal Filters, Clear Genius Cache, permanently edit Global Onload chart, or leave unrestored lookback mutations.
+13. Keep primary scope on CWV Top 10 Summary Onload; restore after soft sibling/list/Chart Builder/AI Query visits.
+14. Close all menus, overlays, drawers, modals opened by tests.
+15. Do not claim data refreshed by merely counting SVG hosts (this chart may be Formatted Table with 0 SVG).
+16. Treat timing/%/date units as format-tolerant.
+17. Never accept VitalPulse, VitalScope, CWV Top 10 PoP dashboard, or plain **CWV Top 10 Summary** as suite home without the exact **CWV Top 10 Summary Onload** title in the BI chart viewer.
+18. If any requirement is ambiguous or missing, flag it before generating automation.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- No dedicated Help PDF for this chart title was found — **live probe is SoT**; soft-use shared BI Chart Builder Help when Cloudflare allows.
+- Charts catalog click can match the title without entering the viewer — automation must require viewer chrome (**Export** / **Refresh Data** / Lookback / Filters) before hard asserts.
+- Export submenu exact labels (**PNG Image** / **PDF Document** / **CSV Data**) — confirm on first open; annotate substitutions.
+- Lookback default on probe was **Last 30 Days** with Day/Week chips — do not hard-fail if tenant default differs; capture/restore whatever is live.
+- Comparison labels: **Directly Previous Period** / **Same Time Last Year** (viewer) vs builder Mode **Compare periods (trend|totals)** — match by surface.
+- Chart Builder table names (**Sessions / Sessions Page / RUM Hits**) may vary by entitlement — soft-sample available tables; annotate missing names.
+- Run Query disabled until axes configured — treat as expected, not a hard product bug.
+- Operator chips (`=`, `!=`, `in`, `contains`, …) on Filters are BI expression chrome — soft open; do not invent invalid expressions that lock the UI.
+- Outer portal Filters funnel (`#toggle-filters`) is **not** the BI chart Filters control.
+- Formal SLA for iframe table reload — use project soft deadlines.
+- Coach/Get started overlays may appear on portal shell.
+- Parallel workers may race on shared Global filter state — prefer serial for Lookback/Export/Chart Builder tests.
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to:
+- docs/prompts/AI Prompt (For Automation Regression-CWV Top 10 Period over Period PoP).txt  ← closest template (BI iframe)
+- docs/prompts/AI Prompt (For Automation Regression-Monthly Quarterly UX Metrics Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-Site Operations Dashboard for Page Names).txt
+- docs/prompts/AI Prompt (For Automation Regression-URL Category Analysis Dashboard).txt
+- pages/CwvTop10PopDashboardPage.ts / MonthlyQuarterlyUxMetricsDashboardPage.ts (iframe patterns only)
+
+Follow their patterns for POM/locator separation, authenticated GDC site selection, `#bi-iframe` scoping, filter apply/cancel/restore, table soft asserts, serial recovery after soft sibling switches, reversible mutations with restore, isolated Allure + Excel workbooks, and npm naming that does not collide with CWV Top 10 PoP / Monthly UX Metrics / VitalPulse / Core Web Vitals.

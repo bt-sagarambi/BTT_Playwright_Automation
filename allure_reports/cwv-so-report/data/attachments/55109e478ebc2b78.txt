@@ -1,0 +1,2 @@
+[CWV-SO] Refresh Data: signature identical (expected OK)
+[CWV-SO] Data refreshed timestamp soft-present

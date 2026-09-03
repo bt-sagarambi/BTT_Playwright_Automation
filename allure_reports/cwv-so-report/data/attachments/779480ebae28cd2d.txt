@@ -1,0 +1,4 @@
+[CWV-SO] sort clicked equal/annotate: Page Name
+[CWV-SO] sort clicked equal/annotate: Onload
+[CWV-SO] sort clicked equal/annotate: Change
+[CWV-SO] sort clicked equal/annotate: Page Hits

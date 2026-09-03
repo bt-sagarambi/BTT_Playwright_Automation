@@ -1,0 +1,58 @@
+CWV Top 10 Summary Onload — live reverse-engineering + notes (Sep 2026)
+==============================================================================
+Navigation (user SoT):
+  Login → Advanced Reporting & Alerting → Custom Reporting → Business Intelligence
+  → BI rail Charts → Search “CWV Top 10 Summary Onload” → open card title
+
+Portal: business-intelligence/tool | #page-title Business Intelligence | GDC Test Site 2
+Host: #bi-iframe → jbi.bluetriangletech.com
+
+No dedicated Help PDF found for this exact chart title.
+Soft sibling Help: Blue Triangle - Business Intelligence; Creating Dashboards and Looks.
+Soft sibling prompt template: AI Prompt (For Automation Regression-CWV Top 10 Period over Period PoP).txt
+
+Charts catalog (probe):
+  Card title CWV Top 10 Summary Onload
+  Preview table soft: Page Name | Onload | Date (color bands soft)
+  Last Modified ~1 month ago | heart | ⋮
+  Soft sibling: CWV Top 10 Summary (without Onload)
+
+Chart viewer (probe — inViewer=true):
+  Back | CWV Top 10 Summary Onload | Global
+  Chart Builder | Export ▾ | Refresh Data
+  Prompt: “[Chart Builder] Page Name, Onload, Page Hits”
+  Lookback Period: Last 30 Days (Day / Week) | Reset to default
+  Mode: Period vs Previous Period
+  Comparison: Directly Previous Period | Same Time Last Year
+  Filters: Percentile p5–p99 | Browser | Bot Traffic | Device | Operating System |
+           Originated From | Page Name | Return/New Visitor | Traffic Segment |
+           Page Group | Time Zone (GMT +00:00 soft)
+  Options soft: Grid | Labels | Legend Top/Bottom/Hidden | Palette
+  Table: Page Name | Onload | Page Hits | Current | Previous | Change
+  Data Table (20 rows) soft — same header family
+  Meta soft: Last modified / Data refreshed timestamps
+
+Chart Builder (prerequisite — probe):
+  Mode: Single period | Compare periods (trend) | Compare periods (totals)
+  Allow lookback period override | Allow granularity override | Run Query
+  Data Explorer TABLES Select table… | Dimension / Metric / Computed
+  X-AXIS | Y-AXIS | BREAKDOWN | Filters
+  Chart Type: Bar Line Combo Area Pie Scatter Heatmap Formatted Table Grid Sheet Geo Number
+  Options: Horizontal/Vertical Grid Lines | Show Data Labels | Show Legend | Show Data Points
+  Order By Auto | Top N | Color Palette Default/Ocean/Sunset/Forest/Mono
+  Empty: “No data to display. Configure fields and run the query.”
+
+User-required regression points to cover in automation prompt:
+  1) Filter combinations (Lookback, Comparison, Percentile, Device, Page Name, Page Group,
+     Browser, OS, Return/New Visitor, Timezone, Bot Traffic, Origin, Traffic Segment) → chart data
+  2) Export PNG / PDF / CSV + Refresh Data
+  3) Chart Builder tables/axes/types/Options/Order By/Top N/Run Query/top filters BEFORE deep chart scripts
+
+Artifacts:
+  docs/prompts/cwv-top10-summary-onload-live-probe.json
+  docs/prompts/cwv-top10-summary-onload-live-notes.txt
+  docs/prompts/cwv-top10-summary-onload-live.png
+  docs/prompts/cwv-top10-summary-onload-chart.png
+  docs/prompts/cwv-top10-summary-onload-chart-builder.png
+  scripts/probe-cwv-top10-summary-onload.ts
+  AI Prompt: docs/prompts/AI Prompt (For Automation Regression-CWV Top 10 Summary Onload Chart).txt

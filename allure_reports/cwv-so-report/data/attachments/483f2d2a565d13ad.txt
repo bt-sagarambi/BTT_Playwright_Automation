@@ -1,0 +1,1 @@
+[CWV-SO] filters soft percentile=true pctAlt=true device=true browser=true

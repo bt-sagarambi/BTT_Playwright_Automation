@@ -1,0 +1,1 @@
+[CWV-SO] combo Lookback→filter→Refresh→Export→Reset soft-ok

@@ -1,0 +1,2 @@
+[CWV-SO] Global folder badge soft-present
+[CWV-SO] Prompt/Mode language soft-present

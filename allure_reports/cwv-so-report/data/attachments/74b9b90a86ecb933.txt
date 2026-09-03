@@ -1,0 +1,32 @@
+[CWV-SO] suite end annotations count=29 loadMs=21162
+[CWV-SO] annotations:
+- Chart Builder opened=true tables=[Sessions, Favorites Dashboards AI Query Charts Sch] runQueryEnabled=false
+- builder: Run Query disabled until axes configured — expected soft
+- readyScore=11 lookback="Lookback Period: Last 30 days · Mode: Period vs Previous Period · Last modified 2026-07-09 19:54:" comparison="Comparison: Directly Previous Period Same Time Last Year Filters Percentile p5 p10 p15 p20 p25 p30 p35 p40 p45 p"
+- sibling card soft: CWV Top 10 Summary (no Onload)
+- Local|UTC timezone toggle soft-present on Charts list
+- sibling soft-present: CWV Trends by Page
+- Global folder badge soft-present
+- Prompt/Mode language soft-present
+- table soft pageName=true onload=true pageHits=true current=true previous=true change=true dataTable=true
+- rowSig soft="PDP|Category|Category-vt|Checkout|ColdLaunchTime|Cart|Sitelet Landing|Homepage"
+- filters inventory soft 13/13: {"lookback":true,"comparison":true,"percentile":true,"browser":true,"bot":true,"device":true,"os":true,"origin":true,"pageName":true,"returnNew":true,"trafficSegment":true,"pageGroup":true,"timezone":true}
+- Lookback Apply: signature unchanged (sparse data?)
+- Comparison soft before="Comparison: Directly Previous Period Same Time Last Year Filters Percentile p5 p10 p15 p20 p25 p30 p35 p40 p45 p" after="Comparison: Directly Previous Period Same Time Last Year Filters Percentile p5 p10 p15 p20 p25 p30 p35 p40 p45 p"
+- filters soft percentile=true pctAlt=true device=true browser=true
+- filters soft bot=true os=true origin=true pageName=true pageGroup=true
+- filters soft returnNew=true segment=true timezone=true
+- Export menu opened=true options=[PNG Image, PDF Document, CSV Data]
+- Export PNG Image triggered=false download="n/a"
+- Export PDF Document triggered=true download="n/a"
+- Export CSV Data triggered=true download="n/a"
+- Refresh Data: signature identical (expected OK)
+- Data refreshed timestamp soft-present
+- Reset to default soft-ok
+- sort clicked equal/annotate: Page Name
+- sort clicked equal/annotate: Onload
+- sort clicked equal/annotate: Change
+- sort clicked equal/annotate: Page Hits
+- combo Lookback→filter→Refresh→Export→Reset soft-ok
+- reload recover load soft; site=GDC Test Site 2
+- suite end annotations count=29 loadMs=21162

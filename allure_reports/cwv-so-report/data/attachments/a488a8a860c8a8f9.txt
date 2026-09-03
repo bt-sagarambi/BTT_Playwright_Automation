@@ -1,0 +1,2 @@
+[CWV-SO] table soft pageName=true onload=true pageHits=true current=true previous=true change=true dataTable=true
+[CWV-SO] rowSig soft="PDP|Category|Category-vt|Checkout|ColdLaunchTime|Cart|Sitelet Landing|Homepage"

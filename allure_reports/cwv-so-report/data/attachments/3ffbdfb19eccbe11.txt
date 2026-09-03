@@ -1,0 +1,1 @@
+[CWV-SO] filters inventory soft 13/13: {"lookback":true,"comparison":true,"percentile":true,"browser":true,"bot":true,"device":true,"os":true,"origin":true,"pageName":true,"returnNew":true,"trafficSegment":true,"pageGroup":true,"timezone":true}
