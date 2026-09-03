@@ -11,7 +11,7 @@ const PAGE_DEF = {
   menuLabel: 'Revenue Calculator',
   route: 'business-analytics/revenue-calculator',
   hrefIncludes: ['conversion-type=sales', 'revenue-calculator'],
-  titleIncludes: /Revenue Calculator/i,
+  titleIncludes: /(?:Revenue|Numbers)\s+Calculator/i,
 };
 
 const BRAND_PAGE_DEF = {
@@ -62,7 +62,9 @@ export class RevenueCalculatorPage {
     // Live title may insert extra spaces: "Improve Conversion / Revenue  Calculator"
     await expect
       .poll(async () => (await this.getPageTitleText()).replace(/\s+/g, ' '), { timeout: 15000 })
-      .toMatch(/Business Insights\s*\/\s*Improve Conversion\s*\/\s*Revenue Calculator|Revenue Calculator/i);
+      .toMatch(
+        /Business Insights\s*\/\s*Improve Conversion\s*\/\s*(?:Revenue|Numbers)\s+Calculator|(?:Revenue|Numbers)\s+Calculator/i
+      );
     await this.page.waitForLoadState('domcontentloaded');
     await this.dismissCoaches();
     await this.expectCoreReady();
@@ -101,7 +103,10 @@ export class RevenueCalculatorPage {
 
   async ensureSalesConversionType(): Promise<void> {
     const url = this.page.url();
-    if (/conversion-type=sales/i.test(url) && /Revenue Calculator/i.test(await this.getPageTitleText())) {
+    if (
+      /conversion-type=sales/i.test(url) &&
+      /(?:Revenue|Numbers)\s+Calculator/i.test(await this.getPageTitleText())
+    ) {
       return;
     }
     if (/conversion-type=brand/i.test(url) || /Brand Calculator/i.test(await this.getPageTitleText())) {
@@ -188,9 +193,9 @@ export class RevenueCalculatorPage {
     await expect(this.page).toHaveURL(/revenue-calculator/i);
     await expect(this.page).toHaveURL(/conversion-type=sales/i);
     const title = await this.getPageTitleText();
-    expect(title).toMatch(/Revenue Calculator/i);
+    expect(title).toMatch(/(?:Revenue|Numbers)\s+Calculator/i);
     expect(title).not.toMatch(/Brand Calculator/i);
-    expect(title).not.toMatch(/Revenue Opportunity/i);
+    expect(title).not.toMatch(/(?:Revenue|Numbers)\s+Opportunity/i);
   }
 
   async captureContext(): Promise<RevenueCalculatorContext> {
@@ -375,7 +380,7 @@ export class RevenueCalculatorPage {
     await this.waitForPageReady();
     await this.ensureProfileSiteSelected();
     const restored =
-      /Revenue Calculator/i.test(await this.getPageTitleText()) &&
+      /(?:Revenue|Numbers)\s+Calculator/i.test(await this.getPageTitleText()) &&
       /conversion-type=sales/i.test(this.page.url());
     return {
       note: `Visited brand title="${brandTitle}"; restoredSales=${restored}`,
@@ -395,7 +400,7 @@ export class RevenueCalculatorPage {
     await this.dismissCoaches();
     const mid = await this.getPageTitleText();
     await this.openViaNavigation();
-    const restored = /Revenue Calculator/i.test(await this.getPageTitleText());
+    const restored = /(?:Revenue|Numbers)\s+Calculator/i.test(await this.getPageTitleText());
     return { note: `Visited="${mid}"; restored=${restored}`, restored };
   }
 
@@ -414,7 +419,7 @@ export class RevenueCalculatorPage {
       await this.waitForPageReady().catch(async () => this.openViaNavigation());
     }
     const restored =
-      /Revenue Calculator/i.test(await this.getPageTitleText()) &&
+      /(?:Revenue|Numbers)\s+Calculator/i.test(await this.getPageTitleText()) &&
       /conversion-type=sales/i.test(this.page.url());
     return { note: `Attribution midUrl has attribution=${/attribution/i.test(midUrl)}; restored=${restored}`, restored };
   }

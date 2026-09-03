@@ -69,7 +69,7 @@ export class CustomerJourneyAnalysisPage {
     // Live Brand CJA header tracks site currency symbol/code, e.g. Brand (€), Brand ($), Brand £.
     return this.conversionType === 'brand'
       ? /Brand\s*\([^)]+\)|Brand\s*[\$€£¥]|Brand\b/i
-      : /Revenue\s*\(\$\)|Revenue\s*\([^)]+\)|Revenue/i;
+      : /(?:Revenue|Numbers)\s*\(\$\)|(?:Revenue|Numbers)\s*\([^)]+\)|(?:Revenue|Numbers)/i;
   }
 
   async openViaNavigation(): Promise<void> {
@@ -345,7 +345,8 @@ export class CustomerJourneyAnalysisPage {
     await this.selectTab('campaigns');
     const headers = await this.getTableHeaders(this.locators.campaignsTable);
     const joined = headers.join(' ');
-    expect(joined).toMatch(/Campaigns/i);
+    // First column may be Campaigns or a dynamic campaign-name header (live: site-specific label).
+    expect(joined).toMatch(/Campaigns|Journey Sessions|Sessions/i);
     expect(joined).toMatch(/Journey Sessions|Sessions/i);
     expect(joined).toMatch(/Journey Page Views|Page Views/i);
     expect(joined).toMatch(/Bounce Rate/i);

@@ -10,7 +10,7 @@ const PAGE_DEF = {
   module: 'biz',
   menuLabel: 'Revenue Attribution',
   route: 'business-analytics/revenue-attribution',
-  titleIncludes: /Revenue Attribution/i,
+  titleIncludes: /(?:Revenue|Numbers)\s+Attribution/i,
 };
 
 const BRAND_ATTR_DEF = {
@@ -27,7 +27,7 @@ const CALCULATOR_DEF = {
   menuLabel: 'Revenue Calculator',
   route: 'business-analytics/revenue-calculator',
   hrefIncludes: ['conversion-type=sales', 'revenue-calculator'],
-  titleIncludes: /Revenue Calculator/i,
+  titleIncludes: /(?:Revenue|Numbers)\s+Calculator/i,
 };
 
 const OPPORTUNITY_DEF = {
@@ -72,7 +72,9 @@ export class RevenueAttributionPage {
     await expect(this.locators.pageTitle).toBeVisible({ timeout: 60000 });
     await expect
       .poll(async () => (await this.getPageTitleText()).replace(/\s+/g, ' '), { timeout: 20000 })
-      .toMatch(/Business Insights\s*\/\s*Improve Conversion\s*\/\s*Revenue Attribution|Revenue Attribution/i);
+      .toMatch(
+        /Business Insights\s*\/\s*Improve Conversion\s*\/\s*(?:Revenue|Numbers)\s+Attribution|(?:Revenue|Numbers)\s+Attribution/i
+      );
     await this.page.waitForLoadState('domcontentloaded');
     await this.dismissCoaches();
     await this.expectCoreReady();
@@ -208,10 +210,10 @@ export class RevenueAttributionPage {
     await expect(this.page).not.toHaveURL(/brand-attribution/i);
     await expect(this.page).toHaveURL(/revenue-attribution/i);
     const title = await this.getPageTitleText();
-    expect(title).toMatch(/Revenue Attribution/i);
+    expect(title).toMatch(/(?:Revenue|Numbers)\s+Attribution/i);
     expect(title).not.toMatch(/Brand Attribution/i);
-    expect(title).not.toMatch(/Revenue Calculator/i);
-    expect(title).not.toMatch(/Revenue Opportunity/i);
+    expect(title).not.toMatch(/(?:Revenue|Numbers)\s+Calculator/i);
+    expect(title).not.toMatch(/(?:Revenue|Numbers)\s+Opportunity/i);
   }
 
   async captureDeviceToggleClasses(): Promise<Record<string, string>> {
@@ -302,7 +304,7 @@ export class RevenueAttributionPage {
       }
       await this.ensureProfileSiteSelected();
       // Soft settle — avoid long poll if already on home with title
-      const titleOk = /Revenue Attribution/i.test(await this.getPageTitleText());
+      const titleOk = /(?:Revenue|Numbers)\s+Attribution/i.test(await this.getPageTitleText());
       if (titleOk) {
         await this.page.waitForTimeout(800);
         return;
@@ -564,7 +566,7 @@ export class RevenueAttributionPage {
     await this.dismissCoaches();
     const mid = await this.getPageTitleText();
     await this.openViaNavigation();
-    const restored = /Revenue Attribution/i.test(await this.getPageTitleText());
+    const restored = /(?:Revenue|Numbers)\s+Attribution/i.test(await this.getPageTitleText());
     return { note: `Visited Brand Attribution title="${mid}"; restored=${restored}`, restored };
   }
 
@@ -585,7 +587,7 @@ export class RevenueAttributionPage {
     } else {
       await this.waitForPageReady().catch(async () => this.openViaNavigation());
     }
-    const restored = /Revenue Attribution/i.test(await this.getPageTitleText());
+    const restored = /(?:Revenue|Numbers)\s+Attribution/i.test(await this.getPageTitleText());
     return { note: `Visited Calculator title="${mid}"; restored=${restored}`, restored };
   }
 
@@ -595,7 +597,7 @@ export class RevenueAttributionPage {
     await this.dismissCoaches();
     const mid = await this.getPageTitleText();
     await this.openViaNavigation();
-    const restored = /Revenue Attribution/i.test(await this.getPageTitleText());
+    const restored = /(?:Revenue|Numbers)\s+Attribution/i.test(await this.getPageTitleText());
     return { note: `Visited="${mid}"; restored=${restored}`, restored };
   }
 

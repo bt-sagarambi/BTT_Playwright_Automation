@@ -132,7 +132,7 @@ export class SiteOverviewDashboardLocators {
   }
 
   revenueOverTimeWidget(): Locator {
-    return this.widgetByTitle(/Revenue Over Time/i);
+    return this.widgetByTitle(/(?:Revenue|Numbers)\s+Over Time/i);
   }
 
   geographyWidget(): Locator {

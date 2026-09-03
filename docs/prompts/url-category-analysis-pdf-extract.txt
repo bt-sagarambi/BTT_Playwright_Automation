@@ -1,0 +1,77 @@
+BI Dashboard: Core Web Vital URL Volume
+(Help Center SoT for live catalog title “URL Category Analysis”)
+Source: https://help.bluetriangle.com/hc/en-us/articles/37515340733843-BI-Dashboard-Core-Web-Vital-URL-Volume
+Extracted / synthesized for automation prompt use (Sep 2026).
+Live portal catalog title on GDC Test Site 2: “URL Category Analysis”
+  Catalog description: “Categorizes each URL into buckets of Good, Needs Improvement, or Poor based on Google's CWV thresholds.” (~9 widgets · Grid · Global)
+
+NOTE: Help article title uses “Core Web Vital URL Volume”; live BI Dashboards Search / viewer title is “URL Category Analysis”. Treat LIVE exact title as identity SoT; treat this Help content as product-purpose / widget / threshold / categorization SoT.
+
+--- Introduction / purpose ---
+Dashboard categorizes URLs into Google CWV performance buckets:
+  • Good
+  • Needs Improvement
+  • Poor
+and visualizes daily URL-count distribution plus per-URL CWV performance detail.
+
+--- Dashboard Components (Help) ---
+1) URL Performance Category Distribution
+   - Line chart displays up to ~3,000 URLs daily (Help), organized into a daily distribution of:
+       Good / Needs Improvement / Poor
+   - Table below the graph represents the same data in tabular form.
+
+2) Daily Distribution of URLs by Category
+   - Table view of the line-chart data
+   - Columns organize daily counts into Good / Needs Improvement / Poor threshold categories
+   - Displays up to ~3,000 URLs (Help wording for the distribution)
+
+3) Performance Category by URL
+   - Breaks down each unique URL that appeared in the period on the line chart
+   - Shows corresponding performance category, sorted by hits
+   - Number of URLs can exceed 3,000 because URLs can change day to day
+   - Table limited to ~5,000 rows (Help)
+
+--- Live product mapping (probe Sep 2026, GDC Test Site 2) ---
+Help “Performance Category by URL” maps to TWO live widgets:
+  • CWV Performance by URL - Desktop
+  • CWV Performance by URL - Mobile
+Live Daily Distribution + URL Performance Category Distribution widgets confirmed.
+Live Filters panel (opened): Bot Traffic, Origin, Traffic Segment (primary user-required filters).
+
+--- CWV Threshold Values (Google bands — Help) ---
+Google defines three threshold categories: Good, Needs Improvement, Poor.
+(Exact numeric LCP/INP/CLS thresholds are Google-defined and may change — soft-assert band LABELS,
+ not hard-code threshold numbers from any single probe.)
+
+--- How URLs are Specified to a Category (Help — critical business rule) ---
+• Poor: Any ONE of the CWV for the URL is “Poor” by Google’s threshold definition
+• Needs improvement: None of the CWV for the URL are “Poor”, but at least ONE is “Needs improvement”
+• Good: ALL of the CWV metrics are in the “Good” Google threshold
+
+--- Soft Filter Options (from sibling BI CWV dashboards + live URL Category Analysis Filters) ---
+Live viewer Filters panel (Sep 2026 probe — REQUIRED user regression filters):
+  • Bot Traffic — values soft: Non-Bot, Bot (operators: = != in not in contains …)
+  • Origin — values soft: RUM Browser, Native Webview (Help siblings also: Native App / Webviews)
+  • Traffic Segment — segment picker (may include “-- No Segment --”)
+
+Sibling BI CWV dashboards often also expose (soft — assert if present; annotate if absent on this dashboard):
+  • Time Period / Lookback Period / End Date
+  • Browser | Device | Operating System
+  • Page Name | Page Group | Return/New User (Visitor)
+  • Percentile (CWV default 75th) | Timezone
+  • Originated from: RUM Browser / Native App / Webviews
+
+--- Related Help articles (soft siblings only) ---
+• Blue Triangle - Business Intelligence
+  https://help.bluetriangle.com/hc/en-us/articles/32871857479571-Blue-Triangle-Business-Intelligence
+• BI Dashboard: CWV Top 10 Period over Period (PoP) Performance Dashboard
+• BI Dashboard: CWV Trends
+• BI Dashboard: Site Operations
+• BI Dashboard: Site Operations Report: Core Web Vitals(CWV) of the top viewed pages
+
+--- PDF attachment note ---
+If a printed PDF of the Help article is attached later, place/copy it as:
+  docs/prompts/BI_Dashboard_Core_Web_Vital_URL_Volume.pdf
+Cloudflare blocked automated HTML fetch on Sep 2026; this extract is from Help Center article content
+plus live reverse-engineering probe. Prefer live `#bi-iframe` hosts when Help is silent on BI shell chrome
+(Save As / Refresh Data / Reset to Defaults / Filters / export hamburger).

@@ -1,0 +1,92 @@
+Blue Triangle Help Center > Guides > Marketing Insights
+The Marketing Overview Page
+ Mark Heideman
+3 years ago·  Updated
+Follow
+Table of Contents
+Overview
+How to Find the Marketing Overview Page
+Widgets 
+Sitewide Totals
+Campaigns
+Traffic Source and Traffic Medium Breakdown
+Device Type Graphs
+How to Filter the Marketing Overview Page
+How to Customize the Marketing Overview Page
+Overview
+The Marketing Overview Page gives you a high-level view of how your marketing campaigns are
+performing. 
+Sign in
+☰ | | | |
+Search🔍
+Articles in this section ▾
+7/30/26, 3:55 PM The Marketing Overview Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033774453-The-Marketing-Overview-Page 1/7
+How to Find the Marketing Overview Page
+This page is found in portal through the left-side menu under the Marketing Insights module.
+Widgets
+The Marketing Overview Page is essentially a customizable dashboard with preset widgets. 
+Sitewide Totals
+The top widget breaks down your site-wide totals for the major metrics, including Bounce Rate and
+Page views.
+7/30/26, 3:55 PM The Marketing Overview Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033774453-The-Marketing-Overview-Page 2/7
+Campaigns
+The widget below on the left fills in with your top 4 campaigns. It determines the top 4 campaigns by
+traffic volume.
+To the right is the campaigns over time widget. This shows you a bar graph with the total numbers
+for each campaign over the time period, and below shows you the same in a line graph. Each line
+represents each of your top campaigns.
+By default you will see the graphs showing revenue. To change the metric, select from the tabs at
+the top of the widget.
+Traffic Source and Traffic Medium Breakdown
+These shows you how each traffic source and traffic medium is performing over the time period.
+7/30/26, 3:55 PM The Marketing Overview Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033774453-The-Marketing-Overview-Page 3/7
+Click Export in the right of each table to save the data.
+Device Type Graphs
+At the bottom of the dashboard we have 3 widgets that show you revenue, conversion rate and
+sessions by device – Desktop, Mobile and table.
+You’ll see the totals in a bar graph above and the trend over time in a line graph below. Note the
+colors of the bars correspond to the device that you’ll see trended in the line graph.
+How to Filter the Marketing Overview Page
+To change the time period, use the selector in the top left of the dashboard.
+You can filter down the data to exactly what you need by using the filter options. Click the filter icon
+in the top right, make your selections and click apply filters to update the dashboard.
+7/30/26, 3:55 PM The Marketing Overview Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033774453-The-Marketing-Overview-Page 4/7
+How to Customize the Marketing Overview Page
+Lastly, you can customize your view in this dashboard by clicking the x icon in the top right of any
+widget. This will hide the widget from the view, and place it to the side.
+You can hide the side panel by clicking the minus icon above.
+To show hidden widgets, simply click the plus icon, then click and drag the widget back into the
+dashboard view.
+Also, to revert the page to the default view, click the button in the top right “Reset Widgets.”
+ 
+7/30/26, 3:55 PM The Marketing Overview Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033774453-The-Marketing-Overview-Page 5/7
+Was this article helpful?
+✓ Yes  ✕ No
+0 out of 0 found this helpful
+Have more questions? Submit a request
+Return to top⬆
+Recently viewed articles
+The Revenue Opportunity Page
+How to use the New Left Navigation Menu
+RUM Session Lookup Page
+The Customer Journey Analysis Page
+RUM Performance Detail Page
+Related articles
+The My Campaigns Page
+The Customer Journey Analysis Page
+The Service Details Page
+How to Use the Marketing Insights Module
+Executive Reports: KPIs and Competitive CRUX
+Comments
+0 comments
+Please sign in to leave a comment.
+7/30/26, 3:55 PM The Marketing Overview Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033774453-The-Marketing-Overview-Page 6/7
+Blue Triangle Help Center
+7/30/26, 3:55 PM The Marketing Overview Page – Blue Triangle Help Center
+https://help.bluetriangle.com/hc/en-us/articles/360033774453-The-Marketing-Overview-Page 7/7

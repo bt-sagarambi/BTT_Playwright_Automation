@@ -96,10 +96,10 @@ test.describe('US2 Regression — Revenue Attribution', () => {
   test('REG-RA-001 — page loads via BI Improve Conversion with correct title/route', async () => {
     await expect(page).toHaveURL(/business-analytics\/revenue-attribution|revenue-attribution/i);
     await expect(page).not.toHaveURL(/site\/login|site%2Flogin/i);
-    await expect(page).toHaveTitle(/Revenue Attribution/i);
+    await expect(page).toHaveTitle(/(?:Revenue|Numbers)\s+Attribution/i);
     await expect
       .poll(async () => (await ra.getPageTitleText()).replace(/\s+/g, ' '), { timeout: 15000 })
-      .toMatch(/Business Insights\s*\/\s*Improve Conversion\s*\/\s*Revenue Attribution/i);
+      .toMatch(/Business Insights\s*\/\s*Improve Conversion\s*\/\s*(?:Revenue|Numbers)\s+Attribution/i);
     await ra.expectNotConfusedSurfaces();
   });
 
@@ -192,13 +192,13 @@ test.describe('US2 Regression — Revenue Attribution', () => {
     expect(text).toMatch(/Marketing Influences|Traffic|Intent/i);
     expect(text).toMatch(/KPI Change|Sessions/i);
     expect(text).toMatch(/Average Order Value|Conversion Rate/i);
-    expect(text).toMatch(/Stability|Revenue per Session|Revenue Per Session/i);
+    expect(text).toMatch(/Stability|(?:Revenue|Numbers)\s+per Session/i);
     const cardHost =
       (await ra.locators.totalAttributionCardContainer.count().catch(() => 0)) > 0 ||
       (await ra.locators.deviceCard('all_devices').count().catch(() => 0)) > 0;
     expect(cardHost).toBeTruthy();
-    if (/Revenue Attributed to Performance|Revenue Change/i.test(text)) {
-      annotate('Section heading / Revenue Change soft present');
+    if (/(?:Revenue|Numbers)\s+Attributed to Performance|(?:Revenue|Numbers)\s+Change/i.test(text)) {
+      annotate('Section heading / Change soft present');
     }
     if (/Conversion Rate \(bps\)|bps/i.test(text)) {
       annotate('Conversion Rate bps label soft present');
@@ -213,7 +213,7 @@ test.describe('US2 Regression — Revenue Attribution', () => {
     expect(String(text)).toMatch(/KPI Change|Sessions/i);
     expect(String(text)).toMatch(/Average Order Value/i);
     expect(String(text)).toMatch(/Conversion Rate/i);
-    expect(String(text)).toMatch(/Revenue per Session|Revenue Per Session/i);
+    expect(String(text)).toMatch(/(?:Revenue|Numbers)\s+per Session/i);
     annotate('PDF rule: Page Name filter excluded from KPI Change — documented soft (no Save & Run)');
     const hosts = [
       ra.locators.deviceMetric('all_devices', 'session_change'),

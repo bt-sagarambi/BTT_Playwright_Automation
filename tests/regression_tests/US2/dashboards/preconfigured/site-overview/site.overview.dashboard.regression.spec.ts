@@ -231,15 +231,16 @@ test.describe('US2 Regression — Site Overview Dashboard', () => {
   });
 
   test('REG-SO-013 — Revenue Over Time widget chart shell', async () => {
+    const rot = /(?:Revenue|Numbers)\s+Over Time/i;
     try {
-      await so.expectGraphLikeInWidget(/Revenue Over Time/i);
+      await so.expectGraphLikeInWidget(rot);
     } catch (err) {
-      annotate(`Revenue Over Time soft: ${err instanceof Error ? err.message : String(err)}`);
-      await so.expectGraphLikeInWidget(/Revenue Over Time/i, true);
+      annotate(`Revenue/Numbers Over Time soft: ${err instanceof Error ? err.message : String(err)}`);
+      await so.expectGraphLikeInWidget(rot, true);
     }
-    const sig = await so.getWidgetSignature(/Revenue Over Time/i);
-    if (!/revenue|order|session|page view/i.test(sig)) {
-      annotate('Revenue Over Time soft: series labels not text-visible; shell accepted');
+    const sig = await so.getWidgetSignature(rot);
+    if (!/revenue|numbers|order|session|page view/i.test(sig)) {
+      annotate('Revenue/Numbers Over Time soft: series labels not text-visible; shell accepted');
     }
   });
 

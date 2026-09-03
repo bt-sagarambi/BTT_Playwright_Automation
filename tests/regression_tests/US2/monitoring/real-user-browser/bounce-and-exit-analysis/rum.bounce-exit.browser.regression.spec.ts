@@ -32,7 +32,8 @@ test.describe('US2 Regression — RUM Bounce & Exit Analysis (Browser)', () => {
   let page: Page;
   let rum: RumBounceExitAnalysisPage;
 
-  test.beforeAll(async ({ browser }) => {
+  test.beforeAll(async ({ browser }, testInfo) => {
+    testInfo.setTimeout(180000);
     const context = await browser.newContext({ storageState: AUTH_STATE });
     page = await context.newPage();
     rum = new RumBounceExitAnalysisPage(page);

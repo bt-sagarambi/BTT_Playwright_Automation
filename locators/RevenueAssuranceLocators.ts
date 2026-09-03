@@ -73,18 +73,19 @@ export class RevenueAssuranceLocators {
     this.pageTitle = page.locator('#page-title');
     this.siteSelectContainer = page.locator('#select2-site-id-container');
 
-    this.platformAll = page.locator('button, a.btn, .btn, [role="button"]').filter({ hasText: /\bAll\b/i }).first();
+    // data-type tab buttons (may report CSS-hidden to Playwright while still on-screen in card)
+    this.platformAll = page.locator('button.tab-btn[data-type="all"], button.all-tab-btn').first();
     this.platformBrowser = page
-      .locator('button, a.btn, .btn, [role="button"]')
-      .filter({ hasText: /\bBrowser\b/i })
+      .locator('button.tab-btn[data-type="browser"], button.browser-tab-btn')
+      .or(page.locator('button.tab-btn').filter({ hasText: /^\s*Browser\s*$/i }))
       .first();
     this.platformIos = page
-      .locator('button, a.btn, .btn, [role="button"]')
-      .filter({ hasText: /iOS Native App/i })
+      .locator('button.tab-btn[data-type="ios"], button.ios-tab-btn')
+      .or(page.locator('button.tab-btn').filter({ hasText: /^\s*iOS(\s+Native App)?\s*$/i }))
       .first();
     this.platformAndroid = page
-      .locator('button, a.btn, .btn, [role="button"]')
-      .filter({ hasText: /Android Native App/i })
+      .locator('button.tab-btn[data-type="android"], button.android-tab-btn')
+      .or(page.locator('button.tab-btn').filter({ hasText: /^\s*Android(\s+Native App)?\s*$/i }))
       .first();
     this.shareBtn = page
       .locator('button, a.btn')

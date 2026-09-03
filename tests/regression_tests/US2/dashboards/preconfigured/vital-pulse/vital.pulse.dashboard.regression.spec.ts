@@ -219,7 +219,8 @@ test.describe('US2 Regression — Vital Pulse Dashboard', () => {
 
   test('REG-VP-011 — Site Summary: Revenue / Sessions / Orders cards + locale-tolerant values', async () => {
     const body = await vp.getPageBodySample(3500);
-    expect(body).toMatch(/Revenue/i);
+    // Portal may label the card Revenue or Numbers (rebrand soft).
+    expect(body).toMatch(/(?:Revenue|Numbers)/i);
     expect(body).toMatch(/Sessions/i);
     expect(body).toMatch(/Orders/i);
     if (/[\$€£]|[\d,]+\.?\d*\s*[KMB]?/i.test(body)) {

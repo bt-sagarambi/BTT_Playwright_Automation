@@ -341,7 +341,7 @@ export class VitalPulseDashboardPage {
     ) {
       score += 1;
     }
-    if (/Revenue/i.test(body) && /Sessions/i.test(body) && /Orders/i.test(body)) score += 1;
+    if (/(?:Revenue|Numbers)/i.test(body) && /Sessions/i.test(body) && /Orders/i.test(body)) score += 1;
     if (await this.locators.performanceOverviewHeading().isVisible().catch(() => false)) score += 1;
     if (await this.locators.performanceOverviewTable().isVisible().catch(() => false)) score += 1;
     const charts = await this.locators.highchartsContainers.count().catch(() => 0);

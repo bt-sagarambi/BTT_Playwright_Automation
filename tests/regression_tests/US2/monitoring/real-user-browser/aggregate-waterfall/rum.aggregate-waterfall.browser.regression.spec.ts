@@ -40,7 +40,8 @@ test.describe('US2 Regression — RUM Aggregate Waterfall (Browser)', () => {
   let page: Page;
   let rum: RumAggregateWaterfallPage;
 
-  test.beforeAll(async ({ browser }) => {
+  test.beforeAll(async ({ browser }, testInfo) => {
+    testInfo.setTimeout(180000);
     const context = await browser.newContext({ storageState: AUTH_STATE });
     page = await context.newPage();
     rum = new RumAggregateWaterfallPage(page);

@@ -1,0 +1,62 @@
+URL Category Analysis — live reverse-engineering notes (GDC Test Site 2 — Sep 2026)
+
+Portal
+- Env used for probe: portal.bluetriangle.com (stage-capable via env.local)
+- Route: index.php?r=business-intelligence/tool&sid=305836
+- #page-title / browser title: Business Intelligence
+- Site: GDC Test Site 2
+- Outer iframe: #bi-iframe → jbi.bluetriangletech.com (JWT — do not hard-code)
+
+Navigation (user-specified)
+Login → Left menu → Advanced Reporting & Alerting → Custom Reporting → Business Intelligence
+→ BI rail Dashboards → Search “URL Category Analysis” → click displayed result/card title
+
+Catalog card
+- Title: URL Category Analysis
+- Type: Grid
+- ~9 widgets
+- Description: “Categorizes each URL into buckets of Good, Needs Improvement, or Poor based on Google's CWV thresholds.”
+- Folder soft: Global
+- Soft siblings nearby: Site Operations + CWV Trends, Site Ops Page Groups/Names, CWV Top 10 PoP, CWV Trends
+
+Viewer chrome (confirmed)
+- Back | title “URL Category Analysis” | Global | Responsive Grid
+- Refresh Data | Save As | Reset to Defaults | Filters
+- Subtitle matches catalog description (Good / Needs Improvement / Poor)
+
+Filters panel (opened during probe — user regression #1 hosts)
+- Bot Traffic — Non-Bot, Bot (+ comparison operators UI chrome)
+- Origin — RUM Browser, Native Webview
+- Traffic Segment — segment values / “-- No Segment --”
+- Soft: Percentile / Browser language may appear in broader BI chrome; primary opened panel showed Bot Traffic + Origin + Traffic Segment
+
+Widget inventory (live headings / tables)
+1) URL Performance Category Distribution — line chart series:
+     Good URL Count | Needs Improvement URL Count | Poor URL Count
+     (date axis soft e.g. Aug 26 … Sep 01 — data-dependent; do not hard-code)
+2) Daily Distribution of URLs by Category — table columns:
+     DATE ▲ | GOOD URL COUNT ▲ | NEEDS IMPROVEMENT URL COUNT ▲ | POOR URL COUNT ▲
+3) CWV Performance by URL - Desktop — table columns:
+     URL ▲ | URL PERFORMANCE CATEGORY ▲ | HITS ▲ | LCP [P75] ▲ | CLS [P75] ▲ | INP [P75] ▲
+4) CWV Performance by URL - Mobile — same column family as Desktop
+- Probe saw mirrored/duplicate DOM hosts for some widgets (common BI Responsive Grid) — soft-assert titles once; annotate mirrors
+- tableCount soft ~9 visible (includes mirrors + hidden Schedules chrome table)
+- chartCount soft high (many SVG/chart nodes) — prefer widget titles over SVG counts
+- Series legend buttons soft-visible as: Good URL Count / Needs Improvement URL Count / Poor URL Count
+  (map user “green / yellow / red labels” → Good / Needs Improvement / Poor series)
+
+Help mapping
+- Help article title: “BI Dashboard: Core Web Vital URL Volume”
+- Help “Performance Category by URL” ≈ live Desktop + Mobile CWV Performance by URL tables
+- Categorization rules (Poor if any CWV Poor; Needs Improvement if none Poor but ≥1 Needs Improvement; Good if all Good)
+
+Export
+- Sep 2026 probe did not auto-open dashboard hamburger export menu — still REQUIRED per user:
+  top-right hamburger → PNG Image / PDF Document / PowerPoint + soft UI↔document cross-check
+- Locate during automation in viewer chrome
+
+Artifacts
+- Probe script: scripts/probe-url-category-analysis.ts
+- Probe JSON: docs/prompts/url-category-analysis-live-probe.json
+- Screenshots: docs/prompts/url-category-analysis-live.png , docs/prompts/url-category-analysis-dashboard.png
+- Help extract: docs/prompts/url-category-analysis-pdf-extract.txt

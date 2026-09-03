@@ -97,10 +97,10 @@ test.describe('US2 Regression — Revenue Calculator', () => {
     await expect(page).toHaveURL(/business-analytics\/revenue-calculator|revenue-calculator/i);
     await expect(page).toHaveURL(/conversion-type=sales/i);
     await expect(page).not.toHaveURL(/site\/login|site%2Flogin/i);
-    await expect(page).toHaveTitle(/Revenue Calculator/i);
+    await expect(page).toHaveTitle(/(?:Revenue|Numbers)\s+Calculator/i);
     await expect
       .poll(async () => (await rc.getPageTitleText()).replace(/\s+/g, ' '), { timeout: 15000 })
-      .toMatch(/Business Insights\s*\/\s*Improve Conversion\s*\/\s*Revenue Calculator/i);
+      .toMatch(/Business Insights\s*\/\s*Improve Conversion\s*\/\s*(?:Revenue|Numbers)\s+Calculator/i);
     await rc.expectNotConfusedSurfaces();
   });
 

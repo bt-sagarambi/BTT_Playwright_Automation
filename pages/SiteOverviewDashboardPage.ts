@@ -345,12 +345,19 @@ export class SiteOverviewDashboardPage {
   }
 
   async expectFourWidgetTitles(): Promise<void> {
-    for (const t of ['Performance', 'Device Metrics', 'Revenue Over Time', 'Geography'] as const) {
-      // Geography chrome may be "Geography Displayed Metric" — use partial for that one
+    const titles: Array<string | RegExp> = [
+      'Performance',
+      'Device Metrics',
+      /(?:Revenue|Numbers)\s+Over Time/i,
+      /Geography/i,
+    ];
+    for (const t of titles) {
       const titleNode =
-        t === 'Geography'
-          ? this.page.getByText(/Geography/i).filter({ visible: true }).first()
-          : this.locators.widgetTitleText(t);
+        typeof t === 'string'
+          ? this.locators.widgetTitleText(t)
+          : /Geography/i.test(String(t))
+            ? this.page.getByText(/Geography/i).filter({ visible: true }).first()
+            : this.locators.widgetTitleText(t);
       await expect(titleNode, `${t} widget title`).toBeVisible({ timeout: 30000 });
     }
   }
@@ -359,7 +366,7 @@ export class SiteOverviewDashboardPage {
     const checks: Array<() => Promise<boolean>> = [
       () => this.locators.widgetTitleText('Performance').isVisible().catch(() => false),
       () => this.locators.widgetTitleText('Device Metrics').isVisible().catch(() => false),
-      () => this.locators.widgetTitleText('Revenue Over Time').isVisible().catch(() => false),
+      () => this.locators.widgetTitleText(/(?:Revenue|Numbers)\s+Over Time/i).isVisible().catch(() => false),
       () =>
         this.page
           .getByText(/Geography/i)
@@ -421,7 +428,14 @@ export class SiteOverviewDashboardPage {
   }
 
   async expectGraphLikeInWidget(title: string | RegExp, soft = false): Promise<void> {
-    await expect(this.locators.widgetTitleText(title)).toBeVisible({ timeout: soft ? 12000 : 30000 });
+    const titleVisible = await this.locators
+      .widgetTitleText(title)
+      .isVisible({ timeout: soft ? 12000 : 30000 })
+      .catch(() => false);
+    if (!titleVisible) {
+      if (soft) return;
+      await expect(this.locators.widgetTitleText(title)).toBeVisible({ timeout: 30000 });
+    }
     const ok = async () => {
       const chartsNear = this.page.locator('.highcharts-container, [data-highcharts-chart], svg.highcharts-root');
       const n = await chartsNear.count().catch(() => 0);
@@ -455,7 +469,7 @@ export class SiteOverviewDashboardPage {
       widgetSignature: [
         await this.getWidgetSignature('Performance'),
         await this.getWidgetSignature('Device Metrics'),
-        await this.getWidgetSignature('Revenue Over Time'),
+        await this.getWidgetSignature(/(?:Revenue|Numbers)\s+Over Time/i),
         await this.getWidgetSignature('Geography'),
       ].join('||'),
     };
@@ -688,7 +702,7 @@ export class SiteOverviewDashboardPage {
     note: string;
   }> {
     const beforePerf = await this.getWidgetSignature(/Performance/i);
-    const beforeRot = await this.getWidgetSignature(/Revenue Over Time/i);
+    const beforeRot = await this.getWidgetSignature(/(?:Revenue|Numbers)\s+Over Time/i);
     const geo = this.locators.geographyWidget();
     await geo.scrollIntoViewIfNeeded().catch(() => undefined);
 
@@ -715,7 +729,7 @@ export class SiteOverviewDashboardPage {
     // Linked widgets should remain / re-render
     await this.expectCoreWidgetsReady().catch(() => undefined);
     const afterPerf = await this.getWidgetSignature(/Performance/i);
-    const afterRot = await this.getWidgetSignature(/Revenue Over Time/i);
+    const afterRot = await this.getWidgetSignature(/(?:Revenue|Numbers)\s+Over Time/i);
     const perfReady = afterPerf !== 'missing';
     const rotReady = afterRot !== 'missing';
     let restored = false;

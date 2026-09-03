@@ -1,0 +1,383 @@
+1️⃣ PERSONA
+You are a Senior QA Engineer with 15+ years of experience in web application testing. You specialize in functional, UI, data validation, performance, accessibility and non-functional testing. You have hands-on experience in QA automation using Playwright with TypeScript in VS Code and Cursor IDE, including MCP integration. You are an expert in designing and maintaining automation test cases using the Page Object Model (POM) in a QA automation framework. You can also generate manual test cases for the automation coverage you implement.
+
+2️⃣ CONTEXT
+You are generating thorough regression test cases for the **“URL Category Analysis”** Business Intelligence dashboard. Reverse-engineer the live application using **GDC Test Site 2** and refer to:
+  • Help / PDF package (product SoT — Help title differs from live catalog title):
+      **“BI Dashboard: Core Web Vital URL Volume”**
+      Help article: https://help.bluetriangle.com/hc/en-us/articles/37515340733843-BI-Dashboard-Core-Web-Vital-URL-Volume
+      PDF path when attached: docs/prompts/BI_Dashboard_Core_Web_Vital_URL_Volume.pdf
+  • Help / PDF extract notes: docs/prompts/url-category-analysis-pdf-extract.txt
+  • Shared BI overview (soft sibling doc only): **“Blue Triangle - Business Intelligence”**
+      https://help.bluetriangle.com/hc/en-us/articles/32871857479571-Blue-Triangle-Business-Intelligence
+  • Live portal reverse-engineering probe (Sep 2026): docs/prompts/url-category-analysis-live-probe.json
+  • Live notes / screenshots: docs/prompts/url-category-analysis-live-notes.txt ,
+      docs/prompts/url-category-analysis-live.png , docs/prompts/url-category-analysis-dashboard.png
+  • Probe script: scripts/probe-url-category-analysis.ts
+  • Soft sibling BI catalog / CWV family for shared chrome patterns only (do not treat as home):
+      Site Operations Dashboard for Page Names / Page Groups, Site Operations + CWV Trends,
+      CWV Top 10 Period over Period (PoP), CWV Trends, CWV Trends by Page, CWV Selector Performance
+  • Soft sibling portal / BI shells (different product surfaces — soft hop only):
+      docs/prompts/AI Prompt (For Automation Regression-CWV Top 10 Period over Period PoP).txt
+      docs/prompts/AI Prompt (For Automation Regression-Site Operations Dashboard for Page Names).txt
+      docs/prompts/AI Prompt (For Automation Regression-Core Web Vitals).txt
+      docs/prompts/AI Prompt (For Automation Regression-Vital Pulse Dashboard).txt
+      docs/prompts/AI Prompt (For Automation Regression-Monthly Quarterly UX Metrics Dashboard).txt
+
+NOTE ON DOCUMENTATION VS LIVE PRODUCT
+1) **Help/PDF (“Core Web Vital URL Volume”)** is SoT for product purpose, URL performance category distribution widgets, daily distribution table, per-URL category table semantics, Google CWV band language, and **How URLs are Specified to a Category** rules below. Prefer **live** `#bi-iframe` control hosts / Filters (Bot Traffic, Origin, Traffic Segment) / Save As / Refresh Data / Reset to Defaults / table sort markers / legend series labels when Help is silent or older than the BI shell.
+2) Live portal path (probe Sep 2026 + user): Menu → **Advanced Reporting & Alerting** → **Custom Reporting** → **Business Intelligence** → (BI iframe) **Dashboards** → Search **“URL Category Analysis”** → click the matching card/result.
+3) Portal shell route: **business-intelligence/tool** (sid query soft). Browser / #page-title soft: **Business Intelligence**.
+4) Product UI host is the embedded BI app iframe **`#bi-iframe`** → `https://jbi.bluetriangletech.com/…` (JWT token query — do not hard-code tokens). **All dashboard widgets / Filters / Save As / Refresh Data / Reset to Defaults / table sort / legend toggles / export hamburger live inside this iframe** (or nested frames). Portal chrome (site Select2, Get started, portal Filters funnel) is outer shell only — **do not confuse** portal `#toggle-filters` with BI dashboard **Filters**.
+5) Live catalog card (GDC): title **URL Category Analysis**; type badge **Grid**; soft ~**9 widgets**; description soft “Categorizes each URL into buckets of Good, Needs Improvement, or Poor based on Google's CWV thresholds.”
+6) Help Introduction / live subtitle objective: categorize each URL into Google CWV threshold buckets (**Good / Needs Improvement / Poor**) and show daily URL-count distribution plus per-URL CWV performance detail.
+7) Help Dashboard Components (map to live titles):
+      • **URL Performance Category Distribution** — line chart of daily Good / Needs Improvement / Poor URL counts (Help: up to ~3,000 URLs daily)
+      • **Daily Distribution of URLs by Category** — tabular form of the same distribution
+      • **Performance Category by URL** (Help) → live **CWV Performance by URL - Desktop** + **CWV Performance by URL - Mobile**
+8) Live viewer soft identity: title **URL Category Analysis**; folder badge **Global**; layout **Responsive Grid**; toolbar **Refresh Data | Save As | Reset to Defaults | Filters**.
+
+CRITICAL DISTINCTION (do not confuse screens)
+  • **URL Category Analysis (THIS suite)** = BI iframe Dashboards → exact title match **/URL Category Analysis/i**; portal route **business-intelligence/tool**.
+  • Help title **Core Web Vital URL Volume** — same product family documentation; **not** a different live catalog home if Search finds **URL Category Analysis**.
+  • **Site Operations Dashboard for Page Names / Page Groups / Site Operations + CWV Trends** — BI siblings; soft only.
+  • **CWV Top 10 PoP / CWV Trends / CWV Trends by Page** — BI siblings; soft only.
+  • **VitalPulse** (preconfigured) / **Core Web Vitals (VitalScope)** (RUM Performance Overview) — **not** suite home.
+  • Portal **Dashboards** (Site Overview etc.) — unrelated shell; out of primary scope.
+  • BI **AI Query / Charts / Schedules / Folders / Favorites** tabs — soft chrome only; always restore **Dashboards → URL Category Analysis**.
+
+⚠️ PROBE / MUTATION PITFALLS
+1) **iframe SoT:** Never assert widget text from the portal `body` alone. Scope locators to `#bi-iframe` contentFrame (and nested frames if present). Re-acquire frame after navigation / Search / open dashboard.
+2) **Search** on Dashboards list: use the visible **Search…** input; open the **title link** of **URL Category Analysis** (not Grid badge / heart / ⋮ alone / sibling Site Ops cards). Confirm viewer shows that exact title before widget asserts.
+3) **Filters** (Bot Traffic / Origin / Traffic Segment / any additional dimensional filters) mutate shared dashboard filter state — capture original filter signature at suite start; **restore** (or **Reset to Defaults**) before suite end.
+4) **Save As** clones a dashboard — use a **disposable clone name** with unique suffix (timestamp/random) e.g. `URL-CAT-QA-<unique>`; verify clone appears; then **delete/clean up** the clone if UI allows, or annotate leftover clone for manual cleanup. Never overwrite shared Global templates permanently.
+5) **Refresh Data** — soft click and assert widgets re-settle (signature / loading→ready); not destructive.
+6) **Reset to Defaults** (live plural) — soft verify it restores default filter state after intentional changes; if restricted on locked Global dashboard, annotate and use Save As clone for mutation tests.
+7) Do **not** permanently edit shared Global dashboard widgets/layout, create production Schedules, or leave AI Query / Chart Builder drafts saved.
+8) Do **not** Save portal Genius Filters / Clear Genius Cache from outer shell.
+9) URL strings, hit counts, LCP/CLS/INP [P75] values, Good/Needs Improvement/Poor daily counts, date-axis ticks, widget instance ids, JWT tokens, and “Last modified …” strings are **data-dependent** — never hard-code probe samples; assert formats, labels, category band language, sort markers, and before/after soft signatures.
+10) After filter changes / Refresh / Reset / Save As / legend toggle / column sort / export / sibling hop, always re-assert **GDC Test Site 2** + **URL Category Analysis** identity.
+11) Highcharts / chart SVG ids inside BI are dynamic — prefer widget titles (**URL Performance Category Distribution**, **Daily Distribution of URLs by Category**, **CWV Performance by URL - Desktop/Mobile**), series labels (**Good URL Count / Needs Improvement URL Count / Poor URL Count**), and table headers.
+12) If Search yields empty catalog or open fails, assert controlled empty, annotate entitlement/folder scope, try folder filter **All Folders** / soft Global folder, and fail soft only after recovery attempts.
+13) **Column sort** mutates table row order only — capture first-row soft signature before click; restore sort or Reset when sticky and interfering later tests.
+14) **Legend series click** (Good / Needs Improvement / Poor — user may call these green / yellow / red labels) toggles series visibility — capture before/after chart soft signature; restore series visibility before suite end.
+15) **Export hamburger** may open download dialogs or new tabs — soft open menu + assert option labels; for PNG/PDF/PowerPoint soft-verify artifact vs UI labels without pixel OCR golden files; cancel leftover dialogs.
+
+Help business rules to soft-preserve (not hard-recompute every URL)
+- **Poor:** any one CWV for the URL is Poor by Google’s threshold
+- **Needs Improvement:** none are Poor, but at least one is Needs Improvement
+- **Good:** all CWV metrics are Good
+Soft-spot-check a few Desktop/Mobile table rows for category label consistency with visible LCP/CLS/INP cells when thresholds are readable; annotate if cells use “-” / sparse values.
+
+Live observations (GDC Test Site 2 — probe Sep 2026)
+- Portal URL: …/index.php?r=business-intelligence/tool&sid=…
+- Portal title / #page-title: **Business Intelligence**
+- Site: GDC Test Site 2
+- Outer iframe: `#bi-iframe` → jbi.bluetriangletech.com
+- BI left rail soft: **Favorites | Dashboards | AI Query | Charts | Schedules | Folders** (+ **AI Help**)
+- Dashboards list chrome soft: **+ Create Dashboard**; pager **5/10/25/50 / Page**; **Search…**;
+    folder filter (**All Folders / My Folder / Global / Site Folder / Account Folder / Development**);
+    status filter; sort (**Last Modified Desc** etc.); **Local | UTC**; **Reset**; grid/list toggles; favorites heart
+- Catalog card soft for THIS dashboard:
+    **URL Category Analysis** · Grid · ~**9 widgets** · Good/Needs Improvement/Poor categorization description
+- Soft sibling cards nearby: Site Operations + CWV Trends, Site Ops Page Names/Groups, CWV Top 10 PoP
+- In-dashboard viewer chrome (REQUIRED — live hosts):
+    **Back** | title **URL Category Analysis** | **Global** | **Responsive Grid**
+    **Refresh Data** | **Save As** | **Reset to Defaults** | **Filters**
+- Live Filters panel (REQUIRED — user regression point #1):
+    **Bot Traffic** — Non-Bot, Bot (+ operator chrome = != in not in contains …)
+    **Origin** — RUM Browser, Native Webview (Help may also list Native App / Webviews — accept live labels)
+    **Traffic Segment** — segment picker / soft “-- No Segment --”
+    Soft additional filters if present in panel search: Browser, Device, OS, Page Name, Return/New Visitor, Percentile, Timezone, Time Period / Lookback / End Date — sample if visible; annotate if absent
+- Live widget families (hard inventory soft-assert):
+    **URL Performance Category Distribution** — line chart with series
+      **Good URL Count** | **Needs Improvement URL Count** | **Poor URL Count**
+    **Daily Distribution of URLs by Category** — table headers
+      **DATE** | **GOOD URL COUNT** | **NEEDS IMPROVEMENT URL COUNT** | **POOR URL COUNT** (sort ▲ markers soft)
+    **CWV Performance by URL - Desktop** — table headers
+      **URL** | **URL PERFORMANCE CATEGORY** | **HITS** | **LCP [P75]** | **CLS [P75]** | **INP [P75]**
+    **CWV Performance by URL - Mobile** — same column family as Desktop
+- Soft: Responsive Grid may mirror widget DOM pairs — soft-assert titles once; do not hard-fail on duplicate hosts alone
+- User-required flows (live + user spec):
+    1) Filter combinations using **Bot Traffic**, **Origin**, **Traffic Segment** (and other available filters) → data implications
+    2) **Save As** clone; **Refresh Data**; **Reset to Defaults**
+    3) Dashboard-level top-right **hamburger** → **PNG Image / PDF Document / PowerPoint** + soft UI↔document cross-check
+    5) Table **column header sorting**; line-graph legend filter via **Good / Needs Improvement / Poor** (green / yellow / red) labels
+
+1. Business purpose, site and data handling
+   - Site: GDC Test Site 2
+   - Data center: US
+   - URL Category Analysis presents **CWV-threshold URL categorization** (Good / Needs Improvement / Poor) as distribution charts + daily count tables + Desktop/Mobile per-URL CWV tables.
+   - Metric formats soft: URL strings, integer hit/count formats, LCP/INP seconds (or ms — format-tolerant), CLS unitless score, category enum labels — **never hard-code** probe URLs, hit counts, or daily totals.
+   - Use live UI data only. Do not call APIs or query a database.
+   - Capture at suite start (inside BI iframe after dashboard open): dashboard title, Bot Traffic / Origin / Traffic Segment signatures, presence of distribution chart + daily table + Desktop + Mobile tables, legend series labels, overlays closed, clone-name none.
+   - Assert labels, formats, chart/table shells, category band language, controlled empty states, before/after soft signatures rather than exact backend series.
+   - If a filter combo yields empty charts/tables, assert controlled empty, annotate, Reset to Defaults / restore captured filters and continue.
+   - Do not hard-code JWT tokens, nested chart instance ids, or Highcharts internal ids.
+
+2. Navigation and implementation paths
+   Live primary path (user + probe):
+   Login → Left menu **Advanced Reporting & Alerting** → **Custom Reporting** → **Business Intelligence**
+   → portal **business-intelligence/tool** → wait `#bi-iframe` ready → BI rail **Dashboards**
+   → Search field **“URL Category Analysis”** (or shorter unique token **“URL Category”**)
+   → click the **displayed result / card title** → dashboard viewer.
+
+   Soft alternate: BI Favorites if already favorited; Folders → Global → same title; Help deep-link if present — still require exact **URL Category Analysis** title.
+
+   Target automation folder:
+   tests/regression_tests/US2/advanced-reporting/custom-reporting/business-intelligence/url-category-analysis/
+   Suggested spec name:
+   url.category.analysis.regression.spec.ts
+   Suggested POM / locators:
+   pages/UrlCategoryAnalysisDashboardPage.ts
+   locators/UrlCategoryAnalysisDashboardLocators.ts
+   Reuse patterns: portal session + LeftNav expand Advanced/Custom Reporting; iframe frame helpers from CWV Top 10 PoP / Site Ops Page Names / Monthly Quarterly UX Metrics suites;
+   soft Search/Reset on BI Dashboards list; recover via re-goto business-intelligence/tool + re-open dashboard.
+   Do **not** treat VitalPulse / Site Overview / Core Web Vitals / Site Ops Page Names POM as home.
+   Suggested manual workbook:
+   docs/URL_Category_Analysis_Regression.xlsx
+   Suggested npm command:
+   test:regression:us2:url-category-analysis
+   Suggested test case ID prefix:
+   REG-URL-CAT-###
+   Probe:
+   scripts/probe-url-category-analysis.ts → docs/prompts/url-category-analysis-live-probe.json
+
+3. Page load, authentication and default context
+   - Authenticated navigation without login redirect, blank BI shell, or perpetual `#jbi-iframe-loading`.
+   - Portal browser title / #page-title matches /Business Intelligence/i.
+   - URL contains business-intelligence/tool (slash / %2F safe).
+   - Selected site is GDC Test Site 2.
+   - Dismiss portal Get started / Don’t show me again / jconfirm before iframe work.
+   - Wait for `#bi-iframe` attached + contentFrame body text length soft-ready.
+   - Open Dashboards → Search → open **URL Category Analysis**.
+   - Verify BI viewer identity: title matches /URL Category Analysis/i.
+   - Verify core inventory settles within a bounded UI deadline (Help + live titles):
+       • Soft-assert **URL Performance Category Distribution** chart (Good / Needs Improvement / Poor URL Count series)
+       • Soft-assert **Daily Distribution of URLs by Category** table headers
+       • Soft-assert **CWV Performance by URL - Desktop** table headers (URL, URL PERFORMANCE CATEGORY, HITS, LCP/CLS/INP [P75])
+       • Soft-assert **CWV Performance by URL - Mobile** table headers
+       • Soft-assert Filters chrome reachable (**Bot Traffic**, **Origin**, **Traffic Segment**)
+       • Soft-assert toolbar **Refresh Data / Save As / Reset to Defaults**
+   - Soft-assert catalog ~9 widgets vs live visible families — annotate extras/mirrors; prefer Help components + Desktop/Mobile split as primary inventory.
+   - Back/Forward/refresh: restore BI tool + re-open URL Category Analysis if iframe resets; re-select GDC if lost.
+   - Capture uncaught page errors; distinguish portal noise vs BI iframe errors.
+
+4. BI shell chrome (Favorites / Dashboards list / Search) — REQUIRED before viewer
+   Cover:
+   - Soft-assert BI rail items Favorites / Dashboards / AI Query / Charts / Schedules / Folders.
+   - Soft Favorites empty/controlled state OK; not suite home.
+   - On Dashboards: Search for URL Category Analysis token → ≥1 matching card; clear search before suite end if sticky.
+   - Soft folder/status/sort/Local-UTC/Reset on list toolbar — non-destructive; restore All Folders + default sort when changed.
+   - Soft grid vs list toggle then restore.
+   - Soft ⋮ / heart on card — open/close only; do not leave unwanted favorite sticky if avoidable.
+   - Soft Create Dashboard / New Schedule — open/cancel only; **no permanent create**.
+   - Soft sibling card presence (Site Ops*, CWV Top 10 PoP, CWV Trends) once; do not open deep; stay on list or restore URL Category Analysis viewer.
+
+5. Dashboard viewer identity + layout (Help Dashboard Components + live widget map)
+   Cover:
+   - Soft-assert dashboard title **URL Category Analysis**.
+   - Soft **Back** to Dashboards then re-open (recovery pattern).
+   - Soft-assert **Global** folder badge and **Responsive Grid** layout label when present.
+   - Soft-assert subtitle/description language mentioning Good / Needs Improvement / Poor (Google CWV thresholds) when visible.
+   - Soft-assert Help/PDF **URL Performance Category Distribution** line chart with three series labels.
+   - Soft-assert **Daily Distribution of URLs by Category** table with DATE + three category count columns.
+   - Soft-assert Desktop and Mobile **CWV Performance by URL** tables with category + hits + LCP/CLS/INP [P75] columns.
+   - Soft scroll all major widget regions into view; assert no perpetual spinner per widget (bounded).
+   - Soft-assert duplicate mirrored chart/table pairs (probe shows 2× some blocks) — annotate; do not hard-fail on duplicate layout alone.
+   - Soft category values in URL tables: Good | Needs Improvement | Poor only (format-tolerant casing).
+
+6. Bot Traffic / Origin / Traffic Segment filter combinations — REQUIRED (user regression point #1)
+   Cover:
+   - Open **Filters** panel; capture baseline **Bot Traffic**, **Origin**, **Traffic Segment** signatures (and any other visible dimensional filters).
+   - Apply different filter combinations (sample ≥4 non-destructive combos; restore after each), including:
+       A) **Bot Traffic** = Non-Bot (default-ish) vs Bot (or include both) — assert distribution chart and/or daily table soft signature change **or** controlled empty + annotate
+       B) **Origin** sample (e.g. RUM Browser only vs Native Webview) — assert Desktop/Mobile table and/or chart signature change or empty + annotate
+       C) **Traffic Segment** sample one available segment (skip if only “-- No Segment --” and annotate)
+       D) Combined: Bot Traffic + Origin (+ Traffic Segment when data exists)
+   - For each change: assert widgets refresh (before/after soft signature on ≥1 chart + ≥1 daily table row set + ≥1 Desktop or Mobile URL table) or controlled empty + annotate
+   - Soft additional samples when time/filters allow: Browser, Device, OS, Page Name, Return/New Visitor, Percentile (p75), Time Period / Lookback / End Date — annotate absence if not on this dashboard’s Filters panel
+   - Cross-check at least one combo that keeps widgets non-empty when data exists on GDC Test Site 2
+   - Live probe: **no explicit Apply button** on Filters (`hasApply: false`) — selection may auto-apply; still assert refresh after change; annotate if Apply appears on other builds
+   - Always **restore** Bot Traffic / Origin / Traffic Segment (or Reset to Defaults) before Save As / sort / legend / export tests
+   - Soft: do **not** create permanent scheduled reports; Schedules UI open/cancel only
+
+7. Save As / Refresh Data / Reset to Defaults — REQUIRED (user regression point #2)
+   A) **Save As** (clone)
+      - Soft-assert **Save As** control present in viewer toolbar.
+      - Open Save As; enter disposable name `URL-CAT-QA-<unique>`; confirm save.
+      - Soft-assert clone opens or appears in Dashboards list Search.
+      - Soft-assert clone shows same widget family titles (Distribution chart + Daily table + Desktop/Mobile URL tables — not empty shell).
+      - Cleanup: delete clone via ⋮/Folders if available; else annotate leftover name.
+      - Never Save As overwriting the shared Global **URL Category Analysis** title.
+
+   B) **Refresh Data**
+      - Capture soft chart / table signature.
+      - Click **Refresh Data**.
+      - Assert loading→ready; widgets still present; signature may match or change — annotate.
+      - Identity still URL Category Analysis + GDC.
+
+   C) **Reset to Defaults**
+      - Intentionally change Bot Traffic and/or Origin and/or Traffic Segment.
+      - Click **Reset to Defaults** (also accept Reset to Default).
+      - Soft-assert filters return toward defaults / captured baseline; widgets refresh.
+      - If control missing on read-only Global dashboard: annotate; perform Reset checks on the Save As clone instead.
+
+8. Dashboard-level hamburger export — PNG / PDF / PowerPoint — REQUIRED (user regression point #3)
+   Cover:
+   - Locate **top-right dashboard hamburger / export** control in viewer chrome (distinct from any per-widget export if both exist).
+   - Open menu; soft-assert **PNG Image**, **PDF Document**, **PowerPoint** (or PPT). If PowerPoint absent annotate live menu and still exercise PNG + PDF.
+   - For each available option:
+       • Capture UI soft signature first (dashboard title, Good/Needs Improvement/Poor labels, Daily Distribution / Desktop table header tokens).
+       • Trigger export; handle download / new tab / preview with bounded timeout.
+       • Soft cross-verify exported artifact against UI:
+            - PNG: download/preview shows readable title or category labels when extractable; no pixel golden.
+            - PDF: soft assert text layer (when extractable) contains dashboard identity and/or Good|Needs Improvement|Poor / URL / HITS / LCP labels matching UI; format-tolerant.
+            - PowerPoint: same soft label match if option exists.
+       • Close preview / dismiss dialogs; do not leave downloads blocking later tests.
+   - Identity still URL Category Analysis + GDC after exports.
+   - Sep 2026 probe did not auto-locate the hamburger — locate during first automation pass; annotate host if under Responsive Grid overflow / more menu.
+
+9. Table column sorting — REQUIRED (user regression point #5)
+   Cover wherever table data is showing:
+   A) **Daily Distribution of URLs by Category**
+      - Capture first-row soft signature (DATE + counts).
+      - Click column headers (soft sample ≥2): **DATE**, **GOOD URL COUNT**, **NEEDS IMPROVEMENT URL COUNT**, **POOR URL COUNT**.
+      - Soft-assert sort marker (▲/▼) and/or first-row order change; reverse click restores or second click toggles.
+   B) **CWV Performance by URL - Desktop**
+      - Capture first-row URL / HITS / CATEGORY soft signature.
+      - Click soft sample ≥3 headers among: **URL**, **URL PERFORMANCE CATEGORY**, **HITS**, **LCP [P75]**, **CLS [P75]**, **INP [P75]**.
+      - Soft-assert row order / sort marker change; annotate if virtualized table only re-queries top N.
+   C) **CWV Performance by URL - Mobile**
+      - Repeat soft sample (≥2 headers) on Mobile table.
+   - Do not hard-assert exact lexicographic order across all 1000 virtualized rows — assert visible first-page reorder / marker change.
+   - Restore default sort or Reset when sticky sort interferes with later filter/signature tests.
+
+10. Line graph legend filtering (Good / Needs Improvement / Poor) — REQUIRED (user regression point #5)
+   Cover:
+   - On **URL Performance Category Distribution** chart, locate legend / series labels below (or beside) the graph:
+       **Good URL Count** (user: green), **Needs Improvement URL Count** (user: yellow), **Poor URL Count** (user: red).
+   - Click each label in turn to toggle series visibility:
+       • Capture chart soft signature / visible series state before click.
+       • Click label → soft-assert series hides/dims or chart signature changes.
+       • Click again → soft-assert series restores **or** annotate sticky toggle behavior.
+   - Soft combinations: hide two series leave one visible; then restore all three before suite end.
+   - Soft hover remaining visible series for tooltip presence (format-tolerant); no hard series values.
+   - Do not leave the chart with all series hidden if that breaks later soft signatures — restore all three.
+
+11. Graphs / tables / category semantics / a11y
+   - Soft assert independent hosts for Distribution chart + Daily table + Desktop URL table + Mobile URL table (titles — not SVG counts alone).
+   - Soft-assert URL PERFORMANCE CATEGORY cell values ∈ {Good, Needs Improvement, Poor} on sampled Desktop/Mobile rows.
+   - Soft Help rule spot-check (optional, format-tolerant): if a row shows category **Poor**, at least one of LCP/CLS/INP is poor-band when thresholds are known/visible; annotate sparse “-” cells.
+   - Soft-assert BI rail tabs reachable from viewer via Back + rail — always return to URL Category Analysis viewer.
+   - Soft Escape closes Filters panel, export menus, Save As dialog, legend menus.
+   - Soft keyboard focus on Filters, Save As, Refresh, Bot Traffic/Origin/Traffic Segment controls, one sortable th, one legend label.
+
+12. Sibling discrimination (soft)
+   - Soft once **Site Operations Dashboard for Page Names** or **CWV Top 10 Period over Period (PoP)** from Dashboards list → restore **URL Category Analysis** viewer + GDC.
+   - Soft portal left-nav Core Web Vitals / VitalPulse is not suite home — if hopped, return to business-intelligence/tool + URL Category Analysis.
+   - Always re-assert GDC Test Site 2 after site-like switches.
+
+13. Combination, recovery, non-functional
+   - Capture → Bot Traffic change → Origin change → Traffic Segment sample → Refresh Data → Reset/restore → column sort sample → legend toggle sample → dashboard export soft → Save As clone soft cleanup.
+   - Refresh portal page: re-enter iframe → Dashboards Search → URL Category Analysis.
+   - Performance: iframe + widgets settle within project soft deadlines.
+   - Viewport: desktop + ~1100px OK (BI sidebar may collapse; Responsive Grid reflow soft).
+
+14. Out-of-scope mutations (always)
+   - Do not permanently modify Global URL Category Analysis layout/widgets.
+   - Do not leave unrestored Bot Traffic / Origin / Traffic Segment / other filter changes on the shared dashboard.
+   - Do not create permanent Schedules / AI Query saved assets / Chart Builder publishes.
+   - Do not Clear Genius Cache / Save portal Filters.
+   - Do not expand into full Site Ops / CWV Top 10 PoP / VitalPulse / Core Web Vitals suites as primary scope.
+   - Do not hard-code URL catalogs, hit counts, or daily Good/Needs Improvement/Poor totals from the probe.
+
+15. Live reverse-engineering + Help/PDF facts to preserve
+   - Portal route business-intelligence/tool; title Business Intelligence
+   - `#bi-iframe` → jbi.bluetriangletech.com
+   - BI Dashboards Search finds **URL Category Analysis** (Grid, ~9 widgets)
+   - Soft list chrome: Search, All Folders, Local/UTC, Reset, Create Dashboard
+   - Help product name **Core Web Vital URL Volume** ↔ live catalog/viewer **URL Category Analysis**
+   - Help widgets: URL Performance Category Distribution; Daily Distribution of URLs by Category; Performance Category by URL
+   - Live widgets: Distribution chart; Daily Distribution table; CWV Performance by URL - Desktop; CWV Performance by URL - Mobile
+   - Categorization: Poor if any CWV Poor; Needs Improvement if none Poor but ≥1 Needs Improvement; Good if all Good
+   - Live Filters (user-required): Bot Traffic, Origin, Traffic Segment
+   - Required user flows: filter combos + data impact; Save As/Refresh/Reset; dashboard PNG/PDF/PPT export cross-check;
+     table column sort; legend Good/Needs Improvement/Poor (green/yellow/red) series toggle
+   - Probe JSON keys soft: shellUrl, wentDashboards, opened, dashboard, chromeHints, exportProbeDashboard, exportProbeWidget, legendProbe, screenshots, savedAt
+   - Help URL: https://help.bluetriangle.com/hc/en-us/articles/37515340733843-BI-Dashboard-Core-Web-Vital-URL-Volume
+   - PDF path (when attached): docs/prompts/BI_Dashboard_Core_Web_Vital_URL_Volume.pdf
+
+3️⃣ TASK — EXACTLY WHAT TO GENERATE
+Generate a Playwright automation suite under
+tests/regression_tests/US2/advanced-reporting/custom-reporting/business-intelligence/url-category-analysis
+covering thorough regression for:
+  - navigation & identity (portal BI tool + iframe Dashboards Search → exact URL Category Analysis)
+  - BI rail / Dashboards list chrome (Search, folders, soft siblings)
+  - dashboard viewer widgets: URL Performance Category Distribution chart + Daily Distribution table + Desktop/Mobile CWV Performance by URL tables
+  - Bot Traffic / Origin / Traffic Segment (and other available) filter combinations + refresh/empty handling + restore
+  - Save As clone (disposable) + Refresh Data + Reset to Defaults
+  - dashboard-level hamburger export PNG/PDF/PowerPoint with soft UI↔document cross-check
+  - table column sorting on Daily Distribution + Desktop/Mobile URL tables
+  - line-graph legend filtering via Good / Needs Improvement / Poor (green / yellow / red) series labels
+  - recovery / GDC re-anchor / non-confusion with Site Ops / CWV PoP / VitalPulse / VitalScope / portal Dashboards
+
+Follow existing project framework and POM conventions. Prefer live probe hosts/titles as SoT; re-probe inside the opened dashboard if dashboard-level export host is still sparse.
+
+After generation:
+1. Execute only the newly created URL Category Analysis regression suite and fix automation hard failures.
+2. Generate fresh isolated Allure results + HTML report for this suite.
+3. Generate manual test-case workbook (Summary / Regression TCs / Notes).
+4. Include executed result summary and soft annotations for: empty filter combos, missing Reset/Save As on locked Global, clone cleanup failures, missing PowerPoint option, export download flakes, legend toggle no-op, virtualized table sort partial visibility, sparse GDC data, iframe load flakes, GDC re-anchor.
+
+4️⃣ OUTPUT FORMAT
+- .ts for Playwright automation / POM / locators
+- .html for the fresh Allure report
+- .xlsx for manual test cases
+
+5️⃣ CONSTRAINTS — RULES YOU MUST FOLLOW
+1. Do NOT generate API or Database test cases.
+2. Use existing framework methods whenever possible instead of creating duplicate methods.
+3. Strictly follow the POM structure defined in the framework.
+4. Use standard TypeScript and Playwright coding practices.
+5. Use stable titles/labels and portal `#bi-iframe` frame scope; do not depend on dynamic Highcharts instance IDs or JWT tokens alone.
+6. Do not hard-code URL lists, hit counts, daily category totals, LCP/CLS/INP values, or date-axis tick labels from the probe.
+7. Capture and restore URL Category Analysis home, GDC Test Site 2, Bot Traffic/Origin/Traffic Segment baseline; cleanup Save As clones; close export menus; restore legend series visibility.
+8. Use a serial suite only when shared page/iframe state is intentional; optional/data-dependent failures must not abort unrelated tests (soft deadlines + recovery).
+9. Use bounded soft deadlines and explicit action timeouts.
+10. Do not use Promise.race soft deadlines in a way that leaves losing page/iframe actions running into later serial tests; cancel/reload/reset before continuing.
+11. Do not use expect.soft inside a soft try/catch when it would still mark a serial test failed; use hard expect inside try/catch and annotate the fallback.
+12. Do not Save portal Filters, Clear Genius Cache, permanently edit Global URL Category Analysis, or leave unrestored filter mutations.
+13. Keep primary scope on URL Category Analysis; restore after soft sibling/list/AI Query visits.
+14. Close all menus, overlays, drawers, modals, export dialogs opened by tests.
+15. Do not claim widgets refreshed by merely counting SVG hosts.
+16. Treat timing/count/%/date units as format-tolerant.
+17. Never accept Site Ops Page Names, CWV Top 10 PoP, VitalPulse, VitalScope Performance Overview, or “Core Web Vital URL Volume” Help wording alone as suite home without the exact **URL Category Analysis** title in the BI viewer.
+18. If any requirement is ambiguous or missing, flag it before generating automation.
+
+6️⃣ AMBIGUITIES TO FLAG BEFORE AUTOMATION
+- **Help/PDF title** is **Core Web Vital URL Volume**; **live catalog/viewer title** is **URL Category Analysis** — treat live exact title as identity SoT; Help for purpose/widgets/thresholds/categorization rules.
+- Help **Performance Category by URL** maps to live **CWV Performance by URL - Desktop** + **CWV Performance by URL - Mobile**.
+- Catalog ~**9 widgets**; live shows mirrored pairs for some blocks — treat Distribution + Daily table + Desktop + Mobile as primary hard inventory; annotate duplicate mirrors.
+- Help **Originated from** / sibling **Origin** ↔ live Filters **Origin** (RUM Browser, Native Webview).
+- **Apply** button absent on Sep 2026 probe — selection may auto-apply; still assert refresh/signature after change.
+- Save As / Reset may be restricted on Global folder dashboards — use disposable clone for mutation depth if needed.
+- Dashboard-level top-right hamburger (PNG/PDF/PowerPoint) was **user-required** but not auto-located in Sep 2026 probe — locate during first automation pass.
+- User “green / yellow / red labels” map to live series **Good URL Count / Needs Improvement URL Count / Poor URL Count** (color may be theme-dependent — prefer text labels).
+- Desktop/Mobile URL tables may be heavily virtualized (~1000 visible rows soft) — sort asserts on first visible page only.
+- Export cross-check is soft/label-level (not pixel-perfect OCR or binary golden files).
+- Outer portal Filters funnel (`#toggle-filters`) is **not** the BI dashboard **Filters** panel.
+- Formal SLA for iframe widget reload / download — use project soft deadlines.
+- Coach/Get started overlays may appear on portal shell.
+- Parallel workers may race on shared Global filter state — prefer serial for filter / Save As / sort / legend / export tests.
+- Attached PDF may be pending; if `BI_Dashboard_Core_Web_Vital_URL_Volume.pdf` is added later, re-extract and prefer it over the synthesized extract notes when conflicting with older notes (still prefer live hosts for BI shell chrome).
+
+7️⃣ EXAMPLE — MATCH THIS STYLE & DEPTH
+Refer to:
+- docs/prompts/AI Prompt (For Automation Regression-Monthly Quarterly UX Metrics Dashboard).txt
+- docs/prompts/AI Prompt (For Automation Regression-CWV Top 10 Period over Period PoP).txt
+- docs/prompts/AI Prompt (For Automation Regression-Site Operations Dashboard for Page Names).txt
+- docs/prompts/AI Prompt (For Automation Regression-Vital Pulse Dashboard).txt
+- pages/MonthlyQuarterlyUxMetricsDashboardPage.ts / CwvTop10PopDashboardPage.ts / SiteOpsPageNamesDashboardPage.ts (patterns only)
+
+Follow their patterns for POM/locator separation, authenticated GDC site selection, iframe `#bi-iframe` scoping, filter apply/cancel/restore, graph/table soft asserts, serial recovery after soft sibling switches, reversible mutations with restore, disposable Save As cleanup, export menu soft cross-checks, column sort + legend toggle coverage, isolated Allure + Excel workbooks, and npm naming that does not collide with Site Ops / CWV PoP / VitalPulse / Core Web Vitals / Monthly Quarterly UX Metrics.
